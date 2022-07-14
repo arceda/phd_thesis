@@ -20,12 +20,18 @@ Determinar qué estrategia o método de detección de neo antígenos es el adecu
 
 Los neo antígenos son peṕtidos mutados específicos de tumores y son considerados los principales causantes de una respuesta inmune \citep{borden2022cancer, chen2021challenges, gopanenko2020main}. Es así que surgen varios esfuerzos e investigación en la Inmunoterapia del cáncer, concentradas en el estudio y detección de neo antígenos. En la actualidad existen tres clases de tratamientos basados en la representación y expresión de neo antígenos: vacunas personalizadas, terapias adoptivas de células T y \textit{immune checkpoint inhibitors}. De los métodos mencionados anteriormente, el desarrollo de vacunas personalizadas es considerado uno de los métodos con mayor probabilidad de éxito \citep{borden2022cancer}. Incluso varias compañías como BioNTech, Genocea Biosciences, Neon Therapeutics y Gritstone Oncology realizan investigación y ofrecen el servicio de generar vacunas personalizadas a pacientes de cáncer.
 
-Según lo mencionado anteriormente, la detección de neo antígenos es un factor clave en el desarrollo de vacunas personalizadas. Para realizar dicha detección es necesario un proceso que involucra varias etapas desde el secuenciameinto de \textit{Deoxyribonucleic Acid} (DNA), detección de mutaciones, generación de péptidos (posibles neo antígenos), predicción del enlace péptido - \textit{Major Histocompatibility Complex} (pMHC) y luego la predicción del enlace pMHC con \textit{T-cell Receptor} (pMHC-TCR). De este proceso, las dos ultimas fases son muy importantes porque de ellas depende que péptido puede calificar como posible neo antígeno. 
+Según lo mencionado anteriormente, la detección de neo antígenos es un factor clave en el desarrollo de vacunas personalizadas. En este proceso el compuesto \textit{Major Histocompatibility Complex} (MHC), juega un papel muy importante, es el encargado de presentar los péptidos a la células T \citep{hashemi2022improved}. Para el caso de células humanas el gen MHC es conocido como Human Leukocyte Antigens (HLA) y es polimórfico, se cree que existen las 10000 diferentes \textit{HLA-I alleles} \citep{abelin2017mass}, esto complica mucho más la detección de neo antígenos. 
+
+El ciclo de vida de un neo antígeno para células con núcleo podría resumirse como: primero una proteína es degradada en péptidos en el citoplasma de las células, luego los péptidos se enlazan a la molecula MHC (\textit{pMHC binding}), luego este compuesto sigue un trayecto hasta llegar a la membrana de la célula (\textit{pMHC presentation}), finalmente el compuesto pMHC es reconocido por  el T-cell Receptor (TCR) de las células T y así si activaría el sistema inmune. Además, el número de posibles péptidos enlazables a MHC  son entre 1000 a 10000, esto es el 0.1\% de los posibles péptidos  de 9 aminoacidos\footnote{La mayoría de péptidos enlazados a moléculas MHC-I tienen 9 aminoácidos, se suele utilizar el termino \textit{n-mer} para referirse a péptidos de \textit{n} aminoácidos.} \citep{abelin2017mass}. En este proceso, el objetivo es detectar los péptidos (neo antígenos) que llegan a la membrana de la célula, luego con ayuda de procedimientos de biotecnología, se entrena a las células T de un paciente para que aprenda a reconocer los neo antígenos.
 
 
-% falta definir bien el problema indicando las entrada y salidas
+El problema de \textit{pMHC binding} está casi solucionado con una precisión de 0.98 por parte de la herramienta NetMHCPan 4.1 \citep{reynisson2020netmhcpan}. Sin embargo, no es bueno limitar la detección de neo antígenos solo al problema de \textit{pMHC binding}, porque la mayoría de estos compuestos no llegan a la membrana \citep{mill2022neoms}, a este problema se le conoce como \textit{pMHC presentation}. Por ejemplo, se sabe que menos del 5\% de péptidos detectados llegan a la membrana \citep{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Además, existen herramientas como NeyMHC, NetMHCpan y MHCFlurry que tienen un buen desemepeño en \textit{pMHC binding}, pero con resultados pobres en  \textit{pMHC presentation} \citep{bulik2019deep}.
 
-Existen varias propuestas y la mayoria se basan en la aplicación de \textit{deep learning}, sin embargo solo el 3\% de neo antígenos detectados logran activar el sistema inmune \citep{de2020neoantigen}. Además, los métodos de mayor acierto en la predicción del enlace pMHC-II \footnote{Existen tres tipos de proteínas MHC: MHC-I, MHC-II y MHC-III, según el tipo de célula.} solo llega a un 60\% de acierto.
+
+
+\subsection{Formulación del problema}
+
+Menos del 5\% de péptidos detectados en \textit{pMHC binding}, llegan a la membrana de la células, para que luego sean reconocidos por las células T.  El proceso por el cúal un péptido enlazado a MHC llegue a la membrana es conocido como  \textit{pMHC presentation}, pero en este problema las propuestas recientes solo llegan a un 0.61 de precisión y 0.4 de \textit{recall}. En este contexto, la tesis se enfoca en el problema de \textit{pMHC presentation}, considerándolo como un problema de clasificación binaria, y tomando como entrada la secuencia de aminoácidos del péptido y la secuencia de aminoácidos de la proteína MHC. 
 
 
 
@@ -33,13 +39,16 @@ Existen varias propuestas y la mayoria se basan en la aplicación de \textit{dee
 \section{Objetivos}
 \label{sec:objetivos}
 
+\subsection{Objetivo General}
 
-Entre los objetivos específicos del trabajo, se tienen los seguientes:
+Proponer un método basado en \textit{deep learning} para la detección de neo antígenos, enfocados en el problema de \textit{pMHC presentation}. 
+
+\subsection{Objetivos específicos}
 
 \begin{enumerate}[(a)]
-\item Proponer  ......................;
-\item Proponer  ......................;
-\item Proponer  ......................;
+\item Realizar una revisión sistemática de la literatura e implementar los métodos con mejor desempeño en la detección de neo antígenos.
+\item Proponer e implementar un método basado en \textit{deep learning} para la detección de neo antígenos.		
+\item Evaluar el método propuesto en bases de datos publicas.
 \end{enumerate}
 
 %% ------------------------------------------------------------------- %%

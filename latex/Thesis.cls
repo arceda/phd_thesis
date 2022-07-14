@@ -236,7 +236,7 @@
 		\includegraphics[keepaspectratio,scale=0.6]{img/unsa} \\[.8cm]
 		
 		
-		\textbf{\Large{ Detección de neo antígenos utilizando aprendizaje profundo en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del Cáncer  }} \\
+		\textbf{\Large{ Detección de neo antígenos utilizando \textit{deep learning} en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del Cáncer  }} \\
 		
 		%	Algoritmo de Planificación de Tareas para el \\
 		%    Procesamiento de Grandes Cantidades de Datos en  \\ 
