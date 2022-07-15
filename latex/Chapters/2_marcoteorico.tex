@@ -116,6 +116,15 @@ Para el caso de MHC-II, es un proceso similar (Figura \ref{fig:mhc2}): primero, 
 
 Es una proteína que se forma en las células de Cáncer cuando ocurre mutaciones en el DNA. Los neo antígenos cumplen un rol importante al estimular una respuesta inmune en contra de células de Cáncer. En la actualiadad, se estudia su uso en el desarrollo de vacunas contra el Cáncer \cite{NCIdictionary2022}. Una característica importante de los neo antígenos, es que solo están presentes en células tumorales y no en células sanas, debido a eso son considerados factores clave en la inmunoterapia del Cáncer \cite{borden2022cancer}. En la actualidad hay varios métodos para detectar a predecir neo antígenos, pero solo una pequeña porción de ellos logran estimular al sistema inmune \cite{chen2021challenges, hao2021improvement}.
 
+ Este proceso para la detección de neo antígenos, generalmente consiste en: (1) extracción del tejido tumoral, (2) identificación de mutaciones, (3) detección de neo antígenos y predicción de inmunogenicidad, (4) desarrollo de experimentos in vitro y (5) desarrollo de la vacuna \citep{de2020neoantigen, peng2019neoantigen} (ver Figura \ref{fig:process}). \\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.7\textwidth]{img/neoantigen/process}	
+	\caption{Proceso para la detección de neo antígenos y generación de vacunas personalizadas. Fuente: \citep{de2020neoantigen} }
+	\label{fig:process}
+\end{figure}
+
 
 \section{\textit{Machine Learning}}
 
@@ -303,7 +312,7 @@ Como alternativa de solución al problema mencionado anteriormente, surgen Long 
 
 \subsection{\textit{Transformers}}
 
-Los \textit{Transformers} son propuestas por \cite{vaswani2017attention}, para dar solución al problema de \textit{long-range dependency}. Por ejemplo el autor comenta: ``The Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution''. Del enunciado anterior, \textit{transduction} hace referencia a la conversión secuencias de entrada hacia otro formato. Otro termino interesante es \textit{self-attention} (Figura \ref{fig:transformer}), este permite al modelo mirar hacia otras palabras en la secuencia de entrada para tener un mejor entendimiento de cierta palabra en la secuencia  \citep{Kelvin_transformer2022}´.  
+Los \textit{Transformers} son propuestas por \cite{vaswani2017attention}, para dar solución al problema de \textit{long-range dependency}. Por ejemplo el autor comenta: ``The Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution''. Del enunciado anterior, \textit{transduction} hace referencia a la conversión secuencias de entrada hacia otro formato. Otro termino interesante es \textit{self-attention} (Figura \ref{fig:transformer}), este permite al modelo mirar hacia otras palabras en la secuencia de entrada para tener un mejor entendimiento de cierta palabra en la secuencia  \citep{Kelvin_transformer2022}.  
 
 \begin{figure}[H]
 	\centering
@@ -315,7 +324,9 @@ Los \textit{Transformers} son propuestas por \cite{vaswani2017attention}, para d
 
 \subsection{\textit{BERT}}
 
-\textit{Bidirectional Encoder Representations from Transformers (BERT)}, propuesta por \cite{devlin2018bert}, esta inspirada por la red \textit{Tranformer} y su mecanismo de atención, la cuál entiende la relación contextual entre diferentes palabras. A diferencia de una RNN, BERT no tiene dirección, es decir lee la secuencia entera. Esta característica, le permite al modelo aprender información contextual de una palabra con respecto a las otras \citep{Kelvin_transformer2022}.
+\textit{Bidirectional Encoder Representations from Transformers (BERT)}, propuesta por \cite{devlin2018bert}, está inspirada por la red \textit{Tranformer} y su mecanismo de atención, la cuál entiende la relación contextual entre diferentes palabras. A diferencia de una RNN, BERT no tiene dirección, es decir lee la secuencia entera. Esta característica, le permite al modelo aprender información contextual de una palabra con respecto a las otras \citep{Kelvin_transformer2022}.
+
+
 
 
 
