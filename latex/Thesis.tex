@@ -18,8 +18,7 @@
 \usepackage[utf8x]{inputenc}
 \usepackage{enumerate}
 \usepackage{float}
-
-
+\usepackage{graphicx,subfigure}
 %% ----------------------------------------------------------------
 \begin{document}
 	
@@ -108,11 +107,18 @@ Muhammad Ali Jinnah
 \clearpage 
 
 % The Abstract Page
-\addtotoc{Abstract}  % Add the "Abstract" page entry to the Contents
+\addtotoc{Resumen}  % Add the "Abstract" page entry to the Contents
 \abstract{
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
-En desarrollo\ldots
+La detección de neo antígenos, es la fase más importante para el desarrollo de vacunas personalizadas contra el cáncer. El proceso para identificar neo antígenos, es complejo y existen varias sub fases como: secuenciamiento, alineamiento, detección de mutaciones, identificación de péptidos, \textit{peptide-MHC binding}, \textit{peptide-MHC presentation} y la interacción pMHC-TCR. La mayoría de publicaciones, se ha centrado en el problema de \textit{peptide-MHC binding}, y han logrado buenos resultados, pero menos del 5\% de los péptidos identificados, llegan a la membrana de las células y logran presentarse ante las células T. En este contexto, surge un nuevo problema llamado \textit{peptide-MHC presentaion}, enfocado en predecir que péptidos logran enlazarse a la molécula MHC y permancer unida a ellas hasta llegar a la membrana. Gracias a la tecnología de \textit{Mass spectrometry}, se está secuenciando cada vez más muestras de compuestos pMHC de la membrana de las células; de esta forma se están construyendo nuevas bases de datos que puedan dar solución al problema de \textit{peptide-MHC presentation}. 
+
+Las redes neuronales \textit{Transformers} han revolucionado el campo de NLP, y se han abierto a muchas otras aplicaciones. Luego, las redes BERT, como una actualización a las \textit{Transformer}, han sido aplicadas en problemas de interacción de proteínas. Pero, la interacción entre un péptido y la molécula, es una interacción entre proteínas; de esta forma han surgido trabajos que utilizan redes BERT para predecir la afinidad \textit{peptide-MHC}. De esta forma, en esta tesis, se propone el uso de redes BERT para dar solución al problema de  \textit{peptide-MHC presentation}. Además en la propuesta se utilizó varias muestras de \textit{Mass spectrometry}, recolectada de bases de datos públicas y trabajos similares. Finalmente, también se ha aplicado \textit{transfer learning}, del modelo TAPE y ESM-1b (modelos entrenados con millones de secuencias de aminoácidos).
+
+Esta tesis, presenta dos contribuciones: primero, se ha realizado una revisión sistemática de la literatura referente a la detección de neo antígenos y enfocada en estudiar los métodos basados en \textit{deep learning}; segundo, se ha desarrollado un nuevo método basado en redes BERT y \textit{transfer learning} para dar solución al problema de \textit{peptide-MHC presentaion}.
+
+
+
 
 }
 

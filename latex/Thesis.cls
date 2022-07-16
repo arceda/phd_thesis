@@ -294,7 +294,7 @@
     \setlength{\parskip}{0pt}
     %{\normalsize \UNIVNAME \par}
     %\bigskip
-    {\huge{\textit{Abstract}} \par}
+    {\huge{\textit{Resumen}} \par}
     %\bigskip
     %{\normalsize \facname \par}
     %{\normalsize \deptname \par}

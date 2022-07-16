@@ -64,7 +64,7 @@ Luego, se utilizó Google Schoolar y Mendeley como motores de búsqueda al ser e
 
 Con las cadenas de búsqueda y considerando solo los artículos desde el 2018, se analizó el título de cada artículo encontrado por los motores de búsqueda y se seleccionaron 334 artículos. En la Tabla \ref{tab:number_papers}, se presenta la cantidad de artículos publicados por año. Para el caso del 2022, solo se tienen 57 artículos porque esta tesis se redactó a mediados del año 2022. 
 
-Del total de artículos encontrados (342), se seleccionó un subconjunto basado en los criterios de inclusión y exclusión presentados de la Tabla  \ref{tab:criterios}. Estos criterios incluían que el artículo pertenezca a un \textit{conference} o \textit{journal} reconocido, que tenga una metodología detallada y que pertenezca al area de ciencia de la computación. Luego, en la Tabla \ref{tab:criterios}, se puede ver que hay un puntaje según cada criterio de inclusión, se utilizó este puntaje para calificar cada artículo y luego se seleccionaron los artículos que tenían un puntaje mayor a 4. En este proceso, se analizó el \textit{abstract} de los artículos y ciertas partes importantes según era necesario para asignar el puntaje. Al finalizar esta etapa, se obtuvieron 259 artículos, estos son los trabajos que se han analizado en la RSL. Adicionalmente, a los artículos seleccionados, se han considerado otros trabajos importantes que proponian bases de datos, \textit{pipelines} y \textit{reviews}.
+Del total de artículos encontrados (342), se seleccionó un subconjunto basado en los criterios de inclusión y exclusión presentados de la Tabla  \ref{tab:criterios}. Estos criterios incluían que el artículo pertenezca a un \textit{conference} o \textit{journal} reconocido, que tenga una metodología detallada y que pertenezca al area de ciencia de la computación. Luego, en la Tabla \ref{tab:criterios}, se puede ver que hay un puntaje según cada criterio de inclusión, se utilizó este puntaje para calificar cada artículo y luego se seleccionaron los artículos que tenían un puntaje mayor a 4. En este proceso, se analizó el \textit{abstract} de los artículos y ciertas partes importantes según era necesario para asignar el puntaje. Al finalizar esta etapa, se obtuvieron 253 artículos, estos son los trabajos que se han analizado en la RSL. Adicionalmente, a los artículos seleccionados, se han considerado otros trabajos importantes que proponian bases de datos, \textit{pipelines} y \textit{reviews}.
 
 
 
@@ -78,11 +78,11 @@ Del total de artículos encontrados (342), se seleccionó un subconjunto basado 
 			\begin{tabular}{ccc}
 					\textbf{Año} & \textbf{Artículos encontrados} & \textbf{Artículos seleccionados}\\ \hline
 				    2018 & 53 & 42 \\
-				    2019 & 79 & 58 \\
+				    2019 & 79 & 52 \\
 				    2020 & 81 & 67 \\
 				    2021 & 64 & 51 \\
 				    2022 & 57 & 41 \\ \hline
-				    Total & \textbf{342} & \textbf{259} \\
+				    Total & \textbf{342} & \textbf{253} \\
 			\end{tabular}
 		}
 	\end{center}
@@ -340,11 +340,13 @@ Debido a la complejidad del proceso y la gran cantidad de métodos desarrollados
 
 \subsection{\textit{Bases de datos}}
 
-En la mayoría de artículos, los autores realizan los experimentos con muestras integradas de otras publicaciones, y en su mayoría, todos comparten sus bases de datos. Pero tambien, hay algunos trabajos que hay recolectada una gran cantidad de muestras de la interacción pMHC y pMHC-TCR. EN la Tabla \ref{tab_bd}, presentamos una descripción de estas bases de datos.
+En la Tabla \ref{tab:bd}, presentamos una lista de bases de datos públicas. Estas bases de datos se centran en la interacción \textit{peptide-MHC} \citep{wu2018tsnadb, zhou2019neopeptide, tan2020dbpepneo, lu2022dbpepneo2} y pMHC con TCR \citep{shugay2018vdjdb, bagaev2020vdjdb}. También, hay un trabajo que presenta las estructuras 3D de las péptidos y HLA abriendo una nueva rama de investigación desde otro enfoque. Finalmente, la base de datos por excelencia IEDB \citep{vita2019immune}.
+
+
 
 \begin{table}[H]
 	\caption{Bases de datos públicas de \textit{pMHC binding}, \textit{pMHC presentation}, interacción pMHC-TCR y estructuras 3D de proteínas.}
-	\label{tab_bd}
+	\label{tab:bd}
 	\begin{tabular}{lp{3cm}p{8cm}}
 		\textbf{Nombre} & \textbf{Autor-año}                                                                & \textbf{Descripción}                                                                                                                                                                                      \\ \hline
 		VDJdb           & \cite{shugay2018vdjdb} y \cite{bagaev2020vdjdb}& Base de datos del enlace TCR con pMHC, cuenta con 5491 muestras                                                                                                                                           \\
@@ -360,11 +362,6 @@ En la mayoría de artículos, los autores realizan los experimentos con muestras
 
 
 \subsection{\textit{Peptide-MHC binding}}
-
-\subsection{\textit{Peptide-MHC presentation}}
-
-\subsection{Enlace pMHC-TCR}
-
 
 Existen herramientas de Software que se basan en la predicción del enlace entre las moléculas Major Histocompatibility Complex (MHC) y péptidos (posibles neo antígenos). La predicción de estos enlaces es importante para determinar qué péptidos pueden representar neo antígenos. Entre las principales propuestas que utilizan Regresión lineal y Redes Neuronales, tenemos: NetMHC4 \citep{stevanovic2017landscape}, NetMHCpan4 \citep{robbins2013mining}, PickPocket \citep{tran2014cancer}, NetMHCcons \citep{castle2012exploiting}, NetMHCIIpan \citep{yadav2014predicting}. También, existen alternativas como NeonMHC \citep{van2013tumor} que utilizan Redes Neuronales Convolucionales. Luego, otras propuestas se basan en la mejorar la predicción de un posible neo antígeno \citep{lu2021deep, hao2021improvement, lang2021neofox, chen2021identification, yang2021deepnetbim, li2021deepimmuno}.  Una desventaja de estos métodos, es referente a la necesidad de contar de antemano con posibles peptidos, esto complica una propuesta \textit{end-to-end} que tome como entrada una secuencia de ADN.\\
 
@@ -398,3 +395,10 @@ Finalmente, en la Tabla \ref{tab:review}, se presenta un resumen de los métodos
 		NeoFuse         &                      & pipeline        & \checkmark    \\   \hline    
 	\end{tabular}
 \end{table}
+
+%\subsection{\textit{Peptide-MHC presentation}}
+
+%\subsection{Enlace pMHC-TCR}
+
+
+
