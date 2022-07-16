@@ -8,7 +8,7 @@
 % INFORMATION IN THE TITLE PAGE
 %-------------------------------------------------------
 
-\newcommand{\cstitle}{\textbf{Detección de neo antígenos utilizando aprendizaje profundo en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del Cáncer}
+\newcommand{\cstitle}{\textbf{Detección de neo antígenos utilizando \textit{deep learning} en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del Cáncer}
 \subtitle[]{Tésis de doctorado}}
 \newcommand{\cscourseCode}{Matemáticas discretas II}
 \newcommand{\csauthor}{MSc. Vicente Machaca Arceda}
@@ -102,65 +102,6 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Presentación}{}
-	\begin{itemize}
-		\item PhD(c). Vicente Enrique Machaca Arceda. 
-		\item Profesor UTEC (TP).
-		\item Investigador en Bioinformática y Aprendizaje de Maquina.	
-		\item \chref{https://scholar.google.com/citations?user=Y2taS2MAAAAJ&hl=es&oi=ao}{Index-h 5}.  	
-	\end{itemize}
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Presentación}{Publicaciones}
-	\begin{table}[]
-		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-		{\renewcommand{\arraystretch}{1.4}% for the vertical padding
-			\begin{tabular}{llp{7cm}}
-				\textbf{Year} & \textbf{Country} & \textbf{Title}                                                                                                              \\
-				\hline
-				2020          & USA              & Small Ship Detection on Optical Satellite Imagery with YOLO and YOLT                                                        \\
-				2018          & Brasil           & Fast Car Crash Detection in Video                                                                                           \\
-				2016          & Chile            & Fast Face Detection in Violent Video Scenes                                                                                 \\
-				2016          & Costa Rica       & Real Time Violence Detection in Video with ViF and Horn-Schunck                                                             \\
-				2016          & Costa Rica       & Optimization model for face detection in video sequences                                                                    \\
-				2015          & Chile            & Real Time Violence Detection in Video                                                                                      
-			\end{tabular}
-		}
-	\end{table}
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Presentation}{Publications}
-	\begin{table}[]
-		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-		{\renewcommand{\arraystretch}{1.4}% for the vertical padding
-			\begin{tabular}{llp{7cm}}
-				\textbf{Year} & \textbf{Country} & \textbf{Title}                                                                                                              \\
-				\hline
-				2022          &  USA                & ArgosMol: A Web Tool for Protein Structure Prediction and Visualization             \\
-				2021          &  Chapter                & COVID-19 Pandemic: Analysis and Statistics of Confirmed Cases             \\
-				2020          &  Canada          & An Analysis of k-Mer Frequency Features with Machine Learning Models for Viral Subtyping of Polyomavirus and HIV-1 Genomes                                                        \\
-				
-				2020          & Canada           & An analysis of k-mer frequency features with SVM and CNN for viral subtyping classification \\
-				2020          & Canada           & Forecasting time series with Multiplicative Trend Exponential Smoothing and LSTM: COVID-19 case study                       \\
-				
-				
-			\end{tabular}
-		}
-	\end{table}
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -178,27 +119,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Bioinformática}{}		
-	\begin{figure}
-		\includegraphics[width=0.7\textwidth]{img/neoantigen/bioinformatics2}
-		
-	\end{figure}		
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Bioinformática}{}		
-	\begin{figure}
-		\includegraphics[width=0.6\textwidth]{img/neoantigen/bioinformatics}
-		
-	\end{figure}		
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -282,16 +202,6 @@
 		\includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{img/neoantigen/mut.jpg}
 		\caption{Ejemplo de una mutación INDELS causante de un \textit{frameshift}.}
 	\end{figure}
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Variantes y Mutaciones}{\textit{Frameshift}}
-	\begin{block}{}
-		Los \textit{Frameshift variants} estan muy relacionados a la enfermedad Tay–Sachs  (destrucción de células nerviosas). Tambien, incrementa la susceptibilidad a varios tipos de Cáncer \cite{zimmerman1997inherited, xu2018review}.
-	\end{block}	
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -439,7 +349,11 @@
 \begin{frame}{Problema}{}
 	
 \begin{block}{}
-	\textbf{Menos del 3\%} de los neoantígenos detectados logran activar a las células T (sistema inmune) \cite{de2020neoantigen}. 
+	Menos del 5\% de péptidos detectados en \textit{pMHC binding}, llegan a la membrana de la células, para que luego sean reconocidos por las células T (\textit{pMHC presentation}) \cite{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Además, propuestas recientes solo llegan aun 0.6 de \textit{presicion} y 0.4 de \textit{recall} \cite{mill2022neoms}. 
+\end{block}
+
+\begin{block}{}
+	Dada como entrada dos secuencias de aminoacidos, representando a un péptido y a una molécula MHC, el objetivo es predecir su afinidad, como si fuera un problema de clasificación binaria.
 \end{block}
 	
 \end{frame}
@@ -452,7 +366,7 @@
 %-------------------------------------------------------
 \begin{frame}{Objetivos}{Objetivo general}	
 	\begin{block}{Objetivo general}
-		Desarrollar un método basado en \textit{deep learning} que mejore el acierto de la detección de neo antígenos.
+		Proponer un método basado en \textit{deep learning} para la detección de neo antígenos, enfocados en el problema de \textit{pMHC presentation}. 
 	\end{block}	
 \end{frame}
 %-------------------------------------------------------
@@ -643,7 +557,7 @@
 			\begin{tabular}{lc}
 				\hline
 				\textbf{Modelo} & \textbf{AUC} \\ \hline
-				Propuesta & 0.73\\
+				Propuesta & 0.72\\
 				BERTMHC & 0.72\\
 				NetMHCpan3 & 0.68\\
 				PUFFIN & 0.69\\
