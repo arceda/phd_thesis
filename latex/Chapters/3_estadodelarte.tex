@@ -3,7 +3,7 @@
 \label{cap:estadodelarte}
 \lhead{\emph{Estado del Arte}} 
 
-En este capítulo presentaremos los resultados de la revisión sistmática de la literatura referente a los métodos de detección de neo antígenos.
+En este capítulo presentaremos los resultados de la Revisión Sistemática de la Literatura (RSL) referente a los métodos de detección de neo antígenos con técnicas de \textit{deep learning} y desde una perspectiva en las ciencias de la computación.
 
 %% ------------------------------------------------------------------- %%
 %% ------------------------------------------------------------------- %%
@@ -12,7 +12,7 @@ En este capítulo presentaremos los resultados de la revisión sistmática de la
 
 \section{Revisión Sistemática de la Literatura (RSL)}
 
-Con el objetivo de mapear las principales técnicas de detección de  neo antígenos, se planteo desarrollar una Revisión Sistemática de la Literatura (RSL). En esta sección, se describirá el proceso que se llevo a cabo y sus resultados.
+Con el objetivo de mapear las principales técnicas de detección de  neo antígenos, se planteó desarrollar una Revisión Sistemática de la Literatura (RSL). La RSL, se enfocó en los métodos basados en \textit{deep learning} y desde una perspectiva de las ciencias de la computación. Se definió este objetivo, porque en la literatura ya existían varios otros \textit{reviews}, enfocados en el proceso general de vacunas personalizadas, y detección de neo antígenos. En esta sección, se describe el proceso que se llevó a cabo y sus resultados.
 
 
 \subsection{Cadenas de busqueda y bases de datos}
@@ -64,7 +64,7 @@ Luego, se utilizó Google Schoolar y Mendeley como motores de búsqueda al ser e
 
 Con las cadenas de búsqueda y considerando solo los artículos desde el 2018, se analizó el título de cada artículo encontrado por los motores de búsqueda y se seleccionaron 334 artículos. En la Tabla \ref{tab:number_papers}, se presenta la cantidad de artículos publicados por año. Para el caso del 2022, solo se tienen 57 artículos porque esta tesis se redactó a mediados del año 2022. 
 
-Del total de artículos encontrados (334), se seleccionó un subconjunto basado en los criterios de inclusión y exclusión presentados de la Tabla  \ref{tab:criterios}. Estos criterios incluían que el artículo pertenezca a un \textit{conference} o \textit{journal} reconocido, que tenga una metodología detallada y que pertenezca al area de ciencia de la computación. Luego, en la Tabla \ref{tab:criterios}, se puede ver que hay un puntaje según cada criterio de inclusión, se utilizó este puntaje para calificar cada artículo y luego se seleccionaron los artículos que tenían un puntaje mayor a 4. En este proceso, se analizó el \textit{abstract} de los artículos y ciertas partes importantes según era necesario para asignar el puntaje. Al finalizar esta etapa, se obtuvieron 255 artículos, estos son los trabajos que se han considerado en el estado del arte.
+Del total de artículos encontrados (342), se seleccionó un subconjunto basado en los criterios de inclusión y exclusión presentados de la Tabla  \ref{tab:criterios}. Estos criterios incluían que el artículo pertenezca a un \textit{conference} o \textit{journal} reconocido, que tenga una metodología detallada y que pertenezca al area de ciencia de la computación. Luego, en la Tabla \ref{tab:criterios}, se puede ver que hay un puntaje según cada criterio de inclusión, se utilizó este puntaje para calificar cada artículo y luego se seleccionaron los artículos que tenían un puntaje mayor a 4. En este proceso, se analizó el \textit{abstract} de los artículos y ciertas partes importantes según era necesario para asignar el puntaje. Al finalizar esta etapa, se obtuvieron 259 artículos, estos son los trabajos que se han analizado en la RSL. Adicionalmente, a los artículos seleccionados, se han considerado otros trabajos importantes que proponian bases de datos, \textit{pipelines} y \textit{reviews}.
 
 
 
@@ -77,12 +77,12 @@ Del total de artículos encontrados (334), se seleccionó un subconjunto basado 
 		{\renewcommand{\arraystretch}{1.2}% for the vertical padding
 			\begin{tabular}{ccc}
 					\textbf{Año} & \textbf{Artículos encontrados} & \textbf{Artículos seleccionados}\\ \hline
-				    2018 & 53 & 41 \\
+				    2018 & 53 & 42 \\
 				    2019 & 79 & 58 \\
-				    2020 & 81 & 65 \\
+				    2020 & 81 & 67 \\
 				    2021 & 64 & 51 \\
-				    2022 & 57 & 40 \\ \hline
-				    Total & \textbf{334} & \textbf{255} \\
+				    2022 & 57 & 41 \\ \hline
+				    Total & \textbf{342} & \textbf{259} \\
 			\end{tabular}
 		}
 	\end{center}
@@ -122,12 +122,20 @@ Del total de artículos encontrados (334), se seleccionó un subconjunto basado 
 
 La detección de neo antígenos es un problema interdisciplinar y esto ha originado  varios \textit{reviews} desde diferentes perspectivas. Entonces se ha planteado la siguiente clasificación: basados en \textit{Next-Generation Sequencing}, \textit{Mass Spectrometry}, interacción \textit{peptide-MHC}, basados en información estructural, enfocados en TCR, buenas prácticas y los enfocados en el proceso completo de generación de vacunas personalizadas.
 
-Primero, presentamos los trabajos que se enfocan en estudios de \textit{Next-Generation Sequencing} (Tabla \ref{tab:review_seq}), para la detección de neo antígenos e inmunoterapia del Cáncer. Estos trabajos principalmente utilizan información secuencial de \textit{DNA} y gracias a las tecnologías mordenas ahora se pueden considerar las secuencias de \textit{RNASeq}. Mayormente estas tecnologías se limitan a algoritmos decuenciamiento con genomas de referencia \cite{groisberg2018immunotherapy}.
+Primero, presentamos los trabajos que se enfocan en estudios de \textit{Next-Generation Sequencing} (Tabla \ref{tab:review_seq}), para la detección de neo antígenos e inmunoterapia del Cáncer. Estos trabajos principalmente utilizan información secuencial de \textit{DNA} y gracias a las tecnologías modernas ahora se pueden considerar las secuencias de \textit{RNASeq}. Las tecnologías de RNASeq, proveen información mas precisa de la transcripción e identificación de isoformos que otros métodos \citep{wang2009rna}. Mayormente, estas tecnologías se limitan a algoritmos alineamiento con genomas de referencia \citep{groisberg2018immunotherapy}. 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%PENDIENTE queda pendinete agregar ms información
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{table}[H]
 		\caption{Listado de los \textit{reviews}, que se enfocan en estudios de \textit{Next-Generation Sequencing} para la detección de neo antígenoes e inmunoterapia del Cáncer.}
 	\label{tab:review_seq}
 	\begin{tabular}{p{3cm}p{10cm}}
+	\textbf{Autor-año }                            & \textbf{Título}                                                                                                                                \\ \hline
 		\cite{zhou2022comprehensive}     & A Comprehensive Survey of Genomic Mutations in Breast Cancer Reveals Recurrent Neoantigens as Potential Therapeutic Targets            \\
 		\cite{battaglia2020neoantigen}   & Neoantigen prediction from genomic and transcriptomic data                                                                             \\
 		\cite{mirandola2020quest}        & The Quest for the Next-Generation of Tumor Targets: Discovery and Prioritization in the Genomics Era                                   \\		
@@ -135,39 +143,67 @@ Primero, presentamos los trabajos que se enfocan en estudios de \textit{Next-Gen
 	\end{tabular}
 \end{table}
 
+Algunos trabajos son más específicos, y se enfocan en la interacción de un péptido y la molécula MHC. Esta interacción es un factor clave, porque si se forma el enlace pMHC y luego este compuesto es presentado a las células T, es posible activar el sistema inmune. En la Tabla \ref{tab:review_mhc}, se presenta estos \textit{reviews}. La mayoría de estos trabajos, se centran en la molécula MHC-I \citep{mateo2020comparison, mei2020comprehensive, schmidt2019mhc, mei2020comprehensive} , molécula MHC-II \citep{jensen2018improved} y todos los tipos de MHC en general \citep{nielsen2020immunoinformatics, liu2020review, liu2020review}. También, hay trabajos que estudian la complejidad de esta molécula y todos sus \textit{alleles} \citep{radwan2020advances}.
 
-\begin{table}[]
-	\caption{Listado de los \textit{reviews}, que se enfocan en presentar buenas prácticas en el proceso de detección de neo antígenoes y generación de vacunas personalizadas,}
-	\label{tab:review_buen}
+
+
+\begin{table}[H]
+	\caption{Listado de los \textit{reviews}, que se enfocan en estudios de la interacción de péptidos y la molécula MHC, para la detección de neo antígenoes.}
+	\label{tab:review_mhc}
 	\begin{tabular}{p{3cm}p{10cm}}
-		\textbf{Author year}                            & \textbf{Title}                                                                                                                                \\
-		\cite{borden2022cancer}       & Cancer Neoantigens: Challenges and Future Directions for Prediction, Prioritization, and Validation                                           \\
-		\cite{chen2021challenges}     & Challenges targeting cancer neoantigens in 2021: a systematic literature review                                                               \\
-		\cite{chen2021challenges}     & Challenges targeting cancer neoantigens in 2021: a systematic literature review                                                               \\
-		\cite{gopanenko2020main}      & Main strategies for the identification of neoantigens                                                                                         \\
-		\cite{de2020neoantigen}       & Neoantigen prediction and computational perspectives towards clinical benefit: recommendations from the ESMO Precision Medicine Working Group \\
-		\cite{gopanenko2020main}      & Main strategies for the identification of neoantigens                                                                                         \\
-		\cite{de2020neoantigen}       & Neoantigen prediction and computational perspectives towards clinical benefit: recommendations from the ESMO Precision Medicine Working Group \\
-		\cite{richters2019best}       & Best practices for bioinformatic characterization of neoantigens for clinical utility                                                         \\
-		\cite{garcia2019determinants} & Determinants for Neoantigen Identification                                                                                                    \\
-		\cite{aurisicchio2018perfect} & The perfect personalized cancer therapy: cancer vaccines against neoantigens                                                                  \\
-		\cite{barros2018immunological}& Immunological-based approaches for cancer therapy                                                                                             \\
-		\cite{tureci2018challenges}   & Challenges towards the realization of individualized cancer vaccines                                                                          \\
-		\cite{villani2018systems}     & Systems immunology: Learning the rules of the immune system                                                                                   \\
-		\cite{richters2019best}       & Best practices for bioinformatic characterization of neoantigens for clinical utility                                                         \\
-		\cite{garcia2019determinants} & Determinants for Neoantigen Identification                                                                                                    \\
-		\cite{aurisicchio2018perfect} & The perfect personalized cancer therapy: cancer vaccines against neoantigens                                                                  \\
-		\cite{barros2018immunological}& Immunological-based approaches for cancer therapy                                                                                             \\
-		\cite{tureci2018challenges}   & Challenges towards the realization of individualized cancer vaccines                                                                          \\
-		\cite{villani2018systems}     & Systems immunology: Learning the rules of the immune system                                                                                  
+		\textbf{Autor-año }                            & \textbf{Título}                                                                                                                                \\ \hline
+		\cite{mateo2020comparison}          & Comparison of machine learning models for the prediction of cancer cells using MHC class I complexes                 \\
+		\cite{mei2020comprehensive}         & A comprehensive review and performance evaluation of bioinformatics tools for HLA class I peptide-binding prediction \\
+		
+		\cite{nielsen2020immunoinformatics} & Immunoinformatics: predicting peptide–MHC binding                                                                    \\
+		\cite{liu2020review}                & A review on the methods of peptide-MHC binding prediction                                                            \\
+		\cite{paul2020major}                & Major histocompatibility complex binding, eluted ligands, and immunogenicity: benchmark testing and predictions      \\
+	
+		\cite{radwan2020advances}           & Advances in the Evolutionary Understanding of MHC Polymorphism 
+		
+		                                                      \\
+		
+		\cite{schmidt2019mhc}               & MHC class I presented antigens from malignancies: A perspective on analytical characterization \& immunogenicity     \\
+	
+		\cite{jensen2018improved}           & Improved methods for predicting peptide binding affinity to MHC class II molecules                                   \\
+		
+		\cite{mei2020comprehensive}         & A comprehensive review and performance evaluation of bioinformatics tools for HLA class I peptide-binding prediction \\
+		\cite{liu2020review}                & A review on the methods of peptide-MHC binding prediction                                                            \\
+		\cite{paul2020major}                & Major histocompatibility complex binding, eluted ligands, and immunogenicity: benchmark testing and predictions      \\
+		\cite{radwan2020advances}           & Advances in the Evolutionary Understanding of MHC Polymorphism                                                       \\
+		\cite{schmidt2019mhc}               & MHC class I presented antigens from malignancies: A perspective on analytical characterization \& immunogenicity     \\
+		\cite{jensen2018improved}           & Improved methods for predicting peptide binding affinity to MHC class II molecules                                  
 	\end{tabular}
 \end{table}
+
+La mayoría de \textit{reviews} estudian las técnicas basadas en secuencias de DNA y RNA, pero recientemente se está utilizando \textit{Mass spectrometry}, para secuenciar los péptidos y moléculas MHC ya enlazados y presentes en las membranas de las células. Este avance ha impulsado la creación de nuevas bases de datos y métodos para el problema de \textit{peptide-MHC presentation}. En este contexto, en la Tabla \ref{tab:review_ms}, se presentan todos los \textit{reviews}, enfocados en estudiar \textit{Mass spectrometry} para la detección de neo antígenos.
+
+
+
+\begin{table}[H]
+	\caption{Listado de los \textit{reviews}, que se enfocan en estudios de \textit{Mass spectrometry} para la detección de neo antígenoes.}
+	\label{tab:review_ms}
+	\begin{tabular}{p{3cm}p{10cm}}
+	\textbf{Autor-año }                            & \textbf{Título}                                                                                                                                 \\ \hline
+		\cite{kote2020mass}           & Mass spectrometry-based identification of MHC-associated peptides                                                          \\
+		\cite{kote2020mass}           & Mass spectrometry-based identification of MHC-associated peptides                                                          \\
+		\cite{zhang2019application}   & Application of mass spectrometry-based MHC immunopeptidome profiling in neoantigen identification for tumor immunotherapyA \\
+		\cite{chen2021identification} & Identification of MHC peptides using mass spectrometry for neoantigen discovery and cancer vaccine development             \\
+		\cite{creech2018role}         & The role of mass spectrometry and proteogenomics in the advancement of HLA epitope prediction                              \\
+		\cite{zhang2019application}   & Application of mass spectrometry-based MHC immunopeptidome profiling in neoantigen identification for tumor immunotherapyA \\
+		\cite{creech2018role}         & The role of mass spectrometry and proteogenomics in the advancement of HLA epitope prediction                             
+	\end{tabular}
+\end{table}
+
+
+En si la detección de neo antígenos, es un proceso muy largo e integra métodos de secuenciamiento, alineamiento, detección de mutaciones, identificación de péptidos, predicción de la interacción \textit{peptide-MHC}, y finalmente el trabajo biotecnológico para la generación de vacunas. Entonces, en la Tabla \ref{tab:review_2022_2021} y \ref{tab:review_2020_2019}, se presenta el lista de \textit{reviews}, que explican el problema de generación de vacunas pero desde una vista panoramica incluyendo todo el proceso completo. Algunos trabajos se enfocan en demostrar la posibilidad de crear vacunas personalizadas contra en Cáncer \citep{lang2022identification, richard2022neoantigen, pao2022therapeutic, reynolds2022neoantigen, mccaffrey2022bioinformatic, fritsch2020personal} y otros trabajos, priorizan la importancia de los neo antígenos \citep{okada2022identification, zheng2022neoantigen, wang2021gene, pearlman2021targeting, arnaud2020biotechnologies, han2020progress}.
+
 
 \begin{table}[H]
 	\caption{Listado de los \textit{reviews}, que se enfocan en presentar en proceso general de detección de neo antígenoes y vacunas personalizadas del año 2022 y 2021.}
 	\label{tab:review_2022_2021}
 	\begin{tabular}{p{3cm}p{10cm}}
-		\textbf{Author year}                                    & \textbf{Title}                                                                                                                            \\ \hline
+		\textbf{Autor-año }                            & \textbf{Título}                                                                                                                             \\ \hline
 		\cite{tran2022tale}                   & A tale of solving two computational challenges in protein science: neoantigen prediction and protein structure prediction                 \\
 		\cite{lang2022identification}         & Identification of neoantigens for individualized therapeutic cancer vaccines                                                              \\
 		\cite{okada2022identification}        & Identification of Neoantigens in Cancer Cells as Targets for Immunotherapy                                                                \\
@@ -191,9 +227,9 @@ Primero, presentamos los trabajos que se enfocan en estudios de \textit{Next-Gen
 
 \begin{table}[H]
 	\caption{Listado de los \textit{reviews}, que se enfocan en presentar en proceso general de detección de neo antígenoes y vacunas personalizadas del año 2020 y 2019.}
-	\label{tab:review_2021_2019}
+	\label{tab:review_2020_2019}
 	\begin{tabular}{p{3cm}p{10cm}}
-		\textbf{Author year}                                    & \textbf{Title}                                                                                                                            \\ \hline	
+		\textbf{Autor-año }                            & \textbf{Título}                                                                                                                             \\ \hline	
 		\cite{arnaud2020biotechnologies}      & Biotechnologies to tackle the challenge of neoantigen identification                                                                      \\
 		\cite{fritsch2020personal}            & Personal neoantigen cancer vaccines: a road not fully paved                                                                               \\
 		\cite{holtstrater2020bioinformatics}  & Bioinformatics for cancer immunotherapy                                                                                                   \\
@@ -213,10 +249,115 @@ Primero, presentamos los trabajos que se enfocan en estudios de \textit{Next-Gen
 \end{table}
 
 
+Gracias a \textit{Next-generation Secuencing} y \textit{Mass spectrometry}, se ha logrado muchon avances en la Bioinformática, pero a veces es necesario tener información adicional como las propiedades estructurales de los aminoacidos. Debido a esto, han surgido varias investigaciones y los \textit{reviews} de la Tabla \ref{tab:review_structure}, que explican como se pueden utilizar este tipo de propiedades para predecir la interacción pMHC. Lamentablemente, solo se ha identificado dos trabajos \citep{perez2022structural,antunes2018structure}, porque no se cuenta con muchas muestras de este problema.
+
+
+
+\begin{table}[H]
+	\caption{Listado de los \textit{reviews}, que se enfocan en estudios que utilizan propiedades estructurales de los aminoacidos para la de detección de neo antígenoes.}
+	\label{tab:review_structure}
+	\begin{tabular}{p{3cm}p{10cm}}
+		\textbf{Autor-año }                            & \textbf{Título}                                                                                                                             \\ \hline	
+		\cite{perez2022structural}  & Structural Prediction of Peptide–MHC Binding Modes                                                 \\
+		\cite{antunes2018structure} & Structure-based methods for binding mode and binding affinity prediction for peptide-MHC complexes \\		
+	\end{tabular}
+\end{table}
+
+
+Generalmente, con la predicción del enlace pMHC, podría terminar el trabajo Bioinformático, para luego proceder a los trabajos \textit{in vitro} e \textit{in vivo}. Pero, algunos trabajos, tambien buscan entender que hace que un cmpuesto pMHC se enlace al TCR y así se genere una respuesta inmune. Esto tambien ha generado bastantes \textit{reviews} presentados en la Tabla \ref{tab:review_tcr}.
+
+\begin{table}[H]
+	\caption{Listado de los \textit{reviews}, que se enfocan en estudios de la interacción de compuestos pMHC con TCR.}
+	\label{tab:review_tcr}
+	\begin{tabular}{p{3cm}p{10cm}}
+		\textbf{Autor-año }                            & \textbf{Título}                                                                                                                             \\ \hline
+		\cite{kast2021advances}     & Advances in identification and selection of personalized neoantigen/T-cell pairs for autologous adoptive T cell therapies           \\
+		\cite{schaap2021t}          & T Cell Epitope Prediction and Its Application to Immunotherapy                                                                      \\                                    
+		\cite{zvyagin2020overview}  & An overview of immunoinformatics approaches and databases linking T cell receptor repertoires to their antigen specificity          \\
+		\cite{sidney2020epitope}    & Epitope prediction and identification- adaptive T cell responses in humans                                                          \\
+		
+		\cite{zvyagin2020overview}  & An overview of immunoinformatics approaches and databases linking T cell receptor repertoires to their antigen specificity          \\
+		\cite{spear2019understanding} & Understanding TCR affinity, antigen specificity, and cross-reactivity to improve TCR gene-modified T cells for cancer immunotherapy \\		                                               
+		\end{tabular}
+	\end{table}
+
+
+Finalmente, se han desarrollado \textit{reviews} que detallan los principales desafíos, buenas prácticas y perspectivas futuras en la detección de neo antígenos (Tabla \ref{tab:review_buen}). De estos trabajos, el \textit{review} de \cite{gopanenko2020main} y \cite{borden2022cancer}, explican detalladamente, todos los métodos de cada fase para la detección de neo antígenos; adicionalmente, explican las ventajas de cada método y los problemas actuales. También, resaltamos el trabajo de \cite{richters2019best}, que resalta las buenas prácticas de este campo de estudio.
+
+
+
+
+\begin{table}[H]
+	\caption{Listado de los \textit{reviews}, que se enfocan en presentar buenas prácticas en el proceso de detección de neo antígenoes y generación de vacunas personalizadas,}
+	\label{tab:review_buen}
+	\begin{tabular}{p{3cm}p{10cm}}
+		\textbf{Autor-año }                            & \textbf{Título}                                                                                                                                \\ \hline
+		\cite{borden2022cancer}       & Cancer Neoantigens: Challenges and Future Directions for Prediction, Prioritization, and Validation                                           \\
+		\cite{chen2021challenges}     & Challenges targeting cancer neoantigens in 2021: a systematic literature review                                                             \\	
+		\cite{gopanenko2020main}      & Main strategies for the identification of neoantigens                                                                                         \\
+		\cite{de2020neoantigen}       & Neoantigen prediction and computational perspectives towards clinical benefit: recommendations from the ESMO Precision Medicine Working Group \\	
+		
+		\cite{richters2019best}       & Best practices for bioinformatic characterization of neoantigens for clinical utility                                                         \\
+		\cite{garcia2019determinants} & Determinants for Neoantigen Identification                                                                                                    \\
+		\cite{aurisicchio2018perfect} & The perfect personalized cancer therapy: cancer vaccines against neoantigens                                                                  \\
+		\cite{barros2018immunological}& Immunological-based approaches for cancer therapy                                                                                             \\
+		\cite{tureci2018challenges}   & Challenges towards the realization of individualized cancer vaccines                                                                          \\
+		\cite{villani2018systems}     & Systems immunology: Learning the rules of the immune system                                                                                   \\
+		\cite{richters2019best}       & Best practices for bioinformatic characterization of neoantigens for clinical utility                                                         \\
+		\cite{garcia2019determinants} & Determinants for Neoantigen Identification                                                                                                    	                                                               \\
+		\cite{barros2018immunological}& Immunological-based approaches for cancer therapy                                                                                            \\	
+	                                                                                
+	\end{tabular}
+\end{table}
+
+
 
 \subsection{\textit{Pipelines}}
 
+Debido a la complejidad del proceso y la gran cantidad de métodos desarrollados, se ha desarrollado software y \textit{pipelines} que pretenden facilitar el uso de estas herramientas. Entre los \textit{pipelines} más conocidas antes del 2018 tenemos: Somaticseq \citep{fang2015ensemble}, CloudNeo \citep{bais2017cloudneo}, MuPeXI \citep{bjerregaard2017mupexi}, NeoepitopePred \citep{tran2015immunogenicity}, y NeoFuse \citep{gros2016prospective}. Estas herramientas en su mayoría toman como entrada archivos Variant Calling Files (VCF) y archivos de alineamiento BAM, para la detección de mutaciones (inserciones, eliminaciones y fusión de genes) y posibles neo antígenos. Luego, también hemos detallado, un conjunto de herramientas a partir del 2018, en la Tabla \ref{tab:review_pipelines}.
+
+
+
+
+\begin{table}[H]
+	\caption{Listado de \textit{pipelines} desde el 2018, para la detección de neo antígenos.}
+	\label{tab:review_pipelines}
+	\begin{tabular}{lp{2.5cm}p{4cm}p{4cm}}
+		\textbf{Nombre} & \textbf{Autor-año}                                  & \textbf{Entrada}                                         & \textbf{Salida}                                     \\ \hline
+		Neopepsee       & \cite{kim2018neopepsee}           & RNA-seq, somatic mutations (VCF), tipo de HLA (opcional) & Neo antígenos y niveles de expresión de los genes   \\
+		PGV Pipeline    & \cite{rubinsteyn2018computational}& DNA-seq                                                  & Neo antígenos                                       \\
+		ScanNeo         & \cite{wang2019scanneo}            & RNA-seq                                                  & Neo antígenos                                       \\
+		NeoPredPipe     & \cite{schenck2019neopredpipe}     & Mutaciones (VCF) y tipo de HLA                           & Neo antígenos y anotación de variantes              \\
+		pVACtools       & \cite{hundal2020pvactools}        & Mutaciones (VCF)                                         & Neo antígenos                                       \\
+		ProGeo-neo      & \cite{li2020progeo}               & RNA-seq y somatic mutations (VCF)                        & Neo antígenos                                       \\
+		neoepiscope     & \cite{wood2020neoepiscope}        & Somatic mutations (VCF) y archivos BAM                   & Neo antígenos y mutaciones                          \\
+		neoANT-HILL     & \cite{coelho2020neoant}           & RNA-seq y somatic mutations (VCF)                        & Neo antígenos,  y niveles de expresión de los genes \\
+		NAP-CNB         & \cite{wert2021predicting}         & RNA-seq                                                  & Neo antígenos                                       \\
+		Valid-NEO       & \cite{terai2022valid}             & Somatic mutations (VCF), tipo de HLA (opcional)          & Neo antígenos                                      
+	\end{tabular}
+\end{table}
+
+
 \subsection{\textit{Bases de datos}}
+
+En la mayoría de artículos, los autores realizan los experimentos con muestras integradas de otras publicaciones, y en su mayoría, todos comparten sus bases de datos. Pero tambien, hay algunos trabajos que hay recolectada una gran cantidad de muestras de la interacción pMHC y pMHC-TCR. EN la Tabla \ref{tab_bd}, presentamos una descripción de estas bases de datos.
+
+\begin{table}[H]
+	\caption{Bases de datos públicas de \textit{pMHC binding}, \textit{pMHC presentation}, interacción pMHC-TCR y estructuras 3D de proteínas.}
+	\label{tab_bd}
+	\begin{tabular}{lp{3cm}p{8cm}}
+		\textbf{Nombre} & \textbf{Autor-año}                                                                & \textbf{Descripción}                                                                                                                                                                                      \\ \hline
+		VDJdb           & \cite{shugay2018vdjdb} y \cite{bagaev2020vdjdb}& Base de datos del enlace TCR con pMHC, cuenta con 5491 muestras                                                                                                                                           \\
+		IEDB            & \cite{vita2019immune}                                           & La base de datos mas grande, contiene información \textit{T-cell epitopes} de humanos y otros organismos.                                                                                                          \\
+		TSNAdb          & \cite{wu2018tsnadb}                                             & Contiene 7748 muestras de mutaciones y HLA de 16 tipos de Cáncer.                                                                                                                                         \\
+		NeoPeptide      & \cite{zhou2019neopeptide}                                       & Contiene muestras de neo antígenos, resultado de mutaciones somáticas y artículos relacionados. Contiene 1818137 epitopes de ms de 36000 neo antígenos.                                                   \\
+		pHLA3D          & \cite{e2019phla3d}                                              & Presenta 106 estructuras 3D de las cadenas alpha, $\beta_2M$ y peptidos de las moléculas HLA-I                                                                                                               \\
+		dbPepNeo        & \cite{tan2020dbpepneo}                                          & Tiene muestras validadas del enlace \textit{peptide-MHC}, a partir de MS. Contiene 407794 muestras de baja calidad, 247 de mediana calidad y 295 muestras de alta calidad.                                         \\
+		dbPepNeo2. 0    & \cite{lu2022dbpepneo2}                                          & Recolecta una lista de neo antígenos y moléculas HLA. Presenta 801 muestras de alta calidad y 842289  de mala calidad de HLAs. Tambien, 55 neo antígenos de clase II y 630 neo antígenos enlazados a TCR. \\
+		IntroSpect      & \cite{zhang2022introspect}                                      & Herramienta para la construcción de bases de datos sobre \textit{peptide-MHC binding} . Utiliza datos de \textit{Mass Spectrometry}                                                                                         
+	\end{tabular}
+\end{table}
+
 
 \subsection{\textit{Peptide-MHC binding}}
 
@@ -227,7 +368,7 @@ Primero, presentamos los trabajos que se enfocan en estudios de \textit{Next-Gen
 
 Existen herramientas de Software que se basan en la predicción del enlace entre las moléculas Major Histocompatibility Complex (MHC) y péptidos (posibles neo antígenos). La predicción de estos enlaces es importante para determinar qué péptidos pueden representar neo antígenos. Entre las principales propuestas que utilizan Regresión lineal y Redes Neuronales, tenemos: NetMHC4 \citep{stevanovic2017landscape}, NetMHCpan4 \citep{robbins2013mining}, PickPocket \citep{tran2014cancer}, NetMHCcons \citep{castle2012exploiting}, NetMHCIIpan \citep{yadav2014predicting}. También, existen alternativas como NeonMHC \citep{van2013tumor} que utilizan Redes Neuronales Convolucionales. Luego, otras propuestas se basan en la mejorar la predicción de un posible neo antígeno \citep{lu2021deep, hao2021improvement, lang2021neofox, chen2021identification, yang2021deepnetbim, li2021deepimmuno}.  Una desventaja de estos métodos, es referente a la necesidad de contar de antemano con posibles peptidos, esto complica una propuesta \textit{end-to-end} que tome como entrada una secuencia de ADN.\\
 
-Debido a la complejidad del proceso y la gran cantidad de métodos desarrollados, se ha desarrollado software y \textit{pipelines} que pretenden facilitar el uso de estas herramientas. Entre las más recientes tenemos: Somaticseq \citep{fang2015ensemble}, NeoPredPipe \citep{schenck2019neopredpipe}, CloudNeo \citep{bais2017cloudneo}, MuPeXI \citep{bjerregaard2017mupexi}, NeoepitopePred \citep{tran2015immunogenicity}, Neoepiscope \citep{yossef2018enhanced}, pVACtools \citep{hundal2020pvactools}  y NeoFuse \citep{gros2016prospective}. Estas herramientas en su mayoría toman como entrada archivos Variant Calling Files (VCF) y archivos de alineamiento Bam, para la detección de mutaciones (inserciones, eliminaciones y fusión de genes) y posibles neo antígenos. Si bien es cierto, los \textit{pipelines} mencionados anteriormente son propuestas \textit{end-to-end}, el acierto es bajo y son dificiles de desplegar.\\
+
 
 A pesar de la gran cantidad de métodos y herramientas no existe un método que pueda ser definido como el de mejor desempeño \citep{de2020neoantigen}, incluso a pesar de ya haberse desarrollado algunos \textit{benchmarkings}. Por ejemplo, en el 2015 se desarrolló una comparativa de los métodos SMM, ANN, ARB y NetMHCpan \citep{trolle2015automated}, sin ninguna conclusión sobresaliente. Luego en el 2018 y 2019 se vuelve a intentar realizar otra comparativa \citep{bonsack2019performance, zhao2018systematically}, sin lograr determinar a un método con mayor desempeño. Tambien se han desarrollado \textit{surveys} sobre como los métodos computacionales pueden tener beneficios clínicos \citep{de2020neoantigen} y sus principales desafios \citep{chen2021challenges}. \\
 
