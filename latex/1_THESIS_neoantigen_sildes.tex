@@ -3,7 +3,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{helvet}
-
+\usepackage{lipsum}  
+\usepackage{graphicx,subfigure}
 %-------------------------------------------------------
 % INFORMATION IN THE TITLE PAGE
 %-------------------------------------------------------
@@ -12,7 +13,7 @@
 \subtitle[]{Tésis de doctorado}}
 \newcommand{\cscourseCode}{Matemáticas discretas II}
 \newcommand{\csauthor}{MSc. Vicente Machaca Arceda}
-\institute[UNSA]{Universidad de Ingeniería y Tecnología}
+\institute[UNSA]{Universidad Nacional de San Agustín}
 \newcommand{\csemail}{vmachaca@utec.edu.pe}
 \newcommand{\instituteabr}{UTEC}
 \newcommand{\nameUp}{}
@@ -157,27 +158,27 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Variantes y Mutaciones}{Tipos}
-	\begin{block}{}
-		\begin{itemize}
-			\item \textbf{\textit{Single-Nucleotide Variant} (SNV)}, cambios a menos de 10 bases.
-			\item \textbf{\textit{Structural Variation} (SV)}, cambios a mas de 10 bases, incluso pueden llegar a aumentar la cantidad de cromosomas.
-		\end{itemize}	
-	\end{block}
-\end{frame}
+%\begin{frame}{Variantes y Mutaciones}{Tipos}
+%	\begin{block}{}
+%		\begin{itemize}
+%			\item \textbf{\textit{Single-Nucleotide Variant} (SNV)}, cambios a menos de 10 bases.
+%			\item \textbf{\textit{Structural Variation} (SV)}, cambios a mas de 10 bases, incluso pueden llegar a aumentar la cantidad de cromosomas.
+%		\end{itemize}	
+%	\end{block}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Variantes y Mutaciones}{Ejemplo}
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{img/neoantigen/point_mutations_med.jpg}
-		\label{img:alig}
-		\caption{Overview of the Different Types of Point Mutations.}
-	\end{figure}
-\end{frame}
+%\begin{frame}{Variantes y Mutaciones}{Ejemplo}
+%	\begin{figure}[]
+%		\centering
+%		\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{img/neoantigen/point_mutations_med.jpg}
+%		\label{img:alig}
+%		\caption{Overview of the Different Types of Point Mutations.}
+%	\end{figure}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -222,25 +223,25 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Variaciones a nivel de cromosomas}{}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.6\textwidth]{img/neoantigen/chrom}
-		\caption{Los 46 cromosomas presentes en una célula.}
-	\end{figure}		
-\end{frame}
+%\begin{frame}{Variaciones a nivel de cromosomas}{}
+%	\begin{figure}
+%		\centering
+%		\includegraphics[width=0.6\textwidth]{img/neoantigen/chrom}
+%		\caption{Los 46 cromosomas presentes en una célula.}
+%	\end{figure}		
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Variaciones a nivel de cromosomas}{}
-	\begin{figure}
-		\centering
-		\includegraphics[width=\textwidth]{img/neoantigen/chrom3}
-		\caption{Cromosomas de una mujer con Cáncer de mama (1971).}
-	\end{figure}		
-\end{frame}
+%\begin{frame}{Variaciones a nivel de cromosomas}{}
+%	\begin{figure}
+%		\centering
+%		\includegraphics[width=\textwidth]{img/neoantigen/chrom3}
+%		\caption{Cromosomas de una mujer con Cáncer de mama (1971).}
+%	\end{figure}		
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -349,11 +350,13 @@
 \begin{frame}{Problema}{}
 	
 \begin{block}{}
-	Menos del 5\% de péptidos detectados en \textit{pMHC binding}, llegan a la membrana de la células, para que luego sean reconocidos por las células T (\textit{pMHC presentation}) \cite{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Además, propuestas recientes solo llegan aun 0.6 de \textit{presicion} y 0.4 de \textit{recall} \cite{mill2022neoms}. 
+	Menos del \textbf{5\% de péptidos} detectados en \textit{pMHC binding}, llegan a la membrana de la células.  Para \textit{peptide-MHC presentation}, propuestas recientes solo llegan a \textbf{0.6 de \textit{presicion} y 0.4 de \textit{recall}} \cite{mill2022neoms}. 
 \end{block}
+	
+
 
 \begin{block}{}
-	Dada como entrada dos secuencias de aminoacidos, representando a un péptido y a una molécula MHC, el objetivo es predecir su afinidad, como si fuera un problema de clasificación binaria.
+	En este contexto, la tesis se enfoca en el problema de \textit{pMHC presentation}, considerándolo como un problema de clasificación binaria, y tomando como entrada la secuencia de aminoácidos del péptido y la secuencia de aminoácidos de la proteína MHC. 
 \end{block}
 	
 \end{frame}
@@ -366,7 +369,7 @@
 %-------------------------------------------------------
 \begin{frame}{Objetivos}{Objetivo general}	
 	\begin{block}{Objetivo general}
-		Proponer un método basado en \textit{deep learning} para la detección de neo antígenos, enfocados en el problema de \textit{pMHC presentation}. 
+		Proponer un método basado en \textit{deep learning} para la detección de neo antígenos, enfocados en el problema de \textit{peptide-MHC presentation}.  
 	\end{block}	
 \end{frame}
 %-------------------------------------------------------
@@ -374,69 +377,339 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Objetivos}{}	
-	\begin{figure}
-		\includegraphics[width=0.97\textwidth]{img/neoantigen/pipeline_neoantigen}
+%\begin{frame}{Objetivos}{}	
+%	\begin{figure}
+%		\includegraphics[width=0.97\textwidth]{img/neoantigen/pipeline_neoantigen}
 		%\caption{Proceso de la detección de neo antígenos \cite{garcia2019determinants}.}
-	\end{figure}
-\end{frame}
+%	\end{figure}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Estado del arte}
+\section{Revisión Sistemática de la Literatura (RSL)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Metodología}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Metodología}
 
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Estado del arte}{\textit{Pipelines}}
-	\begin{table}[]
-		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-		{\renewcommand{\arraystretch}{1.4}% for the vertical padding
-			\begin{tabular}{lp{5cm}l}
-				\textbf{Año} & \textbf{Nombre} & \textbf{Referencia}  \\ \hline
-				2020  & ProGeo-neo     &\cite{li2020progeo}   \\
-				2020  & INeo-Epp     &\cite{wang2020ineo}   \\
-				2020  & pVACtools     &\cite{hundal2020pvactools}   \\
-				2019  & NeoPredPipe     &\cite{schenck2019neopredpipe}   \\
-				2019  & DeepHLApan     &\cite{wu2019deephlapan}   \\
-				2019  & ScanNeo     &\cite{wang2019scanneo}   \\     
-				2017  & CloudNeo     &\cite{bais2017cloudneo}   \\     
-				... & ... & ... \\              
-			\end{tabular}
-		}
+	\begin{table}[H]
+		\begin{center}
+			\caption{Cadenas de busqueda utilizadas en la RSL.}
+			\label{tab:key_words}
+			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+			{\renewcommand{\arraystretch}{1.4}% for the vertical padding
+				\begin{tabular}{p{10cm}}
+					\textbf{Cadena de busqueda} \\ \hline
+					neoantigen  AND (detection OR pipeline) AND deep learning                                                                               \\
+					(MHC OR HLA) AND binding  AND deep learning                                                                                             \\				
+					(MHC-I OR MHC-II OR MHC OR HLA) AND (peptide OR epitope) AND ( binding OR affinity OR prediction OR detection OR presentation)          \\
+					TCR interaction prediction                                                                                                              \\		
+				\end{tabular}
+			}
+		\end{center}
 	\end{table}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
+
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{\textit{Peptide-MHC binding}}
-	\begin{table}[]
-		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-		{\renewcommand{\arraystretch}{1.4}% for the vertical padding
-			\begin{tabular}{llp{4cm}l}
-				\textbf{Año} & \textbf{Nombre} & \textbf{Modelo} & \textbf{Referencia}  \\ \hline
-				2022  & AEM  & Transformer   &\cite{hashemi2022improved}   \\
-				2021  & \textbf{BERTMHC}  & Transformer   &\cite{cheng2021bertmhc}   \\
-				2021  & \textbf{APPM}  & 3 CNN   &\cite{hao2021improvement}   \\
-				2020  & NetMHCpan4.1  & ANN   &\cite{reynisson2020netmhcpan}   \\
-				2020  & MHCflurry2.0  & ANN   &\cite{o2020mhcflurry}   \\
-				2020  & MHCnuggets  & ANN   &\cite{shao2020high}   \\
-         	    2019  & PUFFIN  & ANN   &\cite{zeng2019quantification}   \\
-         	    ..  & ...  & ...   &...   \\	            
-			\end{tabular}
-		}
+\begin{frame}{RSL}{Metodología}
+	
+	\begin{table}[H]
+		\centering
+		\begin{center}
+			\caption{Bases de datos utilizadas en la RSL.}
+			\label{tab:bd_RSL}
+			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+			{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+				\begin{tabular}{p{3cm}}
+					\textbf{Bases de datos} \\ \hline
+					IEEE Xplore                                                                               \\
+					Science Direct \\				
+					Springer          \\
+					ACM Digital Library                                                                                                             \\	
+					PubMed \\ 
+					BioRxiv \\ 	
+				\end{tabular}
+			}
+		\end{center}
 	\end{table}
+
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Metodología}
+	
+\begin{table}[H]
+	\begin{center}
+		\caption{Criterios de inclusión y exclusión de artículos utilizados en la RSL.}
+		\label{tab:criterios}
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+			\begin{tabular}{p{5cm}p{5cm}}
+				\textbf{Criterios de inclusión}                                                   & \textbf{Criterios de exclusión}                                                           \\ \hline
+				Artículos con categoría ERA (A, B o C) si son conferencias y Journals Q1, Q2 o Q3. & Trabajos de baja calidad, que no esten rankeados.                                      \\
+				Sobre \textit{deep learning}                \\
+				La metodología es detallada.                                                                                                               &                                                                                                        \\
+				Tiene repositorio de código fuente y base de datos (deseable).                                          &                                                                                                        \\
+				                                                                                                       
+			\end{tabular}
+		}
+	\end{center}
+\end{table}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Metodología}
+	
+	\begin{table}[H]
+		\begin{center}
+			\caption{Cantidad de artículos encontrados y seleccionados según los criterios de inclusión y exclusión en la RSL.}
+			\label{tab:number_papers}
+			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+			{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+				\begin{tabular}{ccc}
+					\textbf{Año} & \textbf{Artículos encontrados} & \textbf{Artículos seleccionados}\\ \hline
+					2018 & 57 & 21 \\
+					2019 & 72 & 31 \\
+					2020 & 86 & 29 \\
+					2021 & 61 & 34 \\
+					2022 & 58 & 19 \\ \hline
+					Total & \textbf{334} & \textbf{134} \\
+				\end{tabular}
+			}
+		\end{center}
+	\end{table}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Resultados}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Convolutional Neural Networks}
+	
+	\fontsize{8pt}{5pt}\selectfont
+	
+	\begin{table}[]
+		\centering
+		\caption{List of research since 2018 that uses CNNs for peptide-MHC binding and presentation.}
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{2}% for the vertical padding
+			\begin{tabular}{p{0.6cm}p{0.6cm}p{1.5cm}p{2cm}p{0.6cm}p{2.7cm}}
+				\textbf{Year} & \textbf{Ref.}                              & \textbf{Approach}        & \textbf{Name} & \textbf{MHC} & \textbf{Encoding}                                                                                                                                                                                   \\ \hline
+				
+				2022 &	\cite{you2022deepmhcii}	& pMHC(b) &	DeepMHCII &	 II &	PFR \\
+				
+				2021          & \cite{li2021deepimmuno}   & pMHC(b)      & DeepImmuno    &  I        & AAindex1                                                \\
+				2021          & \cite{lang2021neofox}     & pMHC(p) & APPM          &  I        & One-hot                                                                          \\
+				2021          & \cite{lee2021connecting}  & pMHC(p) & MHCfovea      &  I        & One-hot                                                                                                      \\
+				2021          & \cite{junet2021cnn}       & pMHC(b)      & CNN-PepPred   &  II       & BLOSUM     \\
+				
+				2020          & \cite{pei2020iconmhc}     & pMHC(b)      & IConMHC       & I        & PCA and AAindex3        \\
+				2020          & \cite{saxena2020onionmhc} & pMHC(b)      & OnionMHC      & I        & BLOSUM and structural features                                                                  \\
+				2020          & \cite{ng3704016minerva}   & pMHC(p) & MINERVA       & I        & Physicochemical properties                                                           \\
+				2019          & \cite{zhao2019peptide}    & pMHC(b)      & CNN-NF        & I        & Sequence, Hydropathy, Polarity, Length                    \\
+				2019          & \cite{liu2019deepseqpan}  & pMHC(b)      & DeepSeqPan    & I        & One-hot                                          \\
+				2018          & \cite{han2018deep}        & pMHC(b)      & ConvMHC       & I        & Contact side HLA.peptide                                                                                 
+			\end{tabular}
+		}
+		\end{table}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Convolutional Neural Networks}
+	
+	\fontsize{8pt}{5pt}\selectfont
+	
+	\begin{table}[]
+		\centering
+		\caption{List of research since 2018 that uses CNNs s with RNN or attention mechanisms for peptide-MHC binding and presentation. MHCherryPan uses CNN with RNN, the other uses CNN witn Attention mechanims.}		
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{2}% for the vertical padding
+			\begin{tabular}{p{0.6cm}p{0.6cm}p{1.5cm}p{2cm}p{0.6cm}p{2.7cm}}
+			\textbf{Year} & \textbf{Ref.}                              & \textbf{Approach}   & \textbf{Name}    & \textbf{MHC} & \textbf{Encoding}                                           \\ \hline
+			2021          & \cite{yang2021deepnetbim} & pMHC(b) & DeepNetBim       & I        & BLOSUM              \\
+			
+			2021          & \cite{jin2021deep}        & pMHC(b) & Deep Attention Pan & I        & BLOSUM                    \\
+			
+			2019          & \cite{hu2019acme}         & pMHC(b) & ACME             & I        & BLOSUM      \\
+			
+			2020          & \cite{xie2020mhcherrypan} & pMHC(b) & MHCherryPan      & I        & BLOSUM          
+		\end{tabular}
+		}
+	\end{table}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Recurrent Neural Networks}
+	
+	\fontsize{8pt}{5pt}\selectfont
+	
+	\begin{table}[]
+		\centering
+		\caption{List of research since 2018 that uses RNNs for peptide-MHC binding and presentation. MATHLA, DeepSeqPanII and DeepHLApan uses RNN with attention mechanims, meanwhile the other focus on GRU and LSTM.}		
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{2}% for the vertical padding
+			\begin{tabular}{p{0.6cm}p{0.6cm}p{1.5cm}p{2cm}p{0.6cm}p{2.7cm}}
+				\textbf{Year} & \textbf{Ref.}                               & \textbf{Approach}   & \textbf{Name} & \textbf{MHC} & \textbf{Encoding}                                                                                                                                                                                                                         \\ \hline
+				2021          & \cite{ye2021mathla}        & pMHC(b) & MATHLA        & I        & BLOSUM                      \\
+				
+				2021          & \cite{liu2021deepseqpanii} & pMHC(b)                     & DeepSeqPanII                      & II       & One-hot  and BLOSUM                                                    \\
+				
+				2021          & \cite{heng2021simple}      & pMHC(b)                     & GRU-based RNN                     & II       & Embeding layer                                                        \\
+				
+				2021          & \cite{jiang2021predicting} & pMHC(b)                     & BVLSTM-MHC                        & I        & One-hot  and BLOSUM                                                                        \\
+				
+				2020          & \cite{shao2020high}        & pMHC(b)                     & MHCnuggets                        & I, II & One-hot                \\
+				
+				2019          & \cite{wu2019deephlapan}    & pMHC(b)                     & DeepHLApan                        & I        & One-hot                     
+			\end{tabular}
+		}
+	\end{table}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Transformers}
+	
+	\fontsize{8pt}{5pt}\selectfont
+	
+	\begin{table}[]
+		\centering
+		\caption{List of research since 2018 that uses Transformers (self-attention) for peptide-MHC binding and presentation.}		
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{2}% for the vertical padding
+			\begin{tabular}{p{0.6cm}p{0.6cm}p{1.5cm}p{2cm}p{0.6cm}p{2.7cm}}
+				\textbf{Year} & \textbf{Ref.}                                  & \textbf{Approach}        & \textbf{Name} & \textbf{MHC} & \textbf{Encoding}                                                                                                                                                                                                         \\ \hline
+				2022          & \cite{wang2022mhcroberta}     & pMHC(b)      & MHCRoBERTa    & I        & Tokenized from a pre-trained model               \\
+				2022          & \cite{chu2022transformer}     & pMHC(b)      & TransPHLA     & I        & Character embedding model           \\
+				2021          & \cite{cheng2021bertmhc}       & pMHC(b)      & BERTMHC       & II       & Embeding layer                           \\
+				2021          & \cite{gasser2021interpreting} & pMHC(p) & ImmunoBERT    & I        & Embeding layer             
+			\end{tabular}
+		}
+	\end{table}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Bases de datos}
+	
+	\fontsize{7pt}{5pt}\selectfont
+	
+	\begin{table}[]
+		\centering
+		\caption{Public databases of \textit{pMHC binding}, \textit{pMHC presentation}, pMHC-TCR interaction, and 3D structures of proteins.}		
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{2}% for the vertical padding
+			\begin{tabular}{p{1.7cm}p{1.2cm}p{6.5cm}}
+				\textbf{Name} & \textbf{Year ref.}                                                                & \textbf{Description}                                                                                                                                                                                      \\ \hline
+				VDJdb           & 2018 \cite{shugay2018vdjdb}& TCR binding to pMHC, contains 5491 samples.                                                                                                                                           \\
+				IEDB            & 2018 \cite{vita2019immune}                                           & The bigger database, contains information \textit{T-cell epitopes}                                                                                               \\
+				TSNAdb          & 2018 \cite{wu2018tsnadb}                                             & It contains 7748 samples of mutations and HLA of 16 types of cancer.                                                                                                                           \\
+				NeoPeptide      & 2019 \cite{zhou2019neopeptide}                                       & It contains samples of neoantigens resulting from somatic mutations and related items. 1818137 epitopes of more than 36000 neoantigens.
+				\\
+				pHLA3D          & 2019 \cite{e2019phla3d}                                              &
+				Presents 106 3D structures of the alpha, $beta 2M$ chains, and peptides of HLA-I molecules                                                                                                            \\
+				dbPepNeo        & 2020 \cite{tan2020dbpepneo}                                          & It has validated samples of the \textit{peptide-MHC} bond, from MS. It contains 407794 low-quality samples, 247 medium-quality, and 295 high-quality samples.
+				\\
+				dbPepNeo2.0    & 2022 \cite{lu2022dbpepneo2}                                          &
+				It gathers a list of neoantigens and HLA molecules. It presents 801 high-quality and 842,289 poor-quality HLAs. Also, 55 class II neoantigens and 630 TCR-bound neo antigens.
+				\\
+				IntroSpect      & 2022 \cite{zhang2022introspect}                                      & Tool for building databases on \textit{peptide-MHC binding}. It uses data from \textit{Mass Spectrometry}.   \\
+				
+				IPD-IMGT/HLA & 2022 \cite{robinson2020ipd}    &    With 25000 MHC molecules and 45 alleles.                                                                
+			\end{tabular}
+		}
+	\end{table}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{RSL}{Pipelines}
+	
+	\fontsize{7pt}{5pt}\selectfont
+	
+	\begin{table}[]
+		\centering
+		\caption{List of \textit{pipelines} since 2018 for the detection of neoantigens.}		
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{2}% for the vertical padding
+			\begin{tabular}{lp{1.2cm}p{2.5cm}p{2.5cm}}
+				\textbf{Name} & \textbf{Year ref.}                                  & \textbf{Input}                                         & \textbf{Output}                                     \\ \hline
+				Neopepsee       & 2018 \cite{kim2018neopepsee}           & RNA-seq, somatic mutations (VCF), HLA type (optional) & Neoantigens and gene expression levels   \\ 
+				PGV Pipeline    & 2018 \cite{rubinsteyn2018computational}& DNA-seq                                                  & Neoantigens                                       \\
+				ScanNeo         & 2019 \cite{wang2019scanneo}            & RNA-seq                                                  & Neoantigens                                       \\
+				NeoPredPipe     & 2019 \cite{schenck2019neopredpipe}     & Mutations (VCF) y HLA type                           & Neoantigens and variant annotation              \\
+				pVACtools       & 2020 \cite{hundal2020pvactools}        & Mutations (VCF)                                         & Neoantigens                                       \\
+				ProGeo-neo      & 2020 \cite{li2020progeo}               & RNA-seq y somatic mutations (VCF)                        & Neoantigens                                       \\
+				Neoepiscope     & 2020 \cite{wood2020neoepiscope}        & Somatic mutations (VCF) and BAM files                  & Neoantigens and mutations                          \\
+				NeoANT-HILL     & 2020 \cite{coelho2020neoant}           & RNA-seq y somatic mutations (VCF)                        & Neoantigens and gene expression levels \\
+				NAP-CNB         & 2021 \cite{wert2021predicting}         & RNA-seq                                                  & Neoantigens                                       \\
+				
+				PEPPRMINT         & 2021 \cite{zhou2021prioritizing}         & DNA-seq                                                  & Neoantigens                                        \\
+				
+				Valid-NEO       & 2022 \cite{terai2022valid}             & Somatic mutations (VCF), HLA type (optional)          & Neoantigens                                       
+			\end{tabular}
+		}
+	\end{table}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -450,14 +723,16 @@
 %-------------------------------------------------------
 \begin{frame}{Propuesta}{}
 
-		La propuesta se basa el los modelos BERTMHC \cite{cheng2021bertmhc} y APPM \cite{hao2021improvement}.
+		La propuesta se basa el los modelos BERTMHC \cite{cheng2021bertmhc} y APPM \cite{hao2021improvement}. Tambien, se utilizará \textit{transfer learning} de ESM-1b \cite{rives2021biological}, esta red neuronal fue entrenada con 250 millones de proteínas a diferencia de TAPE (utilizada por BERTMHC), que fue entrenada con 30 milllones de proteínas. 
 		
 
 
 	\vspace{0.5cm}
-	\begin{figure}
-		\includegraphics[width=0.97\textwidth]{img/neoantigen/proposal2}
-		\caption{Modelo propuesto para la predicción del enlace péptido y MHC.}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{img/neoantigen/proposal}	
+		\caption{Proceso general utilizado para la detección de neo antígenos a partir de secuencias de DNA. Fuente: \cite{gopanenko2020main}.}
+		\label{fig:neo_det_seq}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -496,7 +771,7 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Base de datos}{}
+\begin{frame}{MHC alleles utilizados}{}
 	\begin{table}[h]
 		\centering
 		\caption{Cantidad de muestras por tipo de \textit{allele}.}
@@ -549,25 +824,23 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Resultados}{}
-	\begin{table}[h]
+	\begin{figure}[H]
 		\centering
-		\caption{AUC entre la propuesta, BERTMHC, NetMHCpan3.2, PUFFIN y MHCnuggets.}
-		\setlength{\tabcolsep}{0.8em} % for the horizontal padding
-		{\renewcommand{\arraystretch}{1.3}% for the vertical padding
-			\begin{tabular}{lc}
-				\hline
-				\textbf{Modelo} & \textbf{AUC} \\ \hline
-				Propuesta & 0.72\\
-				BERTMHC & 0.72\\
-				NetMHCpan3 & 0.68\\
-				PUFFIN & 0.69\\
-				MHCnuggets & 0.58\\
-			\end{tabular}
-		}
-	\end{table}
+		\subfigure[A*01:01]{\label{fig:a}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A0203}}
+		\subfigure[A*02:01]{\label{fig:b}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A0201}}
+		\subfigure[A*02:03]{\label{fig:a}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A0101}}
+		\subfigure[A*31:01]{\label{fig:b}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A3101}}
+		%\subfigure[B*44:02]{\label{fig:a}\includegraphics[width=0.4\textwidth]{img/neoantigen/acc_B4402}}
+		%\subfigure[B*44:03]{\label{fig:b}\includegraphics[width=0.4\textwidth]{img/neoantigen/acc_B4403}}		
+		
+		\caption{\textit{Accuracy} durante cada \textit{epoch}, para cada base de datos. Las bases de datos representan las células HLA A*01:01, A*02:01, A*02:03, A*31:01.}
+		\label{fig:result}
+	\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -580,21 +853,15 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Conclusiones}{}
-	\begin{block}{}
-		En esta investigación se propuso el uso de un modelo \textit{transformer} ya entrenado con una base de datos de 30 millones de proteínas. Luego, esta red fue conectada de forma paralela con una red CNN.
-	\end{block}
 	
 	\begin{block}{}
-		El uso de \textit{transfer learning} es una buena opción para suplir la falta de muestras en ciertos problemas y reducir el tiempo de entrenamiento.		
+		Se ha desarrollado una RSL, sobre los métodos de detección de neoantígenos utilizando \textit{deep learning}. Esto ha logrado identificar las tendencias, retos y problemas del tema de interes.
 	\end{block}
 
 	\begin{block}{}
-		La propuesta llego a mejorar los mejores métodos de detección de afinidad entre un péptido y una proteína MHC-II. Como trabajo futuro, se planteará la misma propuesta para proteínas MHC-I.	
+		Se ha realizado experimentos preliminares, sobre el uso de CNNs para el problema de peptide-MHC presentation. Se ha utilizado muestras de MS con un enfoque \textit{single allele} (se entrena varios modelos para cada tipo de MHC). 
 	\end{block}
 
-	\begin{block}{}
-		Predecir la afinidad entre un péptido y una proteína MHC, es uno de los paso mas importantes par calificar al péptido como un neo antígeno, capaz de generar una respuesta inmunitaría.
-	\end{block}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------

@@ -118,7 +118,212 @@ Del total de artículos encontrados (342), se seleccionó un subconjunto basado 
  El proceso para la detección de neo antígenos, es complejo, y generalmente consiste en: (1) extracción del tejido tumoral y secuenciamiento, (2) identificación de mutaciones, (3) detección de péptidos como resultado de alineamiento con muestras sanas, (4) predicción de \textit{peptide-MHC binding (pMHC)}, (5) predicción de \textit{pMHC presentation} y (6) predicción del enlace pMHC-TCR \citep{de2020neoantigen, peng2019neoantigen}. De este proceso, la mayoría de investigaciones se centra en el problema de \textit{peptide-MHC binding}, \textit{peptide-MHC presentation} y predicción del enlace pMHC-TCR. Entonces, se va a reportar los trabajos relacionados según esta clasificación. Tambien, se van a incluir en otra clasificación, los pipelines que integran varias herramientas para todo el proceso de detección de neo antígenos; Investigaciones que presentan bases de datos; y finalmente \textit{reviews} relacionados a la tesis.
 
 
+
+Neoantigen detection is an extensive process, and it can be divided into three phases or approaches. For example, in Figure \ref{fig:approaches}, we show these three phases:  first, from DNA-seq or RNA-seq as inputs, there are tools to elude possible peptides; second, it is necessary to determine which peptides bind to MHC (pMHC); finally, some works study the interaction between pMHC and TCR. The first stage (eluted peptides), depends on several tools and is almost resolved, so the current research article on neoantigen detection focus on pMHC binding and pMHC-TCR interaction. In this context, in this review, we focus only on deep learning techniques used in pMHC binding and pMHC-TCR interaction.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=8cm]{img/approaches} 
+	\caption{The three phases and approaches that researches focus in the problem of neoantigen detection.}
+	\label{fig:approaches}
+\end{figure}
+
+
+\subsection{Peptide-MHC (pMHC) binding and presentation}
+
+Not all peptides eluted from tumor mutations are neoantigens; it depends on which peptides could bind to MHC. So, several works focus on peptide-MHC binding (pMHC). Moreover, there are three types of MHC: MHC class I, class II and class III. In human cells, they are named Human Leukocyte Antigen (HLA); for MHC class I, we have HLA-A, HLA-B, and HLA-C; and for MHC class II, HLA-DR, HLA-DQ, and HLA-DP \cite{neefjes2011towards}. \\
+
+Most works focus in pMHC class I, because there is a lot of data, and the problem is not too complicated. The pMHC class I, represent a problem where a 9-mer peptide could bind to a MHC class I. In the other hand, the prediction of peptide MHC class II binding is challenging because the peptides are larger (normally 15-mer) and it binds to two amino acid chains in MHC class II.\\
+
+The prediction of peptide-MHC binding usually refers to when a peptide bind to the MHC inside a nucleic cell. However, peptide-MHC presentation refers to the peptides that are presented by MHC in the membrane of cells. For instance, the process for peptide MHC binding and presentation is: first, antigens are degraded by the proteasome; then, the resulting peptides are translocated via a transporter associated with antigen presentation (TAP) into the endoplasmic reticulum (ER) and loaded onto MHC (peptide MHC binding); then, peptide–MHC class I complexes are released from the ER and transported via the Golgi to the plasma membrane (peptide MHC presentation); finally, the peptide-MHC is presented to TCR \cite{neefjes2011towards} (see Figure \ref{fig:mhc1_}). So, peptide-MHC binding (pMHC) and peptide-MHC presentation are two problems because not all pMHC are presented in the membrane \cite{mill2022neoms, de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. \\
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.4\textwidth]{img/neoantigen/mhc1.jpg}
+	\caption{Peptide presentation by MHC class I. Source: \cite{zhang2019application}}
+	\label{fig:mhc1_}
+\end{figure}
+
+In this section, we analyzed all research that used deep learning techniques for peptide-MHC binding and peptide-MHC presentation. Moreover, we divided the deep learning techniques in Convolutional Neural Networks (CNN), Recurrent Neural Networks (RNN), Transformers, and classic machine learning methods.\\
+
+\subsubsection{CNN}
+
+Convolutional Neural Networks (CNN) have been used in a range of different fields like computer vision, speech recognition, face recognition, object detection, etc. \cite{alzubaidi2021review}. Moreover, CNNs, are helpful because they notably reduce the number of parameters and enhance generalization. CNNs are regularly used in computer vision because they extract local spatial features and combine them with higher-order features \cite{marais2020leveraging}.\\
+
+Several works apply CNNs for peptide-MHC binding and presentation. They differ in how they compute the inputs (amino acid sequences). Typically, they use one-hot encoding or BLOSUM to vectorize each amino acid, then join each vector and build a matrix that could be managed like an image. In Table \ref{tab:cnn1}, we present a list of the most recent works that use CNNs for neoantigen detection; we include the method used for encoding amino acids, what type of MHC class they focus and a link to the repository and database used for the experiments. Also, we distinguish if the research is used for pMHC binding or pMHC presentation. \\
+
+
+
+\begin{table}[]
+	\caption{List of research since 2018 that uses CNNs for peptide-MHC binding and presentation.}
+	\label{tab:cnn1}
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+		
+		\begin{tabular}{p{1.3cm}p{1.6cm}p{2cm}p{1.6cm}p{1.9cm}p{4cm}}
+			\textbf{Ref.}                              & \textbf{Approach}        & \textbf{Name} & \textbf{MHC class} & \textbf{Encoding}                                   & \textbf{Description}                                                                                                                                                                                  \\ \hline
+			
+				\cite{you2022deepmhcii}	& peptide-MHC binding &	DeepMHCII &	MHC class-II &	Binding core and Peptides Flanking Regions (PFR), sequences and interactions between a peptide and an MHC-II molecule	& Uses a Binding Interaction Convolutional Layer (BICL) in order to get the representation of the interaction between peptides and MHC-II. \\
+			
+			 \cite{li2021deepimmuno}   & peptide-MHC binding      & DeepImmuno    & MHC class-I        & AAindex1 database                                   & The authors evaluated several machine learning methods, CNN got the best restults.            \\
+			           \cite{lang2021neofox}     & peptide-MHC presentation & APPM          & MHC class-I        & One-hot encoding                                    & Three parallel CNN with MS data.                                       \\
+			           \cite{lee2021connecting}  & peptide-MHC presentation & MHCfovea      & MHC class-I        & One-hot encoding                                    & Clusters N-terminal and C-terminal sub-motifs on observed and unobserved alleles, then MHCfovea calculated the hyper-motifs in order to disclose the relation between binding motifs and MHC-I                                                                        \\
+			           \cite{junet2021cnn}       & peptide-MHC binding      & CNN-PepPred   & MHC class-II       & BLOSUM                                              & CNN is used to know motifs in peptide-MHC complexes.     \\
+			           \cite{pei2020iconmhc}     & peptide-MHC binding      & IConMHC       & MHC class-I        & PCA of Aminoacid interaction from AAindex3 database & Learns from physical and chemical interaction properties between pairwise amino acids from the two molecules.                \\
+			          \cite{saxena2020onionmhc} & peptide-MHC binding      & OnionMHC      & MHC class-I        & BLOSUM and structural features                      & Utilized complex structure and the peptide sequence features to predict the binding affinity of peptides to HLA-A*02:01                   -                                                                              \\
+			           \cite{ng3704016minerva}   & peptide-MHC presentation & MINERVA       & MHC class-I        & physicochemical properties                          & The model learned the determinants of peptideMHC presentation, then they utilized these features to understand the impact of mutations on neoantigen presentation.                                                               \\
+			           \cite{zhao2019peptide}    & peptide-MHC binding      & CNN-NF        & MHC class-I        & Sequence, Hydropathy index, Polarity, Length        & The authors used a novel set of features based on chemical properties. Moreover, they trained 193 models for each MHC.                                    \\
+			           \cite{liu2019deepseqpan}  & peptide-MHC binding      & DeepSeqPan    & MHC class-I        & One-hot encoding                                    & The author comment that their model is universal and can be adapted to similar problems.                                  \\
+			           \cite{han2018deep}        & peptide-MHC binding      & ConvMHC       & MHC class-I        & Contact side HLA.peptide                            & A novel image-like array (ILA) is presented to encode peptide sequences.                              
+		\end{tabular}
+	}
+\end{table}
+
+
+
+Furthermore, CNNs could be used with RNNs to improve generalization, or even we could include attention mechanisms. In this context, in Table \ref{tab:cnn1}, we present a list of works that used modified CNNs architectures. For instance, the first three rows detail the proposals with CNNs and attention mechanisms: DeepNetBim \cite{yang2021deepnetbim}, DeepAttentionPan \cite{jin2021deep} and ACME \cite{hu2019acme}. Then, in the last row, we describes MHCherryPan \cite{xie2020mhcherrypan}, which combines CNNs and RNNs.\\
+
+\begin{table}[]
+	\caption{List of research since 2018 that uses CNNs s with RNN or attention mechanisms for peptide-MHC binding and presentation.}
+	\label{tab:cnn2}
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+		
+		\begin{tabular}{p{1.3cm}p{1.6cm}p{2cm}p{1.6cm}p{1.9cm}p{4cm}}
+			\textbf{Ref.}                              & \textbf{Approach}   & \textbf{Name}    & \textbf{MHC class} & \textbf{Encoding} & \textbf{Description}                                            \\ \hline
+			         \cite{yang2021deepnetbim} & peptide-MHC binding & DeepNetBim       & MHC class-I        & BLOSUM            & Stands for binding and immunogenecity prediction with a CNN and an attention mechanism to make the final prediction. Encode data using BLOSUM50         \\
+			
+			           \cite{jin2021deep}        & peptide-MHC binding & Deep Attention Pan & MHC class-I        & BLOSUM            & Uses CNN with a attention mechanism and uses 20 trained netowrks to stabilize prediction performance. Morover, they used BLOSUM62 to encode input data.            \\
+			
+			           \cite{hu2019acme}         & peptide-MHC binding & ACME             & MHC class-I        & BLOSUM     & They used CNN with attention mechanism to extract interpretable binding patterns. For instance, this module assigned  weights to the feature vectors (residue positions) and then computed their weighted average to facilitate prediction Moreover, each amino acid is decoded using BLOSUM50.  \\
+			
+			           \cite{xie2020mhcherrypan} & peptide-MHC binding & MHCherryPan      & MHC class-I        & BLOSUM            & Combines CNN and RNN in order to deal with any length peptide sequences. it can be used in RNA-protein, DNA-protein, and RNA-DNA binding prediction.      
+		\end{tabular}
+	}
+\end{table}
+
+
+\subsubsection{RNN}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Falta describir un pcoo de la historia de las RNN
+
+In Table \ref{tab:rnn1}, we present a list of most recent works that uses RNNs for peptide-MHC binding and presentation prediction. For instance, in this case there works that used RNN with attentions mechanisms: MATHLA \cite{ye2021mathla}, DeepSeqPanII \cite{liu2021deepseqpanii} and DeepHLApan \cite{wu2019deephlapan}. There is also a works that uses standalone RNN, like a GRU model \cite{heng2021simple}, MHCnuggets which used a LSTM, and BVLSTM-MHC which used a  bilateral and variable long short-term memory (BVLSTM).  \\
+
+
+\begin{table}[]
+	\caption{List of research since 2018 that uses RNNs for peptide-MHC binding and presentation.}
+	\label{tab:rnn1}
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+		
+		\begin{tabular}{p{1.3cm}p{1.6cm}p{2cm}p{1.6cm}p{1.9cm}p{4cm}}
+		\textbf{Ref.}                               & \textbf{Approach}   & \textbf{Name} & \textbf{MHC class} & \textbf{Encoding}           & \textbf{Description}                                                                                                                                                                                                                       \\
+			          \cite{ye2021mathla}        & peptide-MHC binding & MATHLA        & MHC class-I        & BLOSUM                      & Integrates bi-directional long short-term memory network and multiple head attention mechanism. The model got good results for large ligand sequecences (11 to 15 amino acids)                    \\
+			
+			           \cite{liu2021deepseqpanii} & peptide-MHC binding                     & DeepSeqPanII                      & MHC class-II       & One-hot encoding and BLOSUM & It is a LSTM with attention mechanism, it have three parts:  sequence encoders, binding context extractor, and affinity predictor.                                                        \\
+			
+			           \cite{heng2021simple}      & peptide-MHC binding                     & GRU-based RNN                     & MHC class-II       & Embeding layer              & The autors uses a GRU model and present represent each sequence using an embeding layer which outputs 128 dim vectors.                                                                  \\
+			
+			           \cite{jiang2021predicting} & peptide-MHC binding                     & BVLSTM-MHC                        & MHC class-I        & One-hot encoding and BLOSUM & Review of current methods for predecting peptide-MHC-I binding problem. Moreover, the autors developed a bilateral and variable long short-term memory (BVLSTM).                                                                       \\
+			
+			           \cite{shao2020high}        & peptide-MHC binding                     & MHCnuggets                        & MHC class-I and II & Onehot encoding             & It uses a a long short-term memory (LSTM) model. Aditionally, the autors processed 26.3 million allele-peptide comparisons yielding 101,326 unique predicted immunogenic missense mutations (IMM)  \\
+			
+			           \cite{wu2019deephlapan}    & peptide-MHC binding                     & DeepHLApan                        & MHC class-I        & Onehot encoding             & Uses a Bidirectional Gated Recurrent Unit (BiGRO) with attention mechanism. The model got good results on unseen HLA alleles.                                       
+		\end{tabular}
+	}
+\end{table}
+
+\subsubsection{Transformers}
+
+Tue attention mechanism was first proposed by Bahdanau in 2014 \cite{bahdanau2014neural}, in order to resolve the bottleneck problem using a fixed-length encoding vector. With this new approach, the authors got comparable state-of-art results for English to French translation. Then, this attention mechanism is used for natural language inference \cite{parikh2016decomposable}, and a structured attention networks is proposed \cite{kim2017structured}. Nevertheless, these attentions modules are commonly used in conjunction with a recurrent network. Then, in 2017, the paper: ``Attention Is Al You Need'' \cite{vaswani2017attention}, proposed a new network architecture (Transformer) base solely on attention mechanisms. \\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% aqui falta una descripcion de como trabaja las redes tranformer.
+
+
+In Table \ref{tab:transformes}, we present a list of four works that recently used a transformer network in peptide-MHC binding and presentation. The majority of them uses a BERT architecture \cite{devlin2018bert}, which stands for a bidirectional transformer for language representation. For instance, we have 
+
+\begin{table}[]
+	\caption{List of research since 2018 that uses Transformers (self-attention) for peptide-MHC binding and presentation.}
+	\label{tab:transformes}
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+		
+		\begin{tabular}{p{1.3cm}p{1.6cm}p{2cm}p{1.6cm}p{1.9cm}p{4cm}}
+			 \textbf{Ref.}                                  & \textbf{Approach}        & \textbf{Name} & \textbf{MHC class} & \textbf{Encoding}                  & \textbf{Description}                                                                                                                                                                                              \\
+			           \cite{wang2022mhcroberta}     & peptide-MHC binding      & MHCRoBERTa    & MHC class-I        & Tokenized from a pre-trained model & The problem is resolve like a NLP approach. Moreover, they used transfer learning. This work outperformed NetMHCPan 3.0.                                                                                          \\
+			           \cite{chu2022transformer}     & peptide-MHC binding      & TransPHLA     & MHC class-I        & Character embedding model          & The autors used a character embedding model to vectorize each amino acid. They used self-attention mechanism based in four blocks: the embedding block, encoder block, feature optimization block, encoder block. \\
+			           \cite{cheng2021bertmhc}       & peptide-MHC binding      & BERTMHC       & MHC class-II       & Embeding layer                     & The autors used the pre-trained model TAPE to embed each aminoacid into a 768-dimensional vector. The self-attention mechanism learns the interaction of all possible amino acid pairs in the input sequence      \\
+			           \cite{gasser2021interpreting} & peptide-MHC presentation & ImmunoBERT    & MHC class-I        & Embeding layer                     & They used TAPE as the embedding layer. Also, The autors used SHAP and LIME to analize the results and they concluded that N- and C-terminals are highly relevant.                                                
+		\end{tabular}
+	}
+\end{table}
+
+
+\subsection{\textit{Pipelines}}
+
+Debido a la complejidad del proceso y la gran cantidad de métodos desarrollados, se ha desarrollado software y \textit{pipelines} que pretenden facilitar el uso de estas herramientas. Entre los \textit{pipelines} más conocidas antes del 2018 tenemos: Somaticseq \citep{fang2015ensemble}, CloudNeo \citep{bais2017cloudneo}, MuPeXI \citep{bjerregaard2017mupexi}, NeoepitopePred \citep{tran2015immunogenicity}, y NeoFuse \citep{gros2016prospective}. Estas herramientas en su mayoría toman como entrada archivos Variant Calling Files (VCF) y archivos de alineamiento BAM, para la detección de mutaciones (inserciones, eliminaciones y fusión de genes) y posibles neo antígenos. Luego, también hemos detallado, un conjunto de herramientas a partir del 2018, en la Tabla \ref{tab:review_pipelines}.
+
+
+
+
+\begin{table}[H]
+	\caption{Listado de \textit{pipelines} desde el 2018, para la detección de neo antígenos.}
+	\label{tab:review_pipelines}
+	\begin{tabular}{lp{2.5cm}p{4cm}p{4cm}}
+		\textbf{Nombre} & \textbf{Autor-año}                                  & \textbf{Entrada}                                         & \textbf{Salida}                                     \\ \hline
+		Neopepsee       & \cite{kim2018neopepsee}           & RNA-seq, somatic mutations (VCF), tipo de HLA (opcional) & Neo antígenos y niveles de expresión de los genes   \\
+		PGV Pipeline    & \cite{rubinsteyn2018computational}& DNA-seq                                                  & Neo antígenos                                       \\
+		ScanNeo         & \cite{wang2019scanneo}            & RNA-seq                                                  & Neo antígenos                                       \\
+		NeoPredPipe     & \cite{schenck2019neopredpipe}     & Mutaciones (VCF) y tipo de HLA                           & Neo antígenos y anotación de variantes              \\
+		pVACtools       & \cite{hundal2020pvactools}        & Mutaciones (VCF)                                         & Neo antígenos                                       \\
+		ProGeo-neo      & \cite{li2020progeo}               & RNA-seq y somatic mutations (VCF)                        & Neo antígenos                                       \\
+		neoepiscope     & \cite{wood2020neoepiscope}        & Somatic mutations (VCF) y archivos BAM                   & Neo antígenos y mutaciones                          \\
+		neoANT-HILL     & \cite{coelho2020neoant}           & RNA-seq y somatic mutations (VCF)                        & Neo antígenos,  y niveles de expresión de los genes \\
+		NAP-CNB         & \cite{wert2021predicting}         & RNA-seq                                                  & Neo antígenos                                       \\
+		Valid-NEO       & \cite{terai2022valid}             & Somatic mutations (VCF), tipo de HLA (opcional)          & Neo antígenos                                      
+	\end{tabular}
+\end{table}
+
+
+\subsection{\textit{Bases de datos}}
+
+En la Tabla \ref{tab:bd}, presentamos una lista de bases de datos públicas. Estas bases de datos se centran en la interacción \textit{peptide-MHC} \citep{wu2018tsnadb, zhou2019neopeptide, tan2020dbpepneo, lu2022dbpepneo2} y pMHC con TCR \citep{shugay2018vdjdb, bagaev2020vdjdb}. También, hay un trabajo que presenta las estructuras 3D de las péptidos y HLA abriendo una nueva rama de investigación desde otro enfoque. Finalmente, la base de datos por excelencia IEDB \citep{vita2019immune}.
+
+
+
+\begin{table}[H]
+	\caption{Bases de datos públicas de \textit{pMHC binding}, \textit{pMHC presentation}, interacción pMHC-TCR y estructuras 3D de proteínas.}
+	\label{tab:bd}
+	\begin{tabular}{lp{3cm}p{8cm}}
+		\textbf{Nombre} & \textbf{Autor-año}                                                                & \textbf{Descripción}                                                                                                                                                                                      \\ \hline
+		VDJdb           & \cite{shugay2018vdjdb} y \cite{bagaev2020vdjdb}& Base de datos del enlace TCR con pMHC, cuenta con 5491 muestras                                                                                                                                           \\
+		IEDB            & \cite{vita2019immune}                                           & La base de datos mas grande, contiene información \textit{T-cell epitopes} de humanos y otros organismos.                                                                                                          \\
+		TSNAdb          & \cite{wu2018tsnadb}                                             & Contiene 7748 muestras de mutaciones y HLA de 16 tipos de Cáncer.                                                                                                                                         \\
+		NeoPeptide      & \cite{zhou2019neopeptide}                                       & Contiene muestras de neo antígenos, resultado de mutaciones somáticas y artículos relacionados. Contiene 1818137 epitopes de ms de 36000 neo antígenos.                                                   \\
+		pHLA3D          & \cite{e2019phla3d}                                              & Presenta 106 estructuras 3D de las cadenas alpha, $\beta_2M$ y peptidos de las moléculas HLA-I                                                                                                               \\
+		dbPepNeo        & \cite{tan2020dbpepneo}                                          & Tiene muestras validadas del enlace \textit{peptide-MHC}, a partir de MS. Contiene 407794 muestras de baja calidad, 247 de mediana calidad y 295 muestras de alta calidad.                                         \\
+		dbPepNeo2. 0    & \cite{lu2022dbpepneo2}                                          & Recolecta una lista de neo antígenos y moléculas HLA. Presenta 801 muestras de alta calidad y 842289  de mala calidad de HLAs. Tambien, 55 neo antígenos de clase II y 630 neo antígenos enlazados a TCR. \\
+		
+		IntroSpect      & \cite{zhang2022introspect}                                      & Herramienta para la construcción de bases de datos sobre \textit{peptide-MHC binding} . Utiliza datos de \textit{Mass Spectrometry}     \\
+		
+		IPD-IMGT/HLA & \cite{robinson2020ipd}    &             Tiene secuencias de moléculas MHC, 25000 alleles de 45 genes.                                                                                     
+	\end{tabular}
+\end{table}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \subsection{\textit{Reviews}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 La detección de neo antígenos es un problema interdisciplinar y esto ha originado  varios \textit{reviews} desde diferentes perspectivas. Entonces se ha planteado la siguiente clasificación: basados en \textit{Next-Generation Sequencing}, \textit{Mass Spectrometry}, interacción \textit{peptide-MHC}, basados en información estructural, enfocados en TCR, buenas prácticas y los enfocados en el proceso completo de generación de vacunas personalizadas.
 
@@ -312,93 +517,6 @@ Finalmente, se han desarrollado \textit{reviews} que detallan los principales de
 
 
 
-\subsection{\textit{Pipelines}}
-
-Debido a la complejidad del proceso y la gran cantidad de métodos desarrollados, se ha desarrollado software y \textit{pipelines} que pretenden facilitar el uso de estas herramientas. Entre los \textit{pipelines} más conocidas antes del 2018 tenemos: Somaticseq \citep{fang2015ensemble}, CloudNeo \citep{bais2017cloudneo}, MuPeXI \citep{bjerregaard2017mupexi}, NeoepitopePred \citep{tran2015immunogenicity}, y NeoFuse \citep{gros2016prospective}. Estas herramientas en su mayoría toman como entrada archivos Variant Calling Files (VCF) y archivos de alineamiento BAM, para la detección de mutaciones (inserciones, eliminaciones y fusión de genes) y posibles neo antígenos. Luego, también hemos detallado, un conjunto de herramientas a partir del 2018, en la Tabla \ref{tab:review_pipelines}.
-
-
-
-
-\begin{table}[H]
-	\caption{Listado de \textit{pipelines} desde el 2018, para la detección de neo antígenos.}
-	\label{tab:review_pipelines}
-	\begin{tabular}{lp{2.5cm}p{4cm}p{4cm}}
-		\textbf{Nombre} & \textbf{Autor-año}                                  & \textbf{Entrada}                                         & \textbf{Salida}                                     \\ \hline
-		Neopepsee       & \cite{kim2018neopepsee}           & RNA-seq, somatic mutations (VCF), tipo de HLA (opcional) & Neo antígenos y niveles de expresión de los genes   \\
-		PGV Pipeline    & \cite{rubinsteyn2018computational}& DNA-seq                                                  & Neo antígenos                                       \\
-		ScanNeo         & \cite{wang2019scanneo}            & RNA-seq                                                  & Neo antígenos                                       \\
-		NeoPredPipe     & \cite{schenck2019neopredpipe}     & Mutaciones (VCF) y tipo de HLA                           & Neo antígenos y anotación de variantes              \\
-		pVACtools       & \cite{hundal2020pvactools}        & Mutaciones (VCF)                                         & Neo antígenos                                       \\
-		ProGeo-neo      & \cite{li2020progeo}               & RNA-seq y somatic mutations (VCF)                        & Neo antígenos                                       \\
-		neoepiscope     & \cite{wood2020neoepiscope}        & Somatic mutations (VCF) y archivos BAM                   & Neo antígenos y mutaciones                          \\
-		neoANT-HILL     & \cite{coelho2020neoant}           & RNA-seq y somatic mutations (VCF)                        & Neo antígenos,  y niveles de expresión de los genes \\
-		NAP-CNB         & \cite{wert2021predicting}         & RNA-seq                                                  & Neo antígenos                                       \\
-		Valid-NEO       & \cite{terai2022valid}             & Somatic mutations (VCF), tipo de HLA (opcional)          & Neo antígenos                                      
-	\end{tabular}
-\end{table}
-
-
-\subsection{\textit{Bases de datos}}
-
-En la Tabla \ref{tab:bd}, presentamos una lista de bases de datos públicas. Estas bases de datos se centran en la interacción \textit{peptide-MHC} \citep{wu2018tsnadb, zhou2019neopeptide, tan2020dbpepneo, lu2022dbpepneo2} y pMHC con TCR \citep{shugay2018vdjdb, bagaev2020vdjdb}. También, hay un trabajo que presenta las estructuras 3D de las péptidos y HLA abriendo una nueva rama de investigación desde otro enfoque. Finalmente, la base de datos por excelencia IEDB \citep{vita2019immune}.
-
-
-
-\begin{table}[H]
-	\caption{Bases de datos públicas de \textit{pMHC binding}, \textit{pMHC presentation}, interacción pMHC-TCR y estructuras 3D de proteínas.}
-	\label{tab:bd}
-	\begin{tabular}{lp{3cm}p{8cm}}
-		\textbf{Nombre} & \textbf{Autor-año}                                                                & \textbf{Descripción}                                                                                                                                                                                      \\ \hline
-		VDJdb           & \cite{shugay2018vdjdb} y \cite{bagaev2020vdjdb}& Base de datos del enlace TCR con pMHC, cuenta con 5491 muestras                                                                                                                                           \\
-		IEDB            & \cite{vita2019immune}                                           & La base de datos mas grande, contiene información \textit{T-cell epitopes} de humanos y otros organismos.                                                                                                          \\
-		TSNAdb          & \cite{wu2018tsnadb}                                             & Contiene 7748 muestras de mutaciones y HLA de 16 tipos de Cáncer.                                                                                                                                         \\
-		NeoPeptide      & \cite{zhou2019neopeptide}                                       & Contiene muestras de neo antígenos, resultado de mutaciones somáticas y artículos relacionados. Contiene 1818137 epitopes de ms de 36000 neo antígenos.                                                   \\
-		pHLA3D          & \cite{e2019phla3d}                                              & Presenta 106 estructuras 3D de las cadenas alpha, $\beta_2M$ y peptidos de las moléculas HLA-I                                                                                                               \\
-		dbPepNeo        & \cite{tan2020dbpepneo}                                          & Tiene muestras validadas del enlace \textit{peptide-MHC}, a partir de MS. Contiene 407794 muestras de baja calidad, 247 de mediana calidad y 295 muestras de alta calidad.                                         \\
-		dbPepNeo2. 0    & \cite{lu2022dbpepneo2}                                          & Recolecta una lista de neo antígenos y moléculas HLA. Presenta 801 muestras de alta calidad y 842289  de mala calidad de HLAs. Tambien, 55 neo antígenos de clase II y 630 neo antígenos enlazados a TCR. \\
-		IntroSpect      & \cite{zhang2022introspect}                                      & Herramienta para la construcción de bases de datos sobre \textit{peptide-MHC binding} . Utiliza datos de \textit{Mass Spectrometry}                                                                                         
-	\end{tabular}
-\end{table}
-
-
-\subsection{\textit{Peptide-MHC binding}}
-
-Existen herramientas de Software que se basan en la predicción del enlace entre las moléculas Major Histocompatibility Complex (MHC) y péptidos (posibles neo antígenos). La predicción de estos enlaces es importante para determinar qué péptidos pueden representar neo antígenos. Entre las principales propuestas que utilizan Regresión lineal y Redes Neuronales, tenemos: NetMHC4 \citep{stevanovic2017landscape}, NetMHCpan4 \citep{robbins2013mining}, PickPocket \citep{tran2014cancer}, NetMHCcons \citep{castle2012exploiting}, NetMHCIIpan \citep{yadav2014predicting}. También, existen alternativas como NeonMHC \citep{van2013tumor} que utilizan Redes Neuronales Convolucionales. Luego, otras propuestas se basan en la mejorar la predicción de un posible neo antígeno \citep{lu2021deep, hao2021improvement, lang2021neofox, chen2021identification, yang2021deepnetbim, li2021deepimmuno}.  Una desventaja de estos métodos, es referente a la necesidad de contar de antemano con posibles peptidos, esto complica una propuesta \textit{end-to-end} que tome como entrada una secuencia de ADN.\\
-
-
-
-A pesar de la gran cantidad de métodos y herramientas no existe un método que pueda ser definido como el de mejor desempeño \citep{de2020neoantigen}, incluso a pesar de ya haberse desarrollado algunos \textit{benchmarkings}. Por ejemplo, en el 2015 se desarrolló una comparativa de los métodos SMM, ANN, ARB y NetMHCpan \citep{trolle2015automated}, sin ninguna conclusión sobresaliente. Luego en el 2018 y 2019 se vuelve a intentar realizar otra comparativa \citep{bonsack2019performance, zhao2018systematically}, sin lograr determinar a un método con mayor desempeño. Tambien se han desarrollado \textit{surveys} sobre como los métodos computacionales pueden tener beneficios clínicos \citep{de2020neoantigen} y sus principales desafios \citep{chen2021challenges}. \\
-
-Finalmente, en la Tabla \ref{tab:review}, se presenta un resumen de los métodos basados en \textit{MHC-binding} y \textit{pipelines}. Tambien, indicamos cuales son \textit{open source}.\\
-
-\begin{table}[H]
-	\centering
-	\caption{Resumen de los métodos de detección de neo antígenos.}
-	\label{tab:review}
-	\begin{tabular}{llll}
-		\hline
-		\textbf{Nombre} & \textbf{MHC-binding} & \textbf{Método} & \textbf{Open source} \\ \hline
-		NetMHC4         & \checkmark            & ANN             &                      \\
-		NetMHCpan4      & \checkmark            & ANN             &                      \\
-		PickPocket      & \checkmark            & ANN             &                      \\
-		NetMHCcons      & \checkmark            & ANN             &                      \\
-		NetMHCIIpan     & \checkmark            & ANN             &                      \\
-		NeonMHC         & \checkmark            & CNN             &                      \\
-		DeepNetBim      & \checkmark            & Deep learning   & \checkmark            \\
-		DeepImmuno      & \checkmark            & CNN             &                      \\
-		NeoPredPipe     &                      & pipeline        & \checkmark            \\
-		CloudNeo        &                      & pipeline        &                      \\
-		MuPeXI          &                      & pipeline        &                      \\
-		NeoepitopePred  &                      & pipeline        &                      \\
-		Neoepiscope     &                      & pipeline        &                      \\
-		pVACtools       &                      & pipeline        & \checkmark            \\
-		NeoFuse         &                      & pipeline        & \checkmark    \\   \hline    
-	\end{tabular}
-\end{table}
-
-%\subsection{\textit{Peptide-MHC presentation}}
-
-%\subsection{Enlace pMHC-TCR}
 
 
 
