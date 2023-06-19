@@ -113,7 +113,7 @@ Finalmente, debido a la complejidad del proceso y la gran cantidad de métodos d
 
 \section{Problema}
 
-Menos del 5\% de neoantígenos detectados llegan a la membrana y activan el sistema immune \citep{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Además, existen herramientas con buen desempeño en el problema de pMHC \textit{binding}, pero con resultados pobres en  pMHC \textit{presentation} \citep{bulik2019deep}. En este contexto, esta investigación se enfoca en la predicción de  los enlaces pMHC y pMHC-TCR. Este problema se puede representar como un problema de clasificación binaria, tomando un péptido y el MHC como entrada. Estos son secuencias de aminoácidos, el péptido se pueden representar como: $p = \{ A, ... , Q \}$ y el MHC como: $q = \{ A, N, ... ,Q, E, G \}$. Luego, tenemos que  predecir si $p$ y $q$ pueden enlazarse. Posteriormente, debemos predecir el enlace pMHC-TCR, el complejo pMHC se puede representar como la concatenación de $p$ y $q$, mientras que que para el caso del TCR, se considera solo la elice $\alpha$ de su proteína, que viene a ser representada como otra secuencia de aminoácidos $r = \{  N, ... ,Q, E \}$. Finalmente, debemos predecir si la concatenación de las secuencias $p$ y $q$ se enlaza con la secuencia $r$.
+Menos del 5\% de neoantígenos detectados llegan a la membrana y activan el sistema immune \citep{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Además, existen herramientas con buen desempeño en el problema de pMHC \textit{binding}, pero con resultados pobres en  pMHC \textit{presentation} \citep{bulik2019deep}. En este contexto, esta investigación se enfoca en la predicción del enlaces pMHC. Este problema se puede representar como un problema de clasificación binaria, tomando un péptido y el MHC como entrada. Estos son secuencias de aminoácidos, el péptido se pueden representar como: $p = \{ A, ... , Q \}$ y el MHC como: $q = \{ A, N, ... ,Q, E, G \}$. Luego, tenemos que  predecir si $p$ y $q$ pueden enlazarse. %Posteriormente, debemos predecir el enlace pMHC-TCR, el complejo pMHC se puede representar como la concatenación de $p$ y $q$, mientras que que para el caso del TCR, se considera solo la elice $\alpha$ de su proteína, que viene a ser representada como otra secuencia de aminoácidos $r = \{  N, ... ,Q, E \}$. Finalmente, debemos predecir si la concatenación de las secuencias $p$ y $q$ se enlaza con la secuencia $r$.
 
 
 
@@ -134,10 +134,9 @@ Los neoantígenos son factores clave en el desarrollo de vacunas contra el cánc
 	
 	\subsection{Objetivos específicos}
 	\begin{enumerate}
-		\item Implementar un método basado en \textit{transformers} y \textit{transfer learning} para predecir el enlace péptido-MHC (pMHC).
-		\item Implementar un método basado en \textit{transformers} y \textit{transfer learning} para predecir el enlace entre el complejo pMHC con el \textit{T-cell Receptor} (TCR).
-		\item Evaluar los método propuestos en el primer y segundo objetivos específicos.
-		\item Implementar una herramienta Web para la detección de neoantígenos a partir archivos \textit{Variant Calling File} (VCF) y utilizando los métodos desarrollados en el primer y segundo objetivos específicos.
+		\item Implementar un método basado en \textit{transformers} y \textit{transfer learning} para predecir el enlace péptido-MHC (\textit{pMHC presentation}).	
+		\item Evaluar el modelo basado en \textit{Transformers} y \textit{Transfer Learning} para el problema de \textit{pMHC presentation}.
+		\item Implementar una herramienta Web para la detección de neoantígenos a partir archivos \textit{Variant Calling File} (VCF).
 
 		
 
@@ -147,7 +146,7 @@ Los neoantígenos son factores clave en el desarrollo de vacunas contra el cánc
 	
 \section{Hipótesis}
 
-Un método basado en \textit{transformers} y \textit{transfer learning} puede detectar neoantígenos a partir de la predicción del enlace pMHC y pMHC-TCR.
+Un método basado en \textit{transformers} y \textit{transfer learning} puede detectar neoantígenos a partir de la predicción del enlace pMHC.
 
 \section{Variables de investigación}
 
@@ -192,7 +191,7 @@ En este proyecto, se propone utilizar una arquitectura BERT con \textit{transfer
 
 Además, HLAB \citep{zhang2022hlab} propuso el uso de ProtBERT-BFD \citep{elnaggar2021prottrans} con un modelo BiLSTM en cascada y superó a NetMHCpan4.1 (método de vanguardia) en el \textit{allele} HLA-A*01:01. Por lo tanto, en este proyecto, proponemos utilizar el modelo preentrenado ESM2 \citep{lin2023evolutionary} con un capa BiLSTM  similar a HLAB \citep{zhang2022hlab}. Para el \textit{fine-tuning}, utilizaremos conjuntos de datos de NetMHCpan4.1 y NetMHCIIpan4.0.\\
 
-En resumen, en la Figura. \ref{fig:proposal}, presentamos la propuesta: primero, se concatenan y se aplica \textit{padding} al péptido y la pseudo secuencia MHC; en segundo lugar, utilizamos el modelo \textit{transformer} ESM2 para obtener una nueva representación de los aminoácidos; finalmente, utilizamos un BiLSTM para predecir el enlace pMHC. Adicionalmente, luego de predecir el enlace pMHC, procedemos a predecir el enlace pMHC-TCR con una arquitectura similar.
+En resumen, en la Figura. \ref{fig:proposal}, presentamos la propuesta: primero, se concatenan y se aplica \textit{padding} al péptido y la pseudo secuencia MHC; en segundo lugar, utilizamos el modelo \textit{transformer} ESM2 para obtener una nueva representación de los aminoácidos; finalmente, utilizamos un BiLSTM para predecir el enlace pMHC. 
 
 
 
@@ -200,8 +199,8 @@ En resumen, en la Figura. \ref{fig:proposal}, presentamos la propuesta: primero,
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/proposal}
-	\caption{Propuesta: Utilizamos el modelo de transformer ESM2 seguido de BiLSTM para predecir el enlace pMHC, luego aplicamos un modelo similar para predecir el enlace pMHC-TCR.}
+	\includegraphics[width=0.35\textwidth]{img/neoantigen/proposal1}
+	\caption{Propuesta: Utilizamos el modelo de transformer ESM2 seguido de BiLSTM para predecir el enlace pMHC.}
 	\label{fig:proposal}
 \end{figure}
 
