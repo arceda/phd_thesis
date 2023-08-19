@@ -42,6 +42,8 @@
 	
 	\maketitle
 
+\part*{Propuesta de la Investigación}
+
 \section{Título}
 
 Desarrollo de una Aplicación Web para la Detección de Neoantígenos en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer
@@ -145,7 +147,7 @@ Referente a las tecnologías a utilizar: para el \textit{BackEnd}, se utilizará
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{latex/img/neoantigen/arquitectura.png}
+	\includegraphics[width=0.8\textwidth]{img/neoantigen/arquitectura.png}
 	\caption{Arquitectura de la aplicación Web.}
 	\label{fig:arquitectura}
 \end{figure}
@@ -157,19 +159,35 @@ Referente a las tecnologías a utilizar: para el \textit{BackEnd}, se utilizará
 
 \clearpage
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\part*{Gestión del Proyecto}
+
+\setcounter{section}{0}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
 \section{Integrantes del equipo}
 En la Tabla \ref{tab:integrantes}, presentamos al equipo de investigación.
 
 \begin{table}[H]
 \caption{Integrantes del equipo de investigación}
 \label{tab:integrantes}
-\begin{tabular}{p{3cm}p{2cm}p{2cm}p{2cm}p{3cm}}
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+\begin{tabular}{|p{3cm}p{2.2cm}p{2.3cm}p{2.5cm}p{3.3cm}|} \hline
 \textbf{Nombre y apellidos} & \textbf{Cargo}         & \textbf{Escuela profesional} & \textbf{Rol del proyecto} & \textbf{Descripción breve del rol} \\ \hline
 Vicente Machaca Arceda      & Investigador principal & Ingeniería de Software       & Investigador principal    & Investigación y desarrollo         \\
 Richart Escobedo Quispe     & Co-investigador        & Ingeniería de Software       & Co-investigador           & Investigación y desarrollo         \\
 Estudiante 01               & Asistente              & Ingeniería de Software       & Asistente                 & Desarrollo                         \\
 Estudiante 02               & Asistente              & Ingeniería de Software       & Asistente                 & Desarrollo          \\ \hline              
 \end{tabular}
+}
 \end{table}
 
 
@@ -183,21 +201,23 @@ En la Tabla \ref{tab:presupuesto}, presentamos el presupuesto para el trabajo de
 	{\renewcommand{\arraystretch}{1.2}% for the vertical padding
 		\caption{Presupuesto. Abreviaciones, PC: \textit{Personal Computer}}
 		\label{tab:presupuesto}
-		\begin{tabular}{|p{8cm}|c|c|c|} \hline
-			\textbf{Insumo o material}    & \textbf{Unidades} & \textbf{Precio} & \textbf{Total} \\ \hline
-			Incentivo para el investigador principal          & 1                 & 700            & 700           \\
-			Incentivo para el co-investigador & 1                 & 700            & 700           \\
-			Hosting y dominio                      & 1                 & 600            & 600           \\
-			Workshops y cursos       & 1                 & 1000            & 1000           \\
-			Servicios de \textit{cloud computing} para entrenar los modelos       & 1                 & 1000            & 1000           \\
+		\begin{tabular}{|p{1.5cm}|p{8.2cm}|c|c|c|} \hline
+			\textbf{Incentivo}    & \textbf{Miembro del equipo}    & \textbf{Unidades} & \textbf{Precio} & \textbf{Total} \\ \hline
+			Incentivos & Incentivo al investigador principal          & 1                 & 700            & 700           \\
+			& Incentivo al co-investigador & 1                 & 700            & 700           \\ \hline \hline
+			
+			\textbf{Hito}    & \textbf{Insumo o material}    & \textbf{Unidades} & \textbf{Precio} & \textbf{Total} \\ \hline
+			Hito I & Workshops y cursos       & 2                 & 500            & 1000           \\
+			& Servicios de \textit{cloud computing} para entrenar los modelos       & 1                 & 1000            & 1000           \\ \hline
+			Hito II &  Hosting y dominio                      & 1                 & 600            & 600           \\
 			 \hline
-			\textbf{Total}                         &                   &                 & \textbf{4000}         \\ \hline
+			& \textbf{Total}                         &                   &                 & \textbf{4000}         \\ \hline
 		\end{tabular}
 	}
 \end{table}
 
 
-En la Tabla \ref{tab:actv}, presentamos el cronograma de actividades por mes.
+En la Tabla \ref{tab:actv}, presentamos el cronograma de actividades por mes. IA: Inteligencia Artificial.
 
 \begin{table}[H]
 	\centering
@@ -205,18 +225,18 @@ En la Tabla \ref{tab:actv}, presentamos el cronograma de actividades por mes.
 	{\renewcommand{\arraystretch}{1.2}% for the vertical padding
 		\caption{Cronograma de actividades por mes.}
 		\label{tab:actv}
-	\begin{tabular}{|p{7.8cm}|c|c|c|c|c|c|c|} \hline
-		\textbf{Actividades}                                              & I & II & III & IV & V & VI & VII  \\ \hline
+	\begin{tabular}{|p{5.5cm}|p{4cm}|c|c|c|c|c|c|c|} \hline
+		\textbf{Actividades}                                  &   \textbf{Entregable}         & I & II & III & IV & V & VI & VII  \\ \hline
 		
-		\textbf{HITO I} & & & & & & & \\
-		Revisión de la literatura                              & x                     & x                      & x                       & x                      &                       &                        &                                                  \\
-		Implementación del modelo de inteligencia artificial                             &       x                &           x             &                x         & x                      &                       &                        &                                                \\
-		Evaluación y comparación del modelo     &                       &                        & x                       & x                      & x                     &                        &                                                   \\
+		\textbf{HITO I} &  Código fuente del modelo & & & & & & & \\
+		Revisión de la literatura       &                       & x                     & x                      & x                       & x                      &                       &                        &                                                  \\
+		Implementación del modelo de IA  &                           &       x                &           x             &                x         & x                      &                       &                        &                                                \\
+		Evaluación y comparación del modelo &    &                       &                        & x                       & x                      & x                     &                        &                                                   \\
 		
-		\textbf{HITO II} & & & & & & & \\
-		Implementación de la página Web &                       &                        &                         & x                      & x                     & x                      &                                                  \\
-		Redacción del artículo de investigación                                        &                       &                        &                         &                        & x                     & x                      & x                                              \\
-		Difusión de resultados                                  &                       &                        &                         &                       &                      &                       & x                                             \\ \hline
+		\textbf{HITO II} & Página Web & & & & & & & \\
+		Implementación de la página Web &  &                     &                        &                         & x                      & x                     & x                      &                                                  \\
+		Redacción del artículo de investigación  &                                      &                       &                        &                         &                        & x                     & x                      & x                                              \\
+		Difusión de resultados    &                              &                       &                        &                         &                       &                      &                       & x                                             \\ \hline
 	\end{tabular}
 }
 \end{table}
@@ -234,11 +254,14 @@ En la Table \ref{tab:inve}, presentamos los enlaces a los CV's del CTI vitae y e
 \centering
 \caption{CV de los investigadores.}
 \label{tab:inve}
-\begin{tabular}{lll}
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+\begin{tabular}{|lll|} \hline
 \textbf{Nombre y apellidos} & \textbf{Link CTI vitae}                                                                      & \textbf{Código RENACYT} \\ \hline
 Vicente Machaca Arceda      & \href{https://dina.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id\_investigador=22551}{enlace} & P0022551                \\
 Richart Escobedo Quispe     & \href{https://dina.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id\_investigador=20597}{enlace} & -     \\ \hline                 
 \end{tabular}
+}
 \end{table}
 
 
