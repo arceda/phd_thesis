@@ -62,15 +62,20 @@ Protein–protein interactions (PPI) are relevant mediator in biological process
 Moreover, in immunology, bindings between peptides and Major Histocompatibility Complex (MHC) represent a key factor for activating an immune respond. MHC class I (MHC-I) and MHC class II (MHC-II) present peptides at the cell surface to CD8+ and CD4+ T Cells, respectively \cite{janeway1997immunobiology,abualrous2021major}. Lamentably, MHC proteins are encoded by highly polymorphic genes, called Human Leukocytes Antigens or (HLAs); the considerable polymorphic nature of MHC genes affords substantial variation in peptide binding, thereby influencing the set of peptides presented to T cells. \cite{abualrous2021major}. In consequence, proposals methods are categorized as allele-specific or pan-specific. Allele-specific methods \cite{rammensee1999syfpeithi,reche2002prediction,kim2009derivation,nielsen2016netmhcpan,vang2017hla,shao2020high,bravi2021rbm}, train a model for each MHC allele; meanwhile, pan-specific methods \cite{hu2019acme,liu2019deepseqpan,wu2019deephlapan,phloyphisut2019mhcseqnet,o2018mhcflurry,o2020mhcflurry,reynisson2020netmhcpan,venkatesh2020mhcattnnet,ye2021mathla,mei2021anthem,chu2022transformer,zhang2022hlab} train a global model taking peptides and MHC as inputs. Therefore, due to the highly polymorphic nature of MHC, pan-specific methods arise with high possibility of future applications. Additionally, immunotherapy is considered a promising approach to cancer treatment, especially since traditional methods based on surgeries, radiotherapies, and chemotherapies have low effectiveness \cite{peng2019neoantigen,thakur2022pursuit}. This strategy capitalizes on the observation that cancer cells generate distinctive neoepitopes recognized by the MHC \cite{durgeau2018recent}. Furthermore, these neoepitopes or neoantigens are considered the leading causes of an immune response \cite{borden2022cancer,chen2021challenges,gopanenko2020main}. \\
 
 
-Recently, the advent of Transformers has ushered in a new era in artificial intelligence, demonstrating significant success across various Natural Language Processing (NLP) tasks \cite{patwardhan2023transformers}. These models have also found application in neoantigen detection, particularly in predicting pMHC binding and presentation. For example, BERTMHC \cite{cheng2021bertmhc} is a pan-specific pMHC-II binding and presentation prediction method that employs a BERT architecture and leverages transfer learning from the Tasks Assessing Protein Embeddings (TAPE) \cite{rao2019evaluating}. The methodology involves stacking an average pooling layer followed by a Fully Connected (FC) layer after the TAPE model. Empirical assessments have shown that BERTMHC outperforms both NetMHCIIpan3.2 and PUFFIN. Additionally, ImmunoBERT \cite{gasser2021interpreting} utilizes transfer learning from TAPE but focuses on pMHC-I prediction. This approach involves stacking a classification token's vector after the TAPE model. Furthermore, MHCRoBERTa \cite{wang2022mhcroberta} and HLAB \cite{zhang2022hlab} also leverage transfer learning. MHCRoBERTa employs self-supervised training with data from UniProtKB and Swiss-Prot databases, followed by fine-tuning with data from the Immune Epitope Database (IEDB) \cite{vita2019immune}. MHCRoBERTa performs better than NetMHCpan4.0 and MHCflurry2.0 in terms of Spearman Rank Correlation Coefficient (SRCC). In contrast, HLAB leverages transfer learning from ProtBert-BFD \cite{elnaggar2021prottrans} and incorporates a BiLSTM model in cascade. Notably, on the HLA-A*01:01 allele, HLAB demonstrates a slight performance advantage over state-of-the-art methods, including NetMHCpan4.1, with at least a 0.0230 improvement in Area Under the Curve (AUC) and a 0.0560 increase in accuracy.\\
+Recently, the advent of Transformers has ushered in a new era in artificial intelligence, demonstrating significant success across various Natural Language Processing (NLP) tasks \cite{patwardhan2023transformers}. These models have also found application in neoantigen detection, particularly in predicting pMHC binding and presentation. For example, BERTMHC \cite{cheng2021bertmhc} is a pan-specific pMHC-II binding and presentation prediction method that employs a BERT architecture and leverages transfer learning from the Tasks Assessing Protein Embeddings (TAPE) \cite{rao2019evaluating}. The methodology involves stacking an average pooling layer followed by a Fully Connected (FC) layer after the TAPE model. Empirical assessments have shown that BERTMHC outperforms both NetMHCIIpan3.2 and PUFFIN. Additionally, ImmunoBERT \cite{gasser2021interpreting} utilizes transfer learning from TAPE but focuses on pMHC-I prediction. This approach involves stacking a classification token's vector after the TAPE model. Furthermore, MHCRoBERTa \cite{wang2022mhcroberta} and HLAB \cite{zhang2022hlab} also leverage transfer learning. MHCRoBERTa employs self-supervised training with data from UniProtKB and Swiss-Prot databases, followed by fine-tuning with data from the Immune Epitope Database (IEDB) \cite{vita2019immune}. MHCRoBERTa performs better than NetMHCpan4.0 and MHCflurry2.0 in terms of Spearman Rank Correlation Coefficient (SRCC). In contrast, HLAB leverages transfer learning from ProtBert-BFD \cite{elnaggar2021prottrans} and incorporates a BiLSTM model in cascade. Notably, on the HLA-A*01:01 allele, HLAB demonstrates a slight performance advantage over state-of-the-art methods, including NetMHCpan4.1, with at least a 0.0230 improvement in Area Under the Curve (AUC) and a 0.0560 increase in accuracy.
 
-In this work, we evaluated the use of transfer learning from TAPE, ProtBert-BFD, and ESM2, for PPI prediction of peptides and MHC-I. We will evaluate six pre-trained BERT architectures (four models from ESM-2) followed by  BiLSTM layers. Furthermore, we will evaluate our results using Anthem  dataset \cite{mei2021anthem}. Finally, we will deploy a Web platform for the prediction of bindings between peptides and MHC-I.
+\subsection{Objectives}
+
+Develop  a Web platform for PPI prediction of peptides and MHC using transformers and transfer learning. 
+
+\subsection{Why is this work important?}
+This proposal is relevant since its implementation opens abroad research in immunology treatments like cancer personalized vaccines based on neoantigen detection \cite{borden2022cancer,chen2021challenges,gopanenko2020main}. Additionally, in computer science, this work will enforce the use of transfer learning from Transformers models to solve specific proteomics tasks as ChatGPT is performed in Natural Language Processing (NLP). Furthermore, this work is challenging since it requires interdisciplinary computer science and Proteomic skills, and the training of large transformer models is strenuous because it requires powerful GPU instances and high technical skills in deep learning.
 
 
 
-\section{Proposal and methodology}
+\subsection{Proposal and methodology}
 
-We propose the development of a Web platform for PPI prediction of peptides and MHC. This project is based on previous works, where we performed a review of peptide-MHC interactions \cite{machaca2023deep}, and implemented a model using  transformers and transfer learning for peptide-MHC bindings \cite{arceda2023neoantigen}. Consequently, we will use Transformers and transfer learning from  BERT models pre-trained on large protein datasets. These pre-trained models are TAPE \cite{rao2019evaluating}, ProtBert-BFD \cite{elnaggar2021prottrans}  and ESM-2 \cite{lin2023evolutionary}; furthermore, in Table \ref{tab:pretrained}, we present the major difference between these models.
+We propose the development of a Web platform for PPI prediction of peptides and MHC. This project is based on previous works, where we reviewed peptide-MHC interactions \cite{machaca2023deep}, and implemented a model using transformers and transfer learning for peptide-MHC bindings \cite{arceda2023neoantigen}. Consequently, we will use Transformers and transfer learning from  BERT models pre-trained on large protein datasets (six models). These pre-trained models are TAPE \cite{rao2019evaluating}, ProtBert-BFD \cite{elnaggar2021prottrans}  and ESM-2 \cite{lin2023evolutionary} (four models of ESM-2) ; furthermore, in Table \ref{tab:pretrained}, we present the major difference between these models.
 
 \begin{table*}[h]%
 	\centering
@@ -90,7 +95,9 @@ We propose the development of a Web platform for PPI prediction of peptides and 
 	
 \end{table*}
 
-For fine-tuning, we will stack in cascade a BiLSTM at the end of the pre-trained model. The BiLSTM is based on HLAB \cite{zhang2022hlab} and has two layers with 768 units. In Figure. \ref{fig:finetune}, we present our proposal. This model takes the aminoacid sequences of a peptide and the MHC; then these sequences are concatenated and encoded using one-hot; then it feed-forward the pre-trained transformers and the BiLSTM model; finally, we will predict 1 for physical binding and 0 for no binding. Furthermore, we will use Anthem  dataset \cite{mei2021anthem} for fine-tuning.
+For fine-tuning, we will stack in cascade a BiLSTM at the end of the pre-trained model. The BiLSTM is based on HLAB \cite{zhang2022hlab} and has two layers with 768 units. In Figure. \ref{fig:finetune}, we present our proposal. This model takes the aminoacid sequences of a peptide and the MHC; then these sequences are concatenated and encoded using one-hot; then it feed-forward the pre-trained transformers and the BiLSTM model; finally, we will predict 1 for physical binding and 0 for no binding. Furthermore, we will use the Anthem dataset \cite{mei2021anthem} for fine-tuning.\\
+
+Additionally, we present the Web platform architecture in Figure \ref{fig:web}. It is based on using Express and Next.js for the Backend and Frontend, respectively. In order to store user requests and jobs, we will use Mongo.
 
 \begin{figure}[h]
 	\centering
@@ -105,18 +112,48 @@ For fine-tuning, we will stack in cascade a BiLSTM at the end of the pre-trained
 		\centering
 		\includegraphics[width=\textwidth]{img/neoantigen/web_arch}
 		\caption{Web platform architecture.}
-		\label{fig:three sin x}
+		\label{fig:web}
 	\end{subfigure}
 	
 	\caption{(a) The proposed model for PPI prediction of peptides and MHC. (b) The Web architecture.}
-	\label{fig:web}
+	\label{fig:proposal}
 \end{figure}
 
 
+Table \ref{tab:plan} presents the work plan for each three months. We consider 24 months for developing, training models, and deploying our proposal. 
 
+\begin{table}[H]
+	\centering
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+		\caption{Proposal work plan for each three months.}
+		\label{tab:plan}
+		\begin{tabular}{|p{7.4cm}|p{2.3cm}|c|c|c|c|c|c|c|c|} \hline
+			\textbf{Activities}                                  &   \textbf{Outcome}         & I & II & III & IV & V & VI & VII & VIII \\ \hline
+			
+			\textbf{Milestone I} &  Models & & & & & & & &\\
+			Literature review       &                       & x                     & x                      & x                       &                       &                       &                        &  &                                                \\
+			Transformers model development  &                           &       x                &           x             &                x         &                       &                       &                        &              &                                  \\
+			Training TAPE, ProtBert-BFD and ESM-2  &                           &                       &           x             &                x         & x                      &                       &                        &              &                                  \\
+			Hyper-parameters tuning  &                           &                       &           x             &                x         & x                      &                       &                        &              &                                  \\
+			Comparison with state-of-art methods &    &                       &                        & x                       & x                      & x                     &                        &            &                                       \\ \hline
+			
+			\textbf{Milestone II} & Web platform & & & & & & & & \\
+			Requirements definition &  &     x                &    x                    &            x             &                       &                      &                       &                               &                   \\
+			Design and development &  &                     &                        &                 x        & x                      & x                     & x                      &                               &                   \\
+			Testing and quality assurance &  &                     &                        &                         & x                      & x                     & x                      &                               &                   \\
+			Deployment  &                                      &                       &                        &                         &                        &                      &                       & x                                         & x    \\
+			Paper redaction and submission    &                              &                       &                        &                         &              x         &             x         &                x       & x                                       & x     \\ \hline
+		\end{tabular}
+	}
+\end{table}
 
-\section{Infrastructure}
-\section{Limitations}
+\subsection{EMBL group and partnership organization}
+I consider that the Protein Function Development group of EMBL leaded by Maria-Jesus Martin is the most suitable group in order to support this research. Actually, PPI interaction plays key role in protein function prediction. Additionally, one of its last publications \cite{dalkiran2023transfer} used deep learning and transfer learning for drug-target interaction prediction in a similar way that my proposal. 
+
+\subsection{Infrastructure}
+
+\subsection{Limitations}
 
 \section{Expected results and their impact}
 
