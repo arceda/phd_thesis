@@ -30,7 +30,7 @@
 \renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
 
 \title{ A Web Platform for Protein-Protein Interaction Prediction Using Transformers and Transfer Learning Applied to Peptide-MHC Bindings }
-\author{Vicente Enrique Machaca Arceda \\ Protein Function Development (Maria-Jesus Martin) \\ Institut Pasteur}
+\author{Vicente Enrique Machaca Arceda \\ Protein Function Development (Maria-Jesus Martin) \\ Institut Curie}
 \date{\today}
 
 \begin{document}
@@ -68,14 +68,14 @@ Recently, the advent of Transformers has ushered in a new era in artificial inte
 
 Develop  a Web platform for PPI prediction of peptides and MHC using transformers and transfer learning. 
 
-\subsection{Why is this work important?}
+\subsection{Why is this project relevant?}
 This proposal is relevant since its implementation opens abroad research in immunology treatments like cancer personalized vaccines based on neoantigen detection \cite{borden2022cancer,chen2021challenges,gopanenko2020main}. Additionally, in computer science, this work will enforce the use of transfer learning from Transformers models to solve specific proteomics tasks as ChatGPT is performed in Natural Language Processing (NLP). Furthermore, this work is challenging since it requires interdisciplinary computer science and Proteomic skills, and the training of large transformer models is strenuous because it requires powerful GPU instances and high technical skills in deep learning.
 
 
 
 \subsection{Proposal and methodology}
 
-We propose the development of a Web platform for PPI prediction of peptides and MHC. This project is based on previous works, where we reviewed peptide-MHC interactions \cite{machaca2023deep}, and implemented a model using transformers and transfer learning for peptide-MHC bindings \cite{arceda2023neoantigen}. Consequently, we will use Transformers and transfer learning from  BERT models pre-trained on large protein datasets (six models). These pre-trained models are TAPE \cite{rao2019evaluating}, ProtBert-BFD \cite{elnaggar2021prottrans}  and ESM-2 \cite{lin2023evolutionary} (four models of ESM-2) ; furthermore, in Table \ref{tab:pretrained}, we present the major difference between these models.
+We propose the development of a Web platform for PPI prediction of peptides and MHC (pMHC). This project is based on previous works, where we reviewed peptide-MHC interactions \cite{machaca2023deep}, and implemented a model using transformers and transfer learning for peptide-MHC bindings \cite{arceda2023neoantigen}. Consequently, we will use Transformers and transfer learning from  BERT models (six models) pre-trained on large protein datasets. These pre-trained models are TAPE \cite{rao2019evaluating}, ProtBert-BFD \cite{elnaggar2021prottrans}  and ESM-2 \cite{lin2023evolutionary} (four models of ESM-2) ; furthermore, in Table \ref{tab:pretrained}, we present the major difference between these models.
 
 \begin{table*}[h]%
 	\centering
@@ -149,15 +149,45 @@ Table \ref{tab:plan} presents the work plan for each three months. We consider 2
 \end{table}
 
 \subsection{EMBL group and partnership organization}
-I consider that the Protein Function Development group of EMBL leaded by Maria-Jesus Martin is the most suitable group in order to support this research. Actually, PPI interaction plays key role in protein function prediction. Additionally, one of its last publications \cite{dalkiran2023transfer} used deep learning and transfer learning for drug-target interaction prediction in a similar way that my proposal. 
+I consider that the \textit{Protein Function Development} group of EMBL led by Maria-Jesus Martin is the most suitable group to support this research. PPI interaction plays a key role in protein function prediction. Additionally, one of its last publications \cite{dalkiran2023transfer} used deep learning and transfer learning for drug-target interaction prediction in a similar way to my proposal. Finally, with the use of first-hand protein data from UniProt FTP site (disseminated by this group), a huge transformer model could be trained to solve similar problems in PPI prediction and protein annotation.\\
+
+Furthermore, this research project will benefit from collaboration with 
+\textit{Institut Curie}. This partner aligned perfectly with my research interests and my current project, because of its support in immunology, cancer translational research, and proteomics.
 
 \subsection{Infrastructure}
 
-\subsection{Limitations}
+The requirements area based on the resources for training the transformers and Web platform hosting. They are detailed in Table \ref{tab:infrastructure}.
+
+\begin{table}[]
+	\caption{List of infrastructure requirement.}
+	\label{tab:infrastructure}
+	\begin{tabular}{lll}
+		\textbf{Infrastructure}                                    & \textbf{Cost}  & \textbf{Available at} \\ \midrule
+		GPU like V-100 or A-100 to train transformer models        & 200\$          & HuggingFace           \\
+		Hosting for Web platform with Mongo, Express.js and Python & 0.5\$ per hour & EMBL                 
+	\end{tabular}
+\end{table}
+
+
+\subsection{Potential risks }
+
+\begin{itemize}
+	\item A lack of resources in order to train large transformer models. This is currently the most challenging problem for junior researchers; nevertheless, I faced this problem last year, and there are no expensive cloud services that I could use.
+\item No available hosting services at EMBL. I consider that AWS credits could finance this risk at the beginning until EMBL hosting services are available.
+\end{itemize}
 
 \section{Expected results and their impact}
+\subsection{When do you expect to be able to start providing (pilot) access?}
+After the first year of the fellowship, I can grant access to some users. This pilot will include a simple Web page with functionalities for predicting PPI interactions on the first trained models. 
+
+\subsection{Will the technology be useful to other EMBL groups?}
+Yes, the \textit{Bateman Group} because its future goals aim to use deep learning methods to embed protein sequences. In this context, my project proposes fine-tuning transformers trained on large protein databases for predicting pMHC bindings. After training, the model saved PPI representation in the model's last layers, so we could use it to get embeddings from pairs of protein sequences; it opens new ways to investigate proteins.
+
+\subsection{Which external (non-EMBL) researchers could be first users?}
+All research groups that study immunology. For instance, \textit{the Parker Institute for Cancer Immunotherapy} and the \textit{Cancer Research Institute} are researching cancer neoantigens to develop personalized vaccines. They are potential users because neoantigen detection depends on several steps; however, one of the most relevant is the prediction of bindings between peptides to the MHC; if it occurs, these peptides are potential neoantigens.
 
 \section{Ethics}
+N/A.
 
 \section{Gantt chart}
 
