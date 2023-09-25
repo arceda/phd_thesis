@@ -41,15 +41,16 @@
 	\begin{large}
 		\textbf{Abstract}
 	\end{large} 
-
-	\vspace{0.3cm}
-	
-	In this work, we evaluated the use of transfer learning from TAPE, ProtBert-BFD, and ESM2, for PPI prediction of peptides and MHC-I. We will evaluate six pre-trained BERT architectures (four models from ESM-2) followed by  BiLSTM layers. Furthermore, we will evaluate our results using Anthem  dataset \cite{mei2021anthem}. Finally, we will deploy a Web platform for the prediction of bindings between peptides and MHC-I.
-	
-
 \end{center}
+
+	\vspace{0.1cm}
 	
-\textbf{Keywords}: 	AI and machine learning, Bioinformatics, Software development, and Proteomics
+	Protein-protein interaction (PPI) is relevant in protein function prediction, and its applications, like the prediction of peptide MHC bindings, are pertinent in immunology and cancer research (neoantigen detection). Moreover, Bert models are considered a revolution in NLP tasks. Thus, we propose fine-tuning pre-trained Bert models like  TAPE, ProtBert-BFD, and ESM-2 for PPI prediction of peptides and MHC-I. Moreover, we will develop a Web platform to provide the service of peptide MHC binding prediction.
+	
+
+
+	
+\textbf{Keywords}: 	AI and machine learning, Bioinformatics, Software development, and Proteomics.
 	
 	
 
@@ -186,16 +187,32 @@ Yes, the \textit{Bateman Group} because its future goals aim to use deep learnin
 \subsection{Which external (non-EMBL) researchers could be first users?}
 All research groups that study immunology. For instance, \textit{the Parker Institute for Cancer Immunotherapy} and the \textit{Cancer Research Institute} are researching cancer neoantigens to develop personalized vaccines. They are potential users because neoantigen detection depends on several steps; however, one of the most relevant is the prediction of bindings between peptides to the MHC; if it occurs, these peptides are potential neoantigens.
 
+\subsection{Service provision}
+The main functionality is the prediction of pMHC bindings. The user must provide a list of peptides and the MHC sequence. Then, the Web platform will store this request in a job, and after finishing, an email will be delivered to the user with its results. Additionally, an API with the same functionality explained before will be available for research groups. \\
+
+Approximately the time to deliver the user's results will depend on the amount of peptides included in the request and the current number of jobs waiting for processing. However, for a single request of 100 peptides, the server should take 3 minutes if the server has a GPU like RTX-3070 (I measure this time on similar projects).\\
+
+Furthermore, the main obstacles related to service provision are future problems with the server workload and the limitation of the server's GPU specifications. 
+
+
 \section{Ethics}
 N/A.
 
 \section{Gantt chart}
 
+The activities and milestones are detailed in Table \ref{tab:plan} and Figure \ref{fig:gantt}.
 
+\begin{figure}[h]
+	\centering	
+	\includegraphics[width=\textwidth]{img/neoantigen/gantt}
+	\caption{Gantt chart for the project proposal.}
+	\label{fig:gantt}
+	
+\end{figure}
 	
 	
 
-\clearpage
+
 	
 	%\bibliographystyle{apalike}
 	\bibliographystyle{IEEEtran}
