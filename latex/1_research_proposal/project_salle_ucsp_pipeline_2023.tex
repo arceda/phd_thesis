@@ -81,7 +81,7 @@ Inteligencia Artificial y Áreas transversales.
 	
 	\begin{enumerate}
 		\item Obtener muestras de tejido canceroso y saludable, Luego se secuencia ambos tejidos para obtener el ADN y/o ARN. Algunas propuestas incluyen información inmunopeptidoma de \textit{Mass Spectrometry} (MS).
-		\item Etapa \textit{in-silico}, aquí  se comparan las secuencias, se analizan las mutaciones y se detectan posibles neoantígenos. Esta etapa cuenta con varias herramientas con buen desempeño.
+		\item Etapa \textit{in-silico}, aquí realiza alineamiento de secuencias, se desarrolla un \textit{llamado de variantes} para detectar las variantes y/o mutaciones; y se anotan dichas variantes (detección de posibles neoantígenos). Esta etapa cuenta con varias herramientas con buen desempeño.
 		\item En esta etapa \textit{in-silico} se priorizan neoantígenos. Esta etapa es crucial y ha tenido bastante investigación los últimos años debido a su complejidad y la baja efectividad de propuestas actuales. Aquí, se toman los neoantígenos candidatos (péptidos) de la etapa anterior y se predice su afinidad con el \textit{Major Histocompatibility Complex} (MHC), este problema se conoce como \textit{pMHC binding}. Luego, se  evalúa la afinidad del pMHC para enlazarse al T-cell Receptor (TCR). Al finalizar esta etapa, se obtienen los neoantígenos.
 		\item En esta etapa \textit{in-vitro}, se induce en laboratorio el a las células T del paciente a reconocer los neoantígenos. Aquí, se desarrollan las vacunas. Generalmente, esta etapa es desarrollada por biotecnólogos y biólogos.
 		\item Finalmente, el médico oncólogo realiza la evaluación clínica de la vacuna.
@@ -119,7 +119,7 @@ Inteligencia Artificial y Áreas transversales.
 	
 La detección \textit{in-silico} de neoantígenos se basa en la segunda y tercera etapa de la Figura \ref{fig:vaccines_b}. En este contexto, debido a la complejidad del proceso y la cantidad de métodos existentes, se han desarrollado software y \textit{pipelines} para facilitar el uso de estas herramientas. En la Tabla \ref{tab:review_pipelines}, presentamos los \textit{pipelines} publicados a partir del 2018. Estos \textit{pipelines} utilizan diferentes tipos de información como entrada, así PGV Pipeline \citep{rubinsteyn2018computational} y PEPPRMINT \citep{zhou2023prioritizing} utilizan DNA-seq; sin embargo, otras herramientas como PGNneo \citep{tan2023pgnneo}, NAP-CNB \citep{wert2021predicting}, NaoANT-HILL \citep{coelho2020neoant}, ProGeo-neo \citep{li2020progeo}, ScanNeo \citep{wang2019scanneo} y Neopepse \citep{kim2018neopepsee} utilizan RNA-seq porque estas secuencias encapsulan mejor la información de mutaciones y \textit{non-coding regions} de ADN \citep{tan2023pgnneo}. 
 
-Con el objetivo de reducir la complejidad de los \textit{pipelines}, otras propuestas han optado por utilizar Variant Calling Files (VCF), como entrada. Estos archivos, contienen información de las mutaciones y son obtenidas a partir de métodos de alineamiento y llamado de mutaciones (etapas 2.1 y 2.2 de la Figura \ref{fig:vaccines_b}). De esta forma, herramientas como Valid-Neo \citep{terai2022valid}, HLA3D \citep{li2022hla3d}, Neoepiscope \citep{wood2020neoepiscope} , pVACtools \citep{hundal2020pvactools} y NeoPredPipe \citep{schenck2019neopredpipe}, reducen la cantidad de herramientas utilizadas en la deteccion de neoantígenos; sin embargo, los resultados obtenidos, pueden ser inferiores comparado con herramientas que usan DNA-seq y RNA-seq.
+Con el objetivo de reducir la complejidad de los \textit{pipelines}, otras propuestas han optado por utilizar Variant Calling Format (VCF), como entrada. Estos archivos, contienen información de las mutaciones y son obtenidas a partir de métodos de alineamiento y llamado de mutaciones (etapas 2.1 y 2.2 de la Figura \ref{fig:vaccines_b}). De esta forma, herramientas como Valid-Neo \citep{terai2022valid}, HLA3D \citep{li2022hla3d}, Neoepiscope \citep{wood2020neoepiscope} , pVACtools \citep{hundal2020pvactools} y NeoPredPipe \citep{schenck2019neopredpipe}, reducen la cantidad de herramientas utilizadas en la deteccion de neoantígenos; sin embargo, los resultados obtenidos, pueden ser inferiores comparado con herramientas que usan DNA-seq y RNA-seq.
 
 Adicionalmente, para una correcta detección de neoantígenos, es necesario contar con la secuenciación de proteínas Major Histocompatibility Complex (MHC) o Human Leukocyte Antigens (HLA). Es necesario contar con estas proteínas porque, son utilizadas para predecir la unión entre posibles neoantígenos al MHC (pMHC: etapa 3.1 de la Figura \ref{fig:vaccines_b}). Estas proteínas son codificadas por genes altamente polimórficos, esto proporciona una variación sustancial en la unión de péptidos (neoantígenos), influyendo de esta manera en el conjunto de péptidos presentados a las células T. \citep{abualrous2021major}. En este contexto,  los \textit{pipelines} Valid-NEO \citep{terai2022valid}  y NeoPredPipe \citep{schenck2019neopredpipe} y Neopepsee \citep{kim2018neopepsee} solicitan como entrada estas proteínas (HLA); mientras que las otras predicen esta información a partir de DNA-seq. Desde un punto de vista de usabilidad, obtener los tipos de HLA, implica un esfuerzo inncesario para el usuario.
 
@@ -188,7 +188,7 @@ A pesar de varios esfuerzos en el desarrollo de \textit{pipelines} y algoritmos,
 
 \begin{enumerate}
 	\item La no inclución en conjunto de varias fuentes de información como DNA-seq, RNS-seq, y datos de \textit{Mass Spectrometry} (MS)  \citep{kim2018neopepsee}.
-	\item  Uso herramientas de bajo desempeño para la predicción de la afinidad peptido-MHC (pMHC) (etapa 3.1  de la Figura \ref{fig:vaccines_b}). La mayoria de aplicaciones, se basa en el uso de MHCFlurry \citep{o2020mhcflurry} y NetMHCpan4.1 \citep{reynisson2020netmhcpan}. En la actualidad, se cuenta con herramientas de mejor desempeño basado en transformers \citep{arceda2023neoantigen}.
+	\item  Uso herramientas de bajo desempeño para la predicción del enlace péptido-MHC (pMHC) (etapa 3.1  de la Figura \ref{fig:vaccines_b}). La mayoria de aplicaciones, se basa en el uso de MHCFlurry \citep{o2020mhcflurry} y NetMHCpan4.1 \citep{reynisson2020netmhcpan}. En la actualidad, se cuenta con herramientas de mejor desempeño basado en transformers \citep{arceda2023neoantigen}.
 	\item Para la etapa 3.2 de la Figura \ref{fig:vaccines_b}, los autores no consideran  la predicción del pMHC al TCR, la mayoria comenta incluir esta tarea en trabajos futuros  \citep{rubinsteyn2018computational}.
 	\item Finalmente y quizas la mas importante es no utilizar información de eventos de \textit{alternative splicing}, variaciones estructurales en el ADN y las mutaciones de fusión de genes, está información esta fuertemente relacionada con varios tipos de cancer \citep{wood2020neoepiscope}.
 \end{enumerate}
@@ -204,14 +204,14 @@ A pesar de varios esfuerzos en el desarrollo de \textit{pipelines} y algoritmos,
 	\begin{enumerate}
 		\item Analizar que fuentes de información o datos de entrada recibirá el \textit{pipeline}. Se evaluará DNA-seq, RNA-seq, VCF y datos de MS.
 		
-		\item Analizar que herramientas se van a utilizar para la primera etapa del \textit{pipeline}, referente al alineamiento de secuencias, detección de mutaciones y predicción de posibles neoantígenos (péptidos). 
+		\item Analizar que herramientas se van a utilizar para la primera etapa del \textit{pipeline}, referente al alineamiento de secuencias, llamado de variantes y  anotación de variantes (predicción de posibles neoantígenos). 
 		
 		\item Analizar el uso de información de variaciones estructurales del ADN y mutaciones de fusión de genes. Se evaluará el desempeño de \textit{Arriba} \citep{uhrig2021accurate} y FusionQ \citep{liu2013fusionq}.
 		 
 		\item Implementar un modelo basado en transformers para la predicción del enlace de los neoantígenos al MHC (pMHC). Ya se cuenta con resultados previos de una propuesta que es superior a otras del estado del arte \citep{arceda2023neoantigen}.
 		
 		\item Integrar las herramientas evaluadas y seleccionadas en un contenedor con Docker.
-		\item Comparar el desempeño del \textit{pipeline} con otras herramientas en el estado del arte.
+		\item Comparar el desempeño del \textit{pipeline} con otras herramientas del estado del arte.
 
 		
 
@@ -223,7 +223,7 @@ A pesar de varios esfuerzos en el desarrollo de \textit{pipelines} y algoritmos,
 
 El cáncer es el mayor problema de salud mundial; sin embargo, los métodos tradicionales basados en cirugías, radioterapias y quimioterapias tienen baja efectividad \citep{peng2019neoantigen}. En este contexto, los neoantígenos son factores clave en el desarrollo de vacunas contra el Cáncer  \citep{borden2022cancer,chen2021challenges,gopanenko2020main}. Si se logra desarrollar un método con un buen desempeño, la inmunoterapia del cáncer basada en el desarrollo de vacunas personalizadas, podría utilizarse como alternativa a otros métodos como radioterapias y quimioterapias. \\
 
-En el área de ciencia de la computación existen dos aportes importantes. Primero en el campo inteligencia artificial y específicamente en el tópico de \textit{deep learning}, el desarrollo de un método basado en \textit{transformers} para la predicción del enlace pMHC, representa una contribución importante  y demuestra que este tipo de modelos no solo pueden utilizarse en campos del procesamiento natural del lenguaje (como lo hace chatGPT) sino también en otros ámbitos como la Immunoinformática. Luego, el desarrollo propio del \textit{pipeline}, representa un reto en la ingeniería de software, resolviendo problemas de integración, alto costo computacional, heterogeneidad, y modularidad.   \\
+En el área de ciencia de la computación existen dos contribuciones importantes. Primero en el campo inteligencia artificial y específicamente en el tópico de \textit{deep learning}, el desarrollo de un método basado en \textit{transformers} para la predicción del enlace pMHC, representa una contribución importante  y demuestra que este tipo de modelos no solo pueden utilizarse en campos del procesamiento natural del lenguaje (como lo hace chatGPT) sino también en otros ámbitos como la Immunoinformática. Luego, el desarrollo propio del \textit{pipeline}, representa un reto en la ingeniería de software, resolviendo problemas de integración, alto costo computacional, heterogeneidad y modularidad. De esta forma, se tiene como objetivo desarrollar un \textit{pipeline} con mejor desempeño a otros del estado del arte al incorporar información de Mass Spectrometry (MS) y fusión de genes.\\ 
 
 Finalmente, tener una aplicación de detección de neoantígenos desarrollada por la Universidad La Salle y la Universidad Católica San Pablo, realza el nombre de ambas universidades y demuestra que gracias al trabajo en conjunto se puede desarrollar aplicaciones de gran envergadura aplicadas a campos multidisciplinarios y nos alinea a grandes instituciones como el European Molecular Biology Laboratory (EMBL) y el National Institutes of Health (NIH).
 
@@ -232,40 +232,54 @@ Finalmente, tener una aplicación de detección de neoantígenos desarrollada po
 
 \section{Diseño y secuencia lógica de la investigación} 
 
-Hemos dividido la propuesta en dos partes: la primera se basa en el desarrollo de un modelo de \textit{deep learning} basado en \textit{transformers} y \textit{transfer learning} para la predicción de la unión pMHC. Actualmente, ya tenemos resultados preliminares con un desempeño comparable a NetMHCpan4.1 (\textit{state-of-art method}) \citep{arceda2023neoantigen} y adicionalmente, hemos desarrollado un \textit{review} sobre los principales métodos del estado del arte \citep{machaca2023deep}. En la segunda parte del proyecto, se propone desarrollar la aplicación Web para la detección de neoantígenos, enfocados en la predicción de la unión pMHC.
+Hemos dividido la propuesta en dos módulos NeoArgosMut y NeoArgosAntigen. NeoArgosMut, se enfoca en el llamado y anotación de variantes, como salida se obtiene neoantígenos candidatos. Luego, NeoArgosAntigen, prioriza estos antígenos, al predecir su afinidad al MHC (pMHC) y luego la afinidad del pMHC al TCR (pMHC-TCR). En la Figura \ref{fig:pipeline}, mostramos estos módulos. Adicionalmente, ya contamos con resultados previos para NeoArgosAntigen de dos trabajos anteriores: hemos desarrollamos una revisión sistemática de la literatura \citep{machaca2023deep} y también hemos experimentado el \textit{transformers} y \textit{transfer learning} para la predicción del enlace pMHC \citep{arceda2023neoantigen}. Actualmente, contamos con modelos con un desempeño superior a otros del estado del arte.
 
-\subsection{Desarrollo del modelo de inteligencia artificial}
 
-En este proyecto, se propone utilizar una arquitectura BERT con \textit{transfer learning}. Analizamos alternativas como TAPE \citep{rao2019evaluating}, ProtBERT-BFD \citep{elnaggar2021prottrans}, ESM-1b \citep{rives2021biological} y ESM2 \citep{lin2023evolutionary} cada una con 92 millones, 420 millones, 650 millones y 15 billones de parámetros respectivamente. TAPE fue entrenado con 30 millones de proteínas, ProtBERT-BFD con 2122 millones de proteínas y 250 millones de proteínas para ESM-1b. Además, ESM-1b obtuvo mejores resultados en precisión de contacto que TAPE y ProtBERT-BFD \citep{rives2021biological}; sin embargo, ya contamos la versión nueva ESM2 \citep{lin2023evolutionary}.\\
+\begin{figure}[h]	
+		\centering
+		\includegraphics[width=\textwidth]{../img/pipeline/proposal_pipeline}	
+	\caption{Representación de NeoArgosMut y NeoArgosAntigen para la detección de neoantígenos}
+	\label{fig:pipeline}
+\end{figure}
 
-Además, HLAB \citep{zhang2022hlab} propuso el uso de ProtBERT-BFD \citep{elnaggar2021prottrans} con un modelo BiLSTM en cascada y superó a NetMHCpan4.1 (método de vanguardia) en el \textit{allele} HLA-A*01:01. Por lo tanto, en este proyecto, proponemos utilizar el modelo preentrenado ESM2 \citep{lin2023evolutionary} con un capa BiLSTM  similar a HLAB \citep{zhang2022hlab}. Para el \textit{fine-tuning}, utilizaremos conjuntos de datos de NetMHCpan4.1 y NetMHCIIpan4.0.\\
 
-En resumen, en la Figura. \ref{fig:proposal}, presentamos la propuesta: primero, se concatenan y se aplica \textit{padding} al péptido y la pseudo secuencia MHC; en segundo lugar, utilizamos el modelo \textit{transformer} ESM2 para obtener una nueva representación de los aminoácidos; finalmente, utilizamos un BiLSTM para predecir el enlace pMHC. 
+\subsection{NeoArgosMut}
 
+NeoArgosMut, se encarga de recibir como entrada datos de DNA-seq, RNA-seq y Mass Spectrometry (MS). Luego se plantea alinear dichas secuencias con uso de las herramientas como BWA-MEM \citep{li2013aligning}, Bowtie2 \citep{langmead2012fast}. Adicionalmente, se usará STAR \citep{dobin2013star} porque alinea mejor muestras tumorales \citep{rubinsteyn2018computational}. Como salida a esta etapa, se optiene archivos de alineamiento BAM.\\
+
+Para el llamado de variantes se utilizará MuTect \citep{cibulskis2013sensitive} y Strelka \citep{saunders2012strelka}. Luego, se utilizará la unión de la información de ambos métodos tal como lo hizo \cite{zhou2023prioritizing} y \cite{rubinsteyn2018computational}. Como salida, se obtienen archivos VCF. Adicionalmente a otros \textit{pipelines}, utilizaremos información sobre la fusión de genes que se obtendrán de las herramientas \textit{Arriba} \citep{uhrig2021accurate} y FusionQ \citep{liu2013fusionq}. Esta forma parte de la contribución de este trabajo, porque se sabe que la mayoría de \textit{pipelines} tienen un bajo desempeño debido ausencia de información en su procesos de variantes estructurales y fusión de genes \citep{wood2020neoepiscope}. Finalmente, también se va a utilizar MaxQuant \citep{cox2008maxquant} para identificar las mutaciones a nivel de péptidos con ayuda de información de Mass Spectrometry (MS), esto también forma parte de la contribución del trabajo al incluir fuentes adicionales de información como MS.\\
+
+
+
+Luego corresponde a la anotación de variantes, en esta etapa se toman los archivos en formato VCF y se obtienen los péptidos generados a partir de estas variaciones o mutaciones. Estos péptidos representan los posibles neoantígenos. Para está tarea se va a utilizar Isovar y ANNOVAR \citep{wang2010annovar}. \\
+
+Finalmente, para obtener el tipo de HLA del paciente se va a utilizar la herramienta OptiType \citep{szolek2014optitype}. Otros \textit{pipelines} optan por solicitar al usuario la información del tipo de HLA; sin embargo, obtener el HLA a partir de las mismas secuencias de ADN, mejora considerablemente el desempeño general del pipeline y la accesibilidad del usuario.
+
+
+
+
+\subsection{NeoArgosAntigen}
+
+NeoArgosAntigen, prioriza los neoantígenos detectados previamente por NeoArgosMut. Esta priroización la realiza en base a la predicción del enlace de los neoantígenos al MHC y posteriormete al TCR. El módulo se divide en dos partes: la predicción del enlace pMHC y la afinidad del pMHC al TCR. Ambas toman como entrada dos secuencias de proteínas, luego se necesita predecir su afinidad (regresión) o el enlace (clasificación). En resumen, las proteínas se pueden representar como $p = \{ A, ... , Q \}$ y $q = \{ A, N, ... ,Q, E, G \}$. Luego, tenemos que  predecir la probabilidad del enlace o afinidad entre $p$ y $q$. \\
+
+
+Para el problema de predicción del enlace pMHC se va a utilizar modelos BERT pre-entrenados y se realizará \textit{fine-tuning} agregando un bloque de capas BiLSTM. Luego se volverá a entrenar estos modelos con una base de datos compuesta por muestras de \cite{zhang2022hlab} y \cite{gfeller2023improved}. Se propone la arquitectura de la Figura \ref{fig:proposal}. Como se puede ver, la entrada son dos secuencias de proteínas: el péptido y el MHC. Luego, el modelo basado en transformers está compuesto por un modelo pre-entrenado y un bloque de capas BiLSTM, esta propuesta se basó en el trabajo de \cite{zhang2022hlab}. En esta etapa también. se va a evaluar el desempeño de varios modelos BERT pre-entrenados como: TAPE \citep{rao2019evaluating}, ProtBERT-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} cada una con 92 millones, 420 millones, 650 millones parámetros respectivamente. Adicionalmente, TAPE fue entrenado con 30 millones de proteínas, ProtBERT-BFD con 2122 millones de proteínas y 60 millones de proteínas para ESM-2. En base a trabajos anteriores propios, sabemos que el uso de TAPE y el modelo más pequeño de ESM2 tienen buenos resultados \citep{arceda2023neoantigen}.\\
 
 
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.35\textwidth]{../img/neoantigen/proposal1}
+	\includegraphics[width=0.35\textwidth]{../img/pipeline/proposal_pmhc}
 	\caption{Propuesta: Utilizamos el modelo de transformer ESM2 seguido de BiLSTM para predecir el enlace pMHC.}
 	\label{fig:proposal}
 \end{figure}
 
-\subsection{Desarrollo de la aplicación Web}
-
-La aplicación Web se desarrollará para que un usuario pueda realizar predicciones de la unión pMHC. La página Web tomará como entrada un conjunto de péptidos y un tipo de MHC. Luego, retornará y mostrará que péptidos pueden unirse a dicho MHC y por lo tanto se les considera posibles neoantígenos.\\
-
-Referente a las tecnologías a utilizar: para el \textit{BackEnd}, se utilizará el \textit{framework} Express.js de Javascript y el gestor de base de datos Mongo. Para el \textit{FrontEnd}, se propone utilizar Next.js. Se han seleccionado estas tecnologías debido a su versatilidad y la enorme documentación que presentan. La Figura \ref{fig:arquitectura} anterior, muestra el nodo del FrontEnd donde se tiene la interfaz de un navegador web responsivo, consumiendo el servicio disponible desde el BackEnd. En la implementación la aplicación web en NodeJS Express y la base de datos Mongo se encuentran en el mismo servidor.
+La misma arquitectura de la Figura \ref{fig:proposal}, se utilizará para la predicción del enlace pMHC y TCR (pMHC-TCR) según recomendaciones de \cite{li2020progeo}  y \cite{myronov2023bertrand}. Sin embargo, se va reentrenar el modelo para adaptarse a este nuevo problema, se utilizarán muestras de \cite{li2020progeo} y la base de datos de VDJdb \citep{shugay2018vdjdb}.
 
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../img/neoantigen/arquitectura.png}
-	\caption{Arquitectura de la aplicación Web.}
-	\label{fig:arquitectura}
-\end{figure}
+
+
 
 
 	
@@ -288,20 +302,25 @@ Referente a las tecnologías a utilizar: para el \textit{BackEnd}, se utilizará
 
 
 \section{Integrantes del equipo}
-En la Tabla \ref{tab:integrantes}, presentamos al equipo de investigación.
+En la Tabla \ref{tab:integrantes}, presentamos al equipo de investigación. Adicionalmente, para el proyecto se contará con el apoyo de Julio Lopez, quien se desempeña como medico, con experiencia en oncología e investigación en tratamientos contra el cancer.
+ 
 
 \begin{table}[H]
 \caption{Integrantes del equipo de investigación}
 \label{tab:integrantes}
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
-{\renewcommand{\arraystretch}{1.2}% for the vertical padding
-\begin{tabular}{|p{3cm}p{2.2cm}p{2.3cm}p{2.5cm}p{3.3cm}|} \hline
-\textbf{Nombre y apellidos} & \textbf{Cargo}         & \textbf{Escuela profesional} & \textbf{Rol del proyecto} & \textbf{Descripción breve del rol} \\ \hline
-Vicente Machaca Arceda      & Investigador principal & Ingeniería de Software       & Investigador principal    & Investigación y desarrollo         \\
-Richart Escobedo Quispe     & Co-investigador        & Ingeniería de Software       & Co-investigador           & Investigación y desarrollo         \\
-Estudiante 01               & Asistente              & Ingeniería de Software       & Asistente                 & Desarrollo                         \\
-Estudiante 02               & Asistente              & Ingeniería de Software       & Asistente                 & Desarrollo          \\ \hline              
+{\renewcommand{\arraystretch}{1.4}% for the vertical padding
+\begin{tabular}{|p{3cm}p{2.5cm}p{3.5cm}p{4.8cm}|}  \hline
+\textbf{Nombre} & \textbf{Cargo}          & \textbf{Especialidada} & \textbf{Funciones} \\ \hline
+Vicente Machaca      & IP y coordinador ULaSalle   & PhD(c) en Ciencia de la computación & Investigación, desarrollo de software y gestión      \\
+Ývan Túpac Valdivia   & Coordinador   UCSP           & PhD en Ciencia de la computación   & Investigación, desarrollo de software y gestión \\
+Estudiante 01               & Asistente         &    Ciencia de la computación           & Desarrollo   de software                      \\
+Estudiante 02               & Asistente           &    Ciencia de la computación      & Desarrollo  de software        \\    
+
+Estudiante 03               & Asistente         &      Ingeniería de Software         & Desarrollo de software                        \\
+Estudiante 04               & Asistente           &   Ingeniería de Software       & Desarrollo de software         \\  \hline              
 \end{tabular}
+
 }
 \end{table}
 
@@ -318,15 +337,24 @@ En la Tabla \ref{tab:presupuesto}, presentamos el presupuesto para el trabajo de
 		\label{tab:presupuesto}
 		\begin{tabular}{|p{1.5cm}|p{8.2cm}|c|c|c|} \hline
 			\textbf{Incentivo}    & \textbf{Miembro del equipo}    & \textbf{Unidades} & \textbf{Precio} & \textbf{Total} \\ \hline
-			Incentivos & Incentivo al investigador principal          & 1                 & 700            & 700           \\
-			& Incentivo al co-investigador & 1                 & 700            & 700           \\ \hline \hline
+			Incentivos & Incentivo al IP          & 1                 & 2000            & 2000           \\
+			& Incentivo al coordinador de UCSP & 1                 & 2000            & 2000           \\ \hline \hline
 			
 			\textbf{Hito}    & \textbf{Insumo o material}    & \textbf{Unidades} & \textbf{Precio} & \textbf{Total} \\ \hline
-			Hito I & Workshops y cursos       & 2                 & 500            & 1000           \\
-			& Servicios de \textit{cloud computing} para entrenar los modelos       & 1                 & 1000            & 1000           \\ \hline
-			Hito II &  Hosting y dominio                      & 1                 & 600            & 600           \\
+			Hito I & Workshops y cursos       & 2                 & 1500            & 3000           \\
+			& Servicios de \textit{cloud computing} para entrenar los modelos    de deep learning   & 1                 & 2000            & 2000           \\
+			
+			& Asesoramiento de investigadores externos      & 1                 & 2000            & 2000           \\
 			 \hline
-			& \textbf{Total}                         &                   &                 & \textbf{4000}         \\ \hline
+			Hito II &  Servicios de \textit{cloud computing} para entrenar los modelos    de deep learning                   & 1                 & 1000            & 1000           \\
+			
+			& Asesoramiento de investigadores externos      & 1                 & 2000            & 2000           \\
+			
+			 \hline
+			& \textbf{Total}                         &                   &                 & \textbf{14000}         \\ 
+			
+			
+			\hline
 		\end{tabular}
 	}
 \end{table}
@@ -358,7 +386,7 @@ En la Tabla \ref{tab:actv}, presentamos el cronograma de actividades por mes. IA
 
 \section{Propuesta de la conferencia o revista}
 
-El artículo de investigación será presentado a la conferencia: ``18th International Conference on Practical Applications of Computational Biology \& Bioinformatics'' (\href{https://www.pacbb.net/}{enlace}). Está conferencia indexa los artículos en Scopus a tambien en la revista Lecture Notes in Networks and Systems que es H-index 27 según Scimago (\href{https://www.scimagojr.com/journalsearch.php?q=21100901469&tip=sid&clean=0}{enlace}). A su vez, está conferencia invita a los mejores artículos a una publicación extendida en revistas \textit{Quartil Q1}.
+El artículo de investigación será sometida  a la revista  \href{https://academic.oup.com/bib?campaignid=20617591354&adgroupid=&adid=&gclid=Cj0KCQjwsp6pBhCfARIsAD3GZuar7JO7kkA0brznfmZRDJJH5NDhGjJsyhTv859p33ddEqtW1Z5JkfQaAvEZEALw_wcB}{ Briefing in Bioinformatics} que es H-index 132 y Quartil 1 según Scimago (\href{https://www.scimagojr.com/journalsearch.php?q=17956&tip=sid&clean=0}{enlace}). 
 
 
 \section{Enlaces web de los CV de los miembros del grupo }
@@ -371,10 +399,10 @@ En la Table \ref{tab:inve}, presentamos los enlaces a los CV's del CTI vitae y e
 \label{tab:inve}
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.2}% for the vertical padding
-\begin{tabular}{|lll|} \hline
+\begin{tabular}{|p{5.3cm}p{4cm}p{5cm}|} \hline
 \textbf{Nombre y apellidos} & \textbf{Link CTI vitae}                                                                      & \textbf{Código RENACYT} \\ \hline
-Vicente Machaca Arceda      & \href{https://dina.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id\_investigador=22551}{enlace} & P0022551                \\
-Richart Escobedo Quispe     & \href{https://dina.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id\_investigador=20597}{enlace} & -     \\ \hline                 
+Vicente Machaca Arceda      & \href{https://dina.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id\_investigador=22551}{Enlace} & P0022551                \\
+Ývan Túpac Valdivia    & \href{https://dina.concytec.gob.pe/appDirectorioCTI/VerDatosInvestigador.do?id_investigador=4409}{Enlace} & -     \\ \hline                 
 \end{tabular}
 }
 \end{table}
