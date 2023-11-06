@@ -236,7 +236,7 @@
 		\includegraphics[keepaspectratio,scale=0.6]{img/unsa} \\[.8cm]
 		
 		
-		\textbf{\Large{ Detección de neo antígenos utilizando \textit{deep learning} en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del Cáncer  }} \\
+		\textbf{\Large{ Detección \textit{in Silico} de Neoantígenos Utilizando \textit{Transformers} y \textit{Transfer Learning} en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer  }} \\
 		
 		%	Algoritmo de Planificación de Tareas para el \\
 		%    Procesamiento de Grandes Cantidades de Datos en  \\ 
@@ -252,7 +252,7 @@
 		Doctor en Ciencia de la Computación \\
 		\vskip 0.5cm
 		Asesor: \\
-		Prof. Dr. Juan Carlos Gutiérrez Cáceres\\
+		Prof. Dr. Cristian Lopez Del Alamo\\
 		%Coorientador: Prof. Dr. Nome do Coorientador
 		\end{flushright}
 		
