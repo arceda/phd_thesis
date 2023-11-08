@@ -310,19 +310,51 @@ Como alternativa de solución al problema mencionado anteriormente, surgen Long 
 	\label{fig:lstm}
 \end{figure}
 
-\subsection{\textit{Transformers}}
+\subsection{Transformers}
 
-Los \textit{Transformers} son propuestas por \cite{vaswani2017attention}, para dar solución al problema de \textit{long-range dependency}. Por ejemplo el autor comenta: ``The Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution''. Del enunciado anterior, \textit{transduction} hace referencia a la conversión secuencias de entrada hacia otro formato. Otro termino interesante es \textit{self-attention} (Figura \ref{fig:transformer}), este permite al modelo mirar hacia otras palabras en la secuencia de entrada para tener un mejor entendimiento de cierta palabra en la secuencia  \citep{Kelvin_transformer2022}.  
+%Los \textit{Transformers} son propuestas por \cite{vaswani2017attention}, para dar solución al problema de \textit{long-range dependency}. Por ejemplo el autor comenta: ``The Transformer is the first transduction model relying entirely on self-attention to compute representations of its input and output without using sequence-aligned RNNs or convolution''. Del enunciado anterior, \textit{transduction} hace referencia a la conversión secuencias de entrada hacia otro formato. Otro termino interesante es \textit{self-attention} (Figura \ref{fig:transformer}), este permite al modelo mirar hacia otras palabras en la secuencia de entrada para tener un mejor entendimiento de cierta palabra en la secuencia  \citep{Kelvin_transformer2022}.  
 
-\begin{figure}[H]
+El concepto del mecanismo de atención fue introducido inicialmente por Bahdanau en 2014 \citep{bahdanau2014neural} para abordar las limitaciones asociadas con vectores de codificación de longitud fija. Este enfoque novedoso produjo resultados comparables a los estados del arte en la traducción de inglés a francés. Posteriormente, el mecanismo de atención encontró aplicación en la inferencia de lenguaje natural \citep{parikh2016decomposable}, lo que llevó a la propuesta de una red de atención estructurada \citep{kim2017structured}. Sin embargo, es importante señalar que estos módulos de atención se utilizaban típicamente en conjunto con redes recurrentes. Ocurrió un cambio significativo en 2017 con la publicación del innovador artículo ``Attention Is All You Need'' propuesta por \cite{vaswani2017attention}, que presentó una nueva arquitectura de red conocida como Transformer. Esta arquitectura se basó exclusivamente en mecanismos de atención y representó una partida fundamental de los enfoques tradicionales. En 2018, \cite{devlin2018bert} introdujo el modelo bidireccional de \textit{Transformer Bidirectional Encoder Representations from Transformers} (BERT). Desde entonces, se ha convertido en uno de los modelos de Transformer más reconocidos e influyentes en el campo. El Transformer se basa en el concepto de \textit{self-attention}, que se refiere a cuánta atención presta una palabra a otras palabras. Por ejemplo, en la siguiente oración: ``El animal no cruzó la calle porque estaba muy cansado'', \textit{self-attention} permite asociar ``estaba'' con ``animal'' \citep{prince2023understanding}.
+
+En este contexto, el bloque principal es la autoatención $sa[\bullet]$, que toma $N$ entradas $x_n$, cada una de dimensión $D \times 1$, y devuelve $N$ vectores de salida del mismo tamaño. En el procesamiento del lenguaje natural, cada entrada $x_n$ representa una palabra; mientras que en secuencias de proteínas, representa un aminoácido. Luego, se calculan un conjunto de valores mediante $v_n = \beta_v + \Omega_vx_n$, donde $\beta_v$ y $\Omega_v$ son los sesgos y pesos, respectivamente. Así, el bloque de autoatención se calcula mediante la Ecuación \ref{eq:self}. El peso $a[x_m, x_m]$ es la atención que la salida $x_n$ presta a $x_m$.
+
+
+\begin{equation}\label{eq:attention}
+	a[x_m, x_n] = \mbox{softmax}[ k^T \cdot q_n ]
+\end{equation}
+
+\begin{equation}\label{eq:self-attention}
+	Sa[X] = V \cdot \mbox{softmax}[ k^T \cdot q_n ]   
+\end{equation}
+
+\begin{equation}\label{eq:scaled-self-attention}
+	\mbox{Sa}[X] = V \cdot \mbox{softmax}\left[ \frac{k^T \cdot q_n}{ \sqrt{D_q} }   \right]   
+\end{equation}
+
+Además, aplicar varios \textit{multi-head self-attention} lográ mejores resultados. Entonces, la concatenación de varios \textit{head attentions} se presenta en la Equación \ref{multihead}.
+
+\begin{equation}\label{multihead}
+	\mbox{MhSa}[X] = \Omega_c[Sa_1[X]; Sa_2[X];...;Sa_H[X];]
+\end{equation}
+
+\begin{figure}
 	\centering
-	\includegraphics[width=0.7\textwidth]{img/neoantigen/transformer}
-	\caption{ejemplo del mecanismo de atención de una red \textit{Transformer}. Fuente: \cite{zhang2021dive}.}
-	\label{fig:transformer}
+	\includegraphics[width=0.8\textwidth]{img/theory/attention_weights_matrix.png}
+	\caption{How to compute attention weights. Source: \cite{prince2023understanding}}
+	\label{fig:self-attention}
 \end{figure}
 
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=0.7\textwidth]{img/neoantigen/transformer}
+%	\caption{Ejemplo del mecanismo de atención de una red \textit{Transformer}. Fuente: \cite{zhang2021dive}.}
+%	\label{fig:transformer}
+%\end{figure}
 
-\subsection{\textit{BERT}}
+
+
+
+\subsection{BERT}
 
 \textit{Bidirectional Encoder Representations from Transformers (BERT)}, propuesta por \cite{devlin2018bert}, está inspirada por la red \textit{Tranformer} y su mecanismo de atención, la cuál entiende la relación contextual entre diferentes palabras. A diferencia de una RNN, BERT no tiene dirección, es decir lee la secuencia entera. Esta característica, le permite al modelo aprender información contextual de una palabra con respecto a las otras \citep{Kelvin_transformer2022}.
 
