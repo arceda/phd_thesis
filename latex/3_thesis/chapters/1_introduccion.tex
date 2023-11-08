@@ -49,7 +49,20 @@ Los neoantígenos son peṕtidos mutados específicos de tumores y son considera
 
 Además, el MHC representa un factor clave, en la detección de neoantígenos, al ser el encargado de unirse al neoantígeno y presentarlo a la superficie de la célula. Debido a esto, este trabajo en enfoca en el desarrollo de un método para la predicción del enlace entre neoantígenos y MHC (\textit{pMHC binding}), esto corresponde a la Fase 3.1 de la Figura \ref{fig:vaccines}(b) dentro del \textit{pipeline} de detección de neoantígenos.  Existen dos tipos: el MHC clase I (MHC-I) y MHC clase II (MHC-II), ambos presentan péptidos en la superficie celular a las células T CD8+ y CD4+, respectivamente \citep{janeway1997immunobiology, abualrous2021major}. En detalle, el ciclo de vida de los neoantígenos que se unen a MHC-I se puede resumir de la siguiente manera. Primero, una proteína cancerígena se degrada en péptidos en el citoplasma. Luego, los péptidos se unen al MHC (\textit{pMHC binding}). Después, este compuesto sigue un camino hasta llegar a la membrana celular (\textit{pMHC presentation}). Finalmente, el pMHC es reconocido por el TCR, desencadenando el sistema inmunológico \citep{janeway1997immunobiology, wieczorek2017major, gasser2021interpreting}. Por lo tanto, el \textit{pMHC binding} es un paso muy importante para la inmunidad celular, y la predicción y comprensión de esta unión tienen un valioso potencial. Lamentablemente, la mayoría de las ligandos \textit{pMHC} no llegan a la membrana celular \citep{de2020neoantigen}. 
 
-Adicionalmente, las proteínas MHC están codificadas por genes altamente polimórficos, llamados \textit{Antígenos Leucocitarios Humanos} (HLA); la considerable naturaleza polimórfica de los genes MHC proporciona una variación sustancial en la unión con los neoantígenos, lo que influye en el conjunto de neoantígenos presentados a las células T \citep{abualrous2021major}. En consecuencia, los métodos propuestos se categorizan como \textit{pan-specific} y \textit{allele-specific}. Los métodos \textit{allele-specific} \citep{rammensee1999syfpeithi, reche2002prediction, kim2009derivation, nielsen2016netmhcpan, vang2017hla, shao2020high, bravi2021rbm} entrenan un modelo para cada \textit{allele} del MHC; mientras que los métodos \textit{pan-specific} \citep{hu2019acme, liu2019deepseqpan, wu2019deephlapan, phloyphisut2019mhcseqnet, o2018mhcflurry, o2020mhcflurry, reynisson2020netmhcpan, venkatesh2020mhcattnnet, ye2021mathla, mei2021anthem, chu2022transformer, zhang2022hlab, mei2021anthem, hu2019acme, gfeller2023improved} entrenan un modelo global que toma péptidos (neoantígenos) y MHC como entradas. Por lo tanto, debido a la naturaleza altamente polimórfica del MHC, los métodos \textit{pan-specific} surgen con una alta posibilidad de futuras aplicaciones.
+Adicionalmente, las proteínas MHC están codificadas por genes altamente polimórficos, llamados \textit{Antígenos Leucocitarios Humanos} (HLA); la considerable naturaleza polimórfica de los genes MHC proporciona una variación sustancial en la unión con los neoantígenos, lo que influye en el conjunto de neoantígenos presentados a las células T \citep{abualrous2021major}. En consecuencia, los métodos propuestos se categorizan como \textit{pan-specific} y \textit{allele-specific}. Los métodos \textit{allele-specific} \citep{rammensee1999syfpeithi, reche2002prediction, kim2009derivation, nielsen2016netmhcpan, vang2017hla, shao2020high, bravi2021rbm} entrenan un modelo para cada \textit{allele} del MHC; mientras que los métodos \textit{pan-specific} \citep{hu2019acme, liu2019deepseqpan, wu2019deephlapan, phloyphisut2019mhcseqnet, o2018mhcflurry, o2020mhcflurry, reynisson2020netmhcpan, venkatesh2020mhcattnnet, ye2021mathla, mei2021anthem, chu2022transformer, zhang2022hlab, mei2021anthem, hu2019acme, gfeller2023improved} entrenan un modelo global que toma péptidos (neoantígenos) y MHC como entradas. Además, la naturaleza polimórfica del MHC eleva bastante la complejidad de este problema, se cree que existen las 10000 diferentes MHC \textit{alleles} \citep{abelin2017mass}, esto complica mucho la detección de neo antígenos. Por lo tanto, los métodos \textit{pan-specific} surgen con una alta posibilidad de futuras aplicaciones.
+
+Lamentablemente, a pesar de varios esfuerzos en el desarrollo  de métodos para la detección de neoantígenos, menos del 5\% de neoantígenos detectados activan el sistema immune \citep{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Según los autores de los métodos,  las razones son: 
+
+\begin{enumerate}
+	\item La no inclusión en conjunto de varias fuentes de información como DNA-seq, RNA-seq, y datos de \textit{Mass Spectrometry} (MS) \citep{kim2018neopepsee}. Por ejemplo, la mayoria de  propuestas no utiliza datos de MS; en la actualidad, existe una creciente información de estos datos y se estan aplicado a varios campos de la Bioinformática.
+	\item  Uso herramientas de bajo desempeño para la predicción del enlace péptido-MHC (pMHC) (etapa 3.1  de la Figura \ref{fig:vaccines_b}). La mayoria de aplicaciones, se basa en el uso de MHCFlurry \citep{o2020mhcflurry} y NetMHCpan4.1 \citep{reynisson2020netmhcpan}. Sin embargo, actualmente, se cuenta con herramientas de mejor desempeño basado en \textit{transformers} \citep{arceda2023neoantigen}. Esta tesis, se enfoca en resolver este problema.
+	\item Para la etapa 3.2 de la Figura \ref{fig:vaccines_b}, los autores no consideran  la predicción del enlace pMHC al TCR (pMHC-TCR), varios autores consideran incluir esta tarea en trabajos futuros  \citep{rubinsteyn2018computational}.
+	\item Finalmente, no utilizar información de eventos de \textit{alternative splicing}, variaciones estructurales en el ADN y las mutaciones de fusión de genes, está información esta fuertemente relacionada con varios tipos de cancer \citep{wood2020neoepiscope}.
+\end{enumerate}
+
+En conclusión, la detección de neoantígenos es un desafío que consta de múltiples etapas, y las herramientas actuales en el estado del arte presentan un rendimiento insuficiente. Uno de los factores clave detrás de este bajo rendimiento está relacionado con la predicción del enlace pMHC. Por esta razón, esta tesis se centra en abordar este problema mediante la propuesta de un método basado en Transformers para la predicción del enlace pMHC.
+
+%Finalmente, la detección de neoantígenos es un problema compuesto por varias etapas, y las herramientas actuales del estado del arte tiene bajo desempeño. Además, una de las principales razones del bajo desempeño esta relacionado a la predicción del enlace pMHC. Debido a eso, esta tesis, se enfoca en dar solución a este problema, proponiendo un método basado en Transformers para la predicción del enlace pMHC.
 
 %Según lo mencionado anteriormente, la detección de neo antígenos es un factor clave en el desarrollo de vacunas personalizadas. En este proceso el compuesto \textit{Major Histocompatibility Complex} (MHC), juega un papel muy importante, es el encargado de presentar los péptidos a la células T \citep{hashemi2022improved}. Para el caso de células humanas el gen MHC es conocido como Human Leukocyte Antigens (HLA) y es polimórfico, se cree que existen las 10000 diferentes \textit{HLA-I alleles} \citep{abelin2017mass}, esto complica mucho más la detección de neo antígenos. 
 
@@ -59,9 +72,13 @@ Adicionalmente, las proteínas MHC están codificadas por genes altamente polim�
 %El problema de \textit{pMHC binding} está casi solucionado con una precisión de 0.98 por parte de la herramienta NetMHCPan 4.1 \citep{reynisson2020netmhcpan}. Sin embargo, no es bueno limitar la detección de neo antígenos solo al problema de \textit{pMHC binding}, porque la mayoría de estos compuestos no llegan a la membrana \citep{mill2022neoms}, a este problema se le conoce como \textit{pMHC presentation}. Por ejemplo, se sabe que menos del 5\% de péptidos detectados llegan a la membrana \citep{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Además, existen herramientas como NeyMHC, NetMHCpan y MHCFlurry que tienen un buen desemepeño en \textit{pMHC binding}, pero con resultados pobres en  \textit{pMHC presentation} \citep{bulik2019deep}. 
 
 
+
 \subsection{Formulación del problema}
 
-Menos del 5\% de péptidos detectados en \textit{pMHC binding}, llegan a la membrana de la células, para que luego sean reconocidos por las células T.  El proceso por el cúal un péptido enlazado a MHC llegue a la membrana es conocido como  \textit{pMHC presentation}, pero en este problema las propuestas recientes solo llegan a un 0.61 de precisión y 0.4 de \textit{recall}. Además, propuestas recientes solo llegan aun 0.6 de \textit{presicion} y 0.4 de \textit{recall} \citep{mill2022neoms}. En este contexto, la tesis se enfoca en el problema de \textit{pMHC presentation}, considerándolo como un problema de clasificación binaria, y tomando como entrada la secuencia de aminoácidos del péptido y la secuencia de aminoácidos de la proteína MHC. 
+El presente estudio se centra en el problema de predicción del enlace pMHC-I (\textit{pMHC binding prediction}). Esto representa un problema de clasificación binaria que toma como entrada la secuencia de aminoacidos de un péptido y el MHC. Un péptido podría representarse como: $p = \{A, ..., Q\}$ y una representación similar para el MHC sería: $q = \{A, N, ..., G\}$. Finalmente, necesitamos conocer la probabilidad de afinidad entre $p$ y $q$. Si esta probabilidad es lo suficientemente alta, es posible que el péptido se enlace al MHC y por lo tanto, el péptido $p$ en cuestión, sería un excelente candidato a neoantígeno.
+
+
+%Menos del 5\% de péptidos detectados en \textit{pMHC binding}, llegan a la membrana de la células, para que luego sean reconocidos por las células T.  El proceso por el cúal un péptido enlazado a MHC llegue a la membrana es conocido como  \textit{pMHC presentation}, pero en este problema las propuestas recientes solo llegan a un 0.61 de precisión y 0.4 de \textit{recall}. Además, propuestas recientes solo llegan aun 0.6 de \textit{presicion} y 0.4 de \textit{recall} \citep{mill2022neoms}. En este contexto, la tesis se enfoca en el problema de \textit{pMHC presentation}, considerándolo como un problema de clasificación binaria, y tomando como entrada la secuencia de aminoácidos del péptido y la secuencia de aminoácidos de la proteína MHC. 
 
 
 
@@ -71,14 +88,22 @@ Menos del 5\% de péptidos detectados en \textit{pMHC binding}, llegan a la memb
 
 \subsection{Objetivo General}
 
-Proponer un método basado en \textit{deep learning} para la detección de neo antígenos, enfocados en el problema de \textit{pMHC presentation}. 
+%Detección \textit{in Silico} de Neoantígenos Utilizando \textit{Transformers} y \textit{Transfer Learning} en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer
+
+Proponer un método \textit{in Silico} basado en \textit{Transformers} y \textit{Transfer Learning} para la detección de neo antígenos, enfocados en la predicción del enlace pMHC. 
 
 \subsection{Objetivos específicos}
 
 \begin{enumerate}[(a)]
-\item Realizar una revisión sistemática de la literatura e implementar los métodos con mejor desempeño en la detección de neo antígenos.
-\item Proponer e implementar un método basado en \textit{deep learning} para la detección de neo antígenos.		
-\item Evaluar el método propuesto en bases de datos publicas.
+	%\item Analizar herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2, utilizadas para la predicción del enlace pMHC en el contexto de detección de neonatígenos.
+	\item Analizar los métodos que utilizan Transformers para la predicción del enlace pMHC en el contexto de detección de neoantígenos.
+	\item Analizar los modelos basados en Transformers TAPE, ProtBert-BFD, y EMS2 pre-entredados para diversas tareas en Proteómica y de los cuáles se puede aplicar \textit{Transfer Learning}. 
+	\item Analizar técnicas como \textit{Gradient Accumulation Steps} (GAS) y métodos de \textit{layer-freezing} para entrenar modelos Transformers con millones de parámetros.
+	\item Implementar \textit{fine-tuning} a los modelos TAPE, ProtBert-BFD, y EMS2 para la tarea de predicción del enlace pMHC, aplicando GAS y una metodología de \textit{layer-freezing}.
+	\item Comparar los modelos de mejor desempeño con las herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2.
+%\item Realizar una revisión sistemática de la literatura e implementar los métodos con mejor desempeño en la detección de neo antígenos.
+%\item Proponer e implementar un método basado en \textit{deep learning} para la detección de neo antígenos.		
+%\item Evaluar el método propuesto en bases de datos publicas.
 \end{enumerate}
 
 %% ------------------------------------------------------------------- %%
@@ -87,22 +112,26 @@ Proponer un método basado en \textit{deep learning} para la detección de neo a
 Las principales contribuciones de este trabajo son:
 
 \begin{enumerate}[(a)]
-	\item Se ha desarrollado una revisión sistemática de la literatura referente a los métodos basados en \textit{deep learning} para la detección de neo antígenos.
-	\item Se ha desarrollado un nuevo método para la detección de neo antígenos, este método utiliza redes neuronales \textit{transformer} y \textit{transfer learning}.
+	\item Se ha desarrollado una revisión sistemática de la literatura referente a los métodos basados en \textit{Transformers} para la detección de neoantígenos. Esto ha generado dos publicaciones tituladas: \textit{``Deep Learning and Transformers in MHC-Peptide Binding and Presentation Towards Personalized Vaccines in Cancer Immunology: A Brief Review''} \citep{machaca2023deep} y \textit{``Transformers Meets Neoantigen Detection: A Systematic Literature Review''}.
+	\item Se ha implementado \textit{fine-tuning} a seis modelos de Transformers para la predicción del enlace pMHC; además, se ha evaluado el uso de GAS y una metodología de \textit{layer-freezing}. Los resultados fueron publicados en: \textit{``Neoantigen Detection Using Transformers and Transfer Learning in the Cancer Immunology Context''} \citep{arceda2023neoantigen} y \textit{``Fine-tuning Transformers for Peptide-MHC Class I Binding Prediction''}.
+	\item Finalmente, se comparó los métodos propuestos con herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2. Los métodos propuestos obtuvieron los mejores resultados en \textit{accuracy}, \textit{Area Under the Curve} (AUC), \textit{recall}, \textit{f1-score} y \textit{Matthews Correlation Coefficient}  (MCC).
 \end{enumerate}
 
 %% ------------------------------------------------------------------- %%
 \section{Organización del Trabajo}
 \label{sec:organizaciondeltrabajo}
-En el Capítulo \ref{cap:marcoteorico} se presentan los conceptos básicos sobre Bioinformaica e inmunoterapia del Cáncer, también son abordados los temas sobre \textit{deep learning} y redes neuronales \textit{transformers}.
+En el Capítulo \ref{cap:marcoteorico} se presentan los conceptos básicos sobre Bioinformática e inmunoterapia del Cáncer, también son abordados los temas sobre \textit{deep learning} y redes neuronales Transformers.
 
-Luego, en el Capítulo \ref{cap:estadodelarte} se describen los trabajos relacionados a la presente tesis. Este capítulo es el resultado de un \textit{review} utilizando una búsqueda sistemática de la literatura de los métodos basados en \textit{deep learning} para la detección de neo antígenos.
+Luego, en el Capítulo \ref{cap:estadodelarte} se describen los trabajos relacionados a la presente tesis. Debido a la gran cantidad de publicaciones, solo se ha considerado trabajos desde el 2018 y que hacen uso de Transformers o redes reuronales con mecanismos de atención.
 
-El Capitulo \ref{cap:propuesta}, presenta la propuesta de la tesis. Esta se basa en un nuevo método basado en redes neuronales \textit{transformers}. Debido a la falta de muestras, para acelerar el entrenamiento y mejora la generalización, se utilizo \textit{transfer learning} de dos redes neuronales pre entrenadas: TAPE \citep{rao2019evaluating} y ESM-1b \citep{rives2021biological}.
+El Capitulo \ref{cap:propuesta}, presenta la propuesta de la tesis. Esta se basa en un método para desarrollar \textit{fine-tuning} a Transformers pre-entrenadas para diversas tareas de Proteómica. 
 
-Luego, en el Capítulo  \ref{cap:resultados}, se presentan los resultados de la investigación. En este punto se evalúa el método propuesto en una base de datos recolectada de varias investigaciones.
+Luego, en el Capítulo  \ref{cap:resultados}, se presentan los resultados de la investigación. Además, se presenta una comparación con los métodos del estado del arte.
 
 Finalmente, en el Capítulo~\ref{cap:conclusiones} son expuestos las conclusiones del presente trabajo así como también las direcciones para continuar con el mismo en la sección de trabajos futuros.
+
+
+
 
 
 
