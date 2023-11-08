@@ -88,7 +88,7 @@ Dado que trabajamos con entradas de proteínas, cada aminoácido se representa u
 
 Actualmente, NetMHCPan4.1 \citep{reynisson2020netmhcpan} es un método de referencia, este es una red neuronal artificial profunda  que consiste en 40 redes neuronales artificiales ensambladas; cabe destacar que maneja eficazmente conjuntos de datos de MS, al igual que el MHCflurry2.0 \citep{o2020mhcflurry}.
 
-\begin{table}[h]
+\begin{table}[ht]
 	\caption{Transformers y métodos de aprendizaje profundo con mecanismos de atención utilizados para la predicción de la unión pMHC.}
 	\label{tab:transformes}
 	\setlength{\tabcolsep}{0.5em} % para el espaciado horizontal
@@ -174,47 +174,39 @@ Los modelos, en general, tienen como entrada secuencias de TCR y pMHC. La repres
 		\begin{tabular}{p{2.5cm}p{2.5cm}p{2cm}p{5.5cm}}
 			\multicolumn{1}{l}{\textbf{Año}}                                   & \textbf{Nombre}          & \textbf{Entrada}              & \textbf{Modelo}     \\  \hline
 			
-			\cite{bravi2023transfer}	&	diffRBM	&	BLOSUM62	 &	Para el modelo de presentación alelo-específico de inmunogenicidad, emplea modelos con transferencia de aprendizaje y Máquinas de Boltzmann Restringidas.	\\%El modelo utiliza BLOSUM62
+			\cite{bravi2023transfer}	&	diffRBM	&	BLOSUM62	 &	Emplea una arquitectura RBM, aprendizaje por transferencia y \textit{Restricted Boltzmann Machines}.	\\%El modelo utiliza BLOSUM62
 			
-			\cite{10.1093/bioinformatics/btac820}	&	AVIB	&	BLOSUM50	&	Utiliza Atención de Expertos (AoE). Utiliza multiatención para predecir las interacciones entre TCRs y péptidos.	\\
+			\cite{10.1093/bioinformatics/btac820}	&	AVIB	&	BLOSUM50	&	Utiliza \textit{Attention of Experts} (AoE) (AoE) y \textit{multi-head self-attention} para predecir las interacciones entre TCRs y péptidos.	\\
 			
-			\cite{myronov2023bertrand}	&	BERTrand	&	BLOSUM62	&	Emplea un modelo BERT con 8 bloques de transformadores y más de 2.5 millones de parámetros, y utiliza una estrategia de preentrenamiento no supervisado para compensar la cantidad de parámetros.\\ %La entrada se representa mediante tokens, se convierte en una incrustación y se pasa a un cabezal de clasificación.
+			\cite{myronov2023bertrand}	&	BERTrand	&	BLOSUM62	&	Emplea un modelo BERT con más de 2.5 millones de parámetros, y utiliza una estrategia de pre-entrenamiento no supervisado para compensar la cantidad de parámetros.\\ %La entrada se representa mediante tokens, se convierte en una incrustación y se pasa a un cabezal de clasificación.
 			
-			\cite{zhang2023hybrid}	&	Hybrid gMLP 	&	BLOSUM50	&	El gMLP basado en el aprendizaje profundo utiliza múltiples mecanismos de atención para predecir la interacción de péptidos MHC y TCR, y puede manejar los problemas causados por las diferentes longitudes de los TCR.\\
+			\cite{zhang2023hybrid}	&	Hybrid gMLP 	&	BLOSUM50	&	Deep learning con mecanismos de atención para predecir la interacción de péptidos MHC y TCR, y puede manejar los problemas causados por las diferentes longitudes de los TCR.\\
 			
-			\cite{zhang2022pite}	&	PiTE	&	BLOSUM	&	Utiliza un modelo de incrustación de aminoácidos y un codificador de secuencias. Las representaciones se concatenan con su resta absoluta y se alimentan a dos capas lineales.
-			%para obtener la representación u y v de la secuencia TCR y el epítopo. Finalmente, u, v y su resta absoluta $|u-v|$ se concatenan y se alimentan a dos capas lineales para predecir la afinidad de unión.
-			\\
-			
+		
 			%2023\cite{wu2023tpbte}	&	TPBTE	&	BLOSUM62	&		\\%No está el artículo
 			
-			\cite{yang2023mix}	&	MIX-TPI	&	BLOSUM62	&	Emplea CNNs con autoatención para construir un extractor basado en secuencias y características fisicoquímicas. Luego las fusiona con una capa de autoatención para predecir las interacciones TCR-péptido.\\
+			\cite{yang2023mix}	&	MIX-TPI	&	BLOSUM62	&	Emplea CNNs con \textit{self-attention} para construir un extractor basado en secuencias y características fisicoquímicas. Luego las fusiona con una capa de \textit{self-attention} para predecir las interacciones TCR-péptido.\\
 			
-			\cite{bradley2023structure}	&	TCRdock	&	BLOSUM62	&	Una versión especializada de AlphaFold para generar modelos de interacciones TCR:péptido-MHC que se pueden utilizar para distinguir los epítopos de los incorrectos. 	\\
+			\cite{bradley2023structure}	&	TCRdock	&	BLOSUM62	&	Una versión especializada de AlphaFold para generar modelos de interacciones pMHC-TCR que se pueden utilizar para distinguir los \textit{epitopes} de los incorrectos. 	\\
 			
-			\cite{fang2022attention}	&	ATMTCR	&	BLOSUM50	&	ATMTCR se alimenta en dos capas completamente conectadas, un modelo basado en el aprendizaje por contraste y NetMHCpan para predecir la unión del TCR y el complejo pMHC.
+			\cite{fang2022attention}	&	ATMTCR	&	BLOSUM50	&	ATMTCR se alimenta en dos capas completamente conectadas, un modelo \textit{Contrastive learning-based} y NetMHCpan para predecir la unión del TCR y el complejo pMHC.
 			\\
 			
-			\cite{cai2022atm}	&	ATM-TCR	&	One-hot	\& BLOSUM &	Consta de dos codificadores y un decodificador lineal. % para determinar la afinidad de unión.
+			\cite{cai2022atm}	&	ATM-TCR	&	One-hot	\& BLOSUM &	Consta de dos \textit{encoders} y un \textit{decoder} lineal. % para determinar la afinidad de unión.
 			Cada secuencia se alinea mediante IMGT. Calcula la similitud de los mapas de atención y los mapas de referencia para confirmar si hay una unión.\\
 			
-			\cite{xu2022attntap}	&	AttnTAP	& Vectores de Granularidad	&	Red de aprendizaje profundo de doble entrada que incluye una red LSTM bidireccional, un mecanismo de atención y una perceptrón multicapa para extraer las características del TCR y el péptido y predecir la unión TCR-péptido.\\
+			\cite{xu2022attntap}	&	AttnTAP	& Vectores de Granularidad	&	Incluye una red BiLSTM, con mecanismos de atención y un perceptrón multicapa para extraer las características del TCR y el péptido y predecir la unión pMHC-TCR.\\
 			
 			%2022\cite{liu2021deepseqpanii}	&	DeepSeqPanII	&	One-hot \& BLOSUM62	&   
 			%La arquitectura consta de codificadores de secuencias (RNN-LSTM con mecanismo de atención), un extractor de contexto de unión y un predictor de afinidad. Cada codificador tiene un módulo de atención.\\
 			
-			\cite{9994875}	&	pMTattn	&	Incrustación	&	Emplea un mecanismo de atención cruzada para aprender información de interacción entre pMHCs y TCRs. Para codificar cada uno de ellos en una incrustación, utiliza modelos basados en transformadores.
+			\cite{9994875}	&	pMTattn	&	Incrustación	&	Emplea cross \textit{self-attention} para aprender información de interacción entre pMHCs y TCRs. 
 			\\
 			
-			\cite{xu2021dlptcr}	&	DLpTCR	&	One-hot	&    DLpTCR consiste en FCN, LeNet-5 y ResNet-20 para predecir el péptido-CDR3$\alpha$($\beta$) y una estrategia de ensamble multi-modelo. %para obtener resultados más fiables.
-			También implementa un mecanismo de atención en ResNet-20.% para mejorar la calidad de las salidas generadas.
+			\cite{xu2021dlptcr}	&	DLpTCR	&	One-hot	&    DLpTCR consiste una red totalmente conectada, LeNet-5 y ResNet-20 para predecir la unión péptido-CDR3$\alpha$($\beta$). También implementa un mecanismo de atención en ResNet-20.% para mejorar la calidad de las salidas generadas.
 			\\
 			
-			\cite{fischer2020predicting}	&	TcellMatch	&	BLOSUM50	&	Employs embeddings for amino acids and a sequence embedding block composed by multiple layer types.
-			%: recurrent layers, self-attention, convolutional layers and densely connected layers.
-			The activation generated is fed into a dense network to predict binding events. \\
-			
-			
+		
 			
 			%2021\cite{chen2021jointly}	&	capTransformer	&		&	Uses self and cross attentions for local embedding. Introduces a new cross attention pooling (caPool) with an outer concatenation operation to construct the Vcat matrix.% carrying residue-residue pair information. %It is already included
 			%\\
@@ -228,7 +220,16 @@ Los modelos, en general, tienen como entrada secuencias de TCR y pMHC. La repres
 }
 \end{table}
 
+%CNN
+Las CNN con mecanismos de atención se emplean porque capturan y procesan eficazmente los datos. MIX-TPI \citep{yang2023mix}, un marco computacional multimodal, utiliza CNN con \textit{self-attention}. Tambien, se utilizan para construir \textit{sequence-based extractors} (SE) y \textit{physicochemical-based extractors} (PE), que se encargan de aprender características refinadas de secuencias y características fisicoquímicas, respectivamente. Finalmente,  \textit{self-attention} se emplea para fusionar estas representaciones y predecir la unión pMHC-TCR.
 
+Por otro lado, las RNN realizan tareas que involucran datos secuenciales de aminoácidos de TCR y pMHC, y existen varios estudios de RNN con mecanismos de atención, como DLpTCR \citep{xu2021dlptcr} y AttnTAP \citep{xu2022attntap}. DLpTCR es un conjunto de tres arquitecturas de aprendizaje profundo que incluyen \textit{Fully Connected Layers} (FCN), LeNet-5 y ResNet-20 para predecir la probabilidad de interacción péptido-TCR y utiliza un mecanismo de atención en ResNet-20 para mejorar la calidad de las salidas generadas. AttnTAP es un marco de aprendizaje profundo de doble entrada que incluye una BiLSTM y una perceptrón multicapa (MLP), y un mecanismo de atención para extraer características de TCR y péptidos por separado y realizar la predicción de la unión péptido-TCR. Algunos estudios utilizaron CNN, RNN y mecanismos de atención, como TcellMatch \citep{fischer2020predicting}. TcellMatch es un conjunto de modelos de aprendizaje profundo con múltiples arquitecturas y utiliza una tecnología llamada de \textit{single-cell}, que permite la secuenciación simultánea de las cadenas TCR $\alpha$ y $\beta$ y la determinación de la especificidad de las células T. Este estudio también realiza múltiples comparaciones y demuestra que los modelos que incluyen tanto la cadena $\alpha$ como la cadena $\beta$ tienen una ventaja predictiva sobre los modelos que solo incluyen la cadena $\beta$, aunque la diferencia es pequeña pero significativa.
+%RNN
+
+%transformers
+En la actualidad, se han desarrollado una variedad de modelos basados en Transformers. ATM-TCR \citep{cai2022atm} introdujo el uso de mecanismos de atención como parte principal y presentó un modelo que utiliza una red de \textit{multi-head self-attention}. Este modelo consta de dos \textit{encoders} para secuencias de TCR y \textit{epitopes} y un \textit{decoder} lineal para determinar la unión. Utiliza una red de \textit{multi-head self-attention} para obtener representaciones contextuales de cada secuencia. Cada una de las secuencias de TCR y \textit{epitopes} se alinea a través de IMGT y se utiliza la distancia euclidiana para calcular si hay unión o no. Luego, AVIB \citep{10.1093/bioinformatics/btac820}, una generalización de múltiples secuencias del \textit{Variational Information Bottleneck}, introdujo un novedoso método llamado \textit{Attention of Experts} (AoE). AoE puede aprovechar los abundantes datos disponibles cuando falta la secuencia de la cadena CDR3$\alpha$ o CDR3$\beta$. Tambien surge BERTrand \citep{myronov2023bertrand}, la arquitectura, BERT, se pre-entreno y realizo \textit{fine-tuning} para la predicción de la unión péptido-TCR. Inicialmente, los péptidos y TCR se representan como secuencias de tokens, y cada péptido y TCR se concatenan en una secuencia unificada que conserva su información posicional y tipológica. Otro modelo es Hybrid gMLP \citep{zhang2023hybrid} que combinó el modelo gMLP con el mecanismo de atención, donde la información se obtuvo a través de gMLP, y luego se utilizaron \textit{multi-head self-attention} y \textit{local attention} para extraer la información de correlación del CDR3 pMHC-TCR. Este marco puede manejar los problemas causados por diferentes longitudes de TCR. Además, demostró que los modelos entrenados con datos emparejados de cadenas CDR3-$\alpha$ y CDR3-$\beta$ son mejores que aquellos entrenados solo con datos de CDR3-$\alpha$ o CDR3-$\beta$. Este modelo puede tener potencial, pero le falta una base de datos grande para introducir su modelo poderoso. Finalmente, TCRdock \citep{bradley2023structure} es una versión especializada del predictor de redes neuronales AlphaFold, que demuestra que el predictor AlphaFold se puede utilizar para distinguir con precisión los \textit{epitopes} de péptidos correctos de los incorrectos. 
+
+Otros métodos que utilizaron el aprendizaje por transferencia incluyen diffRBM \citep{bravi2023transfer} y pMTattn \citep{9994875}. DiffRBM es un enfoque basado en secuencias que utiliza aprendizaje por transferencia y \textit{Restricted Boltzmann Machines} RBM. Las RBM se utilizan principalmente en la representación y generación de datos. Este enfoque depende de dos conjuntos de datos diferentes genéricamente denominados conjuntos de datos ``selected'' y ``background'' de gran tamaño. Ambos conjuntos se entrenan con el modelo de RBM. pMTattn fue uno de los primeros modelos en adoptar un mecanismo de \textit{cross-attention}, lo que permite centrarse en los sitios de unión importantes. 
 
 
 \subsection{Pipelines}
