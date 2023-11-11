@@ -78,7 +78,7 @@ Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtB
 	\begin{tabular}{llrrrrr}
 		
 		\textbf{Model}   & \textbf{BD} & \textbf{Muestras} & \textbf{Capas} & \textbf{HS} & \textbf{AH} & \textbf{Params.} \\
-		\hline
+		\midrule
 		TAPE             & Pfam             & 30M                   & 12              & 768                  & 12                       & 92M                 \\
 		ProtBert-BFD     & BFD              & 2122M                 & 30              & 1024                 & 16                       & 420M                \\
 		ESM2(t6)  & Uniref50         & 60M                   & 6               & 320                  & 20                       & 8M                  \\
@@ -107,8 +107,7 @@ Algunos de los modelos propuestos son ProtBert-BFD, ProtT5-XL y ProtT5-XXL, que 
 ESM-2 \citep{lin2023evolutionary} es una familia de modelos Transformer que tienen  desde 8 millones hasta 15 billones de parámetros. El modelo se basa en BERT \citep{devlin2018bert} y supera a su versión anterior, ESM-1b \citep{rives2021biological}, al eliminar las capas de \textit{dropout} en las capas ocultas y de atención. Además, los autores sugirieron que los métodos de codificación de posición absoluta no se extrapolan bien; en consecuencia, utilizaron la \textit{Rotary Position Embedding} (RoPE). Significativamente, el uso de RoPE aumenta ligeramente el costo de entrenamiento; al mismo tiempo, mejora la calidad del modelo para modelos pequeños \citep{lin2023evolutionary}. Además, los autores utilizaron el conjunto de datos no redundante UniRef50 \citep{suzek2015uniref} de UniProt, que contiene 60 millones de secuencias de proteínas.
 
 
-\section{Fine-tuning}
-
+\section{Fine-tuning}\label{sec:fine-tuned}
 Para realizar \textit{fine-tuning}, apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado. El BiLSTM se basa en HLAB \citep{zhang2022hlab} y consta de dos capas con 768 unidades. En la Figura \ref{fig:proposal}, presentamos el modelo completo para la predicción de la unión pMHC-I.
 
 Además, está ampliamente establecido que al ajustar modelos de transformadores grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.

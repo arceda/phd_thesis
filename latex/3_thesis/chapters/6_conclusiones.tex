@@ -1,14 +1,22 @@
 %% ------------------------------------------------------------------------- %%
 \chapter{Conclusiones}
 \label{cap:conclusiones}
-\lhead{\emph{Introducción}}  
+\lhead{\emph{Conclusiones}}  
+
+
+\section{Conclusiones}
+
+En nuestro análisis comparativo de los seis modelos Transformer TAPE, ProtBert-BFD, ESM2(t6), ESM2(t12), ESM2(t30) y ESM2(t33) con la incorporación de GAS y la técnica de congelación de capas, observamos que ESM2(t6)-Freeze y TAPE-GAS lograron los resultados más favorables. Además, observamos que el uso de GAS ofreció una mitigación menor del problema de desvanecimiento del gradiente, lo que permitió el entrenamiento efectivo de modelos Transformer más grandes.
+
+Además, descubrimos que la metodología de congelación de capas aceleró el proceso de entrenamiento y produjo los resultados más favorables para los modelos ESM2. En contraste, el uso de GAS condujo a los mejores resultados para TAPE y ProtBert.
+
+Además, después de entrenar ESM2(t6)-Freeze y TAPE-GAS durante 30 épocas, estos modelos superaron a los métodos de vanguardia, incluidos NetMHCpan4.1, MHCflurry2.0, Anthem, ACME y MixMHCpred2.2, en términos de diversas métricas de rendimiento como el AUC, la precisión, la recuperación, la puntuación f1 y el coeficiente de correlación de Matthews (MCC). Esto demuestra las ventajas de ajustar modelos Transformer grandes para predecir la unión péptido-MHC, subrayando su potencial para mejorar esta tarea crítica.
 
 
 
-Primera: Se ha realizado una búsqueda sistemática de la literatura sobre los principales métodos basados en \textit{deep learning}, utilizados para la detección de neo antígenos. Estos métodos involucran las \textit{Shallow Neural Networks}, redes neuronales convolucionales, redes neuronales recurrentes y recientemente las redes \textit{Transformers} y BERT.
+\section{Trabajos Futuros}
+En este trabajo, evaluamos los modelos TAPE, ProtBert-BFD, ESM2(t6), ESM2(t12), ESM2(t30) y ESM2(t33), cada uno con 92, 420, 8, 35, 150 y 650 millones de parámetros respectivamente. Sin embargo, existen otras alternativas como ProtT5-XL y ProtT5-XXL, ESM2(t36) y ESM2(t48), cada uno con 3, 11, 3 y 15 mil millones de parámetros respectivamente. No evaluamos estos modelos debido al tamaño reducido del conjunto de datos y el costo de entrenamiento. No obstante, planeamos evaluar estos enormes modelos Transformer con un conjunto de datos más grande que contenga muestras del conjunto de datos Anthem, MixMHXpred2.2 y la evaluación más reciente de herramientas de predicción de unión pMHC.
 
+Además, dada la considerable inversión de recursos asociada al entrenamiento de modelos Transformer grandes, planeamos investigar las posibles ventajas de utilizar DistilBERT y LoRA para tareas de entrenamiento y predicción futuras.
 
-Segunda: Se ha presentado un nuevo método basado en redes neuronales BERT y con \textit{trasnfer lerning}, de los modelos pre entrenados TAPE y ESMb-1. El método propuesto ha sido evaluado con colección de varias muestras tomadas de bases de datos públicas y trabajos similares.
-
-
-
+Además, ajustamos cada modelo Transformer agregando un bloque BiLSTM al final, basado en el trabajo de HLAB. En el futuro, planeamos evaluar la eficacia de un bloque Star-Transformer, similar a la metodología empleada en SMHCpan. Además, considerando los resultados prometedores demostrados en ESM-GAT, creemos que la inclusión de una Red de Atención de Grafos (GAT) podría mejorar significativamente el rendimiento de nuestro modelo en investigaciones futuras. Por último, nos gustaría evaluar la metodología utilizada por TransPHLA, debido a su efectividad demostrada en el manejo de péptidos de diferentes longitudes.

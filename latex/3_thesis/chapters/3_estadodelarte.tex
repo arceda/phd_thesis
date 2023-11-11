@@ -27,7 +27,7 @@ Según las cadenas de búsqueda de la Tabla \ref{tab:search} y considerando solo
 	\setlength{\tabcolsep}{0.5em} % para el espaciado horizontal
 	{\renewcommand{\arraystretch}{1.7}% para el espaciado vertical
 		\begin{tabular}{p{3cm}p{10cm}}
-			\textbf{Categoría} & \textbf{Cadena de búsqueda} \\ \hline
+			\textbf{Categoría} & \textbf{Cadena de búsqueda} \\ \midrule
 			Priorización de neoantígenos & (mhc OR hla) AND (peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*)'', ( tcr OR 't cell' OR t-cell) AND (mhc OR peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*) \\
 			
 	
@@ -65,7 +65,7 @@ Para priorizar neoantígenos, los investigadores a menudo recopilan muestras de 
 	{\renewcommand{\arraystretch}{1.2}% para el espaciado vertical
 		
 		\begin{tabular}{lp{1cm}p{3.5cm}p{6cm}}
-			\textbf{Nombre} & \textbf{Año} & \textbf{Ref.} & \textbf{Descripción} \\ \hline
+			\textbf{Nombre} & \textbf{Año} & \textbf{Ref.} & \textbf{Descripción} \\ \midrule
 			VDJdb           & 2018 & \cite{shugay2018vdjdb, bagaev2020vdjdb} & Base de datos de unión del TCR al pMHC, contiene 5491 muestras. \\
 			IEDB            & 2018 & \cite{vita2019immune} & Es la base de datos más grande que contiene información de \textit{epitopes} de células T de humanos y otros organismos. \\
 			TSNAdb          & 2018 & \cite{wu2018tsnadb} & Involucra 7748 muestras de mutaciones y HLA de 16 tipos de cáncer. \\
@@ -98,7 +98,7 @@ Actualmente, NetMHCPan4.1 \citep{reynisson2020netmhcpan} es un método de refere
 			
 		
 		\begin{tabular}{p{2.5cm}p{2.5cm}p{2cm}p{5.5cm}}
-			\multicolumn{1}{l}{\textbf{Ref.}}                                   & \textbf{Nombre}             & \textbf{Entrada}            & \textbf{Modelo}     \\  \hline
+			\multicolumn{1}{l}{\textbf{Ref.}}                                   & \textbf{Nombre}             & \textbf{Entrada}            & \textbf{Modelo}     \\  \midrule
 			
 			\cite{hashemi2023improved}&	ESM-GAT  &	One-hot & BERT con transferencia de aprendizaje de ESM1b y ESM2 \textit{fine-tuned} con una \textit{Graph Attention Network} (GAT) al final. Superó a NetMHCpan4.1.	\\
 			
@@ -172,7 +172,7 @@ Los modelos, en general, tienen como entrada secuencias de TCR y pMHC. La repres
 		
 		\begin{scriptsize}
 		\begin{tabular}{p{2.5cm}p{2.5cm}p{2cm}p{5.5cm}}
-			\multicolumn{1}{l}{\textbf{Ref.}}                                   & \textbf{Nombre}          & \textbf{Entrada}              & \textbf{Modelo}     \\  \hline
+			\multicolumn{1}{l}{\textbf{Ref.}}                                   & \textbf{Nombre}          & \textbf{Entrada}              & \textbf{Modelo}     \\  \midrule
 			
 			\cite{bravi2023transfer}	&	diffRBM	&	BLOSUM62	 &	Emplea una arquitectura RBM, aprendizaje por transferencia y \textit{Restricted Boltzmann Machines}.	\\%El modelo utiliza BLOSUM62
 			
@@ -248,7 +248,7 @@ Además, para una detección precisa de neoantígenos, es necesario contar con l
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 		{\scriptsize
 			\begin{tabular}{lp{2cm}p{2cm}p{2cm}p{5cm}}
-				\textbf{Nombre} &  \textbf{Ref.} & \textbf{Entrada} & \textbf{Salida} & \textbf{Herramientas} \\ \hline
+				\textbf{Nombre} &  \textbf{Ref.} & \textbf{Entrada} & \textbf{Salida} & \textbf{Herramientas} \\ \midrule
 				PEPPRMINT &  \cite{zhou2023prioritizing} & DNA-seq & Neoantigens & BWA, Mutect, Strelka, ANNOVAR, OptiType, PEPPRMINT, netMHCpan4.1. \\
 				PGNneo &  \cite{tan2023pgnneo}	& VCF, RNA-seq, MS data & Neoantigens & Trimmomatic, BWA, SAMtools, GATK, Picard, OptiType, Annovar, Bedtools, MaxQuant, NetMHCpan4.1, Blastp. \\
 				HLA3D &  \cite{li2022hla3d} & VCF, HLA, SMG, HBV & Neoantigens & MHCcluster, SAVES, PROCHECK, CoDockPP, Verify 3D, ERRAT, ClusterW2, 3Dmol, PSRPRED4.0, MHCf lurry. \\
@@ -293,7 +293,7 @@ Cerca de la mitad de los estudios son ensayos de fase II \citep{cheng2021bertmhc
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 		{\scriptsize
 			\begin{tabular}{p{2cm}p{1.8cm}p{2cm}p{4.5cm}p{1.5cm}p{1cm}}
-				\textbf{Ref.} & \textbf{Muestra} & \textbf{Tiempo} & \textbf{Tipo de Cancer} & \textbf{Fase} & \textbf{Fase de ensayo} \\ \hline
+				\textbf{Ref.} & \textbf{Muestra} & \textbf{Tiempo} & \textbf{Tipo de Cancer} & \textbf{Fase} & \textbf{Fase de ensayo} \\ \midrule
 				
 				\cite{personalizedVaccinemRNA2023} & 16 pacientes & Dec 2019 - Aug 2021 & Pancreatic ductal adenocarcinoma & & I \\ 
 				
