@@ -17,34 +17,13 @@
 %% -------------------------------------------------------------------- %%
 
 
-En este capítulo presetaremos la propuesta y como se relaciona con los métodos tradicionales de detección de neo antígenos.
+La detección de neoantígenos es un proceso largo, descrito anteriormente. Debido a esto, esta investigación se ha centrado en la predicción de la unión pMHC, porque es una de las etapas con mayor investigación en el estado del arte y sin embargo, los resultados aún carecen de buen desempeño. En resumen. En resumen en este trabajo hemos realizado fine-tuning a modelos Transformer pre-entrenados, para la tarea de predicción de la unión pMHC.
 
-\section{Detección de neo antígenos (\textit{pipeline})}
 
-Según \cite{gopanenko2020main}, la detección de neo antígenos podría clasificarse en tres grupos: (1) basados en genómica, (2) basados en \textit{Mass Spectrometry} (MS) y (3) basados en estructura. \\
 
-La detección de neo antígenos basada en genómica sigue un proceso muy largo e involucra muchas herramientas, debido a esto se han propuesto bastantes \textit{pipelines}. El proceso general consta de varias etapas presentadas en la Figura \ref{fig:neo_det_seq}, a continuación detallaremos cada una de ellas y explicaremos en qué fase se ubica la propuesta de esta tesis:
 
-\begin{enumerate}
-	\item \textbf{Secuenciamiento}. La primera fase consiste en el secuenciamiento de DNA, en este caso se toman muestras de sangre al tener menos riesgo de no ser contaminadas por un tumor \citep{borden2022cancer}. Para la secuenciación, se puede obtar por \textit{Whole Genome Sequencing} (WGS) o \textit{Whole Exome Sequencing} (WES), la primera tiene la ventaja de tener mucha más información de mutaciones pero es muy costoso. Esta fase, también puede retroalimentarse con secuenciamiento de RNA (seqRNA). Una tendencia reciente fomenta el uso de \textit{RiboSeq}, este tiene la ventaja de tener más información de las proteínas formadas en los Ribosomas, lamentablemente no se tienen muchas muestras \citep{borden2022cancer}.
+\begin{comment}
 	
-	\item \textbf{Alineamiento y procesamiento}. En esta fase, se evalúa la calidad del secuenciamiento, se elimina el ruido y se realiza un alineamiento con un genoma base. Como resultado se obtienen archivos BAM (resultado del alineamiento) y FastQC (calidad de cada secuenciación).
-	
-	\item \textbf{Identificación de neo antígenos}. En esta fase se analiza las mutaciones de la secuencia, generalmente se obtienen \textit{Variant Calling Files} (VCF). En esta etapa, es importante secuenciar las proteínas \textit{Human Leukocyte Antigens} (HLA), estas representan las proteínas MHC mencionadas anteriormente. Luego con información del tipo de HLA y mutaciones, se puede identificar los posibles neo antígenos. Esta fase puede ser retroalimentada de \textit{RiboSeq} y datos de MS.
-	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.9\textwidth]{img/neoantigen/method}	
-		\caption{Proceso general utilizado para la detección de neo antígenos a partir de secuencias de DNA. Fuente: \cite{gopanenko2020main}.}
-		\label{fig:neo_det_seq}
-	\end{figure}
-	
-	\item \textbf{Priorización de neo antígenos}. En esta fase se filtran los neo antígenos identificados anteriormente. Este problema es conocido mayormente como: \textit{MHC-peptide binding}, en este caso se predice el enlace entre el neo antígeno y la proteína MHC \textbf{(la propuesta de la tesis se enfoca en esta etapa)}. Las herramientas con mejor desempeño son \textit{NetMHCpan4.1} y \textit{MHCflurry2.0} según varios \textit{benchmarkings} \citep{bonsack2019performance, zhao2018systematically, paul2020benchmarking, trolle2015automated}. Recientemente una nueva propuesta ha superado a \textit{NetMHCpan4.1}, esta propuesta obtuvo buenos resultados utilizando  \textit{protein language models} \citep{hashemi2022improved}. Finalmente, se predice la afinidad de T-Cell Receptor (TCR) con pMHC (peptide-MHC binding).
-\end{enumerate}
-
-
-Recientemente, se está utilizando otros enfoques para mejorar la detección de neo antígenos, por ejemplo, se puede utilizar datos MS para mejorar la identificación de neo antígenos. Luego, el enfoque basado en estructura que utiliza información de propiedades químicas y físicas de los péptidos puede ser utilizada para mejorar la predicción de afinidad TCR y pMHC \citep{borden2022cancer, gopanenko2020main}.\\
-
 
 \section{Predicción de la afinidad peptido-MHC (peptide-MHC binding)}
 
@@ -57,16 +36,112 @@ Recientemente, Facebook desarrolla el modelo ESM-1b \citep{rives2021biological}.
 
 Entonces, la propuesta de la tesis se basa en utilizar \textit{transfer learning} del modelo pre-entrenado ESM-1b, luego se va a utilizar otra red neuronal paralela que se alimente de datos físico-químicos de los aminoácidos. Se propone utilizar las propiedades físico-químicas de los aminoácidos, porque en varios ensayos clínicos se ha comprobado que influyen en la predicción \textit{peptide-MHC binding} y \textit{pMHC-TCR presentation} \citep{gopanenko2020main, borden2022cancer}. Luego, las dos redes neuronales paralelas se unirán en una red neuronal totalmente conectada (ver Figura \ref{fig:proposal}). El objetivo, es aprovechar las propiedades físico-químicas de los aminoácidos para mejorar la afinidad \textit{peptide-MHC}.
 
+Para los entrenamientos y experimentos se utilizará la base de datos HLA3D \citep{li2022hla3d}, esta contiene información de 1296 aminoácidos. Luego, también utilizaremos las muestras recolectadas de \cite{hashemi2022improved}.
+\end{comment}
+
+\section{Metodología}
+
+Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito en la etapa 3.1 del proceso general para generar vacunas personalizadas basadas en neoantígenos (ver Figura \ref{fig:proposal}). Se ha evaluado  seis modelos Transformers pre-entrenados en diversas tareas de Proteómica como: predicción de estructura de proteínas, predicción de la función de proteínas, etc. Los modelos Transformer son: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Durante la evaluación se realizó \textit{fine-tuning} a los modelos agregando un bloque de BiLSTM al final, de igual forma que lo realizó HLAB \citep{zhang2022hlab}. También se evaluó el uso de Gradient Accumulation Steps (GAS) y el uso de una metodología para congelar las capas del modelo Transformer. En la Figura \ref{fig:proposal}, describimos la propuesta: primero tomamos como entrada el péptido y el MHC, luego estos son concatenados y son recibidos por el modelo Transformer y el bloque BiLSTM respectivamente para predecir su afinidad o unión.
+
 
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/neoantigen/proposal}	
+	\includegraphics[width=\textwidth]{img/proposal/proposal}	
 	\caption{Propuesta de \textit{transfer learning} de ESM-1b y una red neuronal paralela para la predicción de la afinidad entre un péptido y MHC (peptide MHC binding).}
 	\label{fig:proposal}
 \end{figure}
 
 
-Para los entrenamientos y experimentos se utilizará la base de datos HLA3D \citep{li2022hla3d}, esta contiene información de 1296 aminoácidos. Luego, también utilizaremos las muestras recolectadas de \cite{hashemi2022improved}.
+\section{Bases de datos}
+Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Con más detalle, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por k-mers; los 9-mers constituyen la mayoría de las muestras en la base de datos.
 
+\begin{figure}[]
+	\centering\includegraphics[width=0.8\textwidth]{img/proposal/dataset_samples}
+	\caption{
+		Cuantificación de las muestras por k-mers dentro de los conjuntos de entrenamiento, validación y pruebas. El conjunto de datos se obtuvo de Anthem \cite{mei2021anthem}.}
+	\label{fig:samples}
+\end{figure}
+
+
+\section{Transformer pre-entrenados}
+
+Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Estos modelos fueron entrenados con grandes conjuntos de datos de secuencias de proteínas como Pfam \citep{el2019pfam},  BFD y UniRef50 \citep{suzek2015uniref}. Además, se realizo \textit{fine-tuning } para la predicción de unión pMHC-I. En la Tabla \ref{tab:pretrained}, presentamos las características de cada modelo.
+
+\begin{table*}[t]%
+	\centering
+	\caption{Diferencias significativas entre los modelos TAPE, ProtBert-DFB y ESM2. HS: \textit{Hidden size}; AH: \textit{Attention heads}.}
+	\label{tab:pretrained}%
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+	\begin{tabular}{llrrrrr}
+		
+		\textbf{Model}   & \textbf{BD} & \textbf{Muestras} & \textbf{Capas} & \textbf{HS} & \textbf{AH} & \textbf{Params.} \\
+		\hline
+		TAPE             & Pfam             & 30M                   & 12              & 768                  & 12                       & 92M                 \\
+		ProtBert-BFD     & BFD              & 2122M                 & 30              & 1024                 & 16                       & 420M                \\
+		ESM2(t6)  & Uniref50         & 60M                   & 6               & 320                  & 20                       & 8M                  \\
+		ESM2(t12)  & Uniref50         & 60M                   & 12              & 480                  & 20                       & 35M                 \\
+		ESM2(t30) & Uniref50         & 60M                   & 30              & 640                  & 20                       & 150M                \\
+		ESM2(t33)  & Uniref50         & 60M                   & 33              & 1280                 & 20                       & 650M               \\
+		
+	\end{tabular}}
+	
+\end{table*}
+
+\subsection{TAPE}
+
+
+Tasks Assessing Protein Embeddings (TAPE) \citep{rao2019evaluating} es el primer intento de evaluar el aprendizaje semi-supervisado en secuencias de proteínas. TAPE consta de doce capas de 512 unidades con ocho \textit{attention-heads}, lo que resulta en un total de 92 millones de parámetros. Los autores aplicaron entrenamiento semi-supervisado con la base de datos Pfam \citep{el2019pfam}, que contiene treinta millones de dominios de proteínas. Además, el conjunto de datos Pfam representa un subconjunto del \textit{Knowledge Base UniProt} (UniProtKB) \citep{uniprot2018uniprot}; en particular, Pfam utilizó secuencias de \textit{Reference Proteomes} \citep{finn2016pfam} en lugar de utilizar todo el conjunto de datos de UniProtKB. En consecuencia, Pfam tiene casi la mitad de las secuencias de proteínas que otras bases de datos extraídas de UniProtKB.
+
+\subsection{ProtBert-BFD}
+
+ProtBert-BFD es parte de una familia de modelos de ProtTrans \citep{elnaggar2021prottrans}. Los autores evaluaron varias arquitecturas de aprendizaje profundo con los conjuntos de datos BFD, UniRef50 y UniRef100, cada uno con 2122, 45 y 216 millones de secuencias. Añadido a esto, BFD se considera la colección más extensa de secuencias de proteínas; fusiona UniProt \citep{uniprot2019uniprot} y proteínas de múltiples proyectos de secuenciación de metagenómica. Mientras tanto, UniRef \citep{suzek2015uniref} proporciona un conjunto clusterizado de secuencias de proteínas de UniProtKB. Es importante destacar que el conjunto de datos más grande, BFD, las muestras tienen ruido y contiene errores en las secuencias \citep{elnaggar2021prottrans}.
+
+Algunos de los modelos propuestos son ProtBert-BFD, ProtT5-XL y ProtT5-XXL, que tienen 420 millones, 3 mil millones y 11 mil millones de parámetros, respectivamente. ProtBert-BFD se entrenó con BFD; mientras tanto, los modelos ProtT5 se entrenaron inicialmente con BFD y luego con UniRef50, lo que mejoró el rendimiento en un 2.8\% y un 1.4\% para ProtT5-XL y ProtT5-XXL, respectivamente. Sin embargo, ProtT5-XL superó tanto a ProtBert-BFD como al modelo más grande, ProtT5-XXL. Los autores afirmaron que la cantidad de muestras mejoraba el rendimiento, pero no observaron una similitud consistente con el tamaño del modelo. Sugerían que modelos más grandes ven menos muestras con la misma potencia de cálculo, por lo que los modelos más grandes necesitan conjuntos de datos más grandes. Por esta razón, hemos optado por ProtBert, ya que es más pequeño que ProtT5-XL y creemos que se adapta mejor al tamaño del conjunto de datos actual para esta investigación.
+
+\subsection{ESM2}
+
+
+ESM-2 \citep{lin2023evolutionary} es una familia de modelos Transformer que tienen  desde 8 millones hasta 15 billones de parámetros. El modelo se basa en BERT \citep{devlin2018bert} y supera a su versión anterior, ESM-1b \citep{rives2021biological}, al eliminar las capas de \textit{dropout} en las capas ocultas y de atención. Además, los autores sugirieron que los métodos de codificación de posición absoluta no se extrapolan bien; en consecuencia, utilizaron la \textit{Rotary Position Embedding} (RoPE). Significativamente, el uso de RoPE aumenta ligeramente el costo de entrenamiento; al mismo tiempo, mejora la calidad del modelo para modelos pequeños \citep{lin2023evolutionary}. Además, los autores utilizaron el conjunto de datos no redundante UniRef50 \citep{suzek2015uniref} de UniProt, que contiene 60 millones de secuencias de proteínas.
+
+
+\section{Fine-tuning}
+
+Para realizar \textit{fine-tuning}, apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado. El BiLSTM se basa en HLAB \citep{zhang2022hlab} y consta de dos capas con 768 unidades. En la Figura \ref{fig:proposal}, presentamos el modelo completo para la predicción de la unión pMHC-I.
+
+Además, está ampliamente establecido que al ajustar modelos de transformadores grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
+
+Adiconalmente, los modelos de Transformer grandes utilizan bastante memoria de la GPU y generalmente sufren del problema de \textit{vanish gradient}. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de Transformers para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento.
+
+Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$) y \textit{early stopping}. Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}.
+
+\section{Clasificación binaria y Métricas}
+
+El problema de predicción de unión pMHC es un problema de regresión. Sin embargo, basado en el conjunto de datos utilizado en este estudio, también podría abordarse como un problema de clasificación binaria al seleccionar un umbral apropiado. Luego, las métricas de aprendizaje automático utilizadas en este trabajo son: \textit{accuracy, precision, recall, f-1 score, Area Under the Curve (AUC)}, y \textit{Matthews Correlation Coefficient} (MCC). Todas las métricas están descritas en las ecuaciones siguientes.
+
+\begin{equation}\label{equa:acc}
+	Accuracy = \frac{TP+TN}{TP+TN+FP+FN}
+\end{equation}
+
+\begin{equation}\label{equa:precision}
+	Precision = \frac{TP}{TP+FP}
+\end{equation}
+
+\begin{equation}\label{equa:recall}
+	Sensitivity = Recall = \frac{TP}{TP+FN}
+\end{equation}
+
+\begin{equation}\label{equa:f1}
+	F1 = \frac{2*Precision*Recall}{Precision+Recall} = \frac{2 \times TP}{2*TP+FP+FN}
+\end{equation}
+
+
+\begin{equation}\label{equa:FPR}
+	Specificity = \frac{TN}{FP+TN}
+\end{equation}
+
+\begin{equation}\label{equa:MCC}
+	MCC = \frac{TP \times TN - FP \times FN}{ \sqrt{ (TP+FP)(TP  + FN)(TN+FP)(TN+FN)}  }
+\end{equation}
