@@ -1,4 +1,4 @@
-\documentclass[10pt]{beamer}
+\documentclass[10pt, aspectratio=169]{beamer}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -129,7 +129,7 @@
 		Immunotherapy is a type of cancer treatment that helps your immune system fight cancer \cite{inmunoterapy2022}.
 		
 		\begin{figure}
-			\includegraphics[width=0.85\textwidth]{../img/neoantigen/tcell}
+			\includegraphics[width=0.6\textwidth]{../img/neoantigen/tcell}
 			\caption{Example of how a T cell attack a cancer cell \cite{nortshore2022}.}
 		\end{figure}		
 	\end{frame}
@@ -154,7 +154,7 @@
 	%-------------------------------------------------------
 	\begin{frame}{Immunotherapy for Cancer}{Personalized Vaccines}	
 		\begin{figure}
-			\includegraphics[width=0.6\textwidth]{../img/neoantigen/process}
+			\includegraphics[width=0.5\textwidth]{../img/neoantigen/process}
 			\caption{Personalized vaccines process for Cancer \cite{peng2019neoantigen}.}
 		\end{figure}		
 	\end{frame}
@@ -165,7 +165,7 @@
 	%-------------------------------------------------------
 	\begin{frame}{Immunotherapy for Cancer}{Personalized Vaccines}	
 		\begin{figure}
-			\includegraphics[width=0.5\textwidth]{../img/pipeline/pipeline_ingles}
+			\includegraphics[width=0.4\textwidth]{../img/pipeline/pipeline_ingles}
 			\caption{Personalized vaccines process for Cancer.}
 		\end{figure}		
 	\end{frame}
@@ -179,7 +179,7 @@
 	\begin{frame}{pMHC binding prediction}{}		
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.9\textwidth]{../img/neoantigen/mhc1.jpg}
+			\includegraphics[width=0.7\textwidth]{../img/neoantigen/mhc1.jpg}
 			\caption{pMHC presentation process in MHC class I \cite{zhang2019application}.}
 			\label{fig:mhc1}
 		\end{figure}	
@@ -220,7 +220,7 @@
 	%-------------------------------------------------------
 	\begin{frame}{Problem}{}	
 		\begin{figure}
-			\includegraphics[width=0.97\textwidth]{../img/neoantigen/problem}
+			\includegraphics[width=0.9\textwidth]{../img/neoantigen/problem}
 			\caption{pMHC binding prediction problem.}
 		\end{figure}
 	\end{frame}
@@ -248,7 +248,7 @@
 		\vspace{0.5cm}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=\textwidth]{../img/proposal/proposal}	
+			\includegraphics[width=0.9\textwidth]{../img/proposal/proposal}	
 			\caption{Proposal for pMHC binding prediction.}
 			\label{fig:neo_det_seq}
 		\end{figure}
@@ -278,7 +278,7 @@
 	Training: 539,019; Validation: 179,673; and Testing: 172,580.
 	
 	\begin{figure}[]
-		\centering\includegraphics[width=0.7\textwidth]{../img/proposal/dataset_samples}
+		\centering\includegraphics[width=0.6\textwidth]{../img/proposal/dataset_samples}
 		\caption{
 			Number of samples per k-mer.}
 		\label{fig:samples}
@@ -336,7 +336,7 @@
 \begin{frame}{Results}{(Training for 3 epochs)}
 	\begin{figure}
 		\centering		
-			\includegraphics[width=0.7\textwidth]{../img/results/metrics_comparion_by_model}			
+			\includegraphics[width=0.5\textwidth]{../img/results/metrics_comparion_by_model}			
 		\caption{Comparative analysis of Area Under the Curve (AUC) in Transformer model architectures using various training methodologies.}
 		\label{fig:comparison_3_3pochs}
 	\end{figure}
@@ -350,8 +350,8 @@
 \begin{frame}{Results}{Vanish gradient problem}
 	\centering
 	Gradients for ESM2(t6)
-	\includegraphics[width=\textwidth]{../img/results/t6_epoch0}
-	\includegraphics[width=\textwidth]{../img/results/t6_epoch3}
+	\includegraphics[width=0.8\textwidth]{../img/results/t6_epoch0}
+	\includegraphics[width=0.8\textwidth]{../img/results/t6_epoch3}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -361,8 +361,8 @@
 \begin{frame}{Results}{Vanish gradient problem}
 	\centering
 	Gradients for ESM2(t30)
-	\includegraphics[width=\textwidth]{../img/results/t30_epoch0}
-	\includegraphics[width=\textwidth]{../img/results/t30_epoch3}
+	\includegraphics[width=0.8\textwidth]{../img/results/t30_epoch0}
+	\includegraphics[width=0.8\textwidth]{../img/results/t30_epoch3}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -400,7 +400,7 @@
 %-------------------------------------------------------
 \begin{frame}{Results}{Comparison with state-of-art tools}
 	\begin{figure}
-		\includegraphics[width=0.8\textwidth]{../img/results/metrics_comparison}
+		\includegraphics[width=0.5\textwidth]{../img/results/metrics_comparison}
 		\caption{The AUC values for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods.}
 		\label{fig:comparison_final}
 	\end{figure}
@@ -412,7 +412,7 @@
 %-------------------------------------------------------
 \begin{frame}{Results}{Comparison with state-of-art tools}
 	\begin{figure}
-		\includegraphics[width=0.8\textwidth]{../img/results/ROC_comparison}
+		\includegraphics[width=0.5\textwidth]{../img/results/ROC_comparison}
 		\caption{ROC curves for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods.}
 	\end{figure}
 \end{frame}
