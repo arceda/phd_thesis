@@ -261,7 +261,7 @@
 		\normalsize{}
 		{\bf \large{Arequipa - Perú}} \\
 		%\vskip 0.5cm
-		{\bf \large{2022}}
+		{\bf \large{2023}}
 	\end{center}
 
 	
