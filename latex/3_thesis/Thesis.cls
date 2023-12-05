@@ -236,7 +236,7 @@
 		\includegraphics[keepaspectratio,scale=0.6]{img/unsa} \\[.8cm]
 		
 		
-		\textbf{\Large{ Detección \textit{in Silico} de Neoantígenos Utilizando \textit{Transformers} y \textit{Transfer Learning} en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer  }} \\
+		\textbf{\Large{ Detección \textit{in Silico} de Neoantígenos Utilizando Transformers y Transfer Learning en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer  }} \\
 		
 		%	Algoritmo de Planificación de Tareas para el \\
 		%    Procesamiento de Grandes Cantidades de Datos en  \\ 

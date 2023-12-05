@@ -18,13 +18,13 @@ En esta sección, describiremos los principales conceptos referentes a Biología
 Según \cite{luscombe2001bioinformatics}, la Bioinformática involucra la tecnología que utiliza las computadoras para el almacenamiento, manipulación y distribución de información relacionada a la Biología Molecular como DNA, RNA y proteínas. También podemos considerar que la Bioinformática se enfoca al análisis de secuencias, estructuras y funciones de los genes y proteínas; algunas veces también puede ser llamado Computación Molecular Biológica \citep{xiong2006essential}.
 
 
-\subsubsection{DNA, RNA y Proteínas}
+\subsection{DNA, RNA y Proteínas}
 
 \textit{Deoxyribonucleic Acid} (DNA) es una molécula dentro de las células que contiene información genética responsable del desarrollo y función del organismo \citep{NCIdictionary2022}. Gran parte del DNA se sitúa dentro del núcleo de las células (en organismos Eucariotes). Por ejemplo en la Figura \ref{img:dnalocation}, vemos como el DNA, forma parte de los cromosomas y estos a su vez están en el núcleo. Luego, podemos notar, que los genes representan segmentos del DNA. Finalmente, en la Figura \ref{img:dnalocation}, notamos las bases nitrogenadas que componen el DNA: \textit{Guanine}, \textit{Cytosine}, \textit{Adenine} y \textit{Thymine}; normalmente, estas bases serán representadas por las letras: G, C, A, T respectivamente.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.6\textwidth]{img/neoantigen/dna}
+	\includegraphics[width=0.8\textwidth]{../img/neoantigen/dna}
 	\caption{Localización y estructura del DNA. Fuente:  \cite{NCIdictionary2022}.}	
 	\label{img:dnalocation}
 \end{figure}
@@ -33,9 +33,9 @@ Durante el ciclo de vida de la célula, ocurre un proceso llamado Transcripción
 
 
 
-\begin{figure}[H]
+\begin{figure}[]
 	\centering
-	\includegraphics[width=0.7\textwidth]{img/neoantigen/trans}
+	\includegraphics[width=0.8\textwidth]{../img/neoantigen/trans}
 	\caption{Transcripción y traducción. Fuente:  \cite{nci2020}.}	
 	\label{img:trans}
 \end{figure}
@@ -43,9 +43,9 @@ Durante el ciclo de vida de la célula, ocurre un proceso llamado Transcripción
 Durante el proceso de Traducción, puede ocurrir un fenómeno llamado \textit{Alternative Splicing}. Por ejemplo , en la Figura \ref{img:alt}, notamos como un gen puede generar tres proteínas distintas, cada una con funciones distintas. Este fenómenos, complica bastante el análisis de DNA.
 
 
-\begin{figure}[H]
+\begin{figure}[]
 	\centering
-	\includegraphics[width=0.7\textwidth]{img/neoantigen/alt}
+	\includegraphics[width=0.9\textwidth]{../img/neoantigen/alt}
 	\caption{\textit{Alternative Splicing}. Fuente:  \cite{nci2020}.}	
 	\label{img:alt}
 \end{figure}
@@ -53,16 +53,16 @@ Durante el proceso de Traducción, puede ocurrir un fenómeno llamado \textit{Al
 
 \subsection{Mutaciones}
 
-Las mutaciones también llamadas variaciones, representan cualquier cambio en la secuencia de DNA, estos pueden ocurrir durante la división celular o por la exposición a agentes químicos o radioactivos. Estas mutaciones pueden ser beneficiosas, dañinas (cuando afectan la generación de proteínas) o no tener algún efecto  \citep{NCIdictionary2022}. Varios tipos de Cáncer son ocasionados por estas mutaciones \citep{borden2022cancer, chen2021challenges, de2020neoantigen}. \\ 
+Las mutaciones también llamadas variaciones, representan cualquier cambio en la secuencia de DNA, estos pueden ocurrir durante la división celular o por la exposición a agentes químicos o radioactivos. Estas mutaciones pueden ser beneficiosas, dañinas (cuando afectan la generación de proteínas) o no tener algún efecto  \citep{NCIdictionary2022}. Varios tipos de Cáncer son ocasionados por estas mutaciones \citep{borden2022cancer, chen2021challenges, de2020neoantigen}. 
 
-Según el tipo de célula afectada, tenemos: mutaciones somáticas y mutaciones \textit{germline} (una mutación en estas células puede ser heredada a la descendencia) \citep{clancy2008genetic}.  Según \citep{xu2018review}, las variaciones genómicas pueden clasificarse en tres grupos: \textit{Single-Nucleotide Variant} (SNV), inserciones y eliminaciones (INDELS) y \textit{Structural Variation} (SV). Una mutación se considera SNV cuando las variaciones afectan a menos de 10 bases. \\
+Según el tipo de célula afectada, tenemos: mutaciones somáticas y mutaciones \textit{germline} (una mutación en estas células puede ser heredada a la descendencia) \citep{clancy2008genetic}.  Según \citep{xu2018review}, las variaciones genómicas pueden clasificarse en tres grupos: \textit{Single-Nucleotide Variant} (SNV), inserciones y eliminaciones (INDELS) y \textit{Structural Variation} (SV). Una mutación se considera SNV cuando las variaciones afectan a menos de 10 bases. 
 
 En la Figura \ref{fig:SNV}, presentamos ejemplos de SNV. Por ejemplo, las sustituciones pueden afectar la generación de un aminoácido, pero las inserciones o eliminaciones pueden afectar en cadena la generación de varios aminoácidos, a este tipo de fenómeno se le conoce como \textit{frameshit mutation} \citep{xu2018review}.
 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\textwidth]{img/neoantigen/SNV}
+	\includegraphics[width=0.7\textwidth]{../img/neoantigen/SNV}
 	\caption{Ejemplos de SNV en el DNA. Fuente: \cite{socrates2022}}
 	\label{fig:SNV}
 \end{figure}
@@ -71,10 +71,37 @@ En la Figura \ref{fig:variants}, mostramos algunos tipos de SV. En este caso, ta
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.6\textwidth]{img/neoantigen/variants}
+	\includegraphics[width=0.7\textwidth]{../img/neoantigen/variants}
 	\caption{Ejemplos de variaciones en el DNA. Fuente: \cite{sv_pacbio_2021}}
 	\label{fig:variants}
 \end{figure}
+
+
+\subsection{Fusión de genes}
+
+
+Según \cite{williford2013gene}, la fusión de genes es un proceso mediante el cual las secuencias completas o parciales de dos o más genes distintos se fusionan en un solo gen, como resultado de reordenamientos derivados de ADN o ARN. Este fenómeno es ampliamente distribuido y se ha observado en todos los dominios de la vida. Además, la fusión de genes contribuyen de manera destacada al cambio evolutivo al proporcionar una fuente continua de nuevos genes. Las duplicaciones génicas a menudo preceden a las fusiones génicas, permitiendo la evolución de genes quiméricos, al mismo tiempo que preservan las funciones originales. A pesar de la reputación de las fusiones génicas como impulsores de la evolución adaptativa, pueden tener consecuencias devastadoras, a menudo dando lugar a trastornos genómicos o cáncer.
+
+Las fusión de genes suelen ser causadas por alteraciones en la estructura genómica resultantes de daños en el ADN y por la posterior recombinación y replicación erróneas. Como se ve en la Figura \ref{fig:fusion}, las reorganizaciones genómicas pueden ocurrir entre uno o dos genes independientes a través de seis mecanismos conocidos: translocación, inserción, inversión, duplicación en tándem, eliminación y cromotripsis \citep{taniue2021fusion, dai2018fusion}.
+
+Adicionalmente, la fusión de genes puede ser generada por eventos \textit{Trans-splicing} y \textit{Cis-splicing} (ver Figura \ref{fig:fusion2}). En \textit{Trans-splicing}, los exones de diferentes transcripciones de ARN se empalman y fusionan para producir un solo ARNm maduro. Otro mecanismo de empalmado es el \textit{Cis-splicing}, en el cual dos genes vecinos son transcritos en un solo ARN precursor mediante la lectura continua de la transcripción \citep{taniue2021fusion}.
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.7\textwidth]{../img/theory/fusion_gene}
+	\caption[Representación de la fusión de genes.]{Representación esquemática de la formación de fusión de genes mediante reordenamientos cromosómicos estructurales. (A) Translocación. (B) Inserción. (C) Inversión. (D) Eliminación. (E) Duplicación en tándem. (F) Cromotripsis. Fuente: \cite{taniue2021fusion}}
+	\label{fig:fusion}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.85\textwidth]{../img/theory/fusion_gene2}
+	\caption[Representación de \textit{Trans-splicing} y \textit{Cis-splicing}.]{Representación esquemática de la formación de ARN de fusión mediante reordenamientos cromosómicos no estructurales. (A) (A) \textit{Trans-splicing}. (B) \textit{Cis-splicing}. Fuente: \cite{taniue2021fusion}}
+	\label{fig:fusion2}
+\end{figure}
+
 
 \section{Sistema inmunitario}
 
@@ -87,7 +114,7 @@ Las células T también llamadas linfocitos T, se forman a partir de la médula 
 
 \subsection{MHC I y II}
 
-\textit{Major Histocompatibility Complex} (MHC) I y II, son proteínas que desempeñan un rol importante en el sistema inmunitario. Ambas proteínas tienen la función de presentar péptidos (antígenos) en la superficie de las células, para que sean reconocidas por la células T \citep{abualrous2021major}. MHC-I se encarga de la presentación de las células con núcleo, mientras que MHC-II, de las células APC. \\
+\textit{Major Histocompatibility Complex} (MHC) I y II, son proteínas que desempeñan un rol importante en el sistema inmunitario. Ambas proteínas tienen la función de presentar péptidos (antígenos) en la superficie de las células, para que sean reconocidas por la células T \citep{abualrous2021major}. MHC-I se encarga de la presentación de las células con núcleo, mientras que MHC-II, de las células APC. 
 
 El proceso de presentación de los antígenos por MHC-I es el siguiente (Figura \ref{fig:mhc1}): la proteína foránea es degradado por el proteasoma y se producen péptidos (posibles antígenos), luego estos péptidos son transportados al Endoplasmic Reticulum (ER) con la ayuda de \textit{Transporter associated Antigen Processing} (TAP), luego es migrado al aparato de Golgi para ser presentado en la superficie de la célula y es enlazado a la proteína MHC-I, una vez en la superficie, el antígeno puede ser reconocido por las células CD8+T \citep{zhang2019application}.
 
@@ -96,7 +123,7 @@ El proceso de presentación de los antígenos por MHC-I es el siguiente (Figura 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/neoantigen/mhc1.jpg}
+	\includegraphics[width=0.8\textwidth]{../img/neoantigen/mhc1.jpg}
 	\caption{Presentación de antígenos por MHC-I. Fuente: \cite{zhang2019application}}
 	\label{fig:mhc1}
 \end{figure}
@@ -107,7 +134,7 @@ Para el caso de MHC-II, es un proceso similar (Figura \ref{fig:mhc2}): primero, 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/neoantigen/mhc2.jpg}
+	\includegraphics[width=0.8\textwidth]{../img/neoantigen/mhc2.jpg}
 	\caption{Presentación de antígenos por MHC-II. Fuente: \cite{zhang2019application}}
 	\label{fig:mhc2}
 \end{figure}
@@ -116,15 +143,19 @@ Para el caso de MHC-II, es un proceso similar (Figura \ref{fig:mhc2}): primero, 
 
 Es una proteína que se forma en las células de Cáncer cuando ocurre mutaciones en el DNA. Los neo antígenos cumplen un rol importante al estimular una respuesta inmune en contra de células de Cáncer. En la actualiadad, se estudia su uso en el desarrollo de vacunas contra el Cáncer \cite{NCIdictionary2022}. Una característica importante de los neo antígenos, es que solo están presentes en células tumorales y no en células sanas, debido a eso son considerados factores clave en la inmunoterapia del Cáncer \cite{borden2022cancer}. En la actualidad hay varios métodos para detectar a predecir neo antígenos, pero solo una pequeña porción de ellos logran estimular al sistema inmune \cite{chen2021challenges, hao2021improvement}.
 
- Este proceso para la detección de neo antígenos, generalmente consiste en: (1) extracción del tejido tumoral, (2) identificación de mutaciones, (3) detección de neo antígenos y predicción de inmunogenicidad, (4) desarrollo de experimentos in vitro y (5) desarrollo de la vacuna \citep{de2020neoantigen, peng2019neoantigen} (ver Figura \ref{fig:process}). \\
+ Este proceso para la detección de neo antígenos, generalmente consiste en: (1) extracción del tejido tumoral, (2) identificación de mutaciones, (3) detección de neo antígenos y predicción de inmunogenicidad, (4) desarrollo de experimentos in vitro y (5) desarrollo de la vacuna \citep{de2020neoantigen, peng2019neoantigen} (ver Figura \ref{fig:process}). 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{img/neoantigen/process}	
+	\includegraphics[width=0.7\textwidth]{../img/neoantigen/process}	
 	\caption{Proceso para la detección de neo antígenos y generación de vacunas personalizadas. Fuente: \citep{de2020neoantigen} }
 	\label{fig:process}
 \end{figure}
 
+
+\subsection{Inmunointormática}
+
+Según \cite{tong2009immunoinformatics}, la Inmunointormática,  combina la inmunología tradicional con ciencias de la computación, matemáticas, química, bioquímica, genómica y proteómica para el análisis a gran escala de la función del sistema inmunológico, ofrece nuevas oportunidades para la investigación futura, desde el laboratorio hasta el paciente. Gracias a las nuevas tecnologías y algoritmos en las Ciencias de la Computación, este campo ha generado bastante investigación y promete ser una área de riguroso estudio en el futuro. Además, esta tesis se situa en este campo de estudio, al aplicar metodologías de Inteligencia Artificial a la Inmunología.
 
 \section{\textit{Machine Learning}}
 
@@ -207,10 +238,23 @@ Para otro tipo de problemas, como regresión se puede aplicar el \textit{error r
 Según el tipo de experiencia que realizan los algoritmos de ML, se pueden clasificar en: Aprendizaje supervisado y Aprendizaje no supervisado \cite{Goodfellow2016}.
 
 \begin{itemize}
-	\item \textbf{Aprendizaje supervisado}. En este caso, cada muestra par el entrenamiento tiene los datos de entrada $x$ y una etiqueta $l$. La idea es que el algoritmo de ML, pueda aprender de estos datos y luego realizar predicción de la etiqueta $j$ tomando como entrada sólo los datos $x$.
+	\item \textbf{Aprendizaje supervisado}. En este caso, cada muestra par el entrenamiento tiene los datos de entrada $x$ y una etiqueta $l$. La idea es que el algoritmo de ML, pueda aprender de estos datos y luego realizar predicción de la etiqueta $j$ tomando como entrada sólo los datos $x$. Segun, \cite{prince2023understanding} los modelos de aprendizaje supervisado definen una relación entre los datos de entrada y una predicción de salida. Generalmente, podemos en esta área tenemos tratamos problemas de regresión y clasificación. El primero predice un número real mientras que el otro clasifica a un tipo de clase.
 	
-	\item \textbf{Aprendizaje no supervisado}. En este caso, solo se cuenta con muestras no etiquetadas. Entonces el algoritmo   de ML, debe agrupar los datos en \textit{clusters}. Un ejemplo de estos problemas es la segmentación de clientes, segmentación de noticias, etc.
+	\item \textbf{Aprendizaje no supervisado}. En este caso, solo se cuenta con muestras no etiquetadas. Entonces el algoritmo   de ML, debe agrupar los datos en \textit{clusters}. Un ejemplo de estos problemas es la segmentación de clientes, segmentación de noticias, etc. Adicionalmente, tenemos los modelos generativos, que aprenden a sintetizar nuevos ejemplos de datos que son estadísticamente indistinguibles de los datos de entrenamiento. Algunos modelos generativos describen explícitamente la distribución de probabilidad sobre los datos de entrada, y nuevos ejemplos se generan muestreando de esta distribución. Otros simplemente aprenden un mecanismo para generar nuevos ejemplos sin describir explícitamente su distribución \citep{prince2023understanding}.
+	
+	\item \textbf{Prendizaje por refuerzo}. La última área de aprendizaje automático es el aprendizaje por refuerzo. Este paradigma introduce la idea de un agente que vive en un mundo y puede realizar ciertas acciones en cada paso de tiempo. Las acciones cambian el estado del sistema, pero no necesariamente de manera determinista. Tomar una acción también puede producir recompensas, y el objetivo del aprendizaje por refuerzo es que el agente aprenda a elegir acciones que conduzcan a altas recompensas en promedio \citep{prince2023understanding}.
+	
 \end{itemize}
+
+
+En la Figura \ref{fig:ml} disponemos de los tipos de aprendizaje en ML. Pueden dividirse de manera general en aprendizaje supervisado, aprendizaje no supervisado y aprendizaje por refuerzo. Las redes neuronales profundas contribuyen a cada una de estas áreas \cite{prince2023understanding}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth]{../img/theory/ml}	
+	\caption{Tipos de aprendizaje en Machine Learning. Fuente: \citep{prince2023understanding} }
+	\label{fig:ml}
+\end{figure}
 
 
 
@@ -235,7 +279,7 @@ Uno  de los modelos mas representativos de ML son la redes neuronales. Estas se 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/neoantigen/neuron}
+	\includegraphics[width=0.8\textwidth]{../img/neoantigen/neuron}
 	\caption{Representación de una neurona. Fuente: \cite{insideDL2022}.}
 	\label{fig:neuron}
 \end{figure}
@@ -244,44 +288,104 @@ El perceptron, es capaz de solucionar varios problemas, pero para casos complejo
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.35\textwidth]{img/neoantigen/nn2}
+	\includegraphics[width=0.35\textwidth]{../img/neoantigen/nn2}
 	\caption{Representación de una red neuronal. }
 	\label{fig:nn}
 \end{figure}
 
-\section{\textit{Deep learning}}
+En resumen, para la red neuronal de la Figura \ref{fig:shallow}, una red neuronal con una entrada escalar $x$, cuatro unidades ocultas $h_1, h_2, h_3, h_4$, y una salida 2D $y = [y_1, y_2]^T$, se define con las Ecuaciónes \ref{equa:ml_1} y \ref{equa:ml_2}. Además, $a[\bullet]$ es la función de activación, generalmente para las capas oculatas es representada por la función ReLU.
+
+\begin{equation}\label{equa:ml_1}
+	\begin{split}
+	h_1 = a [ \theta_{10} + \theta_{11}x  ]	 \\	
+	h_2 = a [ \theta_{20} + \theta_{21}x  ]	 \\
+	h_3 = a [ \theta_{30} + \theta_{31}x  ]	 \\
+	h_4 = a [ \theta_{40} + \theta_{41}x  ]	 
+	\end{split}
+\end{equation}	
+
+\begin{equation}\label{equa:ml_2}	
+	\begin{split}
+		y_1 = \phi_{10} + \phi_{11}h_1  + \phi_{12}h_2 + \phi_{13}h_3 + \phi_{14}h_4 \\
+		y_2 = \phi_{20} + \phi_{21}h_1  + \phi_{22}h_2 + \phi_{23}h_3 + \phi_{24}h_4
+	\end{split}
+\end{equation}	
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.5\textwidth]{../img/theory/shallow}
+	\caption{Red neuronal con una entrada, cuatro unidades ocultas y dos salidas. Fuente: \cite{prince2023understanding} }
+	\label{fig:shallow}
+\end{figure}
+
+\section{Deep learning}
 
 \textit{Deep learning} (DL) es una subcategoría de \textit{Machine Learning}, a diferencia de los algoritmos tradicionales de ML, usualmente DL trata con señales sin pre-procesamiento, los modelos (basados en redes neuronales) son mucho mas complejos tanto en dimensión como en el método de aprendizaje \citep{el2022machine}. Por ejemplo, en la Figura \ref{fig:dl}, presentamos la relación entre inteligencia arficial, ML y DL, de ahí podemos concluir que ML es parte de la IA y DL es parte de ML \citep{el2022machine}.
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.5\textwidth]{img/neoantigen/dl}
+	\includegraphics[width=0.5\textwidth]{../img/neoantigen/dl}
 	\caption{Relación entre Inteligencia Artificial, \textit{Machine Learning} y \textit{Deep Learning}. Fuente: \cite{el2022machine}.}
 	\label{fig:dl}
 \end{figure}
 
+Además, a medida que aumenta el número de unidades ocultas, las redes neuronales  mejoran su capacidad descriptiva. De hecho, con suficientes unidades ocultas, las redes  pueden describir funciones arbitrariamente complejas. Sin embargo, resulta que para algunas funciones, el número necesario de unidades ocultas es prácticamente grande \cite{prince2023understanding}. 
 
-\subsection{\textit{Deep Feedforward networks}}
 
-\textit{Deep Feedforward networks} son perceptrones multicapa o \textit{multilayer perceptrons}(MLP). Su objetivo es aproximar una función $f^*$, para el caso de clasificación, podría modelarse como $ y=f^*(x)$. Luego, un \textit{feedforward network}, define un mapeo $y = f(x;\theta)$ y aprende los valores de los parametros $\theta$ \cite{Goodfellow2016}. Entonces un \textit{Deep Feedforward networks}, es una red neuronal tradiconal pero con un número grande de neuronas y capas (Figura \ref{fig:dnn}). Existen muchos tipos de \textit{Deep Feedforward networks}, estas serán detalladas en los siguientes apartados.
 
-\begin{figure}[H]
+
+\subsection{Redes Neuronales Profundas}
+
+Deep Neural Networks o Redes Neuronales Profundas,  son perceptrones multicapa o \textit{multilayer perceptrons}(MLP). Su objetivo es aproximar una función $f^*$, para el caso de clasificación, podría modelarse como $ y=f^*(x)$. Luego, un \textit{feedforward network}, define un mapeo $y = f(x;\theta)$ y aprende los valores de los parametros $\theta$ \cite{Goodfellow2016}. Entonces una red neuronal profunda, es una red neuronal tradiconal pero con un número grande de neuronas y capas (Figura \ref{fig:dnn}). 
+
+\begin{figure}[]
 	\centering
-	\includegraphics[width=0.7\textwidth]{img/neoantigen/deep_nn}
+	\includegraphics[width=0.7\textwidth]{../img/neoantigen/deep_nn}
 	\caption{Representación de un \textit{Deep Feedforward Network}. Fuente: \cite{el2022machine}.}
 	\label{fig:dnn}
 \end{figure}
 
 
-\subsection{\textit{Convolutional Neural Networks}}
+Por ejemplo una red neuronal como la presentada en la Figura \ref{fig:deep_nn}, se puede representar por la Ecuación \ref{equa:dl_1}. Donde se describe al vector de unidades ocultas en la capa $k$ como $\mathbf{h_k}$. El vector de \textit{bias} que contribuye a las capa oculta $k+1$ es $\mathbf{\beta_k}$. Los pesos que son aplicados a la $k^{th}$ capa y contribuyen a la capa $(k+1)^{th}$ es $\mathbf{\Omega_k}$. Entonces, una red neuronal profunda $y = f[x, \phi]$ con $k$ capas, se representa como:
 
-Una \textit{Convolutional Neural Networks} (CNN), es una red neuronal basada en la operación de convoluciones (utilizada en procesamiento de imágenes). Generalmente estas redes neuronales se aplican a problemas de visión computacional \citep{zhang2021dive}. La operación básica es la convolución, esta se presenta en la Figura \ref{fig:cnn}. Se toman pequeñas ventanas de una imagen y se realiza el producto punto con un \textit{kernel} ya establecido. Según los diferentes valores del \textit{kernel}, se pueden obtener diferentes resultados en la imagen de salida como: detección de bordes, suavizados, dilatación, etc.
+\begin{equation}\label{equa:dl_1}
+	\begin{split}
+		\mathbf{h_1 = a [ \beta_{0} + \Omega_{0}x  ]}	 \\
+		\mathbf{h_2 = a [ \beta_{1} + \Omega_{1} h_1  ]}	 \\
+		\mathbf{h_3 = a [ \beta_{2} + \Omega_{2} h_2  ]}	 \\
+		... \\
+		\mathbf{h_k = a [ \beta_{k-1} + \Omega_{k-1} h_{k-1}  ]}	 \\
+		\mathbf{y = \beta_{k} + \Omega_{k} h_{k} }	 \\
+	\end{split}
+\end{equation}
+
+\begin{figure}[]
+	\centering
+	\includegraphics[width=0.78\textwidth]{../img/theory/deep_nn}
+	\caption{Notación matricial de una red neuronal profunda. Fuente: \cite{prince2023understanding}.}
+	\label{fig:deep_nn}
+\end{figure}
+
+
+\subsection{Redes Neuronales Convolucionales}
+
+Una \textit{Convolutional Neural Networks} (CNN) o Red Neuronal Convolucional, es una red neuronal basada en la operación de convoluciones (utilizada en procesamiento de imágenes). Generalmente estas redes neuronales se aplican a problemas de visión computacional \citep{zhang2021dive}. Por ejemplo en la Figura \ref{fig:cnn_1d}, se presenta una red neuronal convolucional 1D con un \textit{kernel} de tamaño 3.  Cada salida $z_i$ es una suma ponderada de los tres inputs más cercanos $x_{i-1}, x_{i}, x_{i+1}$, donde los pesos son $[\omega_1, \omega_2, \omega_3]$. La salida $z_2$ se calcula con $z_2 = \omega_1x_1 + \omega_2x_2 + \omega_3x_3$. La salida $z_3 = \omega_1x_2 + \omega_2x_3 + \omega_3x_4$. 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../img/theory/cnn}
+	\caption{Red neuronal convolucional 1D con un \textit{kernel} de tamaño 3. Fuente: \cite{prince2023understanding}.}
+	\label{fig:cnn_1d}
+\end{figure}
+
+
+La operación básica es la convolución, está se presenta en la Figura \ref{fig:cnn}. Se toman pequeñas ventanas de una imagen y se realiza el producto punto con un \textit{kernel} ya establecido. Según los diferentes valores del \textit{kernel}, se pueden obtener diferentes resultados en la imagen de salida como: detección de bordes, suavizados, dilatación, etc.
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{img/neoantigen/cnn}
-	\caption{Ejemplo de una convolución en procesamiento de imágenes. Fuente: \cite{Shuchen2022}.}
+	\includegraphics[width=0.7\textwidth]{../img/neoantigen/cnn}
+	\caption{Ejemplo de una convolución 2D en procesamiento de imágenes. Fuente: \cite{Shuchen2022}.}
 	\label{fig:cnn}
 \end{figure}
 
@@ -289,7 +393,7 @@ Con inspiración en la operación de convolución, se plantean las CNN por prime
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{img/neoantigen/cnn3}
+	\includegraphics[width=\textwidth]{../img/neoantigen/cnn3}
 	\caption{Arquitectura de LeNet-5, una CNN para el reconocimiento de digitos. Fuente: \cite{lecun1998gradient}.}
 	\label{fig:cnn3}
 \end{figure}
@@ -305,7 +409,7 @@ Como alternativa de solución al problema mencionado anteriormente, surgen Long 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.7\textwidth]{img/neoantigen/lstm}
+	\includegraphics[width=0.7\textwidth]{../img/neoantigen/lstm}
 	\caption{Ejemplo del procesamiento del \textit{input gate}, \textit{forget gate} y \textit{output gate} de LSTM. Fuente: \cite{zhang2021dive}.}
 	\label{fig:lstm}
 \end{figure}
@@ -339,7 +443,7 @@ Además, aplicar varios \textit{multi-head self-attention} lográ mejores result
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{img/theory/attention_weights_matrix.png}
+	\includegraphics[width=0.8\textwidth]{../img/theory/attention_weights_matrix.png}
 	\caption{How to compute attention weights. Source: \cite{prince2023understanding}}
 	\label{fig:self-attention}
 \end{figure}
