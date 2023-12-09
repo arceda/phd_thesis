@@ -17,11 +17,11 @@
 %% -------------------------------------------------------------------- %%
 %% -------------------------------------------------------------------- %%
 
-En este capítulo, detallamos los resultados del ajuste fino de los modelos de transformadores y cómo han sido influenciados utilizando \textit{Gradient Accumulation Steps} (GAS)  y una metodología de congelación de capas. Al principio, entrenamos cada modelo durante tres \textit{epochs}; luego, seleccionamos los modelos con los mejores resultados y los entrenamos nuevamente durante 30 \textit{epochs} con \textit{early stopping}.
+En este capítulo, detallamos los resultados del \textit{fine-tuning} de los modelos Transformers y el efecto de aplicar \textit{Gradient Accumulation Steps} (GAS)  y una metodología de congelación de capas. Al principio, entrenamos cada modelo durante tres \textit{epochs}; luego, seleccionamos los modelos con los mejores resultados y los entrenamos nuevamente durante 30 \textit{epochs} con \textit{early stopping}.
 
 \section{Congelación de capas}
 
-Para la metodología de congelación de capas, congelamos todos los parámetros del Transformer y solo entrenamos el bloque BiLSTM. Utilizar este método acelera el entrenamiento y sigue logrando un buen rendimiento, como se ha discutido en trabajos previos \citep{merchant2020happens,lee2019would,kovaleva2019revealing}.
+Para la metodología de congelación de capas, congelamos todos los parámetros del Transformer y solo entrenamos el bloque BiLSTM. Utilizar este método acelera el entrenamiento y mantiene el buen rendimiento, como se ha discutido en trabajos previos \citep{merchant2020happens,lee2019would,kovaleva2019revealing}.
 
 La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epochs}; además, la Figura \ref{fig:comparison_3_3pochs}(a) muestra el AUC de cada modelo utilizando GAS y la metodología de congelación de capas. En esta comparación, el sufijo 'Normal' representa el entrenamiento  utilizando todos los hiperparámetros de la Sección \ref{sec:fine-tuned}; el sufijo 'GAS' indica la integración de Gradient Accumulation Steps (GAS), mientras que el sufijo 'Freeze' indica la aplicación de la metodología de congelación de capas a los modelos. Según los resultados obtenidos, es evidente que la implementación de la metodología de congelación de capas conduce a mejoras en el rendimiento en todos los modelos ESM2. Además, se observó que los modelos más grandes, como ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal, no lograron converger debido a un problema de \textit{vanish gradients}, lo cual se desarrollará en la sección posterior. Además, la utilización de la metodología de congelación de capas permite que estos modelos converjan de manera efectiva.
 
@@ -30,7 +30,7 @@ La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epoch
 	\caption[Comparación de los modelos Transformer entrenados por 3 \textit{epochs}.]{Evaluación del rendimiento de los modelos de Transformer utilizando Gradient Accumulation Steps (GAS) y la metodología de congelación de capas, \textbf{entrenados durante tres \textit{epochs}}. Además, el sufijo 'Normal' representa el entrenamiento clásico utilizando los hiperparámetros de la Sección \ref{sec:fine-tuned}. La inclusión del sufijo 'GAS' en cada modelo indica la integración de Gradient Accumulation Steps, mientras que el sufijo 'Freeze' señala la aplicación de la metodología de congelación de capas a los modelos. Además, el guion '-' en cada celda indica que el modelo no logro converger.}
 	\label{tab:comparison_3_epochs}
 	
-	\scriptsize
+	\small
 	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 	\begin{tabular}{lllllll} 
@@ -62,11 +62,12 @@ La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epoch
 	\end{tabular}}
 \end{table}
 
+\clearpage
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
-	\subfigure[Comparación por modelo.]{\label{fig:a}\includegraphics[width=0.7\textwidth]{img/results/metrics_comparion_by_model}}
-	\subfigure[Comparación por la metodología de entrenamiento.]{\label{fig:b}	\includegraphics[width=0.7\textwidth]{img/results/metrics_comparion_by_type}}
+	\subfigure[Comparación por modelo.]{\label{fig:a}\includegraphics[width=0.8\textwidth]{img/results/metrics_comparion_by_model}}
+	\subfigure[Comparación por la metodología de entrenamiento.]{\label{fig:b}	\includegraphics[width=0.8\textwidth]{img/results/metrics_comparion_by_type}}
 	
 
 	\caption[Comparación del AUC de modelos Transformers entrenados con 3 \textit{epochs}]{Análisis comparativo de AUC en arquitecturas de modelos Transformers utilizando diversas metodologías de entrenamiento, incluyendo el entrenamiento estándar (Normal), el entrenamiento con una metodología de congelación de capas (Freeze), el entrenamiento con \textit{Gradient Accumulation Steps} (GAS) y el entrenamiento combinando GAS con la congelación de capas (Freeze-GAS). Además, entrenamos todos los modelos durante tres \textit{epochs}.}
@@ -77,7 +78,7 @@ La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epoch
 
 En la Tabla \ref{tab:comparison_3_epochs}, notamos que los modelos grandes como ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal no lograron converger. Por lo tanto, graficamos los gradientes de estos modelos durante el entrenamiento para descubrir sus causas. En primer lugar, graficamos los gradientes promedio por capa para el modelo más pequeño, ESM2(t6)-Normal, en la Figura \ref{fig:t6} (este modelo no tuvo problemas de \textit{vanish gradient}). Luego, graficamos los gradientes promedio para ESM2(t30)-Normal (este modelo experimentó un problema de \textit{vanish gradient}) en la Figura \ref{fig:t30}. Como se desprende de los resultados, el modelo más grande, ESM2(t30), mostró gradientes promedio casi nulos en todas las capas de BERT después de solo tres épocas; como resultado, este fenómeno hizo que el modelo no logre converger de manera efectiva.
 
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering
 	\subfigure[Gráfico de los gradientes por capa antes de entrenar ESM2(t6).]{\label{fig:a}\includegraphics[width=\textwidth]{img/results/t6_epoch0}}
 	\subfigure[Gráfico de los gradientes por capa después de entrenar ESM2(t6) durante tres \textit{epochs}.]{\label{fig:b}	\includegraphics[width=\textwidth]{img/results/t6_epoch3}}
@@ -112,7 +113,7 @@ Para una comparación más detallada, ampliamos los \textit{epochs} de entrenami
 	\caption[Comparación de los modelos Transformer entrenados por 30 \textit{epochs}.]{
 		Evaluación del rendimiento de los modelos de Transformer con Gradient Accumulation Steps (GAS) y la metodología de congelación de capas \textbf{entrenados durante treinta (30) \textit{epochs}}. Además, el sufijo 'Normal' representa el entrenamiento clásico utilizando los hiperparámetros de la Sección \ref{sec:fine-tuned}. La inclusión del sufijo 'GAS' en cada modelo indica la integración de Gradient Accumulation Steps, mientras que el sufijo 'Freeze' señala nuestra aplicación de la metodología de congelación de capas a los modelos. Además, el guion '-' en cada celda indica que el modelo no pudo converger.}
 	\label{tab:comparison}
-	\scriptsize
+	\footnotesize
 	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 	\begin{tabular}{llllllll} 
@@ -134,14 +135,16 @@ Para una comparación más detallada, ampliamos los \textit{epochs} de entrenami
 
 \section{Comparación con los métodos del estado del arte}
 
+\sloppy
 Además, comparamos los mejores modelos, ESM2(t6)-Freeze y TAPE-GAS, entrenados durante 30 \textit{epochs} (consulte la Tabla \ref{tab:comparison}), con métodos de vanguardia. Cubrimos NetMHCpan4.1 \citep{reynisson2020netmhcpan} y MHCFlurry2.0 \citep{o2020mhcflurry} porque son métodos de referencia bien conocidos; y tres herramientas más recientes como Anthem \citep{mei2021anthem}, Acme \citep{hu2019acme} y MixMHCpred2.2 \citep{gfeller2023improved}.
 
-Durante nuestra evaluación de estas herramientas en el conjunto de datos de prueba, encontramos consideraciones específicas para ACME. Para garantizar una evaluación justa, excluimos los siguientes \textit{alleles} de la evaluación para ACME: HLA-C01:02, HLA-C02:02, HLA-C03:03, HLA-C03:04, HLA-C04:01, HLA-C05:01, HLA-C06:02, HLA-C07:01, HLA-C07:02, HLA-C07:04, HLA-C08:02, HLA-C12:03, HLA-C14:02, HLA-C15:02, HLA-C16:01, HLA-C17:01, HLA-A02:50, HLA-A24:06, HLA-A24:13, HLA-A32:15, HLA-B45:06 y HLA-B83:01. Esta exclusión fue necesaria ya que ACME no pudo predecir la unión péptido-MHC para estos \textit{alleles} particulares. 
+\sloppy
+Durante la evaluación de estas herramientas en el conjunto de datos de \textit{testing}, encontramos consideraciones específicas para ACME. Para garantizar una evaluación justa, excluimos los siguientes \textit{alleles} de la evaluación para ACME: HLA-C01:02, HLA-C02:02, HLA-C03:03, HLA-C03:04, HLA-C04:01, HLA-C05:01, HLA-C06:02, HLA-C07:01, HLA-C07:02, HLA-C07:04, HLA-C08:02, HLA-C12:03, HLA-C14:02, HLA-C15:02, HLA-C16:01, HLA-C17:01, HLA-A02:50, HLA-A24:06, HLA-A24:13, HLA-A32:15, HLA-B45:06 y HLA-B83:01. Esta exclusión fue necesaria ya que ACME no pudo predecir la unión péptido-MHC para estos \textit{alleles} particulares. 
 
 
 Es importante señalar que la elección del umbral para predecir la unión de pMHC puede variar según la herramienta específica y el k-mer utilizado. Esta variabilidad hace que el AUC sea una métrica ideal para comparar métodos, ya que proporciona una evaluación robusta que no es sensible a las diferencias de umbral. Por esta razón, en la Figura \ref{fig:comparison_final} y \ref{fig:ROC_comparison_final}, presentamos el AUC y la curva ROC respectivamente de TAPE-GAS, ESM2(t6)-Freeze, NetMHCpan4.1 y MHCFlurry2.0, Anthem, Acme y MixMHCpred2.2. Según estos gráficos, TAPE-GAS y ESM2(t6)-Freeze obtuvieron el valor más alto de AUC.
 
-Además, al evaluar métricas de rendimiento de clasificación binaria, estandarizamos el umbral para TAPE-GAS y ESM2(t6) en 0.5. Mantuvimos un umbral de 0.5 para NetMHCpan4.1, de acuerdo con su configuración recomendada, mientras que para ACME, seguimos un umbral de 0.42, según lo recomendado en su documentación. En el caso de Anthem, la herramienta proporcionó predicciones binarias de unión directamente. Sin embargo, para MixMHCpred2.2 y MHCfurry, determinamos los valores óptimos de umbral a partir del conjunto de datos de prueba, resultando en 2.7308 y 0.09439, respectivamente. En la Tabla \ref{tab:final_comparison}, presentamos una comparación exhaustiva entre TAPE-GAS y ESM2(t6)-Freeze (entrenados durante 30 \textit{epochs}) y las herramientas del estado del arte. Los resultados demuestran claramente que TAPE-GAS y ESM2(t6)-Freeze superan consistentemente a las herramientas del estado del arte en todas estas métricas: \textit{AUC, precisión, recall, F1-score} y \textit{MCC}.
+Además, al evaluar métricas de rendimiento de clasificación binaria, estandarizamos el umbral para TAPE-GAS y ESM2(t6) en 0.5. Mantuvimos un umbral de 0.5 para NetMHCpan4.1, de acuerdo con su configuración recomendada, mientras que para ACME, seguimos un umbral de 0.42, según lo recomendado en su documentación. En el caso de Anthem, la herramienta proporcionó predicciones binarias de unión directamente. Sin embargo, para MixMHCpred2.2 y MHCfurry, determinamos los valores óptimos de umbral a partir del conjunto de datos de \textit{testing}, resultando en 2.7308 y 0.09439, respectivamente. En la Tabla \ref{tab:final_comparison}, presentamos una comparación exhaustiva entre TAPE-GAS y ESM2(t6)-Freeze (entrenados durante 30 \textit{epochs}) y las herramientas del estado del arte. Los resultados demuestran claramente que TAPE-GAS y ESM2(t6)-Freeze superan consistentemente a las herramientas del estado del arte en todas estas métricas: \textit{AUC, precisión, recall, F1-score} y \textit{MCC}.
 
 \begin{figure}
 	\centering
@@ -178,36 +181,46 @@ Además, al evaluar métricas de rendimiento de clasificación binaria, estandar
 	\end{tabular}}
 \end{table*}
 
-Finalmente, mostramos la distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 épocas, junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0. En este caso, evaluamos cada distribución por k-mer (Figura \ref{fig:auc_distribution} y \ref{fig:auc_distribution14}). En todos los k-mer, TAPE-GAS y ESM2(t6)-Freeze presentan la puntuación más alta. Además, es importante destacar que el modelo pequeño ESM2(t6)-Freeze ofrece resultados superiores para péptidos más largos con longitudes de 11, 12, 13 y 14.
+Finalmente, mostramos la distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 épocas, junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0. En este caso, evaluamos cada distribución por k-mer (Figura \ref{fig:auc_distribution}, \ref{fig:auc_distribution2} y \ref{fig:auc_distribution14}). En todos los k-mer, TAPE-GAS y ESM2(t6)-Freeze presentan la puntuación más alta. Además, es importante destacar que el modelo pequeño ESM2(t6)-Freeze ofrece resultados superiores para péptidos más largos con longitudes de 11, 12, 13 y 14.
 
 
 
-\begin{figure*}[h]
-	\centering
-	
-	
+\begin{figure}[H]
+	\centering	
 	\subfigure[8-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_8-mer}}
 	\subfigure[9-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_9-mer}}
 	\subfigure[10-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_10-mer}}
 	\subfigure[11-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_11-mer}}
+	
+		
+	\caption{
+		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para 8, 9, 10 y 11-mers; junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
+	\label{fig:auc_distribution}
+\end{figure}
+
+\begin{figure}[H]
+	\centering	
+
 	\subfigure[12-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_12-mer}}
 	\subfigure[13-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_13-mer}}
 	
-	
 	\caption{
-		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs}, junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
-	\label{fig:auc_distribution}
-\end{figure*}
+		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para 12 y 13-mers; junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
+	\label{fig:auc_distribution2}
+\end{figure}
 
-\begin{figure*}[h]
+
+
+\begin{figure}[H]
 	\centering	
 	\subfigure[14-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_14-mer}}	
 	
 	\caption{
-		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para los péptidos 14-mer, junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
+		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para los péptidos 14-mer; junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
 	\label{fig:auc_distribution14}
-\end{figure*}
+\end{figure}
 
+\clearpage
 
 \section{Discusión}
 

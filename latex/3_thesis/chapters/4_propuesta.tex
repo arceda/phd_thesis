@@ -17,7 +17,7 @@
 %% -------------------------------------------------------------------- %%
 
 
-La detección de neoantígenos es un proceso largo, descrito anteriormente. Debido a esto, esta investigación se ha centrado en la predicción de la unión pMHC, porque es una de las etapas con mayor investigación en el estado del arte y sin embargo, los resultados aún carecen de buen desempeño. En resumen. En resumen en este trabajo hemos realizado fine-tuning a modelos Transformer pre-entrenados, para la tarea de predicción de la unión pMHC.
+La detección de neoantígenos es un proceso largo, descrito anteriormente. Debido a esto, esta investigación se ha centrado en la predicción de la unión pMHC, porque es una de las etapas con mayor investigación en el estado del arte y sin embargo, los resultados aún carecen de buen desempeño. En resumen, en este trabajo hemos realizado \textit{fine-tuning} a modelos Transformer, para la tarea de predicción de la unión pMHC.
 
 
 
@@ -110,7 +110,7 @@ ESM-2 \citep{lin2023evolutionary} es una familia de modelos Transformer que tien
 \section{Fine-tuning}\label{sec:fine-tuned}
 Para realizar \textit{fine-tuning}, apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado. El BiLSTM se basa en HLAB \citep{zhang2022hlab} y consta de dos capas con 768 unidades. En la Figura \ref{fig:proposal}, presentamos el modelo completo para la predicción de la unión pMHC-I.
 
-Además, está ampliamente establecido que al ajustar modelos de transformadores grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
+Además, está ampliamente establecido que al ajustar modelos de Transformers grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
 
 Adiconalmente, los modelos de Transformer grandes utilizan bastante memoria de la GPU y generalmente sufren del problema de \textit{vanish gradient}. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de Transformers para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento.
 
@@ -118,7 +118,7 @@ Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5
 
 \section{Clasificación binaria y Métricas}
 
-El problema de predicción de unión pMHC es un problema de regresión. Sin embargo, basado en el conjunto de datos utilizado en este estudio, también podría abordarse como un problema de clasificación binaria al seleccionar un umbral apropiado. Luego, las métricas de aprendizaje automático utilizadas en este trabajo son: \textit{accuracy, precision, recall, f-1 score, Area Under the Curve (AUC)}, y \textit{Matthews Correlation Coefficient} (MCC). Todas las métricas están descritas en las ecuaciones siguientes.
+El problema de predicción de unión pMHC es un problema de regresión. Sin embargo, basado en el conjunto de datos utilizado en este estudio, también podría abordarse como un problema de clasificación binaria al seleccionar un umbral apropiado. Las métricas de aprendizaje automático utilizadas en este trabajo son: \textit{accuracy, precision, recall, f-1 score, Area Under the Curve (AUC)}, y \textit{Matthews Correlation Coefficient} (MCC). Todas las métricas están descritas en las ecuaciones siguientes.
 
 \begin{equation}\label{equa:acc}
 	Accuracy = \frac{TP+TN}{TP+TN+FP+FN}

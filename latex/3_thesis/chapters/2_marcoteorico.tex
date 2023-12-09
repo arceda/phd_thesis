@@ -139,7 +139,7 @@ Para el caso de MHC-II, es un proceso similar (Figura \ref{fig:mhc2}): primero, 
 	\label{fig:mhc2}
 \end{figure}
 
-\subsection{Neo antígenos}
+\subsection{Neoantígenos}
 
 Es una proteína que se forma en las células de Cáncer cuando ocurre mutaciones en el DNA. Los neo antígenos cumplen un rol importante al estimular una respuesta inmune en contra de células de Cáncer. En la actualiadad, se estudia su uso en el desarrollo de vacunas contra el Cáncer \cite{NCIdictionary2022}. Una característica importante de los neo antígenos, es que solo están presentes en células tumorales y no en células sanas, debido a eso son considerados factores clave en la inmunoterapia del Cáncer \cite{borden2022cancer}. En la actualidad hay varios métodos para detectar a predecir neo antígenos, pero solo una pequeña porción de ellos logran estimular al sistema inmune \cite{chen2021challenges, hao2021improvement}.
 
@@ -349,14 +349,14 @@ Deep Neural Networks o Redes Neuronales Profundas,  son perceptrones multicapa o
 Por ejemplo una red neuronal como la presentada en la Figura \ref{fig:deep_nn}, se puede representar por la Ecuación \ref{equa:dl_1}. Donde se describe al vector de unidades ocultas en la capa $k$ como $\mathbf{h_k}$. El vector de \textit{bias} que contribuye a las capa oculta $k+1$ es $\mathbf{\beta_k}$. Los pesos que son aplicados a la $k^{th}$ capa y contribuyen a la capa $(k+1)^{th}$ es $\mathbf{\Omega_k}$. Entonces, una red neuronal profunda $y = f[x, \phi]$ con $k$ capas, se representa como:
 
 \begin{equation}\label{equa:dl_1}
-	\begin{split}
+	\begin{gathered}
 		\mathbf{h_1 = a [ \beta_{0} + \Omega_{0}x  ]}	 \\
 		\mathbf{h_2 = a [ \beta_{1} + \Omega_{1} h_1  ]}	 \\
 		\mathbf{h_3 = a [ \beta_{2} + \Omega_{2} h_2  ]}	 \\
 		... \\
 		\mathbf{h_k = a [ \beta_{k-1} + \Omega_{k-1} h_{k-1}  ]}	 \\
 		\mathbf{y = \beta_{k} + \Omega_{k} h_{k} }	 \\
-	\end{split}
+	\end{gathered}
 \end{equation}
 
 \begin{figure}[]
@@ -369,7 +369,7 @@ Por ejemplo una red neuronal como la presentada en la Figura \ref{fig:deep_nn}, 
 
 \subsection{Redes Neuronales Convolucionales}
 
-Una \textit{Convolutional Neural Networks} (CNN) o Red Neuronal Convolucional, es una red neuronal basada en la operación de convoluciones (utilizada en procesamiento de imágenes). Generalmente estas redes neuronales se aplican a problemas de visión computacional \citep{zhang2021dive}. Por ejemplo en la Figura \ref{fig:cnn_1d}, se presenta una red neuronal convolucional 1D con un \textit{kernel} de tamaño 3.  Cada salida $z_i$ es una suma ponderada de los tres inputs más cercanos $x_{i-1}, x_{i}, x_{i+1}$, donde los pesos son $[\omega_1, \omega_2, \omega_3]$. La salida $z_2$ se calcula con $z_2 = \omega_1x_1 + \omega_2x_2 + \omega_3x_3$. La salida $z_3 = \omega_1x_2 + \omega_2x_3 + \omega_3x_4$. 
+Una \textit{Convolutional Neural Networks} (CNN) o Red Neuronal Convolucional, es una red neuronal basada en la operación de convoluciones (utilizada en procesamiento de imágenes). Generalmente estas redes neuronales se aplican a problemas de visión computacional \citep{zhang2021dive}. Por ejemplo en la Figura \ref{fig:cnn_1d}, se presenta una red neuronal convolucional 1D con un \textit{kernel} de tamaño 3.  Cada salida $z_i$ es una suma ponderada de los tres inputs más cercanos $x_{i-1}, x_{i}, x_{i+1}$, donde los pesos son $[\omega_1, \omega_2, \omega_3]$. La salida $z_2$ se calcula con $z_2 = \omega_1x_1 + \omega_2x_2 + \omega_3x_3$. La salida $z_3 = \omega_1x_2 + \omega_2x_3 + \omega_3x_4$. Además, podemos variar el tamaño del \textit{kernel},  el \textit{stride} y \textit{dilation} como se ve en la Figura \ref{fig:conv1d}.
 
 \begin{figure}[H]
 	\centering
@@ -379,7 +379,25 @@ Una \textit{Convolutional Neural Networks} (CNN) o Red Neuronal Convolucional, e
 \end{figure}
 
 
-La operación básica es la convolución, está se presenta en la Figura \ref{fig:cnn}. Se toman pequeñas ventanas de una imagen y se realiza el producto punto con un \textit{kernel} ya establecido. Según los diferentes valores del \textit{kernel}, se pueden obtener diferentes resultados en la imagen de salida como: detección de bordes, suavizados, dilatación, etc.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../img/theory/conv1d}
+	\caption{Ejemplo del uso de \textit{stride, kernel size} y \textit{dilation} en la convolución 1D. Fuente: \cite{prince2023understanding}.}
+	\label{fig:conv1d}
+\end{figure}
+
+Entonces, una capa convolucional calcula su salida convolucionando la entrada, sumando un \textit{bias} $\beta$, y pasando cada resultado a través de una función de activación $a[\bullet]$. Con un tamaño de \textit{kernel} de tres, \textit{stride} y \textit{dilation} igual a 1, la i-ésima unidad oculta $h_i$ se calcularía como:
+
+\begin{equation}
+	\begin{gathered}
+	h_i = a [ \beta + \omega_1x_{i-1} + \omega_2x_{i} + \omega_3x_{i+1}] \\
+	h_i = a \left[ \beta + \sum_{j=1}^{3} \omega_1x_{i-1} \right]
+	\end{gathered}
+\end{equation}
+
+
+Adicionalmente, la operación básica es la convolución 2D, se presenta en la Figura \ref{fig:cnn}. Se toman pequeñas ventanas de una imagen y se realiza el producto punto con un \textit{kernel} ya establecido. Según los diferentes valores del \textit{kernel}, se pueden obtener diferentes resultados en la imagen de salida como: detección de bordes, suavizados, dilatación, etc. Tambien puede ver la Figura \ref{fig:conv2d}, para ver el cómputo de una capa convolucional 2D.
 
 
 \begin{figure}[H]
@@ -387,6 +405,13 @@ La operación básica es la convolución, está se presenta en la Figura \ref{fi
 	\includegraphics[width=0.7\textwidth]{../img/neoantigen/cnn}
 	\caption{Ejemplo de una convolución 2D en procesamiento de imágenes. Fuente: \cite{Shuchen2022}.}
 	\label{fig:cnn}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{../img/theory/conv2d}
+	\caption{Ejemplo de una capa convolucional 2D. Fuente: \cite{prince2023understanding}.}
+	\label{fig:conv2d}
 \end{figure}
 
 Con inspiración en la operación de convolución, se plantean las CNN por primera vez por \cite{lecun1998gradient}. En la Figura \ref{fig:cnn3}, se presenta la LeNet-5, planteado por los autores. Luego, surgen diversa propuestas como AlexNet \citep{krizhevsky2012imagenet}, VGGNet \citep{simonyan2014very}, GoogleNet \citep{szegedy2015going} y ResNet \citep{he2016deep}.
@@ -399,7 +424,7 @@ Con inspiración en la operación de convolución, se plantean las CNN por prime
 \end{figure}
 
 
-\subsection{\textit{Recurrent Neural Networks}}
+\subsection{Redes Neuronales Recurrentes}
 
 Mientras que las CNN están especializadas para manejar información espacial, las \textit{Recurrent Neural Networks} (RNN), se especializan en información secuencial  \citep{zhang2021dive}. En este campo, se habla del tiempo como una variable y se tratan problemas de series temporales por ejemplo.
 
@@ -420,11 +445,18 @@ Como alternativa de solución al problema mencionado anteriormente, surgen Long 
 
 El concepto del mecanismo de atención fue introducido inicialmente por Bahdanau en 2014 \citep{bahdanau2014neural} para abordar las limitaciones asociadas con vectores de codificación de longitud fija. Este enfoque novedoso produjo resultados comparables a los estados del arte en la traducción de inglés a francés. Posteriormente, el mecanismo de atención encontró aplicación en la inferencia de lenguaje natural \citep{parikh2016decomposable}, lo que llevó a la propuesta de una red de atención estructurada \citep{kim2017structured}. Sin embargo, es importante señalar que estos módulos de atención se utilizaban típicamente en conjunto con redes recurrentes. Ocurrió un cambio significativo en 2017 con la publicación del innovador artículo ``Attention Is All You Need'' propuesta por \cite{vaswani2017attention}, que presentó una nueva arquitectura de red conocida como Transformer. Esta arquitectura se basó exclusivamente en mecanismos de atención y representó una partida fundamental de los enfoques tradicionales. En 2018, \cite{devlin2018bert} introdujo el modelo bidireccional de \textit{Transformer Bidirectional Encoder Representations from Transformers} (BERT). Desde entonces, se ha convertido en uno de los modelos de Transformer más reconocidos e influyentes en el campo. El Transformer se basa en el concepto de \textit{self-attention}, que se refiere a cuánta atención presta una palabra a otras palabras. Por ejemplo, en la siguiente oración: ``El animal no cruzó la calle porque estaba muy cansado'', \textit{self-attention} permite asociar ``estaba'' con ``animal'' \citep{prince2023understanding}.
 
-En este contexto, el bloque principal es la autoatención $sa[\bullet]$, que toma $N$ entradas $x_n$, cada una de dimensión $D \times 1$, y devuelve $N$ vectores de salida del mismo tamaño. En el procesamiento del lenguaje natural, cada entrada $x_n$ representa una palabra; mientras que en secuencias de proteínas, representa un aminoácido. Luego, se calculan un conjunto de valores mediante $v_n = \beta_v + \Omega_vx_n$, donde $\beta_v$ y $\Omega_v$ son los sesgos y pesos, respectivamente. Así, el bloque de autoatención se calcula mediante la Ecuación \ref{eq:self}. El peso $a[x_m, x_m]$ es la atención que la salida $x_n$ presta a $x_m$.
+\subsubsection{\textit{Self-attention}}
+
+El bloque principal de un Transformer, es la autoatención o \textit{self-attention} $sa[\bullet]$, que toma $N$ entradas $x_n$, cada una de dimensión $D \times 1$, y devuelve $N$ vectores de salida del mismo tamaño. En el procesamiento del lenguaje natural, cada entrada $x_n$ representa una palabra; mientras que en secuencias de proteínas, representa un aminoácido. Luego, por cada entrada, se calcula un conjunto de valores $v_m = \beta_v + \Omega_vx_m$, donde $\beta_v$ y $\Omega_v$ son los sesgos y pesos, respectivamente. Así, el bloque de \textit{self-attention} se calcula mediante la Ecuación \ref{eq:self-attention}. Además, $a[x_m, x_m]$ es la atención que la salida $x_n$ presta a $x_m$ y se calcula mediante el producto punto entre $k_m^T$ y $q_n$. Adicionalmente, se prefiere trabajar con un \textit{self-attention}  escalado (Ecuación \ref{eq:scaled-self-attention}); aquí, $D_q$ es la dimensión de $q_n$ y $k_n$. En la Figura \ref{fig:t_1}, se ejemplifica el proceso para calcular \textit{self-attention}, mientras que en la Figura \ref{fig:self-attention}, se presenta lo mismo, pero forma matricial \citep{prince2023understanding}.
 
 
 \begin{equation}\label{eq:attention}
-	a[x_m, x_n] = \mbox{softmax}[ k^T \cdot q_n ]
+	\begin{gathered}
+	v_m = \beta_v + \Omega_vx_m \\
+	q_n = \beta_q + \Omega_qx_n \\
+	k_n = \beta_k + \Omega_kx_m \\
+	a[x_m, x_n] = \mbox{softmax}[k_m^T \cdot q_n]
+	\end{gathered}
 \end{equation}
 
 \begin{equation}\label{eq:self-attention}
@@ -435,6 +467,14 @@ En este contexto, el bloque principal es la autoatención $sa[\bullet]$, que tom
 	\mbox{Sa}[X] = V \cdot \mbox{softmax}\left[ \frac{k^T \cdot q_n}{ \sqrt{D_q} }   \right]   
 \end{equation}
 
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{../img/theory/t_1}
+	\caption{Ejemplo de como calcular \textit{self-attention}. Fuente: \cite{prince2023understanding}}
+	\label{fig:t_1}
+\end{figure}
+
 Además, aplicar varios \textit{multi-head self-attention} lográ mejores resultados. Entonces, la concatenación de varios \textit{head attentions} se presenta en la Equación \ref{multihead}.
 
 \begin{equation}\label{multihead}
@@ -443,8 +483,8 @@ Además, aplicar varios \textit{multi-head self-attention} lográ mejores result
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.8\textwidth]{../img/theory/attention_weights_matrix.png}
-	\caption{How to compute attention weights. Source: \cite{prince2023understanding}}
+	\includegraphics[width=0.9\textwidth]{../img/theory/attention_weights_matrix.png}
+	\caption{Proceso para procesar el \textit{self-attention} de forma matricial. Fuente: \cite{prince2023understanding}}
 	\label{fig:self-attention}
 \end{figure}
 
@@ -456,6 +496,32 @@ Además, aplicar varios \textit{multi-head self-attention} lográ mejores result
 %\end{figure}
 
 
+\subsubsection{\textit{Mulitple head self-attention}}
+
+Normalmente se aplican múltiples mecanismos de \textit{self-attention} en paralelo, y esto se conoce como \textit{multiple head self-attention}. Ahora se calculan $H$ conjuntos diferentes de $v$, $k$ y $q$ \citep{prince2023understanding}:
+
+\begin{equation}\label{eq:mha}
+	\begin{gathered}
+		\mathbf{ V_m = \beta_{vh}1^T + \Omega_{vh}X }\\
+		\mathbf{Q_n = \beta_{qh}1^T + \Omega_{qh}X }\\
+		\mathbf{K_n = \beta_{kh}1^T + \Omega_{kh}X }	
+	\end{gathered}
+\end{equation}
+
+El $h^{th}$ \textit{self-attention} se calcula con:
+
+\begin{equation}\label{eq:mha2}	
+\mathbf{Sa_h[X] = V_h \cdot \mbox{Softmax}\left[ \frac{K_h^T Q_h}{ \sqrt{D_q} }  \right]}	
+\end{equation}
+
+Un resumen, es presentado en la Figura \ref{fig:mhsa}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{../img/theory/mhsa}
+	\caption{Proceso para procesar el \textit{multiple head self-attention}. Fuente: \cite{prince2023understanding}}
+	\label{fig:mhsa}
+\end{figure}
 
 
 \subsection{BERT}
@@ -463,10 +529,36 @@ Además, aplicar varios \textit{multi-head self-attention} lográ mejores result
 \textit{Bidirectional Encoder Representations from Transformers (BERT)}, propuesta por \cite{devlin2018bert}, está inspirada por la red \textit{Tranformer} y su mecanismo de atención, la cuál entiende la relación contextual entre diferentes palabras. A diferencia de una RNN, BERT no tiene dirección, es decir lee la secuencia entera. Esta característica, le permite al modelo aprender información contextual de una palabra con respecto a las otras \citep{Kelvin_transformer2022}.
 
 
+BERT es un modelo de codificador que utiliza un vocabulario de 30000 \textit{tokens}. Los \textit{tokens} de entrada se convierten en \textit{word-embedding} de dimensión 1024 y se pasan a través de 24 Transformers. Cada uno de ellos contiene un mecanismo de \textit{self-attention} con 16 heads. Los \textit{queries, keys} y \textit{values} para cada \textit{head} tienen una dimensión de 64. La dimensión de la única capa oculta en la red completamente conectada en el Transformer es de 4096. El número total de parámetros es aproximadamente 340 millones. Cuando se introdujo BERT, esto se consideraba grande, pero ahora es mucho más pequeño que los modelos de vanguardia \citep{prince2023understanding}.
+
+\subsubsection{Pre-entrenamiento}
+
+En la etapa de pre-entrenamiento, la red se entrena utilizando \textit{self-supervision}. Esto permite el uso de cantidades enormes de datos sin necesidad de etiquetas manuales. En el caso de BERT, la tarea de \textit{self-supervision} consiste en predecir las palabras faltantes en oraciones tomadas de un gran corpus de internet (Figura \ref{fig:bert}). Durante el entrenamiento, la longitud máxima de entrada es de 512 \textit{tokens} y el tamaño del \textit{batch size} es de 256. El sistema se entrena durante un millón de \textit{steps}, lo que equivale aproximadamente a 50 \textit{epochs} del corpus de 3.3 mil millones de palabras \citep{prince2023understanding}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../img/theory/pre-training}
+	\caption{Pre-entrenamiento de BERT. Fuente: \cite{prince2023understanding}}
+	\label{fig:bert}
+\end{figure}
+
+
+\subsubsection{Fine-tuning}
 
 
 
+En la etapa de \textit{fine-tuning}, los parámetros del modelo se ajustan para especializar la red en una tarea particular. Se añade una capa adicional a la red del Transformer para convertir los vectores de salida al formato de salida deseado \citep{prince2023understanding}. Por ejemplo, se puede realizar  para la tarea de clasificación de textos (Figura \ref{fig:bert2}.a); donde, se coloca un token especial conocido como el token de clasificación o \textit{cls} al comienzo de cada cadena durante el pre-entrenamiento. Para tareas de clasificación de texto como el análisis de sentimientos (en el cual el pasaje se etiqueta como tener un tono emocional positivo o negativo), el vector asociado con el token \textit{cls} se asigna a un número único y se pasa a través de una función sigmoide \citep{prince2023understanding}.
+
+Tambien, se puede realizar nuevas tareas como clasificación de palabras. El objetivo es clasificar cada palabra como un tipo de entidad (por ejemplo, persona, lugar, organización o ninguna entidad), como se describe en la Figura \ref{fig:bert2}.b \citep{prince2023understanding}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../img/theory/pre-training2}
+	\caption[Fine-tuning de BERT]{Fine-tuning de BERT, luego del pre-entrenamiento se realiza \textit{fine-tuning} sobre un conjunto de datos etiquetados manualmente para una tarea específica. Fuente: \cite{prince2023understanding}}
+	\label{fig:bert2}
+\end{figure}
 
 
+El \textit{fine-tuning} de modelos pre-entrenados mediante \textit{self-supervision} ha mejorado significativamente el rendimiento de vanguardia en tareas de procesamiento del lenguaje natural \citep{zhang2020revisiting}. Sin embargo, a pesar de los éxitos significativos, el \textit{fine-tuning} sigue siendo inestable, especialmente cuando se utiliza la variante grande de BERT en conjuntos de datos pequeños, donde el pre-entrenamiento tiene el potencial de proporcionar el beneficio más significativo. Procesos de aprendizaje idénticos con diferentes \textit{seeds} aleatorios a menudo resultan en modelos significativamente diferentes y a veces degenerados después del \textit{fine-tuning}, incluso cuando solo algunos aspectos aparentemente insignificantes del proceso de aprendizaje se ven afectados por el \textit{seed} aleatorio  \citep{zhang2020revisiting,prince2023understanding}.
 
 %EOF
