@@ -17,20 +17,20 @@
 %% -------------------------------------------------------------------- %%
 %% -------------------------------------------------------------------- %%
 
-En este capítulo, detallamos los resultados del \textit{fine-tuning} de los modelos Transformers y el efecto de aplicar \textit{Gradient Accumulation Steps} (GAS)  y una metodología de congelación de capas. Al principio, entrenamos cada modelo durante tres \textit{epochs}; luego, seleccionamos los modelos con los mejores resultados y los entrenamos nuevamente durante 30 \textit{epochs} con \textit{early stopping}.
+En este capítulo, detallamos los resultados del \textit{fine-tuning} de los modelos \textit{Transformers} y el efecto de aplicar \textit{Gradient Accumulation Steps} (GAS)  y una metodología de congelación de capas. Al principio, entrenamos cada modelo durante tres \textit{epochs}; luego, seleccionamos los modelos con los mejores resultados y los entrenamos nuevamente durante 30 \textit{epochs} con \textit{early stopping}.
 
-\section{Congelación de capas}
+\section{Congelación de Capas}
 
-Para la metodología de congelación de capas, congelamos todos los parámetros del Transformer y solo entrenamos el bloque BiLSTM. Utilizar este método acelera el entrenamiento y mantiene el buen rendimiento, como se ha discutido en trabajos previos \citep{merchant2020happens,lee2019would,kovaleva2019revealing}.
+Para la metodología de congelación de capas, congelamos todos los parámetros del \textit{Transformer} y solo entrenamos el bloque BiLSTM. Utilizar este método acelera el entrenamiento y mantiene el buen rendimiento, como se ha discutido en trabajos previos \citep{merchant2020happens,lee2019would,kovaleva2019revealing}.
 
-La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epochs}; además, la Figura \ref{fig:comparison_3_3pochs}(a) muestra el AUC de cada modelo utilizando GAS y la metodología de congelación de capas. En esta comparación, el sufijo 'Normal' representa el entrenamiento  utilizando todos los hiperparámetros de la Sección \ref{sec:fine-tuned}; el sufijo 'GAS' indica la integración de Gradient Accumulation Steps (GAS), mientras que el sufijo 'Freeze' indica la aplicación de la metodología de congelación de capas a los modelos. Según los resultados obtenidos, es evidente que la implementación de la metodología de congelación de capas conduce a mejoras en el rendimiento en todos los modelos ESM2. Además, se observó que los modelos más grandes, como ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal, no lograron converger debido a un problema de \textit{vanish gradients}, lo cual se desarrollará en la sección posterior. Además, la utilización de la metodología de congelación de capas permite que estos modelos converjan de manera efectiva.
+La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epochs}; además, la Figura \ref{fig:comparison_3_3pochs}(a) muestra el AUC de cada modelo utilizando GAS y la metodología de congelación de capas. En esta comparación, el sufijo 'Normal' representa el entrenamiento  utilizando todos los hiperparámetros de la Sección \ref{sec:fine-tuned}; el sufijo 'GAS' indica la integración de \textit{Gradient Accumulation Steps} (GAS), mientras que el sufijo 'Freeze' indica la aplicación de la metodología de congelación de capas a los modelos. Según los resultados obtenidos, es evidente que la implementación de la metodología de congelación de capas conduce a mejoras en el rendimiento en todos los modelos ESM2. Además, se observó que los modelos más grandes, como ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal, no lograron converger debido a un problema de \textit{vanish gradients}, lo cual se desarrollará en la sección posterior. Además, la utilización de la metodología de congelación de capas permite que estos modelos converjan de manera efectiva.
 
 \begin{table}[h]
 	\centering
-	\caption[Comparación de los modelos Transformer entrenados por 3 \textit{epochs}.]{Evaluación del rendimiento de los modelos de Transformer utilizando Gradient Accumulation Steps (GAS) y la metodología de congelación de capas, \textbf{entrenados durante tres \textit{epochs}}. Además, el sufijo 'Normal' representa el entrenamiento clásico utilizando los hiperparámetros de la Sección \ref{sec:fine-tuned}. La inclusión del sufijo 'GAS' en cada modelo indica la integración de Gradient Accumulation Steps, mientras que el sufijo 'Freeze' señala la aplicación de la metodología de congelación de capas a los modelos. Además, el guion '-' en cada celda indica que el modelo no logro converger.}
+	\caption[Comparación de los modelos \textit{Transformer} entrenados por 3 \textit{epochs}.]{Evaluación del rendimiento de los modelos de \textit{Transformer} utilizando \textit{Gradient Accumulation Steps} (GAS) y la metodología de congelación de capas, \textbf{entrenados durante tres \textit{epochs}}. Además, el sufijo 'Normal' representa el entrenamiento clásico utilizando los hiperparámetros de la Sección \ref{sec:fine-tuned}. La inclusión del sufijo 'GAS' en cada modelo indica la integración de \textit{Gradient Accumulation Steps}, mientras que el sufijo 'Freeze' señala la aplicación de la metodología de congelación de capas a los modelos. Además, el guion '-' en cada celda indica que el modelo no logro converger.}
 	\label{tab:comparison_3_epochs}
 	
-	\small
+	\scriptsize
 	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 	\begin{tabular}{lllllll} 
@@ -70,11 +70,11 @@ La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epoch
 	\subfigure[Comparación por la metodología de entrenamiento.]{\label{fig:b}	\includegraphics[width=0.8\textwidth]{img/results/metrics_comparion_by_type}}
 	
 
-	\caption[Comparación del AUC de modelos Transformers entrenados con 3 \textit{epochs}]{Análisis comparativo de AUC en arquitecturas de modelos Transformers utilizando diversas metodologías de entrenamiento, incluyendo el entrenamiento estándar (Normal), el entrenamiento con una metodología de congelación de capas (Freeze), el entrenamiento con \textit{Gradient Accumulation Steps} (GAS) y el entrenamiento combinando GAS con la congelación de capas (Freeze-GAS). Además, entrenamos todos los modelos durante tres \textit{epochs}.}
+	\caption[Comparación del AUC de modelos \textit{Transformers} entrenados con 3 \textit{epochs}]{Análisis comparativo de AUC en arquitecturas de modelos \textit{Transformers} utilizando diversas metodologías de entrenamiento, incluyendo el entrenamiento estándar (Normal), el entrenamiento con una metodología de congelación de capas (Freeze), el entrenamiento con \textit{Gradient Accumulation Steps} (GAS) y el entrenamiento combinando GAS con la congelación de capas (Freeze-GAS). Además, entrenamos todos los modelos durante tres \textit{epochs}.}
 	\label{fig:comparison_3_3pochs}
 \end{figure}
 
-\section{Vanish gradient y GAS}
+\section{\textit{Vanish Gradient} y GAS}
 
 En la Tabla \ref{tab:comparison_3_epochs}, notamos que los modelos grandes como ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal no lograron converger. Por lo tanto, graficamos los gradientes de estos modelos durante el entrenamiento para descubrir sus causas. En primer lugar, graficamos los gradientes promedio por capa para el modelo más pequeño, ESM2(t6)-Normal, en la Figura \ref{fig:t6} (este modelo no tuvo problemas de \textit{vanish gradient}). Luego, graficamos los gradientes promedio para ESM2(t30)-Normal (este modelo experimentó un problema de \textit{vanish gradient}) en la Figura \ref{fig:t30}. Como se desprende de los resultados, el modelo más grande, ESM2(t30), mostró gradientes promedio casi nulos en todas las capas de BERT después de solo tres épocas; como resultado, este fenómeno hizo que el modelo no logre converger de manera efectiva.
 
@@ -99,21 +99,21 @@ En la Tabla \ref{tab:comparison_3_epochs}, notamos que los modelos grandes como 
 \end{figure}
 
 
-Normalmente, el método de \textit{Gradient Accumulation Steps} (GAS) se utiliza  para reducir el problema de consumo excesivo de memoria de la GPU durante el entrenamiento \citep{zhang2023adam,huang2023measuring}. Sin embargo, esta metodología, puede aliviar ligeramente el problema de \textit{vanish gradient} acumulando gradientes durante algunas iteraciones y solo actualizando el optimizador después de haber realizado un número de iteraciones. Por ejemplo, en la Tabla \ref{tab:comparison_3_epochs}, mostramos los resultados después de aplicar GAS a todos los modelos de Transformer, después de entrenar durante tres \textit{epochs}. De estos resultados notamos que los modelos ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal no convergieron sin GAS; sin embargo, si los entrenamos con GAS, alcanzaron resultados aceptables.
+Normalmente, el método de \textit{Gradient Accumulation Steps} (GAS) se utiliza  para reducir el problema de consumo excesivo de memoria de la GPU durante el entrenamiento \citep{zhang2023adam,huang2023measuring}. Sin embargo, esta metodología, puede aliviar ligeramente el problema de \textit{vanish gradient} acumulando gradientes durante algunas iteraciones y solo actualizando el optimizador después de haber realizado un número de iteraciones. Por ejemplo, en la Tabla \ref{tab:comparison_3_epochs}, mostramos los resultados después de aplicar GAS a todos los modelos de \textit{Transformer}, después de entrenar durante tres \textit{epochs}. De estos resultados notamos que los modelos ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal no convergieron sin GAS; sin embargo, si los entrenamos con GAS, alcanzaron resultados aceptables.
 
-En particular, la incorporación de\textit{ Gradient Accumulation Steps} (GAS) en TAPE-GAS no solo mitiga el problema de \textit{vanish gradient}, sino que también mejora el rendimiento en comparación con otros experimentos que involucran a TAPE, como TAPE-Normal, TAPE-Freeze y TAPE-Freeze-GAS. El mismo fenómeno se observó también en los modelos de ProtBert.
+En particular, la incorporación de\textit{Gradient Accumulation Steps} (GAS) en TAPE-GAS no solo mitiga el problema de \textit{vanish gradient}, sino que también mejora el rendimiento en comparación con otros experimentos que involucran a TAPE, como TAPE-Normal, TAPE-Freeze y TAPE-Freeze-GAS. El mismo fenómeno se observó también en los modelos de ProtBert.
 
 
-\section{Entrenamiento por 30 \textit{epochs}}
+\section{Entrenamiento (30 \textit{epochs})}
 
 Para una comparación más detallada, ampliamos los \textit{epochs} de entrenamiento de los modelos con mejor rendimiento de la Tabla \ref{tab:comparison_3_epochs}, incluyendo ESM2(T6) y TAPE, a 30 \textit{epochs} con \textit{early stopping}. Además, incluimos a ESM2(t30) para investigar si los modelos más grandes logran mejores resultados durante un período de entrenamiento más largo. Cabe señalar que ProtBert-BFD se excluyó del análisis debido a su bajo rendimiento. Como se indica en la Tabla \ref{tab:comparison}, los modelos ESM2 obtienen sus mejores resultados cuando se aplica la metodología de congelación de capas. En cambio, para TAPE, los mejores resultados se logran al utilizar GAS sin congelación. Es importante destacar que TAPE-GAS y ESM2(t6)-Freeze produjeron los resultados más favorables, con TAPE-GAS superando ligeramente a ESM2(t6)-Freeze en este aspecto.
 
 \begin{table*}[]
 	\centering
-	\caption[Comparación de los modelos Transformer entrenados por 30 \textit{epochs}.]{
-		Evaluación del rendimiento de los modelos de Transformer con Gradient Accumulation Steps (GAS) y la metodología de congelación de capas \textbf{entrenados durante treinta (30) \textit{epochs}}. Además, el sufijo 'Normal' representa el entrenamiento clásico utilizando los hiperparámetros de la Sección \ref{sec:fine-tuned}. La inclusión del sufijo 'GAS' en cada modelo indica la integración de Gradient Accumulation Steps, mientras que el sufijo 'Freeze' señala nuestra aplicación de la metodología de congelación de capas a los modelos. Además, el guion '-' en cada celda indica que el modelo no pudo converger.}
+	\caption[Comparación de los modelos \textit{Transformer} entrenados por 30 \textit{epochs}.]{
+		Evaluación del rendimiento de los modelos de \textit{Transformer} con \textit{Gradient Accumulation Steps} (GAS) y la metodología de congelación de capas \textbf{entrenados durante treinta (30) \textit{epochs}}. Además, el sufijo 'Normal' representa el entrenamiento clásico utilizando los hiperparámetros de la Sección \ref{sec:fine-tuned}. La inclusión del sufijo 'GAS' en cada modelo indica la integración de \textit{Gradient Accumulation Steps}, mientras que el sufijo 'Freeze' señala nuestra aplicación de la metodología de congelación de capas a los modelos. Además, el guion '-' en cada celda indica que el modelo no pudo converger.}
 	\label{tab:comparison}
-	\footnotesize
+	\scriptsize
 	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 	\begin{tabular}{llllllll} 
@@ -133,7 +133,7 @@ Para una comparación más detallada, ampliamos los \textit{epochs} de entrenami
 	\end{tabular}}
 \end{table*}
 
-\section{Comparación con los métodos del estado del arte}
+\section{Comparación con los Métodos del Estado del Arte}
 
 \sloppy
 Además, comparamos los mejores modelos, ESM2(t6)-Freeze y TAPE-GAS, entrenados durante 30 \textit{epochs} (consulte la Tabla \ref{tab:comparison}), con métodos de vanguardia. Cubrimos NetMHCpan4.1 \citep{reynisson2020netmhcpan} y MHCFlurry2.0 \citep{o2020mhcflurry} porque son métodos de referencia bien conocidos; y tres herramientas más recientes como Anthem \citep{mei2021anthem}, Acme \citep{hu2019acme} y MixMHCpred2.2 \citep{gfeller2023improved}.
@@ -142,7 +142,7 @@ Además, comparamos los mejores modelos, ESM2(t6)-Freeze y TAPE-GAS, entrenados 
 Durante la evaluación de estas herramientas en el conjunto de datos de \textit{testing}, encontramos consideraciones específicas para ACME. Para garantizar una evaluación justa, excluimos los siguientes \textit{alleles} de la evaluación para ACME: HLA-C01:02, HLA-C02:02, HLA-C03:03, HLA-C03:04, HLA-C04:01, HLA-C05:01, HLA-C06:02, HLA-C07:01, HLA-C07:02, HLA-C07:04, HLA-C08:02, HLA-C12:03, HLA-C14:02, HLA-C15:02, HLA-C16:01, HLA-C17:01, HLA-A02:50, HLA-A24:06, HLA-A24:13, HLA-A32:15, HLA-B45:06 y HLA-B83:01. Esta exclusión fue necesaria ya que ACME no pudo predecir la unión péptido-MHC para estos \textit{alleles} particulares. 
 
 
-Es importante señalar que la elección del umbral para predecir la unión de pMHC puede variar según la herramienta específica y el k-mer utilizado. Esta variabilidad hace que el AUC sea una métrica ideal para comparar métodos, ya que proporciona una evaluación robusta que no es sensible a las diferencias de umbral. Por esta razón, en la Figura \ref{fig:comparison_final} y \ref{fig:ROC_comparison_final}, presentamos el AUC y la curva ROC respectivamente de TAPE-GAS, ESM2(t6)-Freeze, NetMHCpan4.1 y MHCFlurry2.0, Anthem, Acme y MixMHCpred2.2. Según estos gráficos, TAPE-GAS y ESM2(t6)-Freeze obtuvieron el valor más alto de AUC.
+Es importante señalar que la elección del umbral para predecir la unión de pMHC puede variar según la herramienta específica y el \textit{k-mer} utilizado. Esta variabilidad hace que el AUC sea una métrica ideal para comparar métodos, ya que proporciona una evaluación robusta que no es sensible a las diferencias de umbral. Por esta razón, en la Figura \ref{fig:comparison_final} y \ref{fig:ROC_comparison_final}, presentamos el AUC y la curva ROC respectivamente de TAPE-GAS, ESM2(t6)-Freeze, NetMHCpan4.1 y MHCFlurry2.0, Anthem, Acme y MixMHCpred2.2. Según estos gráficos, TAPE-GAS y ESM2(t6)-Freeze obtuvieron el valor más alto de AUC.
 
 Además, al evaluar métricas de rendimiento de clasificación binaria, estandarizamos el umbral para TAPE-GAS y ESM2(t6) en 0.5. Mantuvimos un umbral de 0.5 para NetMHCpan4.1, de acuerdo con su configuración recomendada, mientras que para ACME, seguimos un umbral de 0.42, según lo recomendado en su documentación. En el caso de Anthem, la herramienta proporcionó predicciones binarias de unión directamente. Sin embargo, para MixMHCpred2.2 y MHCfurry, determinamos los valores óptimos de umbral a partir del conjunto de datos de \textit{testing}, resultando en 2.7308 y 0.09439, respectivamente. En la Tabla \ref{tab:final_comparison}, presentamos una comparación exhaustiva entre TAPE-GAS y ESM2(t6)-Freeze (entrenados durante 30 \textit{epochs}) y las herramientas del estado del arte. Los resultados demuestran claramente que TAPE-GAS y ESM2(t6)-Freeze superan consistentemente a las herramientas del estado del arte en todas estas métricas: \textit{AUC, precisión, recall, F1-score} y \textit{MCC}.
 
@@ -160,11 +160,11 @@ Además, al evaluar métricas de rendimiento de clasificación binaria, estandar
 	\label{fig:ROC_comparison_final}
 \end{figure}
 
-\begin{table*}[]
+\begin{table}[]
 	\centering
-	\caption{Evaluación del desempeño de los modelos de Transformer TAPE-GAS y ESM2(t6)-Freeze, entrenados durante 30 \textit{epochs}, en comparación con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MhcFlurry2.0.}
+	\caption{Evaluación del desempeño de los modelos de \textit{Transformer} TAPE-GAS y ESM2(t6)-Freeze, entrenados durante 30 \textit{epochs}, en comparación con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MhcFlurry2.0.}
 	\label{tab:final_comparison}
-	%\scriptsize
+	\footnotesize
 	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 	\begin{tabular}{lllllll}
@@ -179,9 +179,9 @@ Además, al evaluar métricas de rendimiento de clasificación binaria, estandar
 		MixMHCpred2.2   & 0.8857            & 0.9155             & 0.8493          & 0.8811            & 0.9386          & 0.7733          \\
 		MhcFlurry2.0    & 0.9093            & 0.9211             & 0.8948          & 0.9078            & 0.9642          & 0.8189 \\         
 	\end{tabular}}
-\end{table*}
+\end{table}
 
-Finalmente, mostramos la distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 épocas, junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0. En este caso, evaluamos cada distribución por k-mer (Figura \ref{fig:auc_distribution}, \ref{fig:auc_distribution2} y \ref{fig:auc_distribution14}). En todos los k-mer, TAPE-GAS y ESM2(t6)-Freeze presentan la puntuación más alta. Además, es importante destacar que el modelo pequeño ESM2(t6)-Freeze ofrece resultados superiores para péptidos más largos con longitudes de 11, 12, 13 y 14.
+Finalmente, mostramos la distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 épocas, junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0. En este caso, evaluamos cada distribución por \textit{k-mer} (Figura \ref{fig:auc_distribution}, \ref{fig:auc_distribution2} y \ref{fig:auc_distribution14}). En todos los \textit{k-mer}, TAPE-GAS y ESM2(t6)-Freeze presentan la puntuación más alta. Además, es importante destacar que el modelo pequeño ESM2(t6)-Freeze ofrece resultados superiores para péptidos más largos con longitudes de 11, 12, 13 y 14.
 
 
 
@@ -220,26 +220,32 @@ Finalmente, mostramos la distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, a
 	\label{fig:auc_distribution14}
 \end{figure}
 
-\clearpage
+
+\section{Herramienta para Predicción de la Unión pMHC}
+
+En base a los resultados obtenidos se ha desarrollado una herramienta de linea de comandos. En esta herramienta podemos hacer predicciones de los modelos con mejor desempeño desarrollados en esta tésis: ESM2(t6)-Freeze y TAPE-GAS, para la predicción de la unión pMHC. Además, tambien podemos reentrenar estos modelos con otras bases de datos. La herramienta es código libre y esta en este repositorio: \href{https://github.com/arceda/pmhc}{https://github.com/arceda/pmhc}.
+
+
+
 
 \section{Discusión}
 
-\subsection{Fine-tuning ESM2}
+\subsection{\textit{Fine-tuning} ESM2}
 
-Cuando se consideran específicamente los modelos Transformer de ESM2, los resultados más favorables se obtuvieron con el modelo más pequeño, ESM2(t6), como se indica en la Tabla \ref{tab:comparison_3_epochs}. Sin embargo, es importante destacar que los autores de ESM2 informaron en su artículo que, para diversas otras tareas, modelos más grandes como ESM2(t30) y ESM2(t33) superaron a los más pequeños como ESM2(t6) y ESM2(t12) \citep{lin2023evolutionary}. Además, está bien establecido que los modelos más grandes tienden a aprender más rápido pero requieren conjuntos de datos de entrenamiento más extensos \citep{elnaggar2021prottrans}. En el caso de la predicción de la unión pMHC-I, nuestro estudio empleó un conjunto de datos que consta de 559,019 muestras, que no consideramos lo suficientemente grande para ESM2(t33), un modelo que cuenta con 650 millones de parámetros. En futuras investigaciones, planeamos evaluar el rendimiento de modelos más grandes utilizando conjuntos de datos más extensos.
+Cuando se consideran específicamente los modelos \textit{Transformer} de ESM2, los resultados más favorables se obtuvieron con el modelo más pequeño, ESM2(t6), como se indica en la Tabla \ref{tab:comparison_3_epochs}. Sin embargo, es importante destacar que los autores de ESM2 informaron en su artículo que, para diversas otras tareas, modelos más grandes como ESM2(t30) y ESM2(t33) superaron a los más pequeños como ESM2(t6) y ESM2(t12) \citep{lin2023evolutionary}. Además, está bien establecido que los modelos más grandes tienden a aprender más rápido pero requieren conjuntos de datos de entrenamiento más extensos \citep{elnaggar2021prottrans}. En el caso de la predicción de la unión pMHC-I, nuestro estudio empleó un conjunto de datos que consta de 559,019 muestras, que no consideramos lo suficientemente grande para ESM2(t33), un modelo que cuenta con 650 millones de parámetros. En futuras investigaciones, planeamos evaluar el rendimiento de modelos más grandes utilizando conjuntos de datos más extensos.
 
 Otra razón potencial para el rendimiento superior de ESM2(t6) podría atribuirse al uso de \textit{Rotary Position Embedding} (RoPE) (RoPE) en lugar de la codificación posicional absoluta. Si bien RoPE puede llevar a un ligero aumento en el costo de entrenamiento, se ha observado que mejora la calidad de los resultados, especialmente para modelos más pequeños \citep{lin2023evolutionary}.
 
-\subsection{Congelamiento de capas y GAS}
-Durante el entrenamiento de los modelos Transformer, exploramos la implementación de una metodología de congelación de capas. Este enfoque implica bloquear el modelo Transformer mientras se actualizan solo los parámetros de BiLSTM. Como se informa en varios estudios sobre metodologías de congelación en Transformers \citep{merchant2020happens,lee2019would,kovaleva2019revealing}, este método generalmente es adecuado para acelerar el proceso de entrenamiento, aunque puede implicar un ligero sacrificio en el desempeño. Sorprendentemente, para los modelos ESM2, esta metodología arrojó los mejores resultados, mientras que para TAPE y ProtBert-BFD, produjo los resultados esperados (ver Tabla \ref{tab:comparison_3_epochs}).
+\subsection{Congelamiento de Capas y GAS}
+Durante el entrenamiento de los modelos \textit{Transformer}, exploramos la implementación de una metodología de congelación de capas. Este enfoque implica bloquear el modelo \textit{Transformer} mientras se actualizan solo los parámetros de BiLSTM. Como se informa en varios estudios sobre metodologías de congelación en \textit{Transformers} \citep{merchant2020happens,lee2019would,kovaleva2019revealing}, este método generalmente es adecuado para acelerar el proceso de entrenamiento, aunque puede implicar un ligero sacrificio en el desempeño. Sorprendentemente, para los modelos ESM2, esta metodología arrojó los mejores resultados, mientras que para TAPE y ProtBert-BFD, produjo los resultados esperados (ver Tabla \ref{tab:comparison_3_epochs}).
 
 
-Además, nos encontramos con un problema recurrente de \textit{vanish gradient} al entrenar modelos grandes como TAPE-normal, ProtBert-normal, ESM2(t30)-normal y ESM2(t33)-normal (ver Tabla \ref{tab:comparison_3_epochs}). Este desafío es un fenómeno común al entrenar modelos de lenguaje grandes, ya que los gradientes tienden a acercarse a valores cercanos a cero después de varias etapas de entrenamiento. Para abordar esto, evaluamos la efectividad de emplear Gradient Accumulation Steps (GAS). Este método está diseñado para reducir el consumo de memoria durante el entrenamiento acumulando gradientes durante un cierto número de  iteraciones antes de actualizar los parámetros del modelo. En los experimentos, adoptamos la técnica de acumular gradientes durante 64 y 128 iteraciones. Esta técnica alivia ligeramente el problema de gradientes que desaparecen al evitar que los gradientes disminuyan hasta valores cercanos a cero, como se informa para los modelos: ESM2(t30)-GAS, ESM2(t33)-GAS, TAPE-GAS y ProtBert-GAS en la Tabla \ref{tab:comparison_3_epochs}. Sin embargo, es importante tener en cuenta que esta técnica principalmente extiende la cantidad de iteraciones de entrenamiento que se pueden realizar antes de que el modelo posiblemente vuelva a enfrentar el problema de \textit{vanish gradient}. Como ejemplo, al entrenar ProtBert-Normal, las gradientes se acercaban a cero, después del primer \textit{epoch}. Sin embargo, con la introducción de GAS (ProtBert-GAS), logramos extender el entrenamiento a tres \textit{epochs} antes de volver a enfrentar el problema de \textit{vanish gradients}, que resurgió después de cuatro \textit{epochs}.
+Además, nos encontramos con un problema recurrente de \textit{vanish gradient} al entrenar modelos grandes como TAPE-normal, ProtBert-normal, ESM2(t30)-normal y ESM2(t33)-normal (ver Tabla \ref{tab:comparison_3_epochs}). Este desafío es un fenómeno común al entrenar modelos de lenguaje grandes, ya que los gradientes tienden a acercarse a valores cercanos a cero después de varias etapas de entrenamiento. Para abordar esto, evaluamos la efectividad de emplear \textit{Gradient Accumulation Steps} (GAS). Este método está diseñado para reducir el consumo de memoria durante el entrenamiento acumulando gradientes durante un cierto número de  iteraciones antes de actualizar los parámetros del modelo. En los experimentos, adoptamos la técnica de acumular gradientes durante 64 y 128 iteraciones. Esta técnica alivia ligeramente el problema de gradientes que desaparecen al evitar que los gradientes disminuyan hasta valores cercanos a cero, como se informa para los modelos: ESM2(t30)-GAS, ESM2(t33)-GAS, TAPE-GAS y ProtBert-GAS en la Tabla \ref{tab:comparison_3_epochs}. Sin embargo, es importante tener en cuenta que esta técnica principalmente extiende la cantidad de iteraciones de entrenamiento que se pueden realizar antes de que el modelo posiblemente vuelva a enfrentar el problema de \textit{vanish gradient}. Como ejemplo, al entrenar ProtBert-Normal, las gradientes se acercaban a cero, después del primer \textit{epoch}. Sin embargo, con la introducción de GAS (ProtBert-GAS), logramos extender el entrenamiento a tres \textit{epochs} antes de volver a enfrentar el problema de \textit{vanish gradients}, que resurgió después de cuatro \textit{epochs}.
 
 
 \subsection{TAPE, ProtBert-BFD y ESM2}
 
-En esta investigación comparamos el desempeño de TAPE, ProtBert-BFD y ESM2, cada uno de los cuales se describe en la Tabla \ref{tab:pretrained}. Las métricas se presentan en la Tabla \ref{tab:comparison_3_epochs}. Según esta información, ProtBert-BFD obtuvo el peor resultado a pesar de que este modelo fue pre-entrenado con el conjunto de datos más grande, BFD, que contiene 2122 millones de muestras y tiene 420 millones de parámetros. Creemos que este resultado se debe a la ruido en las muestras y a los errores en las secuencias en el conjunto de datos BFD \citep{elnaggar2021prottrans}. Además, los modelos Transformer grandes requieren más datos para el entrenamiento \citep{elnaggar2021prottrans}, y en nuestro caso este modelo se entreno con 559,019 muestras.
+En esta investigación comparamos el desempeño de TAPE, ProtBert-BFD y ESM2, cada uno de los cuales se describe en la Tabla \ref{tab:pretrained}. Las métricas se presentan en la Tabla \ref{tab:comparison_3_epochs}. Según esta información, ProtBert-BFD obtuvo el peor resultado a pesar de que este modelo fue pre-entrenado con el conjunto de datos más grande, BFD, que contiene 2122 millones de muestras y tiene 420 millones de parámetros. Creemos que este resultado se debe a la ruido en las muestras y a los errores en las secuencias en el conjunto de datos BFD \citep{elnaggar2021prottrans}. Además, los modelos \textit{Transformer} grandes requieren más datos para el entrenamiento \citep{elnaggar2021prottrans}, y en nuestro caso este modelo se entreno con 559,019 muestras.
 
 
 Además, es destacable que TAPE logró los mejores resultados, con ESM2(t6) siguiendo de cerca (como se muestra en la Tabla \ref{tab:comparison_3_epochs}). Los modelos TAPE fueron pre-entrenados utilizando el conjunto de datos Pfam, que es el conjunto de datos más pequeño en esta comparación, con aproximadamente 30 millones de muestras. Es importante mencionar que el conjunto de datos Pfam se deriva de UniProtKB y selectivamente incluye secuencias que pertenecen a \textit{Reference Proteomes} en lugar de abarcar toda la base de datos de UniProtKB \cite{finn2016pfam}. En consecuencia, Pfam cubre la mitad de las secuencias de proteínas en comparación con otros conjuntos de datos basados en UniProtKB, pero sus muestras son de mayor calidad. Por lo tanto, es lógico suponer que TAPE encapsula una representación más completa y refinada de la información de proteínas en comparación con otros modelos pre-entrenados.

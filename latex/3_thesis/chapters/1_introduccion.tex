@@ -30,7 +30,7 @@ El desarrollo de vacunas personalizadas contra el cáncer es un proceso largo qu
 	
 \end{enumerate}
 
-La detección \textit{in-silico} de neoantígenos se basa en las etapas segunda y tercera representadas en la Figura \ref{fig:vaccines}(b). En este contexto, debido a la complejidad del proceso y la variedad de métodos disponibles, se han desarrollado herramientas de software y flujos de trabajo para agilizar el uso de estas herramientas. Además, los Transformers han marcado el comienzo de una nueva era en la inteligencia artificial, demostrando logros destacados en una variedad de tareas de procesamiento del lenguaje natural  \citep{patwardhan2023transformers}. Estos modelos también han encontrado aplicación en la detección de neoantígenos, especialmente en la tercera etapa de la Figura \ref{fig:vaccines}(b). Se han propuesto modelos BERT y redes de aprendizaje profundo con mecanismos de atención para predecir la unión péptido-MHC y pMHC-TCR obteniendo resultados prometedores. Sin embargo, aún existe mucho camino por recorrer y con el incremento constante de muestras de ADN/proteínas, sumado a los nuevos mecanismos para entrenar modelos Transformers con billones de parametros, se espera lograr avances significativos en este campo de estudio.
+La detección \textit{in-silico} de neoantígenos se basa en las etapas segunda y tercera representadas en la Figura \ref{fig:vaccines}(b). En este contexto, debido a la complejidad del proceso y la variedad de métodos disponibles, se han desarrollado herramientas de \textit{software} y flujos de trabajo para agilizar el uso de estas herramientas. Además, los \textit{Transformers} han marcado el comienzo de una nueva era en la inteligencia artificial, demostrando logros destacados en una variedad de tareas de procesamiento del lenguaje natural  \citep{patwardhan2023transformers}. Estos modelos también han encontrado aplicación en la detección de neoantígenos, especialmente en la tercera etapa de la Figura \ref{fig:vaccines}(b). Se han propuesto modelos BERT y redes de aprendizaje profundo con mecanismos de atención para predecir la unión péptido-MHC y pMHC-TCR obteniendo resultados prometedores. Sin embargo, aún existe mucho camino por recorrer y con el incremento constante de muestras de ADN/proteínas, sumado a los nuevos mecanismos para entrenar modelos \textit{Transformers} con miles de millones de parametros ($10^9$), se espera lograr avances significativos en este campo de estudio.
 
 
 \begin{figure}[h]
@@ -55,12 +55,12 @@ Lamentablemente, a pesar de varios esfuerzos en el desarrollo  de métodos para 
 
 \begin{enumerate}
 	\item La no inclusión en conjunto de varias fuentes de información como DNA-seq, RNA-seq, y datos de \textit{Mass Spectrometry} (MS) \citep{kim2018neopepsee}. Por ejemplo, la mayoria de  propuestas no utiliza datos de MS; en la actualidad, existe una creciente información de estos datos y se estan aplicado a varios campos de la Bioinformática.
-	\item  Uso herramientas de bajo desempeño para la predicción del enlace péptido-MHC (pMHC) (etapa 3.1  de la Figura \ref{fig:vaccines_b}). La mayoria de aplicaciones, se basa en el uso de MHCFlurry \citep{o2020mhcflurry} y NetMHCpan4.1 \citep{reynisson2020netmhcpan}. Sin embargo, actualmente, se cuenta con herramientas de mejor desempeño basado en Transformers \citep{arceda2023neoantigen}. Esta tesis, se enfoca en resolver este problema.
+	\item  Uso herramientas de bajo desempeño para la predicción del enlace péptido-MHC (pMHC) (etapa 3.1  de la Figura \ref{fig:vaccines_b}). La mayoria de aplicaciones, se basa en el uso de MHCFlurry \citep{o2020mhcflurry} y NetMHCpan4.1 \citep{reynisson2020netmhcpan}. Sin embargo, actualmente, se cuenta con herramientas de mejor desempeño basado en \textit{Transformers} \citep{arceda2023neoantigen}. Esta tésis, se enfoca en resolver este problema.
 	\item Para la etapa 3.2 de la Figura \ref{fig:vaccines_b}, los autores no consideran  la predicción del enlace pMHC al TCR (pMHC-TCR), varios autores consideran incluir esta tarea en trabajos futuros  \citep{rubinsteyn2018computational}.
 	\item Finalmente, no utilizar información de eventos de \textit{alternative splicing}, variaciones estructurales en el ADN y las mutaciones de fusión de genes, está información esta fuertemente relacionada con varios tipos de cancer \citep{wood2020neoepiscope}.
 \end{enumerate}
 
-En conclusión, la detección de neoantígenos es un desafío que consta de múltiples etapas, y las herramientas actuales en el estado del arte presentan un rendimiento insuficiente. Uno de los factores clave detrás de este bajo rendimiento está relacionado con la predicción del enlace pMHC. Por esta razón, esta tesis se centra en abordar este problema mediante la propuesta de un método basado en Transformers para la predicción del enlace/unión pMHC.
+En conclusión, la detección de neoantígenos es un desafío que consta de múltiples etapas, y las herramientas actuales en el estado del arte presentan un rendimiento insuficiente. Uno de los factores clave detrás de este bajo rendimiento está relacionado con la predicción del enlace pMHC. Por esta razón, esta tésis se centra en abordar este problema mediante la propuesta de un método basado en \textit{Transformers} para la predicción del enlace/unión pMHC.
 
 %Finalmente, la detección de neoantígenos es un problema compuesto por varias etapas, y las herramientas actuales del estado del arte tiene bajo desempeño. Además, una de las principales razones del bajo desempeño esta relacionado a la predicción del enlace pMHC. Debido a eso, esta tesis, se enfoca en dar solución a este problema, proponiendo un método basado en Transformers para la predicción del enlace pMHC.
 
@@ -73,7 +73,7 @@ En conclusión, la detección de neoantígenos es un desafío que consta de múl
 
 
 
-\subsection{Formulación del problema}
+\subsection{Formulación del Problema}
 
 El presente estudio se centra en el problema de predicción del enlace pMHC-I (\textit{pMHC binding prediction}). Esto representa un problema de clasificación binaria que toma como entrada la secuencia de aminoacidos de un péptido y el MHC. Un péptido podría representarse como: $p = \{A, ..., Q\}$ y una representación similar para el MHC sería: $q = \{A, N, ..., G\}$. Finalmente, necesitamos conocer la probabilidad de afinidad entre $p$ y $q$. Si esta probabilidad es lo suficientemente alta, es posible que el péptido se enlace al MHC y por lo tanto, el péptido $p$ en cuestión, sería un excelente candidato a neoantígeno.
 
@@ -90,14 +90,14 @@ El presente estudio se centra en el problema de predicción del enlace pMHC-I (\
 
 %Detección \textit{in Silico} de Neoantígenos Utilizando \textit{Transformers} y \textit{Transfer Learning} en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer
 
-Proponer un método \textit{in silico} basado en Transformers y Transfer Learning para la detección de neo antígenos, enfocados en la predicción del enlace pMHC. 
+Implementar un método \textit{in silico} basado en \textit{Transformers} y \textit{Transfer Learning} para la detección de neoantígenos, enfocados en la predicción de la unión pMHC. 
 
-\subsection{Objetivos específicos}
+\subsection{Objetivos Específicos}
 
 \begin{enumerate}[(a)]
 	%\item Analizar herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2, utilizadas para la predicción del enlace pMHC en el contexto de detección de neonatígenos.
-	\item Analizar los métodos que utilizan Transformers para la predicción del enlace pMHC en el contexto de detección de neoantígenos.
-	\item Analizar los modelos basados en Transformers TAPE, ProtBert-BFD, y EMS2 pre-entredados para diversas tareas en Proteómica y de los cuáles se puede aplicar Transfer Learning. 	
+	\item Analizar los métodos que utilizan \textit{Transformers} para la predicción del enlace pMHC en el contexto de detección de neoantígenos.
+	\item Analizar los modelos basados en \textit{Transformers} TAPE, ProtBert-BFD, y EMS2 pre-entredados para diversas tareas en Proteómica y de los cuáles se puede aplicar \textit{Transfer Learning}. 	
 	\item Implementar \textit{fine-tuning} a los modelos TAPE, ProtBert-BFD, y EMS2 para la tarea de predicción del enlace pMHC, aplicando \textit{Gradient Accumulation Steps} (GAS) y una metodología de congelamiento de capas.
 	\item Comparar los modelos de mejor desempeño con las herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2.
 %\item Realizar una revisión sistemática de la literatura e implementar los métodos con mejor desempeño en la detección de neo antígenos.
@@ -111,25 +111,32 @@ Proponer un método \textit{in silico} basado en Transformers y Transfer Learnin
 Las principales contribuciones de este trabajo son:
 
 \begin{enumerate}[(a)]
-	\item Se ha desarrollado una revisión sistemática de la literatura referente a los métodos basados en Transformers para la detección de neoantígenos. Esto ha generado dos publicaciones tituladas: \textit{``Deep Learning and Transformers in MHC-Peptide Binding and Presentation Towards Personalized Vaccines in Cancer Immunology: A Brief Review''} \citep{machaca2023deep} y \textit{``Transformers Meets Neoantigen Detection: A Systematic Literature Review''}.
-	\item Se ha implementado \textit{fine-tuning} a seis modelos de Transformers para la predicción del enlace pMHC; además, se ha evaluado el uso de GAS y una metodología de congelamiento de capas. Los resultados fueron publicados en: \textit{``Neoantigen Detection Using Transformers and Transfer Learning in the Cancer Immunology Context''} \citep{arceda2023neoantigen} y \textit{``Fine-tuning Transformers for Peptide-MHC Class I Binding Prediction''}.
-	\item Finalmente, se comparó los métodos propuestos con herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2. Los métodos propuestos obtuvieron los mejores resultados en \textit{accuracy}, \textit{Area Under the Curve} (AUC), \textit{recall}, \textit{f1-score} y \textit{Matthews Correlation Coefficient}  (MCC).
+	\item Desarrollo de  una revisión sistemática de la literatura referente a los métodos basados en \textit{Transformers} para la detección de neoantígenos. Se cuenta con dos publicaciones: \textit{``Deep Learning and Transformers in MHC-Peptide Binding and Presentation Towards Personalized Vaccines in Cancer Immunology: A Brief Review''} \citep{machaca2023deep} y \textit{``Transformers Meets Neoantigen Detection: A Systematic Literature Review''}.
+	\item \textit{Fine-tuning} a seis modelos de \textit{Transformers} para la predicción del enlace pMHC; además, se ha evaluado el uso de GAS y una metodología de congelamiento de capas. Se cuenta con dos publicaciones: \textit{``Neoantigen Detection Using Transformers and Transfer Learning in the Cancer Immunology Context''} \citep{arceda2023neoantigen} y \textit{``Fine-tuning Transformers for Peptide-MHC Class I Binding Prediction''}.
+	\item Comparación de los métodos propuestos con herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2. Los métodos propuestos tienen los mejores resultados en \textit{accuracy}, \textit{Area Under the Curve} (AUC), \textit{recall}, \textit{f1-score} y \textit{Matthews Correlation Coefficient}  (MCC).
 \end{enumerate}
 
+\clearpage
 %% ------------------------------------------------------------------- %%
 \section{Organización del Trabajo}
 \label{sec:organizaciondeltrabajo}
-En el Capítulo \ref{cap:marcoteorico} se presentan los conceptos básicos sobre Bioinformática e inmunoterapia del Cáncer, también son abordados temas sobre Deep Learning y redes neuronales Transformers.
 
-Luego, en el Capítulo \ref{cap:estadodelarte} se describen los trabajos relacionados a la presente tesis. Debido a la gran cantidad de publicaciones, solo se ha considerado trabajos desde el 2018 y que hacen uso de Transformers o redes reuronales con mecanismos de atención.
+El restante de este trabajo está organizado de la siguiente manera:
 
-El Capitulo \ref{cap:propuesta}, presenta la propuesta de la tesis. Esta se basa en un método para desarrollar \textit{fine-tuning} a Transformers pre-entrenadas para diversas tareas de Proteómica. 
-
-Luego, en el Capítulo  \ref{cap:resultados}, se presentan los resultados de la investigación. Además, se presenta una comparación con los métodos del estado del arte.
-
-Finalmente, en el Capítulo~\ref{cap:conclusiones} son expuestos las conclusiones del presente trabajo así como también las direcciones para continuar con el mismo en la sección de trabajos futuros.
-
-
+\begin{itemize}
+	\item En el Capítulo \ref{cap:marcoteorico} se presentan los conceptos básicos sobre Bioinformática e inmunoterapia del Cáncer, también son abordados temas sobre \textit{Deep Learning} y redes neuronales \textit{Transformers}.
+	
+	\item Luego, en el Capítulo \ref{cap:estadodelarte} se describen los trabajos relacionados a la presente tésis. Debido a la gran cantidad de publicaciones, solo se ha considerado trabajos desde el 2018 y que hacen uso de \textit{Transformers} o redes reuronales con mecanismos de atención.
+	
+	\item El Capitulo \ref{cap:propuesta}, presenta la propuesta de la tésis. Esta se basa en un método para desarrollar \textit{fine-tuning} a \textit{Transformers} pre-entrenados para diversas tareas de Proteómica. 
+	
+	\item Luego, en el Capítulo  \ref{cap:resultados}, se presentan los resultados de la investigación. Además, se presenta una comparación con los métodos del estado del arte.
+	
+	\item Finalmente, en el Capítulo~\ref{cap:conclusiones} son expuestos las conclusiones del presente trabajo así como también las direcciones para continuar con el mismo en la sección de trabajos futuros.
+	
+	
+	
+\end{itemize}
 
 
 

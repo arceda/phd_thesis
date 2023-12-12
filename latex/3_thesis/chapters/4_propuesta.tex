@@ -17,7 +17,7 @@
 %% -------------------------------------------------------------------- %%
 
 
-La detección de neoantígenos es un proceso largo, descrito anteriormente. Debido a esto, esta investigación se ha centrado en la predicción de la unión pMHC, porque es una de las etapas con mayor investigación en el estado del arte y sin embargo, los resultados aún carecen de buen desempeño. En resumen, en este trabajo hemos realizado \textit{fine-tuning} a modelos Transformer, para la tarea de predicción de la unión pMHC.
+La detección de neoantígenos es un proceso largo, descrito anteriormente. Debido a esto, esta investigación se ha centrado en la predicción de la unión pMHC, porque es una de las etapas con mayor investigación en el estado del arte y sin embargo, los resultados aún carecen de buen desempeño. En resumen, en este trabajo hemos realizado \textit{fine-tuning} a modelos \textit{Transformer}, para la tarea de predicción de la unión pMHC.
 
 
 
@@ -41,7 +41,7 @@ Para los entrenamientos y experimentos se utilizará la base de datos HLA3D \cit
 
 \section{Metodología}
 
-Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito en la etapa 3.1 del proceso general para generar vacunas personalizadas basadas en neoantígenos (ver Figura \ref{fig:proposal}). Se ha evaluado  seis modelos Transformers pre-entrenados en diversas tareas de Proteómica como: predicción de estructura de proteínas, predicción de la función de proteínas, etc. Los modelos Transformer son: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Durante la evaluación se realizó \textit{fine-tuning} a los modelos agregando un bloque de BiLSTM al final, de igual forma que lo realizó HLAB \citep{zhang2022hlab}. También se evaluó el uso de Gradient Accumulation Steps (GAS) y el uso de una metodología para congelar las capas del modelo Transformer. En la Figura \ref{fig:proposal}, describimos la propuesta: primero tomamos como entrada el péptido y el MHC, luego estos son concatenados y son recibidos por el modelo Transformer y el bloque BiLSTM respectivamente para predecir su afinidad o unión.
+Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito en la etapa 3.1 del proceso general para generar vacunas personalizadas basadas en neoantígenos (ver Figura \ref{fig:proposal}). Se ha evaluado  seis modelos \textit{Transformer}s pre-entrenados en diversas tareas de Proteómica como: predicción de estructura de proteínas, predicción de la función de proteínas, etc. Los modelos \textit{Transformer} son: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Durante la evaluación se realizó \textit{fine-tuning} a los modelos agregando un bloque de BiLSTM al final, de igual forma que lo realizó HLAB \citep{zhang2022hlab}. También se evaluó el uso de \textit{Gradient Accumulation Steps} (GAS) y el uso de una metodología para congelar las capas del modelo \textit{Transformer}. En la Figura \ref{fig:proposal}, describimos la propuesta: primero tomamos como entrada el péptido y el MHC, luego estos son concatenados y son recibidos por el modelo \textit{Transformer} y el bloque BiLSTM respectivamente para predecir su afinidad o unión.
 
 
 
@@ -55,17 +55,17 @@ Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito 
 
 
 \section{Bases de datos}
-Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Con más detalle, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por k-mers; los 9-mers constituyen la mayoría de las muestras en la base de datos.
+Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Con más detalle, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por \textit{k-mers}; los 9-mers constituyen la mayoría de las muestras en la base de datos.
 
 \begin{figure}[]
 	\centering\includegraphics[width=0.8\textwidth]{img/proposal/dataset_samples}
 	\caption{
-		Cuantificación de las muestras por k-mers dentro de los conjuntos de entrenamiento, validación y pruebas. El conjunto de datos se obtuvo de Anthem \cite{mei2021anthem}.}
+		Cuantificación de las muestras por \textit{k-mers} dentro de los conjuntos de entrenamiento, validación y pruebas. El conjunto de datos se obtuvo de Anthem \cite{mei2021anthem}.}
 	\label{fig:samples}
 \end{figure}
 
 
-\section{Transformer pre-entrenados}
+\section{\textit{Transformer} pre-entrenados}
 
 Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Estos modelos fueron entrenados con grandes conjuntos de datos de secuencias de proteínas como Pfam \citep{el2019pfam},  BFD y UniRef50 \citep{suzek2015uniref}. Además, se realizo \textit{fine-tuning } para la predicción de unión pMHC-I. En la Tabla \ref{tab:pretrained}, presentamos las características de cada modelo.
 
@@ -93,7 +93,7 @@ Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtB
 \subsection{TAPE}
 
 
-Tasks Assessing Protein Embeddings (TAPE) \citep{rao2019evaluating} es el primer intento de evaluar el aprendizaje semi-supervisado en secuencias de proteínas. TAPE consta de doce capas de 512 unidades con ocho \textit{attention-heads}, lo que resulta en un total de 92 millones de parámetros. Los autores aplicaron entrenamiento semi-supervisado con la base de datos Pfam \citep{el2019pfam}, que contiene treinta millones de dominios de proteínas. Además, el conjunto de datos Pfam representa un subconjunto del \textit{Knowledge Base UniProt} (UniProtKB) \citep{uniprot2018uniprot}; en particular, Pfam utilizó secuencias de \textit{Reference Proteomes} \citep{finn2016pfam} en lugar de utilizar todo el conjunto de datos de UniProtKB. En consecuencia, Pfam tiene casi la mitad de las secuencias de proteínas que otras bases de datos extraídas de UniProtKB.
+\textit{Tasks Assessing Protein Embeddings} (TAPE) \citep{rao2019evaluating} es el primer intento de evaluar el aprendizaje semi-supervisado en secuencias de proteínas. TAPE consta de doce capas de 512 unidades con ocho \textit{attention-heads}, lo que resulta en un total de 92 millones de parámetros. Los autores aplicaron entrenamiento semi-supervisado con la base de datos Pfam \citep{el2019pfam}, que contiene treinta millones de dominios de proteínas. Además, el conjunto de datos Pfam representa un subconjunto del \textit{Knowledge Base UniProt} (UniProtKB) \citep{uniprot2018uniprot}; en particular, Pfam utilizó secuencias de \textit{Reference Proteomes} \citep{finn2016pfam} en lugar de utilizar todo el conjunto de datos de UniProtKB. En consecuencia, Pfam tiene casi la mitad de las secuencias de proteínas que otras bases de datos extraídas de UniProtKB.
 
 \subsection{ProtBert-BFD}
 
@@ -104,15 +104,15 @@ Algunos de los modelos propuestos son ProtBert-BFD, ProtT5-XL y ProtT5-XXL, que 
 \subsection{ESM2}
 
 
-ESM-2 \citep{lin2023evolutionary} es una familia de modelos Transformer que tienen  desde 8 millones hasta 15 billones de parámetros. El modelo se basa en BERT \citep{devlin2018bert} y supera a su versión anterior, ESM-1b \citep{rives2021biological}, al eliminar las capas de \textit{dropout} en las capas ocultas y de atención. Además, los autores sugirieron que los métodos de codificación de posición absoluta no se extrapolan bien; en consecuencia, utilizaron la \textit{Rotary Position Embedding} (RoPE). Significativamente, el uso de RoPE aumenta ligeramente el costo de entrenamiento; al mismo tiempo, mejora la calidad del modelo para modelos pequeños \citep{lin2023evolutionary}. Además, los autores utilizaron el conjunto de datos no redundante UniRef50 \citep{suzek2015uniref} de UniProt, que contiene 60 millones de secuencias de proteínas.
+ESM-2 \citep{lin2023evolutionary} es una familia de modelos \textit{Transformer} que tienen  desde 8 millones hasta 15 billones de parámetros. El modelo se basa en BERT \citep{devlin2018bert} y supera a su versión anterior, ESM-1b \citep{rives2021biological}, al eliminar las capas de \textit{dropout} en las capas ocultas y de atención. Además, los autores sugirieron que los métodos de codificación de posición absoluta no se extrapolan bien; en consecuencia, utilizaron la \textit{Rotary Position Embedding} (RoPE). Significativamente, el uso de RoPE aumenta ligeramente el costo de entrenamiento; al mismo tiempo, mejora la calidad del modelo para modelos pequeños \citep{lin2023evolutionary}. Además, los autores utilizaron el conjunto de datos no redundante UniRef50 \citep{suzek2015uniref} de UniProt, que contiene 60 millones de secuencias de proteínas.
 
 
-\section{Fine-tuning}\label{sec:fine-tuned}
+\section{\textit{Fine-tuning}}\label{sec:fine-tuned}
 Para realizar \textit{fine-tuning}, apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado. El BiLSTM se basa en HLAB \citep{zhang2022hlab} y consta de dos capas con 768 unidades. En la Figura \ref{fig:proposal}, presentamos el modelo completo para la predicción de la unión pMHC-I.
 
-Además, está ampliamente establecido que al ajustar modelos de Transformers grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
+Además, está ampliamente establecido que al ajustar modelos de \textit{Transformers} grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
 
-Adiconalmente, los modelos de Transformer grandes utilizan bastante memoria de la GPU y generalmente sufren del problema de \textit{vanish gradient}. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de Transformers para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento.
+Adiconalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU y generalmente sufren del problema de \textit{vanish gradient}. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento.
 
 Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$) y \textit{early stopping}. Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}.
 
@@ -144,3 +144,5 @@ El problema de predicción de unión pMHC es un problema de regresión. Sin emba
 \begin{equation}\label{equa:MCC}
 	MCC = \frac{TP \times TN - FP \times FN}{ \sqrt{ (TP+FP)(TP  + FN)(TN+FP)(TN+FN)}  }
 \end{equation}
+
+donde \textit{TP}, hace referencia a la cantidad de muestras que eran verdaderas y han sido reconocidas como verdaderas; \textit{TN}, hace referencia a la cantidad de muestras que eran verdaderas y han sido reconocidas como falsas; \textit{FP}, son las muestras que eran falsas, pero fueron reconocidas como verdaderas; \textit{FN}, son las muestras que eran falsas y fueron reconocidas como falsas.

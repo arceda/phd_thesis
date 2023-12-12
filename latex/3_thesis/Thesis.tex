@@ -60,18 +60,18 @@
 
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
-Yo, Vicente Machaca Arceda, declaro que la tésis titulada, `Detección \textit{in Silico} de Neoantígenos Utilizando Transformers y Transfer Learning en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer' y el trabajo presentado en este, son de mi propiedad intelectual y confirmo que:
+Yo, Vicente Enrique Machaca Arceda, declaro que la tésis titulada, `Detección \textit{in Silico} de Neoantígenos Utilizando Transformers y Transfer Learning en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer' y el trabajo presentado en este documento, son de mi propiedad intelectual y confirmo que:
 
 \begin{itemize} 
 \item[\tiny{$\blacksquare$}] Este trabajo fue desarrollado durante mi candidatura a grado de doctor de esta universidad.
  
 \item[\tiny{$\blacksquare$}] Ninguna parte de esta tésis ha sido presentado para otro grado de esta universidad o cualquier otra institución.
  
-\item[\tiny{$\blacksquare$}] Cuando cito a otros autores, las fuentes has sido brindadas y con excepción de estas citas, mi trabajo es de mi autoría.
+\item[\tiny{$\blacksquare$}] Cuando cito a otros autores, las fuentes has sido brindadas, con excepción de estas citas, el trabajo es de mi autoría.
  
 \item[\tiny{$\blacksquare$}] He agradecido las principales fuentes de ayuda.
  
-\item[\tiny{$\blacksquare$}] En caso de que mi tesis haya sido desarrollado con un equipo de trabajo, yo he sido claro y he detallada la parte exacta de mi autoría.
+\item[\tiny{$\blacksquare$}] En caso de que mi tésis haya sido desarrollada con un equipo de trabajo, he sido claro y he detallado la parte exacta de mi autoría.
 \\
 \end{itemize}
  
@@ -111,11 +111,11 @@ Muhammad Ali Jinnah
 \abstract{
 \addtocontents{toc}{\vspace{1em}}  % Add a gap in the Contents, for aesthetics
 
-El cáncer es el mayor problema de salud mundial en la actualidad, frente a esto han surgido nuevos tratamientos basados en inmunoterapia como el desarrollo de vacunas personalizadas basadas en neoantígenos. Sin embargo, el proceso para identificar neoantígenos, es complejo y existen varias etapas para lograrlo, desde el secuenciamiento de muestras tumorales, alineamiento con muestras de tejido saludable, identificación y anotación de mutaciones, para luego proseguir con la predicción de la unión de péptidos con el MHC y posteriormente la unión del pMHC con el TCR. Si esta unión procede, el péptido en cuestión es un fuerte candidato a neoantígeno. En este proceso, una de las fases más críticas es la predicción de la unión pMHC, lo cuál ha motivado el desarrollo de esta tesis. 
+El cáncer es el mayor problema de salud mundial en la actualidad, frente a esto han surgido nuevos tratamientos basados en inmunoterapia como el desarrollo de vacunas personalizadas basadas en neoantígenos. Sin embargo, el proceso para identificar neoantígenos, es complejo y existen varias etapas para lograrlo, desde el secuenciamiento de muestras tumorales, alineamiento con muestras de tejido saludable, identificación y anotación de mutaciones, para luego proseguir con la predicción de la unión de péptidos con el MHC y posteriormente la unión del pMHC con el TCR. Si esta unión procede, el péptido en cuestión es un fuerte candidato a neoantígeno. En este proceso, una de las fases más críticas es la predicción de la unión pMHC, lo cual ha motivado el desarrollo de esta tésis. 
 
-Además, las redes neuronales Transformers han revolucionado el campo del procesamiento natural del lenguaje y se han aplicado en muchas otras áreas como en Proteómica. Esto porque las proteínas al ser representadas como secuencias de aminoácidos, son muy similares a las secuencias de palabras en una oración. Es así, que otras investigaciones han aplicado el uso de Transformers y redes neuronales con mecanismos de atención para la predicción de la unión pMHC. Adicionalmente, existen modelos pre-entrenados como TAPE, ProtBert y ESM2, estos han sido entrenados con grandes volúmenes de datos para varias tareas de Proteómica. Basados en lo anterior, en esta tesis se propone el uso de aplicar \textit{fine-tuning} a TAPE, ProtBert, ESM2(t6), ESM2(t12), ESM2(t30) y ESM2(t33) para la tarea de predicción de la unión pMHC, el \textit{fine-tunning} consistió en agregar un bloque BiLSTM al final del modelo. Además, se ha evaluado el uso de \textit{Gradient Accumulation Steps} (GAS) y una metodología de congelamiento de capas.
+Además, las redes neuronales Transformers han revolucionado el campo del procesamiento natural del lenguaje y se han aplicado en muchas otras áreas como en Proteómica. Esto porque las proteínas al ser representadas como secuencias de aminoácidos, son muy similares a las secuencias de palabras en una oración. Es así, que otras investigaciones han aplicado el uso de Transformers y redes neuronales con mecanismos de atención para la predicción de la unión pMHC. Adicionalmente, existen modelos pre-entrenados como TAPE, ProtBert y ESM2, estos han sido entrenados con grandes volúmenes de datos para varias tareas de Proteómica. Basados en lo anterior, en esta tésis se propone el uso de aplicar \textit{fine-tuning} a TAPE, ProtBert, ESM2(t6), ESM2(t12), ESM2(t30) y ESM2(t33) para la tarea de predicción de la unión pMHC, el \textit{fine-tunning} consistió en agregar un bloque BiLSTM al final del modelo. Además, se ha evaluado el uso de \textit{Gradient Accumulation Steps} (GAS) y una metodología de congelamiento de capas.
 
-Luego de los experimentos, los modelos con mejores resultados fueron TAPE-GAS, que resultó de aplicar GAS a TAPE y ESM2(t6)-Freeze, que resultó de aplicar la metodología de congelamiento a ESM2. Finalmente, se compararon estos modelos con los métodos de mejor resultado en el estado del arte, tales como: NetMHCpan4.1, MHCflurry2.0, ACME, Anthem y MixMHCpred2.2. Al finalizar los experimentos, TAPE-GAS y ESM2-Freeze superaron a los otros métodos en \textit{accuracy}, AUC, \textit{presicion, f1-score} y MCC. 
+Luego de los experimentos, los modelos con mejores resultados fueron TAPE-GAS, que resultó de aplicar GAS a TAPE y ESM2(t6)-Freeze, que resultó de aplicar la metodología de congelamiento a ESM2. Finalmente, se compararon estos modelos con los métodos de mejor resultado en el estado del arte, tales como: NetMHCpan4.1, MHCflurry2.0, ACME, Anthem y MixMHCpred2.2. Al finalizar los experimentos, TAPE-GAS y ESM2-Freeze superaron a los otros métodos en \textit{accuracy}, AUC, \textit{precision, f1-score} y MCC. En términos de AUC, TAPE-GAS y ESM2(t6)-Freeze obtuvieron 0.9841 y 0.9830 respectivamente, frente a 0.9557 y 0.9642 de NetMHCpan4.1 y MhcFlurry2.0. 
 
 
 
