@@ -23,7 +23,7 @@ En este capítulo, detallamos los resultados del \textit{fine-tuning} de los mod
 
 Para la metodología de congelación de capas, congelamos todos los parámetros del \textit{Transformer} y solo entrenamos el bloque BiLSTM. Utilizar este método acelera el entrenamiento y mantiene el buen rendimiento, como se ha discutido en trabajos previos \citep{merchant2020happens,lee2019would,kovaleva2019revealing}.
 
-La comparación de desepeño se presenta en la Tabla \ref{tab:comparison_3_epochs}; además, la Figura \ref{fig:comparison_3_3pochs}(a) muestra el AUC de cada modelo utilizando GAS y la metodología de congelación de capas. En esta comparación, el sufijo 'Normal' representa el entrenamiento  utilizando todos los hiperparámetros de la Sección \ref{sec:fine-tuned}; el sufijo 'GAS' indica la integración de \textit{Gradient Accumulation Steps} (GAS), mientras que el sufijo 'Freeze' indica la aplicación de la metodología de congelación de capas a los modelos. Según los resultados obtenidos, es evidente que la implementación de la metodología de congelación de capas conduce a mejoras en el rendimiento en todos los modelos ESM2. Además, se observó que los modelos más grandes, como ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal, no lograron converger debido a un problema de \textit{vanish gradients}, lo cual se desarrollará en la sección posterior. Además, la utilización de la metodología de congelación de capas permite que estos modelos converjan de manera efectiva.
+La comparación de desempeño se presenta en la Tabla \ref{tab:comparison_3_epochs}; además, la Figura \ref{fig:comparison_3_3pochs}(a) muestra el AUC de cada modelo utilizando GAS y la metodología de congelación de capas. En esta comparación, el sufijo 'Normal' representa el entrenamiento  utilizando todos los hiperparámetros de la Sección \ref{sec:fine-tuned}; el sufijo 'GAS' indica la integración de \textit{Gradient Accumulation Steps} (GAS), mientras que el sufijo 'Freeze' indica la aplicación de la metodología de congelación de capas a los modelos. Según los resultados obtenidos, es evidente que la implementación de la metodología de congelación de capas conduce a mejoras en el rendimiento en todos los modelos ESM2. Además, se observó que los modelos más grandes, como ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal y ProtBert-Normal, no lograron converger debido a un problema de \textit{vanish gradients}, lo cual se desarrollará en la sección posterior. Además, la utilización de la metodología de congelación de capas permite que estos modelos converjan de manera efectiva.
 
 \begin{table}[h]
 	\centering
@@ -149,14 +149,14 @@ Además, al evaluar métricas de rendimiento de clasificación binaria, estandar
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/results/metrics_comparison}
-	\caption[Comparación del AUC con métodos del estado del arte]{Los valores de AUC para TAPE-GAS y ESM2(t6) entrenados durante 30 epochs, en comparación con las herramientas de vanguardia.}
+	\caption[Comparación del AUC con métodos del estado del arte]{Los valores de AUC para TAPE-GAS y ESM2(t6) entrenados durante 30 \textit{epochs}, en comparación con las herramientas de vanguardia.}
 	\label{fig:comparison_final}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{img/results/ROC_comparison}
-	\caption[Comparación de ROC con métodos del estado del arte]{Las curvas ROC para TAPE-GAS y ESM2(t6) entrenados durante 30 epochs, en comparación con las herramientas de vanguardia.}
+	\caption[Comparación de ROC con métodos del estado del arte]{Las curvas ROC para TAPE-GAS y ESM2(t6) entrenados durante 30 \textit{epochs}, en comparación con las herramientas de vanguardia.}
 	\label{fig:ROC_comparison_final}
 \end{figure}
 
@@ -205,7 +205,7 @@ Finalmente, mostramos la distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, a
 	\subfigure[13-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_13-mer}}
 	
 	\caption{
-		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para 12 y 13-mers; junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
+		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para 12 y 13-\textit{mers}; junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
 	\label{fig:auc_distribution2}
 \end{figure}
 
@@ -216,14 +216,14 @@ Finalmente, mostramos la distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, a
 	\subfigure[14-mer]{\label{fig:a}\includegraphics[width=0.49\textwidth]{img/results/auc_distribution_14-mer}}	
 	
 	\caption{
-		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para los péptidos 14-mer; junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
+		La distribución de AUC para TAPE-GAS y ESM2(t6)-Freeze, ambos entrenados durante 30 \textit{epochs} para los péptidos 14-\textit{mer}; junto con Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2 y MHCflurry2.0.}
 	\label{fig:auc_distribution14}
 \end{figure}
 
 
 \section{Herramienta para Predicción de la Unión pMHC}
 
-En base a los resultados obtenidos se ha desarrollado una herramienta de linea de comandos. En esta herramienta podemos hacer predicciones de los modelos con mejor desempeño desarrollados en esta tesis: ESM2(t6)-Freeze y TAPE-GAS, para la predicción de la unión pMHC. Además, tambien podemos reentrenar estos modelos con otras bases de datos. La herramienta es código libre y esta en este repositorio: \href{https://github.com/arceda/pmhc}{https://github.com/arceda/pmhc}.
+En base a los resultados obtenidos se ha desarrollado una herramienta de linea de comandos. En esta herramienta podemos hacer predicciones de los modelos con mejor desempeño desarrollados en esta tesis: ESM2(t6)-Freeze y TAPE-GAS, para la predicción de la unión pMHC. Además, podemos reentrenar estos modelos con otras bases de datos. La herramienta es código libre y esta en este repositorio: \href{https://github.com/arceda/pmhc}{https://github.com/arceda/pmhc}.
 
 
 

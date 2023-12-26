@@ -77,7 +77,7 @@ Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtB
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 	\begin{tabular}{llrrrrr}
 		
-		\textbf{Model}   & \textbf{BD} & \textbf{Muestras} & \textbf{Capas} & \textbf{HS} & \textbf{AH} & \textbf{Params.} \\
+		\textbf{Modelo}   & \textbf{BD} & \textbf{Muestras} & \textbf{Capas} & \textbf{HS} & \textbf{AH} & \textbf{Params.} \\
 		\midrule
 		TAPE             & Pfam             & 30M                   & 12              & 768                  & 12                       & 92M                 \\
 		ProtBert-BFD     & BFD              & 2122M                 & 30              & 1024                 & 16                       & 420M                \\
@@ -97,7 +97,7 @@ Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtB
 
 \subsection{ProtBert-BFD}
 
-ProtBert-BFD es parte de una familia de modelos de ProtTrans \citep{elnaggar2021prottrans}. Los autores evaluaron varias arquitecturas de aprendizaje profundo con los conjuntos de datos BFD, UniRef50 y UniRef100, cada uno con 2122, 45 y 216 millones de secuencias. Añadido a esto, BFD se considera la colección más extensa de secuencias de proteínas; fusiona UniProt \citep{uniprot2019uniprot} y proteínas de múltiples proyectos de secuenciación de metagenómica. Mientras tanto, UniRef \citep{suzek2015uniref} proporciona un conjunto clusterizado de secuencias de proteínas de UniProtKB. Es importante destacar que el conjunto de datos más grande, BFD, las muestras tienen ruido y contiene errores en las secuencias \citep{elnaggar2021prottrans}.
+ProtBert-BFD es parte de una familia de modelos de ProtTrans \citep{elnaggar2021prottrans}. Los autores evaluaron varias arquitecturas de aprendizaje profundo con los conjuntos de datos BFD, UniRef50 y UniRef100, cada uno con 2122, 45 y 216 millones de secuencias. Añadido a esto, BFD se considera la colección más extensa de secuencias de proteínas; fusiona UniProt \citep{uniprot2019uniprot} y proteínas de múltiples proyectos de secuenciación de metagenómica. Mientras tanto, UniRef \citep{suzek2015uniref} proporciona un conjunto \textit{clusterized} de secuencias de proteínas de UniProtKB. Es importante destacar que el conjunto de datos más grande, BFD, las muestras tienen ruido y contiene errores en las secuencias \citep{elnaggar2021prottrans}.
 
 Algunos de los modelos propuestos son ProtBert-BFD, ProtT5-XL y ProtT5-XXL, que tienen 420 millones, 3 mil millones y 11 mil millones de parámetros, respectivamente. ProtBert-BFD se entrenó con BFD; mientras tanto, los modelos ProtT5 se entrenaron inicialmente con BFD y luego con UniRef50, lo que mejoró el rendimiento en un 2.8\% y un 1.4\% para ProtT5-XL y ProtT5-XXL, respectivamente. Sin embargo, ProtT5-XL superó tanto a ProtBert-BFD como al modelo más grande, ProtT5-XXL. Los autores afirmaron que la cantidad de muestras mejoraba el rendimiento, pero no observaron una similitud consistente con el tamaño del modelo. Sugerían que modelos más grandes ven menos muestras con la misma potencia de cálculo, por lo que los modelos más grandes necesitan conjuntos de datos más grandes. Por esta razón, hemos optado por ProtBert, ya que es más pequeño que ProtT5-XL y creemos que se adapta mejor al tamaño del conjunto de datos actual para esta investigación.
 
@@ -112,7 +112,7 @@ Para realizar \textit{fine-tuning}, apilamos en cascada un bloque BiLSTM al fina
 
 Además, está ampliamente establecido que al ajustar modelos de \textit{Transformers} grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
 
-Adiconalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU y generalmente sufren del problema de \textit{vanish gradient}. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento.
+Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU y generalmente sufren del problema de \textit{vanish gradient}. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento.
 
 Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$) y \textit{early stopping}. Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}.
 
