@@ -9,15 +9,15 @@
 % INFORMATION IN THE TITLE PAGE
 %-------------------------------------------------------
 
-\newcommand{\cstitle}{\textbf{Detección de neo antígenos utilizando \textit{deep learning} en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del Cáncer}
+\newcommand{\cstitle}{\textbf{Detección \textit{in Silico} de Neoantígenos Utilizando Transformers y Transfer Learning en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer}
 \subtitle[]{Tésis de doctorado}}
-\newcommand{\cscourseCode}{Matemáticas discretas II}
+\newcommand{\cscourseCode}{Detección de Neoantígenos}
 \newcommand{\csauthor}{MSc. Vicente Machaca Arceda}
 \institute[UNSA]{Universidad Nacional de San Agustín}
 \newcommand{\csemail}{vmachaca@utec.edu.pe}
 \newcommand{\instituteabr}{UTEC}
 \newcommand{\nameUp}{}
-\date{2022-I}
+\date{2023}
 \title[\cscourseCode]{\cstitle}
 \author{\csauthor}
 %%%%%%%%%%%%%%%%%
@@ -62,7 +62,7 @@
 \begin{document}
 	
 	
-	\AtBeginSection[]
+	\AtBeginSubsection[]
 	{
 		\begin{frame}
 			\frametitle{Contenido}
@@ -107,101 +107,27 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Marco teórico}
+\section{Contexto y Motivación}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Bioinformática y DNA}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Estadísticas en Cáncer}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{DNA}{Localización}
+\begin{frame}{Contexto y Motivación}{}
+	\begin{block}{}
+		An la actualidad, el cáncer representa el mayor problema de salud mundial \cite{siegel2023cancer}.
+	\end{block}
+
 	\begin{figure}[]
 		\centering
-		\includegraphics[width=\textwidth,height=0.65\textheight,keepaspectratio]{img/neoantigen/dna}
-		\label{img:mot2}
-		\caption{Where DNA is located \cite{NCIdictionary2022}.}
-	\end{figure}
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{DNA}{De DNA a proteínas}
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=0.7\textwidth]{img/neoantigen/trans.jpg}
-		\caption{Transcription and translation \cite{nci2020}.}
-	\end{figure}
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Mutaciones}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-%\begin{frame}{Variantes y Mutaciones}{Tipos}
-%	\begin{block}{}
-%		\begin{itemize}
-%			\item \textbf{\textit{Single-Nucleotide Variant} (SNV)}, cambios a menos de 10 bases.
-%			\item \textbf{\textit{Structural Variation} (SV)}, cambios a mas de 10 bases, incluso pueden llegar a aumentar la cantidad de cromosomas.
-%		\end{itemize}	
-%	\end{block}
-%\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-%\begin{frame}{Variantes y Mutaciones}{Ejemplo}
-%	\begin{figure}[]
-%		\centering
-%		\includegraphics[width=\textwidth,height=0.7\textheight,keepaspectratio]{img/neoantigen/point_mutations_med.jpg}
-%		\label{img:alig}
-%		\caption{Overview of the Different Types of Point Mutations.}
-%	\end{figure}
-%\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Variantes y Mutaciones}{}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=\textwidth]{img/neoantigen/variants}
-		\caption{Example of structural variants. Source: \cite{sv_pacbio_2021}}
-		\label{fig:variants}
-	\end{figure}	
-\end{frame}
-%-------------------------------------------------------
-%-------------------------------------------------------
-
-%-------------------------------------------------------
-%-------------------------------------------------------
-\begin{frame}{Variantes y Mutaciones}{\textit{Frameshift}}
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=\textwidth,height=0.6\textheight,keepaspectratio]{img/neoantigen/mut.jpg}
-		\caption{Ejemplo de una mutación INDELS causante de un \textit{frameshift}.}
+		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths}
+		\caption{Ranking de las muertes por cáncer entre 30 y 69 años. \textbf{Fuente}: The Atlas Cancer \cite{canceratlas2023}.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -209,13 +135,12 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Fusión de genes}{}
-	\begin{figure}[h]
+\begin{frame}{Contexto y Motivación}{Muertes por tipos de cáncer}
+	\begin{figure}[]
 		\centering
-		\includegraphics[width=0.8\textwidth]{img/neoantigen/gene_fusion_1}
-		\caption{Ejemplo de una fución de genes.}
-		\label{fig:cnv}
-	\end{figure}	
+		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths_woman}
+		\caption{Ranking de las muertes por tipo de cáncer en mujeres. \textbf{Fuente}: The Atlas Cancer \cite{canceratlas2023}.}
+	\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -223,35 +148,87 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-%\begin{frame}{Variaciones a nivel de cromosomas}{}
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width=0.6\textwidth]{img/neoantigen/chrom}
-%		\caption{Los 46 cromosomas presentes en una célula.}
-%	\end{figure}		
-%\end{frame}
+\begin{frame}{Contexto y Motivación}{Muertes por tipos de cáncer}
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths_man}
+		\caption{Ranking de las muertes por tipo de cáncer en hombres. \textbf{Fuente}: The Atlas Cancer \cite{canceratlas2023}.}
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Contexto y Motivación}{Porcentaje de casos y muertes}
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=0.6\textwidth]{../img/introduction/cancer_men_women}
+		\caption{Porcentaje de casos y muertes por sexo. \textbf{Fuente} The Atlas Cancer \cite{canceratlas2023}.}
+	\end{figure}
+\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-%\begin{frame}{Variaciones a nivel de cromosomas}{}
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width=\textwidth]{img/neoantigen/chrom3}
-%		\caption{Cromosomas de una mujer con Cáncer de mama (1971).}
-%	\end{figure}		
-%\end{frame}
+\begin{frame}{Contexto y Motivación}{Predicción de nuevos casos}
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=\textwidth]{../img/introduction/cancer_new_cases}
+		\caption{Predicción de nuevos casos para el 2040. \textbf{Fuente} The Atlas Cancer \cite{canceratlas2023}.}
+	\end{figure}
+\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Inmunoterapia del Cáncer}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Neo antígenos}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Contexto y Motivación}{Reacciones distintas para cada paciente}
+	%\begin{block}{}
+	%	Pacientes con el mismo tipo de cáncer pueden reaccionar de forma disitinta a los mismos tratamientos.
+	%\end{block}
+
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=\textwidth]{../img/introduction/medecine_current}
+			\caption{Pacientes con el mismo tipo de cáncer pueden reaccionar de forma disitinta a los mismos tratamientos. \textbf{Fuente} The Atlas Cancer \cite{pdx2023}.}
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Contexto y Motivación}{Reacciones distintas para cada paciente}
+
+	
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=\textwidth]{../img/introduction/medecine_future}
+		\caption{Cada paciente necesita un tratamiento personalizado. \textbf{Fuente} The Atlas Cancer \cite{pdx2023}.}
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
 
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -259,32 +236,56 @@
 	Es un tipo de tratamiento contra el Cáncer que estimula las defensas naturales del cuerpo para combatir el Cáncer \cite{inmunoterapy2022}.
 		
 	\begin{figure}
-		\includegraphics[width=0.85\textwidth]{img/neoantigen/tcell}
+		\includegraphics[width=0.85\textwidth]{../img/neoantigen/tcell}
 		\caption{Ejemplo de como una célula T destruye células del cancer \cite{nortshore2022}.}
 	\end{figure}		
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
+
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Inmunoterapia del Cáncer}{Neo antígenos}		
-	\begin{block}{}
-		Es una \textbf{proteína} que se forma en las células de Cáncer cuando ocurre mutaciones en el DNA, cumplen un rol importante al \textbf{estimular una respuesta inmune} \cite{NCIdictionary2022, borden2022cancer}.
-	\end{block} 
-	\begin{block}{}
-		En la actualidad hay varios métodos para detectar a predecir neo antígenos, pero \textbf{solo una pequeña cantidad de ellos} logran estimular al sistema inmune \cite{chen2021challenges, hao2021improvement}.
-	\end{block}
+\begin{frame}{Contexto y Motivación}{Inmunoterapia del Cáncer}
+	
+	
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../img/introduction/cancer_immunotherapy}
+		\caption{Tipos de tratamientos para la inmunoterapia del cáncer. \textbf{Fuente}: \cite{kciuk2023recent}.}
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Vacunas Personalizadas}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Contexto y Motivación}{Neoantígenos}
+	Es una \textbf{proteína} que se forma en las células de Cáncer cuando ocurre mutaciones en el DNA  \cite{NCIdictionary2022, borden2022cancer}.
+	
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=0.7\textwidth]{../img/introduction/neoantigen}
+		\caption{Neoantígenos y células T. \textbf{Fuente}: \cite{ucir2023}.}
+	\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{MHC-I}{}		
+\begin{frame}{Contexto y Motivación}{Vacunas personalizadas}	
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\textwidth]{img/neoantigen/mhc1.jpg}
+		\includegraphics[width=0.9\textwidth]{../img/neoantigen/mhc1.jpg}
 		\caption{Presentación de antígenos por MHC-I. Fuente: \cite{zhang2019application}}
 		\label{fig:mhc1}
 	\end{figure}	
@@ -292,25 +293,63 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 
+%%-------------------------------------------------------
+%%-------------------------------------------------------
+%\begin{frame}{MHC-II}{}		%
+%	\begin{figure}[H]
+	%		\centering
+	%		\includegraphics[width=0.9\textwidth]{../img/neoantigen/mhc2.jpg}
+	%		\caption{Presentación de antígenos por MHC-II. Fuente: \cite{zhang2019application}}
+	%		\label{fig:mhc2}
+	%	\end{figure}	
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{MHC-II}{}		
-	\begin{figure}[H]
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Contexto y Motivación}{Vacunas personalizadas}	
+	\begin{figure}[]
 		\centering
-		\includegraphics[width=0.9\textwidth]{img/neoantigen/mhc2.jpg}
-		\caption{Presentación de antígenos por MHC-II. Fuente: \cite{zhang2019application}}
-		\label{fig:mhc2}
-	\end{figure}	
+		\includegraphics[width=\textwidth]{../img/introduction/vaccine_1}
+		\caption{Proceso para la generación de vacunas contra el cáncer. \textbf{Fuente}: \cite{ucir2023}.}
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Contexto y Motivación}{Vacunas personalizadas}	
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=\textwidth]{../img/introduction/vaccine_2}
+		\caption{Proceso para la generación de vacunas contra el cáncer. \textbf{Fuente}: \cite{ucir2023}.}
+	\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Inmunoterapia del Cáncer}{Generación de vacunas}	
+\begin{frame}{Contexto y Motivación}{Vacunas personalizadas}	
+	\begin{figure}[]
+		\centering
+		\includegraphics[width=\textwidth]{../img/introduction/vaccine_3}
+		\caption{Proceso para la generación de vacunas contra el cáncer. \textbf{Fuente}: \cite{ucir2023}.}
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+	%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Contexto y Motivación}{Vacunas personalizadas}
 	\begin{figure}
-		\includegraphics[width=0.6\textwidth]{img/neoantigen/process}
-		\caption{Proceso para la generación de vacunas personalizadas \cite{peng2019neoantigen}.}
+		\includegraphics[width=0.5\textwidth]{../img/pipeline/pipeline_spanish}
+		\caption{Resumen del proceso de  generación de vacunas contra el cáncer.}
 	\end{figure}		
 \end{frame}
 %-------------------------------------------------------
@@ -730,7 +769,7 @@
 	\vspace{0.5cm}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\textwidth]{img/neoantigen/proposal}	
+		\includegraphics[width=0.9\textwidth]{../img/neoantigen/proposal}	
 		\caption{Proceso general utilizado para la detección de neo antígenos a partir de secuencias de DNA. Fuente: \cite{gopanenko2020main}.}
 		\label{fig:neo_det_seq}
 	\end{figure}
@@ -743,7 +782,7 @@
 \begin{frame}{Propuesta}{BERTMHC}	
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.9\textwidth]{img/neoantigen/bertmhc}	
+		\includegraphics[width=0.9\textwidth]{../img/neoantigen/bertmhc}	
 		\caption{BERTMHC.}
 	\end{figure}
 \end{frame}
@@ -755,7 +794,7 @@
 \begin{frame}{Propuesta}{APPM}	
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth]{img/neoantigen/descriptor}	
+		\includegraphics[width=\textwidth]{../img/neoantigen/descriptor}	
 		\caption{Proceso para obtener una matriz (imagen) a partir de un péptido (APPM).}
 		\label{fig:descriptor}
 	\end{figure}
@@ -826,10 +865,10 @@
 \begin{frame}{Resultados}{}
 	\begin{figure}[H]
 		\centering
-		\subfigure[A*01:01]{\label{fig:a}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A0203}}
-		\subfigure[A*02:01]{\label{fig:b}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A0201}}
-		\subfigure[A*02:03]{\label{fig:a}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A0101}}
-		\subfigure[A*31:01]{\label{fig:b}\includegraphics[width=0.35\textwidth]{img/neoantigen/acc_A3101}}
+		\subfigure[A*01:01]{\label{fig:a}\includegraphics[width=0.35\textwidth]{../img/neoantigen/acc_A0203}}
+		\subfigure[A*02:01]{\label{fig:b}\includegraphics[width=0.35\textwidth]{../img/neoantigen/acc_A0201}}
+		\subfigure[A*02:03]{\label{fig:a}\includegraphics[width=0.35\textwidth]{../img/neoantigen/acc_A0101}}
+		\subfigure[A*31:01]{\label{fig:b}\includegraphics[width=0.35\textwidth]{../img/neoantigen/acc_A3101}}
 		%\subfigure[B*44:02]{\label{fig:a}\includegraphics[width=0.4\textwidth]{img/neoantigen/acc_B4402}}
 		%\subfigure[B*44:03]{\label{fig:b}\includegraphics[width=0.4\textwidth]{img/neoantigen/acc_B4403}}		
 		
@@ -845,7 +884,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Conclusiones}
+\section{Conclusiones y Trabajos futuros}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -865,12 +904,6 @@
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Trabajos futuros}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %-------------------------------------------------------
@@ -895,7 +928,7 @@
 	\frametitle{References}
 	%\bibliographystyle{amsalpha}
 	\bibliographystyle{IEEEtran}
-	\bibliography{Bibliography.bib}
+	\bibliography{../bibliography_thesis.bib}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
