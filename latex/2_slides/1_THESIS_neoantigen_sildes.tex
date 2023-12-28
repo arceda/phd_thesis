@@ -5,6 +5,7 @@
 \usepackage{helvet}
 \usepackage{lipsum}  
 \usepackage{graphicx,subfigure}
+\usepackage{epstopdf}
 %-------------------------------------------------------
 % INFORMATION IN THE TITLE PAGE
 %-------------------------------------------------------
@@ -62,11 +63,11 @@
 \begin{document}
 	
 	
-	\AtBeginSubsection[]
+	\AtBeginSection[]
 	{
 		\begin{frame}
 			\frametitle{Contenido}
-			\tableofcontents[currentsubsection]
+			\tableofcontents[currentsection]
 		\end{frame}
 	}
 	
@@ -127,7 +128,7 @@
 	\begin{figure}[]
 		\centering
 		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths}
-		\caption{Ranking de las muertes por cáncer entre 30 y 69 años. \textbf{Fuente}: The Atlas Cancer \cite{canceratlas2023}.}
+		\caption{Ranking de las muertes por cáncer entre 30 y 69 años. \textbf{Fuente}: Atlas Cancer \cite{canceratlas2023}.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -135,26 +136,26 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Contexto y Motivación}{Muertes por tipos de cáncer}
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths_woman}
-		\caption{Ranking de las muertes por tipo de cáncer en mujeres. \textbf{Fuente}: The Atlas Cancer \cite{canceratlas2023}.}
-	\end{figure}
-\end{frame}
+%\begin{frame}{Contexto y Motivación}{Muertes por tipos de cáncer}
+%	\begin{figure}[]
+%		\centering
+%		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths_woman}
+%		\caption{Ranking de las muertes por tipo de cáncer en mujeres. \textbf{Fuente}: The Atlas Cancer \%cite{canceratlas2023}.}
+%	\end{figure}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Contexto y Motivación}{Muertes por tipos de cáncer}
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths_man}
-		\caption{Ranking de las muertes por tipo de cáncer en hombres. \textbf{Fuente}: The Atlas Cancer \cite{canceratlas2023}.}
-	\end{figure}
-\end{frame}
+%\begin{frame}{Contexto y Motivación}{Muertes por tipos de cáncer}
+%	\begin{figure}[]
+%		\centering
+%		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths_man}
+%		\caption{Ranking de las muertes por tipo de cáncer en hombres. \textbf{Fuente}: The Atlas Cancer \cite{canceratlas2023}.}
+%	\end{figure}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -165,7 +166,7 @@
 	\begin{figure}[]
 		\centering
 		\includegraphics[width=0.6\textwidth]{../img/introduction/cancer_men_women}
-		\caption{Porcentaje de casos y muertes por sexo. \textbf{Fuente} The Atlas Cancer \cite{canceratlas2023}.}
+		\caption{Porcentaje de casos y muertes por sexo. \textbf{Fuente} Atlas Cancer \cite{canceratlas2023}.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -177,7 +178,7 @@
 	\begin{figure}[]
 		\centering
 		\includegraphics[width=\textwidth]{../img/introduction/cancer_new_cases}
-		\caption{Predicción de nuevos casos para el 2040. \textbf{Fuente} The Atlas Cancer \cite{canceratlas2023}.}
+		\caption{Predicción de nuevos casos para el 2040. \textbf{Fuente} Atlas Cancer \cite{canceratlas2023}.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -374,20 +375,20 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Problema}{}
-	
+\begin{frame}{Problema}{}	
 	\begin{block}{}
-		\textbf{Less than 5\%} of detected neoantigens (peptides binded to MHC) succeed in activating the immune system \cite{de2020neoantigen}.
+		\textbf{Menos del 5\%} de neoantígenos detectados activan el sistema inmune \cite{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}.
 	\end{block}
 	
-	
+	\pause
 	\begin{block}{}
-		This is a \textbf{binary classification problem}. A peptide could be represented like: $p = \{ A, ... , Q \}$ and a MHC like: $q = \{ A, N, ... ,Q, E \}$. Finally, we need to know the probability of affinity between $p$ and $q$ (pMHC)
+		\begin{itemize} 
+			\item La no inclusión en conjunto de varias fuentes de información como DNA-seq, RNA-seq, y datos de MS \cite{kim2018neopepsee}. \pause
+			\item  Uso herramientas de bajo desempeño para la predicción del enlace péptido-MHC (pMHC). La mayoría de aplicaciones, se basa en el uso de MHCFlurry \cite{o2020mhcflurry} y NetMHCpan4.1 \cite{reynisson2020netmhcpan}. \pause
+			\item No consideran  la predicción del enlace pMHC-TCR  \cite{rubinsteyn2018computational}. \pause
+			\item No utilizar información de eventos de \textit{alternative splicing}, variaciones estructurales y  fusión de genes \cite{wood2020neoepiscope}.
+		\end{itemize}
 	\end{block}
-	
-	%	\begin{block}{Objectives}
-		%		Proposed a method based on transformers and transfer learning for pMHC binding and	presentation prediction. 
-		%	\end{block}	
 	
 \end{frame}
 %-------------------------------------------------------
@@ -395,38 +396,83 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Problema}{}	
+\begin{frame}{Problema}{Formulación del problema}
+	\begin{block}{}
+		Es un problema de clasificación binaria que toma como entrada la secuencia de aminoácidos de un péptido ($p = \{A, ..., Q\}$) y el MHC ($q = \{A, N, ..., G\}$). Finalmente, necesitamos conocer la probabilidad de afinidad entre $p$ y $q$.
+	\end{block}
+	
 	\begin{figure}
 		\includegraphics[width=0.9\textwidth]{../img/neoantigen/problem}
-		\caption{pMHC binding prediction problem.}
+		\caption{Problema de predicción del enlace pMHC.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Objetivos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Objetivos}{}	
+	\begin{block}{Objetivo general}
+		Implementar un método \textit{in silico} basado en \textit{Transformers} y \textit{Transfer Learning} para la detección de neoantígenos, enfocados en la predicción de la unión pMHC. 
+	\end{block}	
+
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Objetivos}{}	
+
+	\begin{block}{Objetivos específicos}
+		\begin{itemize} 
+			\item Analizar los métodos que utilizan \textit{Transformers} para la predicción del enlace pMHC en el contexto de detección de neoantígenos. \pause
+			\item Analizar los modelos basados en \textit{Transformers} TAPE, ProtBert-BFD, y EMS2 pre-entredados para diversas tareas en Proteómica y de los cuáles se puede aplicar \textit{Transfer Learning}. 	\pause
+			\item Implementar \textit{fine-tuning} a los modelos TAPE, ProtBert-BFD, y EMS2 para la tarea de predicción del enlace pMHC, aplicando \textit{Gradient Accumulation Steps} (GAS) y una metodología de congelamiento de capas. \pause
+			\item Comparar los modelos de mejor desempeño con las herramientas del estado del arte como: NetMHCpan4.1, MHCFlurry2.0, Anthem, ACME y MixMHCpred2.2.
+		\end{itemize}
+	\end{block}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Proposal}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proposal}
+\section{Estado del arte}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Proposal}{}
+\begin{frame}{Estado del arte}{}	
 	
-	\vspace{0.5cm}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Propuesta}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Propuesta}{}
+
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\textwidth]{../img/proposal/proposal}	
-		\caption{Proposal for pMHC binding prediction.}
+		\includegraphics[width=\textwidth]{../img/proposal/proposal}	
+		\caption{Propuesta para la predicción del enlace pMHC.}
 		\label{fig:neo_det_seq}
 	\end{figure}
 \end{frame}
@@ -434,30 +480,54 @@
 %-------------------------------------------------------
 
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Experiments and Results}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Databases}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Databases}{}
+\begin{frame}{Propuesta}{\textit{Fine-tuning}}
 	
-	Training: 539,019; Validation: 179,673; and Testing: 172,580.
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Propuesta}{\textit{Gradient Accumulation Steps}}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Propuesta}{\textit{Congelamiento de capas}}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Experimentos y Resultados}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Base de datos}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Base de datos}{}
+	
+	\textit{Training}: 539,019; \textit{Validation}: 179,673; y \textit{Testing}: 172,580.
 	
 	\begin{figure}[]
-		\centering\includegraphics[width=0.6\textwidth]{../img/proposal/dataset_samples}
+		\centering\includegraphics[width=0.7\textwidth]{../img/proposal/dataset_samples}
 		\caption{
-			Number of samples per k-mer.}
+			Número de muestras por  \textit{k-mer}.}
 		\label{fig:samples}
 	\end{figure}
 	
@@ -467,24 +537,24 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Pre-trained models}
+\subsection{Modelos pre-entrenados}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Pre-trained models}{}
+\begin{frame}{Modelos pre-entrenados}{}
 	
 	\begin{table}
 		\centering
-		\caption{Differences between TAPE, ProtBert-DFB, and ESM2. HS: \textit{Hidden size}; AH: \textit{Attention heads}.}
+		\caption{Diferencias entre TAPE, ProtBert-DFB, y ESM2. HS: \textit{Hidden size}; AH: \textit{Attention heads}.}
 		\label{tab:pretrained}%
 		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 		{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 			\footnotesize
 			\begin{tabular}{llrrrrr}
 				
-				\textbf{Model}   & \textbf{BD} & \textbf{Samples} & \textbf{Layers} & \textbf{HS} & \textbf{AH} & \textbf{Params.} \\
+				\textbf{Modelo}   & \textbf{BD} & \textbf{Muestras} & \textbf{Capas} & \textbf{HS} & \textbf{AH} & \textbf{Params.} \\
 				\hline
 				TAPE             & Pfam             & 30M                   & 12              & 768                  & 12                       & 92M                 \\
 				ProtBert-BFD     & BFD              & 2122M                 & 30              & 1024                 & 16                       & 420M                \\
@@ -504,18 +574,17 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Results}
+\subsection{Resultados}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Results}{(Training for 3 epochs)}
+\begin{frame}{Resultados}{Entrenamiento por 3 \textit{epochs}}
 	\begin{figure}
 		\centering		
-		\includegraphics[width=0.5\textwidth]{../img/results/metrics_comparion_by_model}			
-		\caption{Comparative analysis of Area Under the Curve (AUC) in Transformer model architectures using various training methodologies.}
-		\label{fig:comparison_3_3pochs}
+		\includegraphics[width=0.7\textwidth]{../img/results/metrics_comparion_by_model.png}			
+		\caption{Comparación del AUC por modelo y metodología de entrenamiento.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -524,29 +593,28 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Results}{Vanish gradient problem}
+\begin{frame}{Resultados}{Problema de \textit{vanish gradient} para ESM2(t6)}
 	\centering
-	Gradients for ESM2(t6)
-	\includegraphics[width=0.8\textwidth]{../img/results/t6_epoch0}
-	\includegraphics[width=0.8\textwidth]{../img/results/t6_epoch3}
+	\includegraphics[width=\textwidth]{../img/results/t6_epoch0}
+	\includegraphics[width=\textwidth]{../img/results/t6_epoch3}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Results}{Vanish gradient problem}
+\begin{frame}{Resultados}{Problema de \textit{vanish gradient} para ESM2(t30)}
 	\centering
-	Gradients for ESM2(t30)
-	\includegraphics[width=0.8\textwidth]{../img/results/t30_epoch0}
-	\includegraphics[width=0.8\textwidth]{../img/results/t30_epoch3}
+
+	\includegraphics[width=\textwidth]{../img/results/t30_epoch0}
+	\includegraphics[width=\textwidth]{../img/results/t30_epoch3}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Results}{Comparison (Training for 30 epochs)}
+\begin{frame}{Resultados}{Entrenamiento por 30 \textit{epochs}}
 	\begin{table}[]
 		\centering
 		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
@@ -575,11 +643,10 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Results}{Comparison with state-of-art tools}
+\begin{frame}{Resultados}{Comparación con los métodos \textit{state-of-art}}
 	\begin{figure}
-		\includegraphics[width=0.5\textwidth]{../img/results/metrics_comparison}
-		\caption{The AUC values for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods.}
-		\label{fig:comparison_final}
+		\includegraphics[width=0.75\textwidth]{../img/results/metrics_comparison}
+		\caption{Comparación de TAPE-GAS y ESM2(t6) contra los mejores métodos del estado del arte.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -587,10 +654,10 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Results}{Comparison with state-of-art tools}
+\begin{frame}{Resultados}{Comparación con los métodos \textit{state-of-art}}
 	\begin{figure}
-		\includegraphics[width=0.5\textwidth]{../img/results/ROC_comparison}
-		\caption{ROC curves for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods.}
+		\includegraphics[width=0.75\textwidth]{../img/results/ROC_comparison}
+		\caption{Comparación de TAPE-GAS y ESM2(t6) contra los mejores métodos del estado del arte.}
 	\end{figure}
 \end{frame}
 %-------------------------------------------------------
@@ -598,11 +665,10 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Results}{Comparison with state-of-art tools}
+\begin{frame}{Resultados}{Comparación con los métodos \textit{state-of-art}}
 	\begin{table}[]
 		\centering
-		\caption{Performance evaluation of Transformer models TAPE-GAS and ESM2(t6)-Freeze, trained for 30 epochs, against Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2, and MhcFlurry2.0.}
-		\label{tab:final_comparison}
+		\caption{Desempeño de TAPE-GAS y ESM2(t6)-Freeze, entrenados por 30 \textit{epochs}, contra Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2, y MhcFlurry2.0.}
 		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 		{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 			\scriptsize
@@ -626,27 +692,30 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discussion and Conclusions}
+\section{Discusión y Conclusiones}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Discussion}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Discussion}{}
-	
-	\begin{block}{Fine-tuning ESM2 models}
-		The most favorable results were obtained with the smallest model, \textbf{ESM2(t6)}. we believe is not sufficiently large for ESM2(t33), a model boasting 650 million parameters. 
-	\end{block}
+\begin{frame}{Discusión}{¿Porque el modelo mas pequeño de la familia ESM2 es el mejor?}
 	
 	\begin{block}{}
-		Another potential reason could be attributed to the use of \textbf{Rotary Position Embedding (RoPE)} used instead of absolute positional encoding.
+		El modelo más pequeño, ESM2(t6) supero a los demas. Las causas de este fenómeno pueden ser: 
+	
+	\end{block}
+	
+	\pause
+	
+	\begin{block}{}
+		\begin{itemize}
+			\item En conjunto de datos que consta de 559,019 muestras, que no consideramos lo suficientemente grande para ESM2(t33), un modelo que cuenta con 650 millones de parámetros. \pause
+			
+			\item El uso de \textit{Rotary Position Embedding} (RoPE) en lugar de la codificación posicional absoluta. Si bien RoPE puede llevar a un ligero aumento en el costo de entrenamiento, se ha observado que mejora la calidad de los resultados, especialmente para modelos más pequeños \cite{lin2023evolutionary}.
+		\end{itemize}
 	\end{block}
 	
 \end{frame}
@@ -655,15 +724,17 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Discussion}{}
+\begin{frame}{Discusión}{Congelamiento de capas y GAS}
 	
 	
-	\begin{block}{Layer Freezing and GAS}
-		This approach involves locking the Transformer model while updating only the BiLSTM parameters. This method is generally well-suited to accelerate the training process, even though it may lead to a slight sacrifice in performance. 
+	\begin{block}{Congelamiento de capas}
+	Para los modelos ESM2, esta metodología arrojó los mejores resultados, mientras que para TAPE y ProtBert-BFD, produjo los resultados esperados
 	\end{block}
+
+\pause
 	
-	\begin{block}{}
-		Surprisingly, \textbf{for ESM2 models, this methodology yielded the best results, while for TAPE and ProtBert-BFD, it yielded the expected outcomes}.
+	\begin{block}{GAS}
+	Esta técnica alivia ligeramente el problema de \textit{vanish gradients} acumulando las gradientes durante las iteraciones. En si, este técnica extiende la cantidad de iteraciones de entrenamiento que se pueden realizar antes de que el modelo posiblemente vuelva a enfrentar el problema de \textit{vanish gradient}.
 	\end{block}
 \end{frame}
 %-------------------------------------------------------
@@ -672,19 +743,35 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Discussion}{}
+\begin{frame}{Discusión}{TAPE, ProtBert-BFD and ESM2}
 	
-	
-	\begin{block}{TAPE, ProtBert-BFD and ESM2}
-		\textbf{ProtBert-BFD got the worst result} despite this model were pre-trained with the largest dataset BFD with 2122M samples. We believe, this result is caused by the noisy information and sequence mistakes in BFD dataset.
+	\begin{block}{ProtBert-BFD}
+		ProtBert-BFD (420M parámetros) obtuvo el peor resultado a pesar de que este modelo fue \textbf{pre-entrenado con el conjunto de datos más grande (2122 millones de muestras)}. Las causas son: 
+	\end{block}
+
+	\begin{block}{}
+		\begin{itemize}
+			\item  Ruido en las muestras y a los errores en las secuencias en el conjunto de datos BFD \cite{elnaggar2021prottrans}
+			\item Los modelos \textit{Transformer} grandes requieren más datos para el entrenamiento \cite{elnaggar2021prottrans}, y en nuestro caso este modelo se entreno con 559,019 muestras.
+		\end{itemize}
 	\end{block}
 	
-	\begin{block}{}
-		\textbf{TAPE achieved the best results}. TAPE models were pre-trained using the Pfam dataset, it is derived from UniProtKB and \textbf{selectively includes sequences belonging to Reference Proteomes rather than  the entire UniProtKB}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Discusión}{TAPE, ProtBert-BFD and ESM2}
+	
+	\begin{block}{TAPE}
+		TAPE logró los mejores resultados. Este solo fue pre-entrenado con 30 millones de muestras; sin embargo, secuencias pertenecen a \textit{Reference Proteomes} en lugar de abarcar toda la base de datos de UniProtKB \cite{finn2016pfam}. 
 	\end{block}
 	
-	\begin{block}{}
-		\textbf{ESM2(t6) achieved results that closely rival TAPE}. ESM2(t6) comprises only 8 million parameters, compared to 92 million parameters of TAPE.
+	\begin{block}{ESM2}
+		ESM2(t6) logró resultados que compiten estrechamente con el desempeño de TAPE; sin embargo ESM2(t6) tiene 8M versus los 92M de parámetros de TAPE.		
 	\end{block}
 \end{frame}
 %-------------------------------------------------------
