@@ -125,11 +125,11 @@
 		An la actualidad, el cáncer representa el mayor problema de salud mundial \cite{siegel2023cancer}.
 	\end{block}
 
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths}
-		\caption{Ranking de las muertes por cáncer entre 30 y 69 años. \textbf{Fuente}: Atlas Cancer \cite{canceratlas2023}.}
-	\end{figure}
+	%\begin{figure}[]
+	%	\centering
+	%	\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths}
+	%	\caption{Ranking de las muertes por cáncer entre 30 y 69 años. \textbf{Fuente}: Atlas Cancer \cite{canceratlas2023}.}
+	%\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -192,31 +192,27 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Contexto y Motivación}{Reacciones distintas para cada paciente}
-	%\begin{block}{}
-	%	Pacientes con el mismo tipo de cáncer pueden reaccionar de forma disitinta a los mismos tratamientos.
-	%\end{block}
+%\begin{frame}{Contexto y Motivación}{Reacciones distintas para cada paciente}
 
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=\textwidth]{../img/introduction/medecine_current}
-			\caption{Pacientes con el mismo tipo de cáncer pueden reaccionar de forma disitinta a los mismos tratamientos. \textbf{Fuente} The Atlas Cancer \cite{pdx2023}.}
-	\end{figure}
-\end{frame}
+%	\begin{figure}[]
+%		\centering
+%		\includegraphics[width=\textwidth]{../img/introduction/medecine_current}
+%			\caption{Pacientes con el mismo tipo de cáncer pueden reaccionar de forma disitinta a los mismos tratamientos. \textbf{Fuente} The Atlas Cancer \cite{pdx2023}.}
+%	\end{figure}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Contexto y Motivación}{Reacciones distintas para cada paciente}
-
+%\begin{frame}{Contexto y Motivación}{Reacciones distintas para cada paciente}
 	
-	\begin{figure}[]
-		\centering
-		\includegraphics[width=\textwidth]{../img/introduction/medecine_future}
-		\caption{Cada paciente necesita un tratamiento personalizado. \textbf{Fuente} The Atlas Cancer \cite{pdx2023}.}
-	\end{figure}
-\end{frame}
+%	\begin{figure}[]
+%		\centering
+%		\includegraphics[width=\textwidth]{../img/introduction/medecine_future}
+%		\caption{Cada paciente necesita un tratamiento personalizado. \textbf{Fuente} The Atlas Cancer \cite{pdx2023}.}
+%	\end{figure}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -364,15 +360,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Problema}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Problema}{}	
@@ -410,13 +397,6 @@
 %-------------------------------------------------------
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Objetivos}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Objetivos}{}	
@@ -452,11 +432,186 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{}	
+\begin{frame}{Estado del arte}{Publicaciones sobre estudios de Neoantígenos}	
+		\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{../img/state_of_art/papers_pubmed}	
+		\caption{Publicaciones sobre estudios de Neoantígenos. Fuente: PubMed.}
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+%\begin{frame}{Estado del arte}{Publicaciones sobre estudios de predicción del enlace pMHC}	
+%	\begin{figure}
+%		\centering
+%		\includegraphics[width=\textwidth]{../img/state_of_art/papers_pubmed2}	
+%		\caption{Publicaciones sobre estudios de predicción del enlace pMHC. Fuente: PubMed.}
+%	\end{figure}
+%\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Estado del arte}{Preguntas de investigación}
+	
+	\begin{table}[h]
+		\begin{center}
+			\caption{Preguntas de investigación}
+			\label{tab:questions}
+			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+			{\renewcommand{\arraystretch}{1.4}% for the vertical padding
+				\begin{tabular}{p{8.5cm}}
+					\textbf{Preguntas de investigación} \\ \hline
+					\textbf{Q1}. ¿Como se aplican los modelos \textit{Transformers} para la detección de neoantígenos? \\
+					\textbf{Q2}. ¿Que problemas y limitaciones hacen frente los modelos \textit{Transformers} en la detección de neoantígenos? \\
+					\textbf{Q3}.  ¿Que \textit{pipelines} se han desarrollado para la detección de neoantígenos? \\
+					\textbf{Q4}.  ¿Que pruebas clínicas, de vacunas personalizadas de neoantígenos, han sido aplicadas? \\		
+				\end{tabular}
+			}
+		\end{center}
+	\end{table}
 	
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Estado del arte}{Cadena de busqueda}
+	
+	\begin{table}[]
+		\caption{Cadenas de búsqueda utilizadas para cada fase de detección de neoantígenos.}
+		\label{tab:search}
+		\centering
+		\tiny
+		\setlength{\tabcolsep}{0.5em} % para el espaciado horizontal
+		{\renewcommand{\arraystretch}{1.7}% para el espaciado vertical
+			\begin{tabular}{p{3cm}p{7cm}}
+				\textbf{Categoría} & \textbf{Cadena de búsqueda} \\ \hline
+				Priorización de neoantígenos & \textit{(mhc OR hla) AND (peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*)'', ( tcr OR 't cell' OR t-cell) AND (mhc OR peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*)} \\
+				
+				
+				\textit{Pipelines} & \textit{(pipeline OR toolkit) AND ( tcr OR 't cell' OR t-cell OR mhc OR hla OR peptide OR epitope OR antigen* OR neoantigen*) (pipeline OR tool* OR workflow OR application OR web* ) AND ( peptide OR epitope OR antigen* OR neoantigen* OR neoepito*) AND (immunotherapy OR detection OR identify* OR predict* OR presentation*)}\\
+				
+				Ensayos clínicos &  \textit{(neoantigen OR neoepitope OR denditric cell) AND (vaccines OR immunology)}
+				
+		\end{tabular}}
+	\end{table}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Estado del arte}{Bases de datos de busqueda}
+	
+	\begin{table}[H]
+		\centering
+		\begin{center}
+			\caption{Bases de datos utilizadas en la RSL.}
+			\label{tab:bd_RSL}
+			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+			{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+				\begin{tabular}{p{3cm}}
+					\textbf{Bases de datos} \\ \hline
+					PubMed                                                                               \\
+					Scopus \\				
+					Google schoolar          \\
+					Web of Science                                                                                               
+				\end{tabular}
+			}
+		\end{center}
+	\end{table}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Estado del arte}{Criterios de inclusión}
+	
+\begin{table}[h]
+	\begin{center}
+		\caption{Criterios de inclusión y exclusión.}
+		\label{tab:criterios}
+		\scriptsize
+		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+			\begin{tabular}{p{5cm}p{5cm}}
+				\textbf{Criterio de inclusión}                                                   & \textbf{Criterio de exclusión}                                                           \\ \hline
+				Artículos en revistas Q1 o Q2 según Scimago o Conferencias ERA (A o B). & Artículos de Conferencias de bajo nivel.  \\
+				
+				Artículos publicados desde el 2018. & Publicaciones que no son del área de computación o Bioinformática. \\      
+				
+				Artículos que hagan uso de \textit{Transformers} o \textit{Deep Learning} con mecanismos de atención. & \\                                                                                                 
+			\end{tabular}
+		}
+	\end{center}
+\end{table}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Estado del arte}{\textit{Papers} seleccionados}
+	\begin{block}{}
+		Se realizo un filtro por título, obteniendo un total de \textbf{151 artículos}. Luego, se seleccionó un subconjunto en función de los criterios de inclusión, y finalmente, se revisó el \textit{abstract} de cada uno para llegar a un número de \textbf{79 artículos}.
+	\end{block}
+
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Estado del arte}{Resumen}
+	
+	%\fontsize{12pt}{10pt}\selectfont
+	
+	\begin{table}[]
+		\caption{Redes \textit{Transformers} utilizadas en la predicción del enlace pMHC.}
+		\label{tab:transformes}
+		\setlength{\tabcolsep}{0.6em} % for the horizontal padding
+		{\renewcommand{\arraystretch}{1.6}% for the vertical padding
+			
+			\begin{footnotesize}
+				\begin{tabular}{p{1cm}p{1.5cm}p{7cm}}
+					\multicolumn{1}{l}{\textbf{Year}}                                   & \textbf{Name}                       & \textbf{Model}     \\  \hline
+					
+					2022\cite{zhang2022hlab}&	\textbf{HLAB}&	BERT de ProtBert en cascada con BiLSTM.	\\
+					
+					2022\cite{wang2022mhcroberta}          & MHC RoBERTa             &  RoBERTa  pre-entrenado y seguido de 12 \textit{multi-head} SA y una capa lineal.                                                                                     \\
+					2022\cite{chu2022transformer}          & TransPHLA                     & Usa SA basado en cuatro bloques. \\
+					
+					2021\cite{gasser2021interpreting}  & \textbf{ImmunoBERT}                              & BERT TAPE pre-entrenado y seguido de una capa lineal. Se enfocó en pMHC-I.  \\
+					
+					2021\cite{cheng2021bertmhc}             & \textbf{BERTMHC}                            & BERT TAPE pre-entrenado y seguido de una capa lineal. Se enfocó en pMHC-II. \\
+					
+				\end{tabular}
+			\end{footnotesize}
+		}
+	\end{table}
+	
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -484,6 +639,57 @@
 %-------------------------------------------------------
 \begin{frame}{Propuesta}{\textit{Fine-tuning}}
 	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{../img/proposal/fine-tuning}	
+		\caption{Ejemplo de \textit{Fine-tuning}. Fuente: \cite{prince2023understanding}.}		
+	\end{figure}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Propuesta}{\textit{Fine-tuning}}
+	
+	\begin{block}{}
+		La arquitectura BERT, precede a un bloque BiLSTM. Este está compuesto por\textbf{ dos capas con 768 unidades} (inspirados en HLAB \cite{zhang2022hlab}).
+	\end{block}
+
+	\begin{block}{}
+		Se utilizo los siguientes hiperparametros:
+		\begin{itemize}
+			\item $lr = 5e^{-5}$.
+			\item \textit{weight decay} $ =0.0001$ (regularización).
+			%\item \textit{momentum} $= 0.9$.
+			\item \textit{linear warn-up steps} de 1000.
+			\item Optimizador ADAM: ($\beta_1 = 0.9, \beta_2=0.999$).
+			\item \textit{Early stopping}.
+		\end{itemize}
+	
+		  Estos valores fueron utilizados por BERTMHC \cite{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}.
+	\end{block}
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Propuesta}{Ambiente de trabajo}
+	
+	\begin{block}{Librerías}
+		Se utilizó \textbf{PyTorch 1.13} y\textbf{ Python 3.9} para definir los modelos de \textit{deep learning}.
+	\end{block}
+	
+	\begin{block}{GPU}
+		Se utilizo dos GPU: 
+		\begin{itemize}
+			\item GPU propia: RTX3070 (8GB).
+			\item GPU de la plataforma Paperspace.
+		\end{itemize}
+	\end{block}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -491,7 +697,23 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Propuesta}{\textit{Gradient Accumulation Steps}}
-	
+		\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{../img/proposal/gas}	
+		\caption{Ejemplo de GAS. Fuente: \cite{prince2023understanding}.}		
+	\end{figure}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Propuesta}{\textit{Gradient Accumulation Steps}}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{../img/proposal/gas2}	
+		\caption{Ejemplo de GAS. Fuente: \cite{gas2023}.}		
+	\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -499,7 +721,11 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Propuesta}{\textit{Congelamiento de capas}}
-	
+		\begin{figure}
+		\centering
+		\includegraphics[width=0.9\textwidth]{../img/proposal/layer}	
+		\caption{Ejemplo de congelamiento de capas. Fuente: \cite{layerf2023}.}		
+	\end{figure}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -692,7 +918,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Discusión y Conclusiones}
+\section{Discusión}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -724,19 +950,19 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Discusión}{Congelamiento de capas y GAS}
+%\begin{frame}{Discusión}{Congelamiento de capas y GAS}
 	
 	
-	\begin{block}{Congelamiento de capas}
-	Para los modelos ESM2, esta metodología arrojó los mejores resultados, mientras que para TAPE y ProtBert-BFD, produjo los resultados esperados
-	\end{block}
+%	\begin{block}{Congelamiento de capas}
+%	Para los modelos ESM2, esta metodología arrojó los mejores resultados, mientras que para TAPE y ProtBert-BFD, produjo los resultados esperados
+%	\end{block}
 
-\pause
+%\pause
 	
-	\begin{block}{GAS}
-	Esta técnica alivia ligeramente el problema de \textit{vanish gradients} acumulando las gradientes durante las iteraciones. En si, este técnica extiende la cantidad de iteraciones de entrenamiento que se pueden realizar antes de que el modelo posiblemente vuelva a enfrentar el problema de \textit{vanish gradient}.
-	\end{block}
-\end{frame}
+%	\begin{block}{GAS}
+%	Esta técnica alivia ligeramente el problema de \textit{vanish gradients} acumulando las gradientes durante las iteraciones. En si, este técnica extiende la cantidad de iteraciones de entrenamiento que se pueden realizar antes de que el modelo posiblemente vuelva a enfrentar el problema de \textit{vanish gradient}.
+%	\end{block}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -777,16 +1003,143 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 
+
+\section{Conclusiones}
+
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}[allowframebreaks]
-	\frametitle{References}
-	%\bibliographystyle{amsalpha}
-	\bibliographystyle{IEEEtran}
-	\bibliography{../bibliography_thesis.bib}
+\begin{frame}{Conclusiones}{PRIMERA}
+	
+	\begin{block}{PRIMERA}
+		Se revisó y analizó los métodos que utilizan \textit{Transformers} para la predicción del enlace pMHC.  Este análisis ha demostrado que existen varios problemas como: 
+		\pause
+		\begin{itemize}
+			\item No inclusión de datos de MS.\pause
+			\item Bajo rendimiento en las herramientas de predicción pMHC y PMHC-TCR.\pause
+			\item Falta de métodos para la detección de fusión de genes y \textit{alternative splicing}.
+		\end{itemize}
+
+	\pause
+		\textbf{Sin embargo, a pesar de estas limitaciones, ya se han realizado ensayos clínicos con resultados motivadores.}
+	\end{block}
+	
+	
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Conclusiones}{SEGUNDA}	
+	\begin{block}{SEGUNDA}
+		Se analizó los modelos \textit{Transformers} pre-entrenados como: TAPE, ProtBert-BFD, y la familia de modelos de EMS2, para tareas de Proteómica.
+			\pause
+		
+		\begin{itemize}
+			\item ProtBert-BFD fue entrenado con la base de datos mas grande proteínas (2122M). \pause
+			\item TAPE se entreno con la base de datos mas pequeña (30M). \pause
+			\item Familia de modelos ESM2, recientemente publicada (60M). 
+		\end{itemize}	
+	
+	\end{block}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Conclusiones}{TERCERA}	
+	\begin{block}{TERCERA}
+		Se aplicó \textit{fine-tuning} a los seis modelos pre-entenados agregando un bloque BiLSTM. Adicionalmente, se evaluó el uso de GAS y una metodología congelamiento de capas. \pause
+		\begin{itemize}
+			\item Los modelos ESM2 mejoran al aplicar el congelamiento de capas. \pause
+			\item GAS ofreció una mitigación menor del problema de \textit{vanish gradientes}, lo que permitió el entrenamiento efectivo de modelos más grandes.
+			\item ProtBert, era uno de los modelos mas grandes y obtuvo un desempeño pobre. \pause
+			\item TAPE obtuvo los mejores resultados, el cual se debe a la calidad de las muestras utilizadas en su pre-entrenamiento.
+		\end{itemize}			
+	\end{block}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Conclusiones}{CUARTA}	
+	\begin{block}{CUARTA}
+		Se volvió a entrenar los modelos de mejor desempeño ESM2(t6)-Freeze y TAPE-GAS, por 30 \textit{epochs},  y luego se realizó una comparación con: NetMHCpan4.1, MHCflurry2.0, Anthem, ACME y MixMHCpred2.2. \pause
+		\begin{itemize}
+			\item Los modelos propuestos ESM2(t6)-Freeze y TAPE-GAS superaron a los demás métodos del estado del arte en \textit{AUC, accuracy, recall, f1-score} y MCC. 
+		\end{itemize}			
+	\end{block}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Conclusiones}{QUINTA}	
+	\begin{block}{QUINTA}
+		Se ha implementado un método  \textit{in silico} basado en \textit{Transformers} y \textit{Transfer Learning} para la detección de neoantígenos, enfocados en la predicción de la unión pMHC. 
+		
+		\begin{itemize}
+			\item El método implementado obtuvo el mejor desempeño en términos de AUC, \textit{accuracy, recall, f1-score} y MCC. Está publicado en: \chref{https://github.com/arceda/pmhc}{https://github.com/arceda/pmhc}	
+		\end{itemize}
+		
+	\end{block}	
+
+
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Trabajos Futuros}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Trabajos Futuros}{}	
+	\begin{block}{}
+		\begin{itemize}
+			\item Evaluar modelos grandes como: ProtT5-XL y ProtT5-XXL, ESM2(t36) y ESM2(t48) en otras bases de datos.
+			\item Evaluar otras estrategias de entrenamiento como DistilBERT y LoRA.
+			\item Evaluar el uso arquitecturas basadas en grafos en el proceso de \textit{fine-tuning}.
+			\item Desarrollar un \textit{pipeline} para la detección de neoantígenos.
+		\end{itemize}
+	\end{block}	
+	
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+\section{Contribuciones y Publicaciones}
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Publicaciones}{}	
+	\begin{block}{Conference Proceding}
+		\begin{itemize}
+			\item \textit{``Deep Learning and Transformers in MHC-Peptide Binding and Presentation Towards Personalized Vaccines in Cancer Immunology: A Brief Review''} \cite{machaca2023deep}.
+			\item \textit{``Neoantigen Detection Using Transformers and Transfer Learning in the Cancer Immunology Context''} \cite{arceda2023neoantigen}.
+		\end{itemize}
+	\end{block}	
+
+	\begin{block}{Journals}
+		\begin{itemize}
+			\item \textit{``Transformers Meets Neoantigen Detection: A Systematic Literature Review''} (Aceptado Q2).
+			\item \textit{``Fine-tuning Transformers for Peptide-MHC Class I Binding Prediction''} (En evaluación Q1).
+		\end{itemize}
+	\end{block}
+	
+	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
 
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -816,5 +1169,16 @@
 	%-------------------------------------------------------
 	%-------------------------------------------------------
 	
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}[allowframebreaks]
+	\frametitle{References}
+	%\bibliographystyle{amsalpha}
+	\bibliographystyle{IEEEtran}
+	\bibliography{../bibliography_thesis.bib}
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
 
 \end{document}
