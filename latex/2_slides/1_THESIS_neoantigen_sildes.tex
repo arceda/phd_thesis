@@ -120,17 +120,17 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Contexto y Motivación}{}
-	\begin{block}{}
-		An la actualidad, el cáncer representa el mayor problema de salud mundial \cite{siegel2023cancer}.
-	\end{block}
+%\begin{frame}{Contexto y Motivación}{}
+%	\begin{block}{}
+%		An la actualidad, el cáncer representa el mayor problema de salud mundial \cite{siegel2023cancer}.
+%	\end{block}
 
 	%\begin{figure}[]
 	%	\centering
 	%	\includegraphics[width=\textwidth]{../img/introduction/cancer_deaths}
 	%	\caption{Ranking de las muertes por cáncer entre 30 y 69 años. \textbf{Fuente}: Atlas Cancer \cite{canceratlas2023}.}
 	%\end{figure}
-\end{frame}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -229,14 +229,14 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Inmunoterapia del Cáncer}{}		
-	Es un tipo de tratamiento contra el Cáncer que estimula las defensas naturales del cuerpo para combatir el Cáncer \cite{inmunoterapy2022}.
+%\begin{frame}{Inmunoterapia del Cáncer}{}		
+%	Es un tipo de tratamiento contra el Cáncer que estimula las defensas naturales del cuerpo para combatir el Cáncer \cite{inmunoterapy2022}.
 		
-	\begin{figure}
-		\includegraphics[width=0.85\textwidth]{../img/neoantigen/tcell}
-		\caption{Ejemplo de como una célula T destruye células del cancer \cite{nortshore2022}.}
-	\end{figure}		
-\end{frame}
+%	\begin{figure}
+%		\includegraphics[width=0.85\textwidth]{../img/neoantigen/tcell}
+%		\caption{Ejemplo de como una célula T destruye células del cancer \cite{nortshore2022}.}
+%	\end{figure}		
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -432,13 +432,13 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{Publicaciones sobre estudios de Neoantígenos}	
-		\begin{figure}
-		\centering
-		\includegraphics[width=\textwidth]{../img/state_of_art/papers_pubmed}	
-		\caption{Publicaciones sobre estudios de Neoantígenos. Fuente: PubMed.}
-	\end{figure}
-\end{frame}
+%\begin{frame}{Estado del arte}{Publicaciones sobre estudios de Neoantígenos}	
+%		\begin{figure}
+%		\centering
+%		\includegraphics[width=\textwidth]{../img/state_of_art/papers_pubmed}	
+%		\caption{Publicaciones sobre estudios de Neoantígenos. Fuente: PubMed.}
+%	\end{figure}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -457,79 +457,79 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{Preguntas de investigación}
+%\begin{frame}{Estado del arte}{Preguntas de investigación}
 	
-	\begin{table}[h]
-		\begin{center}
-			\caption{Preguntas de investigación}
-			\label{tab:questions}
-			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-			{\renewcommand{\arraystretch}{1.4}% for the vertical padding
-				\begin{tabular}{p{8.5cm}}
-					\textbf{Preguntas de investigación} \\ \hline
-					\textbf{Q1}. ¿Como se aplican los modelos \textit{Transformers} para la detección de neoantígenos? \\
-					\textbf{Q2}. ¿Que problemas y limitaciones hacen frente los modelos \textit{Transformers} en la detección de neoantígenos? \\
-					\textbf{Q3}.  ¿Que \textit{pipelines} se han desarrollado para la detección de neoantígenos? \\
-					\textbf{Q4}.  ¿Que pruebas clínicas, de vacunas personalizadas de neoantígenos, han sido aplicadas? \\		
-				\end{tabular}
-			}
-		\end{center}
-	\end{table}
+%	\begin{table}[h]
+%		\begin{center}
+%			\caption{Preguntas de investigación}
+%			\label{tab:questions}
+%			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+%			{\renewcommand{\arraystretch}{1.4}% for the vertical padding
+%				\begin{tabular}{p{8.5cm}}
+%					\textbf{Preguntas de investigación} \\ \hline
+%					\textbf{Q1}. ¿Como se aplican los modelos \textit{Transformers} para la detección de neoantígenos? \\
+%					\textbf{Q2}. ¿Que problemas y limitaciones hacen frente los modelos \textit{Transformers} en la detección de neoantígenos? \\
+%					\textbf{Q3}.  ¿Que \textit{pipelines} se han desarrollado para la detección de neoantígenos? \\
+%					\textbf{Q4}.  ¿Que pruebas clínicas, de vacunas personalizadas de neoantígenos, han sido aplicadas? \\		
+%				\end{tabular}
+%			}
+%		\end{center}
+%	\end{table}
 	
-\end{frame}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{Cadena de busqueda}
+%\begin{frame}{Estado del arte}{Cadena de busqueda}
 	
-	\begin{table}[]
-		\caption{Cadenas de búsqueda utilizadas para cada fase de detección de neoantígenos.}
-		\label{tab:search}
-		\centering
-		\tiny
-		\setlength{\tabcolsep}{0.5em} % para el espaciado horizontal
-		{\renewcommand{\arraystretch}{1.7}% para el espaciado vertical
-			\begin{tabular}{p{3cm}p{7cm}}
-				\textbf{Categoría} & \textbf{Cadena de búsqueda} \\ \hline
-				Priorización de neoantígenos & \textit{(mhc OR hla) AND (peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*)'', ( tcr OR 't cell' OR t-cell) AND (mhc OR peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*)} \\
+%	\begin{table}[]
+%		\caption{Cadenas de búsqueda utilizadas para cada fase de detección de neoantígenos.}
+%		\label{tab:search}
+%		\centering
+%		\tiny
+%		\setlength{\tabcolsep}{0.5em} % para el espaciado horizontal
+%		{\renewcommand{\arraystretch}{1.7}% para el espaciado vertical
+%			\begin{tabular}{p{3cm}p{7cm}}
+%				\textbf{Categoría} & \textbf{Cadena de búsqueda} \\ \hline
+%				Priorización de neoantígenos & \textit{(mhc OR hla) AND (peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*)'', ( tcr OR 't cell' OR t-cell) AND (mhc OR peptide OR epitope OR antigen) AND (specificity OR immunogenicity OR binding OR affinity OR predict* OR detection OR presentation OR classification) AND (transformer* OR bert* OR attention OR 'transfer learning' OR method* OR predict*)} \\
 				
 				
-				\textit{Pipelines} & \textit{(pipeline OR toolkit) AND ( tcr OR 't cell' OR t-cell OR mhc OR hla OR peptide OR epitope OR antigen* OR neoantigen*) (pipeline OR tool* OR workflow OR application OR web* ) AND ( peptide OR epitope OR antigen* OR neoantigen* OR neoepito*) AND (immunotherapy OR detection OR identify* OR predict* OR presentation*)}\\
+%				\textit{Pipelines} & \textit{(pipeline OR toolkit) AND ( tcr OR 't cell' OR t-cell OR mhc OR hla OR peptide OR epitope OR antigen* OR neoantigen*) (pipeline OR tool* OR workflow OR application OR web* ) AND ( peptide OR epitope OR antigen* OR neoantigen* OR neoepito*) AND (immunotherapy OR detection OR identify* OR predict* OR presentation*)}\\
 				
-				Ensayos clínicos &  \textit{(neoantigen OR neoepitope OR denditric cell) AND (vaccines OR immunology)}
+%				Ensayos clínicos &  \textit{(neoantigen OR neoepitope OR denditric cell) AND (vaccines OR immunology)}
 				
-		\end{tabular}}
-	\end{table}
-\end{frame}
+%		\end{tabular}}
+%	\end{table}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{Bases de datos de búsqueda}
+%\begin{frame}{Estado del arte}{Bases de datos de búsqueda}
 	
-	\begin{table}[H]
-		\centering
-		\begin{center}
-			\caption{Bases de datos utilizadas en la RSL.}
-			\label{tab:bd_RSL}
-			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-			{\renewcommand{\arraystretch}{1.2}% for the vertical padding
-				\begin{tabular}{p{3cm}}
-					\textbf{Bases de datos} \\ \hline
-					PubMed                                                                               \\
-					Scopus \\				
-					Google schoolar          \\
-					Web of Science                                                                                               
-				\end{tabular}
-			}
-		\end{center}
-	\end{table}
+%	\begin{table}[H]
+%		\centering
+%		\begin{center}
+%			\caption{Bases de datos utilizadas en la RSL.}
+%			\label{tab:bd_RSL}
+%			\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+%			{\renewcommand{\arraystretch}{1.2}% for the vertical padding
+%				\begin{tabular}{p{3cm}}
+%					\textbf{Bases de datos} \\ \hline
+%					PubMed                                                                               \\
+%					Scopus \\				
+%					Google schoolar          \\
+%					Web of Science                                                                                               
+%				\end{tabular}
+%			}
+%		\end{center}
+%	\end{table}
 	
-\end{frame}
+%\end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
 
@@ -537,26 +537,26 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{Criterios de inclusión}
+%\begin{frame}{Estado del arte}{Criterios de inclusión}
 	
-\begin{table}[h]
-	\begin{center}
-		\caption{Criterios de inclusión y exclusión.}
-		\label{tab:criterios}
-		\scriptsize
-		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-		{\renewcommand{\arraystretch}{1.5}% for the vertical padding
-			\begin{tabular}{p{5cm}p{5cm}}
-				\textbf{Criterio de inclusión}                                                   & \textbf{Criterio de exclusión}                                                           \\ \hline
-				Artículos en revistas Q1 o Q2 según Scimago o Conferencias ERA (A o B). & Artículos de Conferencias de bajo nivel.  \\
+%\begin{table}[h]
+%	\begin{center}
+%		\caption{Criterios de inclusión y exclusión.}
+%		\label{tab:criterios}
+%		\scriptsize
+%		\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+%		{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+%			\begin{tabular}{p{5cm}p{5cm}}
+%				\textbf{Criterio de inclusión}                                                   & \textbf{Criterio de exclusión}                                                           \\ \hline
+%				Artículos en revistas Q1 o Q2 según Scimago o Conferencias ERA (A o B). & Artículos de Conferencias de bajo nivel.  \\
 				
-				Artículos publicados desde el 2018. & Publicaciones que no son del área de computación o Bioinformática. \\      
+%				Artículos publicados desde el 2018. & Publicaciones que no son del área de computación o Bioinformática. \\      
 				
-				Artículos que hagan uso de \textit{Transformers} o \textit{Deep Learning} con mecanismos de atención. & \\                                                                                                 
-			\end{tabular}
-		}
-	\end{center}
-\end{table}
+%				Artículos que hagan uso de \textit{Transformers} o \textit{Deep Learning} con mecanismos de atención. & \\                                                                                                 
+%			\end{tabular}
+%		}
+%	\end{center}
+%\end{table}
 	
 \end{frame}
 %-------------------------------------------------------
@@ -566,8 +566,12 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Estado del arte}{\textit{Papers} seleccionados}
+        \begin{block}{}
+            Se establecieron, preguntas de investigación, criterios de inclusión, cadenas de búsqueda y se busco en PudMed, Scopus y Google Schoolar.
+        \end{block}
+
 	\begin{block}{}
-		Se realizo un filtro por título, obteniendo un total de \textbf{151 artículos}. Luego, se seleccionó un subconjunto en función de los criterios de inclusión, y finalmente, se revisó el \textit{abstract} de cada uno para llegar a un número de \textbf{79 artículos}.
+		Primer filtro por título (\textbf{151 artículos}). Luego, según los criterios de inclusión y lectura del \textit{abstract} se obtuvo \textbf{79 artículos}.
 	\end{block}
 
 	
@@ -977,8 +981,8 @@
 
 	\begin{block}{}
 		\begin{itemize}
-			\item  Ruido en las muestras y a los errores en las secuencias en el conjunto de datos BFD \cite{elnaggar2021prottrans}
-			\item Los modelos \textit{Transformer} grandes requieren más datos para el entrenamiento \cite{elnaggar2021prottrans}, y en nuestro caso este modelo se entreno con 559,019 muestras.
+			\item  Ruido en las muestras y a los errores en las secuencias en el conjunto de datos BFD \cite{elnaggar2021prottrans}.
+			%\item Los modelos \textit{Transformer} grandes requieren más datos para el entrenamiento \cite{elnaggar2021prottrans}, y en nuestro caso este modelo se entreno con 559,019 muestras.
 		\end{itemize}
 	\end{block}
 	
@@ -1015,7 +1019,7 @@
 		\pause
 		\begin{itemize}
 			\item No inclusión de datos de MS.\pause
-			\item Bajo rendimiento en las herramientas de predicción pMHC y PMHC-TCR.\pause
+			\item Bajo rendimiento en las herramientas de predicción pMHC y pMHC-TCR.\pause
 			\item Falta de métodos para la detección de fusión de genes y \textit{alternative splicing}.
 		\end{itemize}
 
