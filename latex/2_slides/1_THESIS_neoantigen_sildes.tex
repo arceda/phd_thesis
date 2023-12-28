@@ -509,7 +509,7 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Estado del arte}{Bases de datos de busqueda}
+\begin{frame}{Estado del arte}{Bases de datos de búsqueda}
 	
 	\begin{table}[H]
 		\centering
@@ -591,7 +591,7 @@
 			
 			\begin{footnotesize}
 				\begin{tabular}{p{1cm}p{1.5cm}p{7cm}}
-					\multicolumn{1}{l}{\textbf{Year}}                                   & \textbf{Name}                       & \textbf{Model}     \\  \hline
+					\multicolumn{1}{l}{\textbf{Año}}                                   & \textbf{Nombre}                       & \textbf{Modelo}     \\  \hline
 					
 					2022\cite{zhang2022hlab}&	\textbf{HLAB}&	BERT de ProtBert en cascada con BiLSTM.	\\
 					
@@ -930,7 +930,7 @@
 \begin{frame}{Discusión}{¿Porque el modelo mas pequeño de la familia ESM2 es el mejor?}
 	
 	\begin{block}{}
-		El modelo más pequeño, ESM2(t6) supero a los demas. Las causas de este fenómeno pueden ser: 
+		El modelo más pequeño, ESM2(t6) supero a los demás. Las causas de este fenómeno pueden ser: 
 	
 	\end{block}
 	
@@ -969,7 +969,7 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Discusión}{TAPE, ProtBert-BFD and ESM2}
+\begin{frame}{Discusión}{TAPE, ProtBert-BFD y ESM2}
 	
 	\begin{block}{ProtBert-BFD}
 		ProtBert-BFD (420M parámetros) obtuvo el peor resultado a pesar de que este modelo fue \textbf{pre-entrenado con el conjunto de datos más grande (2122 millones de muestras)}. Las causas son: 
@@ -990,14 +990,14 @@
 
 %-------------------------------------------------------
 %-------------------------------------------------------
-\begin{frame}{Discusión}{TAPE, ProtBert-BFD and ESM2}
+\begin{frame}{Discusión}{TAPE, ProtBert-BFD y ESM2}
 	
 	\begin{block}{TAPE}
 		TAPE logró los mejores resultados. Este solo fue pre-entrenado con 30 millones de muestras; sin embargo, secuencias pertenecen a \textit{Reference Proteomes} en lugar de abarcar toda la base de datos de UniProtKB \cite{finn2016pfam}. 
 	\end{block}
 	
 	\begin{block}{ESM2}
-		ESM2(t6) logró resultados que compiten estrechamente con el desempeño de TAPE; sin embargo ESM2(t6) tiene 8M versus los 92M de parámetros de TAPE.		
+		ESM2(t6) logró resultados que compiten estrechamente con el desempeño de TAPE; sin embargo ESM2(t6) tiene 8M contra los 92M de parámetros de TAPE.		
 	\end{block}
 \end{frame}
 %-------------------------------------------------------
@@ -1050,7 +1050,7 @@
 %-------------------------------------------------------
 \begin{frame}{Conclusiones}{TERCERA}	
 	\begin{block}{TERCERA}
-		Se aplicó \textit{fine-tuning} a los seis modelos pre-entenados agregando un bloque BiLSTM. Adicionalmente, se evaluó el uso de GAS y una metodología congelamiento de capas. \pause
+		Se aplicó \textit{fine-tuning} a los seis modelos pre-entrenados agregando un bloque BiLSTM. Adicionalmente, se evaluó el uso de GAS y una metodología congelamiento de capas. \pause
 		\begin{itemize}
 			\item Los modelos ESM2 mejoran al aplicar el congelamiento de capas. \pause
 			\item GAS ofreció una mitigación menor del problema de \textit{vanish gradientes}, lo que permitió el entrenamiento efectivo de modelos más grandes.
@@ -1083,11 +1083,8 @@
 		
 		\begin{itemize}
 			\item El método implementado obtuvo el mejor desempeño en términos de AUC, \textit{accuracy, recall, f1-score} y MCC. Está publicado en: \chref{https://github.com/arceda/pmhc}{https://github.com/arceda/pmhc}	
-		\end{itemize}
-		
+		\end{itemize}		
 	\end{block}	
-
-
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -1109,9 +1106,7 @@
 			\item Evaluar el uso arquitecturas basadas en grafos en el proceso de \textit{fine-tuning}.
 			\item Desarrollar un \textit{pipeline} para la detección de neoantígenos.
 		\end{itemize}
-	\end{block}	
-	
-	
+	\end{block}		
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -1121,7 +1116,7 @@
 %-------------------------------------------------------
 %-------------------------------------------------------
 \begin{frame}{Publicaciones}{}	
-	\begin{block}{Conference Proceding}
+	\begin{block}{Conference Proceeding}
 		\begin{itemize}
 			\item \textit{``Deep Learning and Transformers in MHC-Peptide Binding and Presentation Towards Personalized Vaccines in Cancer Immunology: A Brief Review''} \cite{machaca2023deep}.
 			\item \textit{``Neoantigen Detection Using Transformers and Transfer Learning in the Cancer Immunology Context''} \cite{arceda2023neoantigen}.
@@ -1133,9 +1128,41 @@
 			\item \textit{``Transformers Meets Neoantigen Detection: A Systematic Literature Review''} (Aceptado Q2).
 			\item \textit{``Fine-tuning Transformers for Peptide-MHC Class I Binding Prediction''} (En evaluación Q1).
 		\end{itemize}
-	\end{block}
-	
-	
+	\end{block}	
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Doctoral Consortium}{}	
+	\begin{block}{Doctoral Consortium}
+		\begin{itemize}
+			\item \textit{``Neoantigen detection using transformers and transfer learning in the cancer immunology context}, presentado en \textbf{\textit{Doctoral Consortium of The International Conference on Practical Applications of Computational Biology and Bioinformatics''}}.
+			\item \textit{``Prediction of MHC-peptide binding and presentation using transformers and transfer learning 
+in cancer immunology context}, presentado en \textbf{\textit{Doctoral Consortium of The International Federation for Information Processing (IFIP)''}}.
+		\end{itemize}
+	\end{block}	
+
+\end{frame}
+%-------------------------------------------------------
+%-------------------------------------------------------
+
+%-------------------------------------------------------
+%-------------------------------------------------------
+\begin{frame}{Proyectos de investigación}{}	
+	\begin{block}{Terminados}
+		\begin{itemize}
+			\item Principales estrategias y métodos basados en deep learning para la detección de neo antígenos en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del cáncer.			
+		\end{itemize}
+	\end{block}	
+
+	\begin{block}{En ejecución}
+		\begin{itemize}
+			\item Desarrollo de una Aplicación Web para la predicción del enlace pMHC usando BERT y LoRA.
+			\item NeoArgos-tools: Un Pipeline de Detección In-silico de Neoantígenos de Cáncer para el Desarrollo de Vacunas Personalizadas
+		\end{itemize}
+	\end{block}	
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
@@ -1176,7 +1203,7 @@
 	\frametitle{References}
 	%\bibliographystyle{amsalpha}
 	\bibliographystyle{IEEEtran}
-	\bibliography{../bibliography_thesis.bib}
+	\bibliography{bibliography_thesis.bib}
 \end{frame}
 %-------------------------------------------------------
 %-------------------------------------------------------
