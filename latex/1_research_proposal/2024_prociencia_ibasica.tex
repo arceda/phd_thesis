@@ -53,7 +53,7 @@
 \part*{Propuesta de la Investigación}
 
 \section{Título}
-Desarrollo de una herramienta \textit{in silico} para la detección de neoantígenos a partir de datos genómicos en el marco de desarrollo de vacunas personalizadas para tratar el cancer.
+Desarrollo de una herramienta  para la detección \textit{in silico} de neoantígenos a partir de datos genómicos en el marco de desarrollo de vacunas personalizadas para tratar el cancer.
 
 \section{Problema}
 
@@ -184,7 +184,16 @@ Es así que se propone el desarrollo de un \textit{pipeline}, que incorpora el u
 
 
 
-\section{Resultados o avances previos}
+%\section{Resultados o avances previos}
+
+
+
+
+
+
+
+
+
 
 \section{Justificación}
 
@@ -194,30 +203,33 @@ El proyecto tiene dos contribuciones: CONTRIBUCIÓN 01: En el área de ciencia d
 
 Finalmente, el contar con una aplicación de detección de neoantígenos desarrollada por la Universidad La Salle y la Universidad Católica San Pablo, realza el nombre de ambas universidades y demuestra que gracias al trabajo en conjunto se puede desarrollar aplicaciones de gran envergadura aplicadas a campos multidisciplinarios y nos alinea a instituciones como el \textit{European Molecular Biology Laboratory} (EMBL) y el \textit{National Institutes of Health} (NIH).
 
-\section{Porqué es una investigación básica}
+%\section{Porqué es una investigación básica}
 	
-\section{Pregunta de investigación}	
+%\section{Pregunta de investigación}	
 	
 \section{Objetivos de la investigación}
 	
 	\subsection{Objetivo general}
 	
-	Desarrollar el \textit{pipeline} NeoArgos-tools de detección \textit{in-silico} de neoantígenos de cáncer para el desarrollo de vacunas personalizadas.
+	Desarrollar una herramienta  para la detección \textit{in silico} de neoantígenos de cáncer a partir de datos genómicos RNA-seq y DNA-seq.
 	
 	\subsection{Objetivos específicos}
 	\begin{enumerate}
-		\item Analizar qué fuentes de información o datos de entrada recibirá el \textit{pipeline}. Se evaluará DNA-seq, RNA-seq, VCF y como integrar esta información con datos de MS.
+		\item Analizar qué fuentes de información o datos de entrada recibirá la herramienta. Se evaluará DNA-seq, RNA-seq, \textit{Variant Calling File} (VCF) y como integrar esta información con datos de \textit{Mass Spectrometry} (MS).
 		
-		\item Analizar qué herramientas se utilizarán para la primera etapa del \textit{pipeline}, referente al alineamiento de secuencias, llamado de variantes y  anotación de variantes (predicción de posibles neoantígenos). 
+		\item Analizar qué herramientas se utilizarán para la primera etapa de la herramienta, referente al alineamiento de secuencias, llamado de variantes y  anotación de variantes (predicción de posibles neoantígenos). 
 		
 		\item Analizar el uso de información de variaciones estructurales del ADN y mutaciones de fusión de genes. Se evaluará el desempeño de \textit{Arriba} \citep{uhrig2021accurate} y FusionQ \citep{liu2013fusionq}.
+
+        \item Evaluar métodos de detección de eventos de \textit{alternative splicing} y analizar la aplicación de estos al integrarse a la herramienta para la detección de neoantígenos.
 		 
 		\item Implementar un modelo basado en \textit{transformers} para la predicción del enlace de los neoantígenos al MHC (pMHC). Ya se cuenta con resultados previos de una propuesta que es superior a otras del estado del arte \citep{arceda2023neoantigen}.
 
         \item Implementar un modelo basado en \textit{transformers} para la predicción del enlace del enlace pMHC al TCR (pMGC-TCR). 
        
-		\item Integrar las herramientas evaluadas en un contenedor Docker.
-		\item Comparar el desempeño del \textit{pipeline} con otras herramientas del estado del arte.
+	\item Integrar las herramientas evaluadas en un contenedor Docker.
+		
+        \item Comparar el desempeño de la herramienta propuesta con otras herramientas del estado del arte.
 
 		
 	\end{enumerate}
@@ -299,82 +311,17 @@ La misma arquitectura de la Figura \ref{fig:proposal}, se utilizará para la pre
 
 
 
-\section{Limitaciones}
+%\section{Limitaciones}
 
+%\section{Describa el equipamiento e infraestructura disponible}
 
+%\section{Resultados esperados}
 
-\section{Describa el equipamiento e infraestructura disponible}
+%\section{Cronograma de Actividades}
 
+%\section{Sostenibilidad de la propuesta}
 
-\section{Resultados esperados}
-
-\section{Cronograma de Actividades}
-En la Tabla \ref{tab:actv}, presentamos el cronograma de actividades por mes. Adicionalmente, se tendrán reuniones semanales con el equipo de trabajo para comunicar resultados y compartir conocimiento.
-
-
-\begin{table}[H]
-	\centering
-	\setlength{\tabcolsep}{0.6em} % for the horizontal padding
-	{\renewcommand{\arraystretch}{1.7}% for the vertical padding
-		\caption{Cronograma de actividades por mes.}
-		\label{tab:actv}
-		{\small
-			\begin{tabular}{|p{10cm}|l|c|c|c|c|c|c|c|c|} \hline
-				\textbf{Actividades}                                  &   \textbf{Entregable}         & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8  \\ \hline
-				
-				\textbf{HITO I (NeoArgosMut)} &  Informe & & & & & & & & \\
-				Revisión de la literatura       &                       & x                     & x                      & x                       & x                      &     x                  &      x                  &                                              &    \\
-				
-				Reuniones con todo el equipo de trabajo para el control de actividades       &                       & x                     & x                      & x                       & x                      &     x                  &      x                  &         x                                     &  x  \\
-				
-				
-				Capacitación a los miembros del equipo en Bioinformática e Immunoinformática       &                       & x                     & x                      &                        &                       &                       &                        &                                              &    \\
-				
-				
-				Análisis y evaluación de herramientas para alineamiento de secuencias.       &                       & x                     & x                      &                        & 
-				&                       &                        &                                              &    \\
-				
-				Análisis y evaluación de herramientas para la detección de mutaciones y variantes.       &       & x                     &                 x      &                        &                     &                       &                        &                                              &    \\
-				
-				Análisis y evaluación de métodos para integrar datos MS con DNA-seq y RNA-seq.       &       & x                     &                 x      &     x                   &                     &                       &                        &                                              &    \\
-				
-				
-				
-				
-				
-				Análisis y evaluación de herramientas para la detección de variantes estructurales y fusión de genes.      &                       &                      &    x                  & x                       &     x           &                      &                        &                                              &    \\
-				
-				Análisis y evaluación de herramientas para la anotación de variantes.      &                       &                      &                       &                        & x                      &      x                 &                        &                                              &    \\
-				
-				Análisis y evaluación de herramientas para determinar el tipo de HLA a partir de DNA-seq y RNA-seq.      &                       &                      &                      &                        &     x           &     x                 &                        &                                              &    \\
-				
-				Integración de todas las herramientas y desarollo de NeoArgosMut.      &                       &                     &                       &                        &                       &                       &    x                    &                                              &    \\
-				
-				\hline
-				
-				
-				\textbf{HITO II (NeoArgosAntigen)} & Informe & & & & & & & & \\
-				Implementación y entrenamiento de \textit{transformers} para la predicción pMHC. &  &        x             &      x                  &                 x        & x                      &                 &                      & &                                                 \\
-				
-				Entrenamiento de  \textit{transformers} para la predicción pMHC-TCR.  &                                      &                       &                        &             x            &    x                    & x                     & &                       &                                               \\
-				Evaluación de los modelos y comparación con otros del estado del arte.  &                                      &                       &                        &                         &                        & x                     & x &                       &                                               \\
-				Integración de NeoArgosMut con NeoArgosAntigen.  &                                      &                       &                        &                         &                        &                     & x &         x              &   x                                           \\
-				
-				Redacción del artículo científico &                                      &                       &                        &                         &                        & x                     & x & x                      & x                                              \\
-				
-				Difusión de resultados    &                              &                       &                        &                         &                       &                      &                       & & x                                             \\ \hline
-			\end{tabular}
-		}
-	}
-\end{table}
-
-
-
-
-
-\section{Sostenibilidad de la propuesta}
-
-\section{Impacto Científico de la propuesta}
+%\section{Impacto Científico de la propuesta}
 
 
 
