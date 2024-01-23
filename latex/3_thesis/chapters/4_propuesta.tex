@@ -108,7 +108,7 @@ Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de 
 
 Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Estos modelos fueron entrenados con grandes conjuntos de datos de secuencias de proteínas como Pfam \citep{el2019pfam},  BFD y UniRef50 \citep{suzek2015uniref}. Además, se realizo \textit{fine-tuning } para la predicción de unión pMHC-I. En la Tabla \ref{tab:pretrained}, presentamos las características de cada modelo.
 
-\begin{table*}[t]%
+\begin{table}[t]%
 	\centering
 	\caption{Diferencias significativas entre los modelos TAPE, ProtBert-DFB y ESM2. HS: \textit{Hidden size}; AH: \textit{Attention heads}.}
 	\label{tab:pretrained}%
@@ -127,7 +127,7 @@ Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtB
 		
 	\end{tabular}}
 	
-\end{table*}
+\end{table}
 
 \subsection{TAPE}
 
@@ -150,26 +150,48 @@ ESM-2 \citep{lin2023evolutionary} es una familia de modelos \textit{Transformer}
 
 Una manera de realizar \textit{transfer learning} de modelos de \textit{deep learning} grandes, es realizando \textit{fine-tuning}. Está metodología, generalmente se aplica cuando tenemos un modelo entrenado con una base de datos muy grande, como por ejemplo una base de datos de texto de todas las páginas de internet. Luego, queremos adaptar dicho modelo para una tarea específica y en donde no contamos una base de datos muy grande, como por ejemplo un conjunto de muetras de análisis de sentimientos; entonces, podemos aplicar \textit{fine-tuning} al modelo entrenado con todo el texto de internet para una nueva tarea, entrenandolo de nuevo pero esta vez con el objetivo de predecir el sentimiento de un texto. En resumen está técnica consiste en modificar las ultimas capas del modelo pre-entrenado. La modificación puede ser eliminando las ultimas capas y agregando capas lineales, convoluciones, o recurrentes. Luego, se vuelve a entrenar el modelo una vez mas con el objetivo que el modelo se adapte al nuevo problema. En la Figura \ref{fig:fine-tuning}, mostramos un ejemplo de este procedimiento.
 
-Para realizar \textit{fine-tuning}, apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado. El BiLSTM se basa en HLAB \citep{zhang2022hlab} y consta de dos capas con 768 unidades. En la Figura \ref{fig:proposal}, presentamos el modelo completo para la predicción de la unión pMHC-I.
+Luego, se sabe que al entrenar modelos de \textit{Transformers} grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores. En otras palabras, las ultimas capas son mas específicas, mientras que las capas iniciales, representan caraterísticas generales del problema \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. Debido a esto, es comun en los procesos de f\textit{ine-tuning}, eliminar las ultimas capas y agregar otras capas al final del modelo. En este trabajo,  apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado (ver Figura \ref{fig:fine-tuning_proposal}), luego se agrego una capa lineal con dos neuronas como salida para el problema de clasificación pMHC. Finalmente, este modelo se entreno con una base de datos de muestras de pMHC. Las características de los modelos BERT pre-entrenados se detallan en la Tabla \ref{tab:pretrained} mientras que las características del bloque LSTM utilizado en el proceso de \textit{fine-tuning} fueron inspirados por el trabajo de \cite{zhang2022hlab} y se detallan en la Tabla \ref{tab:biLSTM}.
 
-Además, está ampliamente establecido que al ajustar modelos de \textit{Transformers} grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
+ 
+
+
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{../img/proposal/fine-tuning}	
-	\caption[Ejemplo de aplicación de \textit{Fine-tuning}]{Ejemplo de aplicación de \textit{Fine-tuning}. Primero, se entrena un modelo para una tarea $x$ con una gran base de datos, luego puede aprovecharse ese aprendizaje para otra tarea similar $y$ que no tenga una base de datos grande. Generalmente, en este proceso, se eliminan las ultimas capas y se agregan otras capas lineales, convoluciones o recurrentes. Fuente: \cite{prince2023understanding}.}		
+	\includegraphics[width=\textwidth]{../img/proposal/fine_tuning}	
+	\caption[Ejemplo de aplicación de \textit{Fine-tuning}]{Ejemplo de aplicación de \textit{Fine-tuning}. Primero, se entrena un modelo para una tarea $x$ con una gran base de datos, luego puede aprovecharse ese aprendizaje para otra tarea similar $y$ que no tenga una base de datos grande. Generalmente, en este proceso, se eliminan las ultimas capas y se agregan otras capas lineales, convoluciones o recurrentes. Fuente: Adaptado de  \cite{prince2023understanding}.}		
 	\label{fig:fine-tuning}
 \end{figure}
 
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../img/proposal/fine_tuning_proposal}	
+	\caption[Fine-tuning al modelo BERT]{\textit{Fine-tuning} propuesto. Se toma las primeras capas de un modelo BERT pre-entrenado con bases de datos de secuencias de proteínas. Luego, se agrega un bloque de capas BiLSTM al final y se entrena de nuevo con una base de datos pequeña de muestras pMHC. Fuente: Adaptado de  \cite{prince2023understanding}.}		
+	\label{fig:fine-tuning_proposal}
+\end{figure}
 % agregar una figura especifica del finetuning
 
 
-Para realizar \textit{fine-tuning}, apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado. El BiLSTM se basa en HLAB \citep{zhang2022hlab} y consta de dos capas con 768 unidades. En la Figura \ref{fig:proposal}, presentamos el modelo completo para la predicción de la unión pMHC-I.
-
-Además, está ampliamente establecido que al ajustar modelos de \textit{Transformers} grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. En consecuencia, comparamos los resultados de congelar el modelo pre-entrenado y solo actualizar los parámetros de BiLSTM.
 
 
-
+\begin{table}[t]%
+	\centering
+	\caption{Características del bloque BiLSTM utilizado en el \textit{fine-tuning}.}
+	\label{tab:biLSTM}%
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+		\begin{tabular}{lp{9cm}p{1cm}p{1cm}}
+			\hline
+			\textbf{Tipo}   & \textbf{Entada} & \textbf{Salida}& \textbf{Capas} \\ \hline
+			
+			BiLSTM & Salida del modelo BERT (Tabla \ref{tab:pretrained}, columna HS) & 768 & 2 \\
+			
+			Dropout & 0.1\% & - & - \\
+			Lineal & 1536 & 2 & 1 \\ \hline
+	\end{tabular}}
+	
+\end{table}
 
 
 
