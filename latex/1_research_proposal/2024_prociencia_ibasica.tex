@@ -3,7 +3,7 @@
 %% Language and font encodings
 \usepackage[spanish,es-tabla]{babel}
 \usepackage[utf8x]{inputenc}
-\usepackage{natbib}
+%\usepackage{natbib}
 \usepackage{booktabs}
 \usepackage{tabu}
 \usepackage[T1]{fontenc}
@@ -14,6 +14,7 @@
 \usepackage{comment}
 \usepackage{times} % pára el tipo de letra arial
 \usepackage{wrapfig}
+\usepackage{cite}
 %% Sets page size and margins
 \usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.5cm,right=1.5cm,marginparwidth=1.75cm]{geometry}
 
@@ -55,25 +56,30 @@
 \section{Título}
 Desarrollo de una herramienta  para la detección \textit{in silico} de neoantígenos a partir de datos genómicos en el marco de desarrollo de vacunas personalizadas para tratar el cancer.
 
-\section{Problema}
+\section{Problema (5k) }
 
-A pesar de varios esfuerzos en el desarrollo de \textit{pipelines} y algoritmos, menos del 5\% de neoantígenos detectados activan el sistema immune \citep{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Según los autores de los \textit{pipelines} las razones son: 
+El cáncer representa el mayor problema de salud mundial \cite{siegel2023cancer}. Además, según el instituto de investigación del cáncer del Reino Unido, se ha registrado más de 18 millones de nuevos casos y 10 millones de muertes en el 2020 \cite{cancerUK2023}. Más alarmante aún, se predice que habrá 28 millones de nuevos casos por año alrededor del 2040, si la incidencia se mantiene estable y el crecimiento de la población y el envejecimiento continúan de acuerdo con las tendencias recientes \cite{cancerUK2023_2}. Esto representa un aumento del 54.9\% con respecto a 2020 y se espera que sea mayor en hombres (aumento del 60.6\%) que en mujeres (aumento del 48.8\%).	A todo esto, se sabe que los métodos tradicionales basados en cirugías, radioterapias y quimioterapias tienen baja efectividad y adversos efectos secundarios \cite{peng2019neoantigen}. En este contexto, surge el desarrollo de la inmunoterapia de cáncer, que tiene como objetivo estimular el sistema inmunológico de un paciente \cite{borden2022cancer}. Existen varios tratamientos como: vacunas personalizadas; terapias de células T adoptivas; e inhibidores de puntos de control inmunológico. De estos, las vacunas basadas en \textbf{neoantígenos} han demostrado un gran potencial, al potenciar las respuestas de las células T y es considerada la de mayor probabilidad de éxito \cite{borden2022cancer}. También, los neantígenos son utilizados en la terapia de bloqueo de puntos de control inmunológico. En este sentido, los neoantígenos son considerados biomarcadores predictivos y objetivos de tratamiento sinérgico en la inmunoterapia del cáncer \cite{fang2022neoantigens}.
+
+A pesar de varios esfuerzos en el desarrollo de \textit{pipelines} y algoritmos, menos del 5\% de neoantígenos detectados activan el sistema immune \cite{de2020neoantigen, mill2022neoms, bulik2019deep, bassani2015mass, yadav2014predicting}. Según los autores de los \textit{pipelines} las razones son: 
 
 \begin{enumerate}
-	\item La no inclusión en conjunto de varias fuentes de información como DNA-seq, RNA-seq, y datos de \textit{Mass Spectrometry} (MS) \citep{kim2018neopepsee}. Por ejemplo, la mayoria de  propuestas no utiliza datos de MS; en la actualidad, existe una creciente información de estos datos y se estan aplicado a varios campos de la Bioinformática.
-	\item  Uso herramientas de bajo desempeño para la predicción del enlace péptido-MHC (pMHC) (etapa 3.1  de la Figura \ref{fig:vaccines_b}). La mayoria de aplicaciones, se basa en el uso de MHCFlurry \citep{o2020mhcflurry} y NetMHCpan4.1 \citep{reynisson2020netmhcpan}. Sin embargo, actualmente, se cuenta con herramientas de mejor desempeño basado en \textit{transformers} \citep{arceda2023neoantigen}.
-	\item Para la etapa 3.2 de la Figura \ref{fig:vaccines_b}, los autores no consideran  la predicción del enlace pMHC al TCR (pMHC-TCR) , varios autores consideran incluir esta tarea en trabajos futuros  \citep{rubinsteyn2018computational}.
-	\item Finalmente y quizas la mas importante es no utilizar información de eventos de \textit{alternative splicing}, variaciones estructurales en el ADN y las mutaciones de fusión de genes, está información esta fuertemente relacionada con varios tipos de cancer \citep{wood2020neoepiscope}.
+	\item La no inclusión en conjunto de varias fuentes de información como DNA-seq, RNA-seq, y datos de \textit{Mass Spectrometry} (MS) \cite{kim2018neopepsee}. Por ejemplo, la mayoria de  propuestas no utiliza datos de MS; en la actualidad, existe una creciente información de estos datos y se estan aplicado a varios campos de la Bioinformática.
+	
+	\item  Uso herramientas de bajo desempeño para la predicción del enlace péptido-MHC (pMHC). La mayoria de aplicaciones, se basa en el uso de MHCFlurry \cite{o2020mhcflurry} y NetMHCpan4.1 \cite{reynisson2020netmhcpan}. Sin embargo, actualmente, se cuenta con herramientas de mejor desempeño como: MixMHCpred \cite{gfeller2023improved},  Anthem \cite{mei2021anthem}, Acme \cite{hu2019acme} y ESM-GAT \cite{hashemi2023improved}.
+	
+	\item Para la etapa 3.2 de la Figura \ref{fig:vaccines}, los autores no consideran  la predicción del enlace pMHC al TCR (pMHC-TCR) , varios autores consideran incluir esta tarea en trabajos futuros  \cite{rubinsteyn2018computational}.
+	
+	\item Finalmente y quizas la mas importante es no utilizar información de eventos de \textit{alternative splicing}, variaciones estructurales en el ADN y las mutaciones de fusión de genes, está información esta fuertemente relacionada con varios tipos de cancer \cite{wood2020neoepiscope}.
 \end{enumerate}
 
-\section{Estado del arte o antecedentes}
+\section{Estado del arte o antecedentes (10k)}
 	
-	El cáncer representa el mayor problema de salud mundial \citep{siegel2023cancer}. Además, según el instituto de investigación del cáncer del Reino Unido, se ha registrado más de 18 millones de nuevos casos y 10 millones de muertes en el 2020 \citep{cancerUK2023}. Más alarmante aún, se predice que habrá 28 millones de nuevos casos por año alrededor del 2040, si la incidencia se mantiene estable y el crecimiento de la población y el envejecimiento continúan de acuerdo con las tendencias recientes \citep{cancerUK2023_2}. Esto representa un aumento del 54.9\% con respecto a 2020 y se espera que sea mayor en hombres (aumento del 60.6\%) que en mujeres (aumento del 48.8\%).	A todo esto, se sabe que los métodos tradicionales basados en cirugías, radioterapias y quimioterapias tienen baja efectividad y adversos efectos secundarios \citep{peng2019neoantigen}. En este contexto, surge el desarrollo de la inmunoterapia de cáncer, que tiene como objetivo estimular el sistema inmunológico de un paciente \citep{borden2022cancer}. Existen varios tratamientos como: vacunas personalizadas; terapias de células T adoptivas; e inhibidores de puntos de control inmunológico. De estos, las vacunas basadas en \textbf{neoantígenos} han demostrado un gran potencial, al potenciar las respuestas de las células T y es considerada la de mayor probabilidad de éxito \citep{borden2022cancer}. También, los neantígenos son utilizados en la terapia de bloqueo de puntos de control inmunológico. En este sentido, los neoantígenos son considerados biomarcadores predictivos y objetivos de tratamiento sinérgico en la inmunoterapia del cáncer \citep{fang2022neoantigens}.
-	
-	
+Falta incluir ¿Cual es el aporte cientifico del proyecto al area tematica de acuerdo a la sub area o disciplina a la que cooresponda su propuesta en comparacion con otros estudios de la literatura publicada?
 	
 	
-	El desarrollo de vacunas personalizadas contra el cáncer es un proceso largo y depende de la correcta detección de neoantígenos (ver Figura \ref{fig:vaccines}). Estos neoantígenos son péptidos que solo están presentes en las células cancerosas. De esta forma, el objetivo de un tratamiento basado en vacunas personalizadas, es entrenar a los linfocitos del paciente (células T) para reconocer los neoantígenos y activar el sistema inmunológico \citep{de2020neoantigen, peng2019neoantigen}. El proceso se resume en la Figura \ref{fig:vaccines_b} y consiste en: 
+	
+	
+	El desarrollo de vacunas personalizadas contra el cáncer es un proceso largo y depende de la correcta detección de neoantígenos (ver Figura \ref{fig:vaccines}). Estos neoantígenos son péptidos que solo están presentes en las células cancerosas. De esta forma, el objetivo de un tratamiento basado en vacunas personalizadas, es entrenar a los linfocitos del paciente (células T) para reconocer los neoantígenos y activar el sistema inmunológico \cite{de2020neoantigen, peng2019neoantigen}. El proceso se resume en la Figura \ref{fig:vaccines} y consiste en: 
 	
 	
 	
@@ -95,34 +101,21 @@ A pesar de varios esfuerzos en el desarrollo de \textit{pipelines} y algoritmos,
 	% AGREGAR LOS PIPELINES AGRUPADOS PAOR LA HERRAMITNAS QUE USAN, POR JEMPLO LA MAYORIA DE PIPELINES USAN XXX PARA ALINEAMIENT  Y  XXX PARA, LUEGO LU ...
 
 
-\begin{figure}[h]
-	\centering
-	\begin{subfigure}[b]{0.52\textwidth}
+\begin{figure}[h]	
 		\centering
-		\includegraphics[width=0.8\textwidth]{../img/vaccines/vaccine_pipeline}
-		\caption{Proceso de desarrollo de vacunas.}
-		\label{fig:vaccines_a}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}[b]{0.44\textwidth}
-		\centering
-		\includegraphics[width=0.8\textwidth]{../img/vaccines/pipeline}
-		\caption{\textit{Pipeline} para el desarrollo de vacunas.}
-		\label{fig:vaccines_b}
-	\end{subfigure}
-	
-	\caption{Marco de desarrollo para la elaboración de vacunas personalizadas contra el cáncer basadas en neoantígenos. (a) muestra un panorama general de cada etapa. (b) detalla cada fase enfatizando el desarrollo \textit{in-silico}.  Modificado de \cite{han2020progress}.}
+		\includegraphics[width=0.4\textwidth]{../img/vaccines/pipeline}	
+	\caption{Marco de desarrollo para la elaboración de vacunas personalizadas contra el cáncer basadas en neoantígenos. Se detalla cada fase enfatizando el desarrollo \textit{in-silico}. Fuente: Elaboración propia.}
 	\label{fig:vaccines}
 \end{figure}
 	
 	
-La detección \textit{in-silico} de neoantígenos se basa en la segunda y tercera etapa de la Figura \ref{fig:vaccines_b}. En este contexto, debido a la complejidad del proceso y la cantidad de métodos existentes, se han desarrollado software y \textit{pipelines} para facilitar el uso de estas herramientas. En la Tabla \ref{tab:review_pipelines}, presentamos los \textit{pipelines} publicados a partir del 2018. Estos \textit{pipelines} utilizan diferentes tipos de información como entrada, así PGV Pipeline \citep{rubinsteyn2018computational} y PEPPRMINT \citep{zhou2023prioritizing} utilizan DNA-seq; sin embargo, otras herramientas como PGNneo \citep{tan2023pgnneo}, NAP-CNB \citep{wert2021predicting}, NaoANT-HILL \citep{coelho2020neoant}, ProGeo-neo \citep{li2020progeo}, ScanNeo \citep{wang2019scanneo} y Neopepse \citep{kim2018neopepsee} utilizan RNA-seq porque estas secuencias encapsulan mejor la información de mutaciones y \textit{non-coding regions} de ADN \citep{tan2023pgnneo}. 
+La detección \textit{in-silico} de neoantígenos se basa en la segunda y tercera etapa de la Figura \ref{fig:vaccines}. En este contexto, debido a la complejidad del proceso y la cantidad de métodos existentes, se han desarrollado software y \textit{pipelines} para facilitar el uso de estas herramientas. En la Tabla \ref{tab:review_pipelines}, presentamos los \textit{pipelines} publicados a partir del 2018. Estos \textit{pipelines} utilizan diferentes tipos de información como entrada, así PGV Pipeline \cite{rubinsteyn2018computational} y PEPPRMINT \cite{zhou2023prioritizing} utilizan DNA-seq; sin embargo, otras herramientas como PGNneo \cite{tan2023pgnneo}, NAP-CNB \cite{wert2021predicting}, NaoANT-HILL \cite{coelho2020neoant}, ProGeo-neo \cite{li2020progeo}, ScanNeo \cite{wang2019scanneo} y Neopepse \cite{kim2018neopepsee} utilizan RNA-seq porque estas secuencias encapsulan mejor la información de mutaciones y \textit{non-coding regions} de ADN \cite{tan2023pgnneo}. 
 
-Con el objetivo de reducir la complejidad de los \textit{pipelines}, otras propuestas han optado por utilizar Variant Calling Format (VCF), como entrada. Estos archivos, contienen información de las mutaciones y son obtenidas a partir de métodos de alineamiento y llamado de mutaciones (etapas 2.1 y 2.2 de la Figura \ref{fig:vaccines_b}). De esta forma, herramientas como Valid-Neo \citep{terai2022valid}, HLA3D \citep{li2022hla3d}, Neoepiscope \citep{wood2020neoepiscope} , pVACtools \citep{hundal2020pvactools} y NeoPredPipe \citep{schenck2019neopredpipe}, reducen la cantidad de herramientas utilizadas en la deteccion de neoantígenos; sin embargo, los resultados obtenidos, pueden ser inferiores comparado con herramientas que usan DNA-seq y RNA-seq.
+Con el objetivo de reducir la complejidad de los \textit{pipelines}, otras propuestas han optado por utilizar Variant Calling Format (VCF), como entrada. Estos archivos, contienen información de las mutaciones y son obtenidas a partir de métodos de alineamiento y llamado de mutaciones (etapas 2.1 y 2.2 de la Figura \ref{fig:vaccines}). De esta forma, herramientas como Valid-Neo \cite{terai2022valid}, HLA3D \cite{li2022hla3d}, Neoepiscope \cite{wood2020neoepiscope} , pVACtools \cite{hundal2020pvactools} y NeoPredPipe \cite{schenck2019neopredpipe}, reducen la cantidad de herramientas utilizadas en la deteccion de neoantígenos; sin embargo, los resultados obtenidos, pueden ser inferiores comparado con herramientas que usan DNA-seq y RNA-seq.
 
-Adicionalmente, para una correcta detección de neoantígenos, es necesario contar con la secuenciación de proteínas Major Histocompatibility Complex (MHC) o Human Leukocyte Antigens (HLA). Es necesario contar con estas proteínas porque, son utilizadas para predecir la unión entre posibles neoantígenos al MHC (pMHC: etapa 3.1 de la Figura \ref{fig:vaccines_b}). Estas proteínas son codificadas por genes altamente polimórficos, esto proporciona una variación sustancial en la unión de péptidos (neoantígenos), influyendo de esta manera en el conjunto de péptidos presentados a las células T. \citep{abualrous2021major}. En este contexto,  los \textit{pipelines} Valid-NEO \citep{terai2022valid}  y NeoPredPipe \citep{schenck2019neopredpipe} y Neopepsee \citep{kim2018neopepsee} solicitan como entrada estas proteínas (HLA); mientras que las otras predicen esta información a partir de DNA-seq. Desde un punto de vista de usabilidad, obtener los tipos de HLA, implica un esfuerzo inncesario para el usuario.
+Adicionalmente, para una correcta detección de neoantígenos, es necesario contar con la secuenciación de proteínas Major Histocompatibility Complex (MHC) o Human Leukocyte Antigens (HLA). Es necesario contar con estas proteínas porque, son utilizadas para predecir la unión entre posibles neoantígenos al MHC (pMHC: etapa 3.1 de la Figura \ref{fig:vaccines}). Estas proteínas son codificadas por genes altamente polimórficos, esto proporciona una variación sustancial en la unión de péptidos (neoantígenos), influyendo de esta manera en el conjunto de péptidos presentados a las células T. \cite{abualrous2021major}. En este contexto,  los \textit{pipelines} Valid-NEO \cite{terai2022valid}  y NeoPredPipe \cite{schenck2019neopredpipe} y Neopepsee \cite{kim2018neopepsee} solicitan como entrada estas proteínas (HLA); mientras que las otras predicen esta información a partir de DNA-seq. Desde un punto de vista de usabilidad, obtener los tipos de HLA, implica un esfuerzo inncesario para el usuario.
 
-Es así que se propone el desarrollo de un \textit{pipeline}, que incorpora el uso de MS y fusión de genes. Además, la propuesta incluirá el desarrollo de un modelo \textit{transformers} para la predicción del enlace pMHC y pMHC-TCR. Cabe resaltar, que este proyecto es una continuación del proyecto ``Principales estrategias y métodos basados en deep learning para la detección de neo antígenos en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del cáncer'' financiado por ULaSalle-UCSP, donde se obtuvo dos publicaciones \citep{machaca2023deep,arceda2023neoantigen}. 
+Es así que se propone el desarrollo de un \textit{pipeline}, que incorpora el uso de MS y fusión de genes. Además, la propuesta incluirá el desarrollo de un modelo \textit{transformers} para la predicción del enlace pMHC y pMHC-TCR. Cabe resaltar, que este proyecto es una continuación del proyecto ``Principales estrategias y métodos basados en deep learning para la detección de neo antígenos en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del cáncer'' financiado por ULaSalle-UCSP, donde se obtuvo dos publicaciones \cite{machaca2023deep,arceda2023neoantigen}. 
 
 
 
@@ -184,7 +177,38 @@ Es así que se propone el desarrollo de un \textit{pipeline}, que incorpora el u
 
 
 
-%\section{Resultados o avances previos}
+\section{Resultados o avances previos (4k)}
+
+
+%La propuesta del proyecto es la continuación de una serie de proyectos y publicaciones. Primero se inicio con el PROYECTO 01: ``Principales estrategias y métodos basados en deep learning para la detección de neoantígenos en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del cáncer'' financiado por la Universidad La Salle y la Universidad Católica San Pablo. Este proyecto generó como resultado dos publicaciones: ``Deep Learning and Transformers in MHC-Peptide Binding and Presentation Towards Personalized Vaccines in Cancer Immunology: A Brief Review'' \cite{machaca2023deep} y ``Neoantigen Detection Using Transformers and Transfer Learning in the Cancer Immunology Context'' \cite{arceda2023neoantigen}. 
+La propuesta del proyecto representa la continuación de una serie de iniciativas y publicaciones. Se inició con el PROYECTO 01: "Principales estrategias y métodos basados en deep learning para la detección de neoantígenos en el marco del desarrollo de vacunas personalizadas en la inmunoterapia del cáncer", financiado por las Universidades La Salle y Católica San Pablo. Este proyecto resultó en dos publicaciones: "Deep Learning and Transformers in MHC-Peptide Binding and Presentation Towards Personalized Vaccines in Cancer Immunology: A Brief Review" \cite{machaca2023deep} y "Neoantigen Detection Using Transformers and Transfer Learning in the Cancer Immunology Context" \cite{arceda2023neoantigen}.
+
+%Tambien, recientemente hemos culminado la ejecución del PROYECTO 02: ``Desarrollo de una Aplicación Web para la Detección de Neoantígenos en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer'', en este proyecto estamos desarrollando una aplicación para la detección de neoantígenos, enfocados en la predicción del enlace pMHC utilizando modelos Transformers y Transfer Learning. Asu vez, hemos sometido a revisión el paper ``Fine-tuning Transformers for Peptide-MHC Class I Binding Prediction''. Adicionalmente, esta propuesta de PROCIENCIA es el trabajo futuro de la tesis de doctorado en Ciencia de la Computación del investigador principal Vicente Machaca Arceda. La tesis titula: ``Detección \textit{in Silico} de Neoantígenos Utilizando Transformers y Transfer Learning en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer''. En la tesis se desarrolló los mismos objetivos del PROYECTO 02. Además, se logró la aceptación del artículo ``Transformers Meets Neoantigen Detection: A Systematic Literature Review'' al Journal of Integrative Bioinformatics (Q2).
+
+Recientemente, hemos completado la ejecución del PROYECTO 02: "Desarrollo de una Aplicación Web para la Detección de Neoantígenos en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer". En este proyecto, hemos creado una aplicación centrada en la detección de neoantígenos, con un enfoque en la predicción del enlace pMHC mediante el uso de modelos Transformers y Transfer Learning. Además, hemos enviado para revisión el artículo "Fine-tuning Transformers for Peptide-MHC Class I Binding Prediction". Además, esta propuesta de PROCIENCIA también representa el trabajo futuro de la tesis de doctorado en Ciencia de la Computación del investigador principal, Vicente Machaca Arceda, titulada: "Detección \textit{in Silico} de Neoantígenos Utilizando Transformers y Transfer Learning en el Marco de Desarrollo de Vacunas Personalizadas para Tratar el Cáncer". La tesis aborda los mismos objetivos que el PROYECTO 02 y ha logrado la aceptación del artículo "Transformers Meets Neoantigen Detection: A Systematic Literature Review" en el Journal of Integrative Bioinformatics (Q2).
+
+%Finalmente, esta en ejecución el PROYECTO 03 ``NeoArgos-tools: Un Pipeline de Detección In-silico de Neoantígenos de Cáncer para el Desarrollo de Vacunas Personalizadas''. Este proyecto finaliza en Junio de este año y tambien es financiado por la Universidad La Salle y a UCSP. Este representa el desarrollo de la primera versión de NeoArgos-tools (esta postulación a PROCIENCIA representa la versión 2). En esta primera versión, tomamos como entrada archivos Variant Calling File (VCF) y hemos mejorado el modulo de predicción del enlace pMHC en base a investigaciones previas de proyectos anteriores. 
+Actualmente, estamos llevando a cabo el PROYECTO 03 "NeoArgos-tools: Un Pipeline de Detección In-silico de Neoantígenos de Cáncer para el Desarrollo de Vacunas Personalizadas", con fecha de finalización en junio de este año y financiamiento de las Universidades La Salle y UCSP. Este proyecto implica el desarrollo de la versión inicial de NeoArgos-tools (la postulación a PROCIENCIA corresponde a la versión 2). En la primera versión, utilizamos archivos Variant Calling File (VCF) como entrada y mejoramos el módulo de predicción del enlace pMHC según investigaciones previas de proyectos anteriores.
+
+%Es importante menconar que en esta versión 2 de NeoArgos-tools, las mejoras planteadas son: utilizar datos genómicos como entrada al pipeline (RNS-seq y DNA-seq), además vamos a utilizar Mass Spectrometry (MS) para afinar la detección de neoantígenos. Luego, tambien vamos a incluir información de variantes estructurales y fusión de genes. Finalmente, vamos a desarrollar una interfaz gráfica.
+Es relevante destacar que en la versión 2 de NeoArgos-tools, las mejoras propuestas incluyen el uso de datos genómicos como entrada al pipeline (RNS-seq y DNA-seq), la incorporación de Mass Spectrometry (MS) para refinar la detección de neoantígenos, la inclusión de información sobre variantes estructurales y fusión de genes, y el desarrollo de una interfaz gráfica.
+
+
+
+
+
+\section{Justificación (4k)}
+
+%El cáncer es el mayor problema de salud mundial; sin embargo, los métodos tradicionales basados en cirugías, radioterapias y quimioterapias tienen baja efectividad \cite{peng2019neoantigen}. En este contexto, los neoantígenos son factores clave en el desarrollo de vacunas contra el Cáncer  \cite{borden2022cancer,chen2021challenges,gopanenko2020main}. Si se logra desarrollar un método con un buen desempeño, la inmunoterapia del cáncer basada en el desarrollo de vacunas personalizadas, podría utilizarse como alternativa a otros métodos como radioterapias y quimioterapias. 
+
+%El proyecto tiene dos contribuciones: CONTRIBUCIÓN 01: En el área de ciencia de la computación se va a desarrollar un modelo basado en \textit{Transformers} y Transfer Learning para la predicción del enlace pMHC, actualmente se tienen resultados previos que superan a otros del estado del arte. CONTRIBUCIÓN 02: En el área de la Bioinformática: el desarrollo del \textit{pipeline}, representa un reto resolviendo problemas de integración, alto costo computacional, heterogeneidad y modularidad. Además,  el \textit{pipeline} utilizará datos de \textit{Mass Spectrometry} (MS) y fusión de genes para obtener mejores resultados que otros métodos del estado del arte.
+
+%Finalmente, con la culminación de este este proyecto, vamos a proceder con la segunda parte que involucra un trabajo interdisciplinario para el desarrollo \textit{in vitro} de las vacunas de neoantígenos. En una tercera etapa, se plantearán pruebas clínicas.
+El cáncer constituye el principal desafío de salud a nivel global; no obstante, las técnicas convencionales basadas en cirugías, radioterapias y quimioterapias presentan una eficacia limitada \cite{peng2019neoantigen}. En este escenario, los neoantígenos emergen como elementos cruciales en la concepción de vacunas contra el cáncer \cite{borden2022cancer,chen2021challenges,gopanenko2020main}. Si se logra desarrollar un enfoque altamente efectivo, la inmunoterapia del cáncer, fundamentada en la creación de vacunas personalizadas, podría posicionarse como una alternativa a procedimientos más tradicionales, como radioterapias y quimioterapias.
+
+En el proyecto se propone realizar dos contribuciones significativas: CONTRIBUCIÓN 01: En el ámbito de la ciencia de la computación, se llevará a cabo el desarrollo de un modelo basado en \textit{Transformers} y Transfer Learning para la predicción del enlace pMHC, con resultados previos que demuestran superar a otras propuestas en el estado del arte. CONTRIBUCIÓN 02: En el ámbito de la Bioinformática, la implementación del \textit{pipeline} plantea un desafío al abordar problemas de integración, alto costo computacional, heterogeneidad y modularidad. Además, este \textit{pipeline} incorporará datos de \textit{Mass Spectrometry} (MS) y fusión de genes con el objetivo de obtener resultados más sobresalientes que otros métodos presentes en el estado del arte.
+
+Con la conclusión de este proyecto, se abrirá paso a la segunda fase, que implica una colaboración interdisciplinaria para llevar a cabo el desarrollo \textit{in vitro} de las vacunas de neoantígenos. En una tercera etapa, se contemplarán pruebas clínicas, marcando así un avance integral en la búsqueda de soluciones efectivas en la lucha contra el cáncer.
 
 
 
@@ -192,26 +216,17 @@ Es así que se propone el desarrollo de un \textit{pipeline}, que incorpora el u
 
 
 
-
-
-
-\section{Justificación}
-
-El cáncer es el mayor problema de salud mundial; sin embargo, los métodos tradicionales basados en cirugías, radioterapias y quimioterapias tienen baja efectividad \citep{peng2019neoantigen}. En este contexto, los neoantígenos son factores clave en el desarrollo de vacunas contra el Cáncer  \citep{borden2022cancer,chen2021challenges,gopanenko2020main}. Si se logra desarrollar un método con un buen desempeño, la inmunoterapia del cáncer basada en el desarrollo de vacunas personalizadas, podría utilizarse como alternativa a otros métodos como radioterapias y quimioterapias. 
-
-El proyecto tiene dos contribuciones: CONTRIBUCIÓN 01: En el área de ciencia de la computación se va a desarrollar un modelo basado en \textit{transformers} para la predicción del enlace pMHC, actualmente se tienen resultados previos que superan a otros del estado del arte. CONTRIBUCIÓN 02: En el área de la Bioinformática: el desarrollo propio del \textit{pipeline}, representa un reto resolviendo problemas de integración, alto costo computacional, heterogeneidad y modularidad. Además,  el \textit{pipeline} utilizará datos de \textit{Mass Spectrometry} (MS) y fusión de genes para obtener mejores resultados que otros métodos del estado del arte.
-
-Finalmente, el contar con una aplicación de detección de neoantígenos desarrollada por la Universidad La Salle y la Universidad Católica San Pablo, realza el nombre de ambas universidades y demuestra que gracias al trabajo en conjunto se puede desarrollar aplicaciones de gran envergadura aplicadas a campos multidisciplinarios y nos alinea a instituciones como el \textit{European Molecular Biology Laboratory} (EMBL) y el \textit{National Institutes of Health} (NIH).
-
-%\section{Porqué es una investigación básica}
+\section{Porqué es una investigación básica (3k)}
 	
-%\section{Pregunta de investigación}	
+\section{Pregunta de investigación}	
+
+¿El desarrollo de una herramienta in silico para la detección de neonatígenos a partir de datos genómicos es capaz de detectar correctmente geoantígenos de cancer?
 	
 \section{Objetivos de la investigación}
 	
 	\subsection{Objetivo general}
 	
-	Desarrollar una herramienta  para la detección \textit{in silico} de neoantígenos de cáncer a partir de datos genómicos RNA-seq y DNA-seq.
+	Desarrollar una herramienta  para la detección \textit{in silico} de neoantígenos de cáncer a partir de datos genómicos.
 	
 	\subsection{Objetivos específicos}
 	\begin{enumerate}
@@ -219,15 +234,15 @@ Finalmente, el contar con una aplicación de detección de neoantígenos desarro
 		
 		\item Analizar qué herramientas se utilizarán para la primera etapa de la herramienta, referente al alineamiento de secuencias, llamado de variantes y  anotación de variantes (predicción de posibles neoantígenos). 
 		
-		\item Analizar el uso de información de variaciones estructurales del ADN y mutaciones de fusión de genes. Se evaluará el desempeño de \textit{Arriba} \citep{uhrig2021accurate} y FusionQ \citep{liu2013fusionq}.
+		\item Analizar el uso de información de variaciones estructurales del ADN y mutaciones de fusión de genes. Se evaluará el desempeño de \textit{Arriba} \cite{uhrig2021accurate} y FusionQ \cite{liu2013fusionq}.
 
         \item Evaluar métodos de detección de eventos de \textit{alternative splicing} y analizar la aplicación de estos al integrarse a la herramienta para la detección de neoantígenos.
 		 
-		\item Implementar un modelo basado en \textit{transformers} para la predicción del enlace de los neoantígenos al MHC (pMHC). Ya se cuenta con resultados previos de una propuesta que es superior a otras del estado del arte \citep{arceda2023neoantigen}.
+		\item Implementar un modelo basado en \textit{transformers} para la predicción del enlace de los neoantígenos al MHC (pMHC). Ya se cuenta con resultados previos de una propuesta que es superior a otras del estado del arte \cite{arceda2023neoantigen}.
 
-        \item Implementar un modelo basado en \textit{transformers} para la predicción del enlace del enlace pMHC al TCR (pMGC-TCR). 
-       
-	\item Integrar las herramientas evaluadas en un contenedor Docker.
+        \item Implementar un modelo basado en \textit{transformers} para la predicción  del enlace pMHC al TCR (pMHC-TCR). 
+        
+        \item Implementar una interfaz gráfica que sirva como panel de administración para configurar y escoger las herramientas en cada fase del \textit{pipeline}.
 		
         \item Comparar el desempeño de la herramienta propuesta con otras herramientas del estado del arte.
 
@@ -240,9 +255,9 @@ Finalmente, el contar con una aplicación de detección de neoantígenos desarro
 
 
 
-\section{Metodología} 
+\section{Metodología (5k)} 
 
-
+FALTA DETALAR LA METODOLIGA POR CADA OBJETIVO ESPECÍFICO
 
 
 
@@ -261,20 +276,19 @@ Hemos dividido la propuesta en dos módulos: NeoArgosMut y NeoArgosAntigen. NeoA
 
 \subsection{NeoArgosMut}
 
-%NeoArgosMut, se encarga de recibir como entrada datos de DNA-seq, RNA-seq y Mass Spectrometry (MS). Luego se plantea alinear dichas secuencias con uso de las herramientas como BWA-MEM \citep{li2013aligning}, Bowtie2 \citep{langmead2012fast}. Adicionalmente, se usará STAR \citep{dobin2013star} porque alinea mejor muestras tumorales \citep{rubinsteyn2018computational}. Como salida a esta etapa, se optiene archivos de alineamiento BAM.
-
-NeoArgosMut, se encarga de recibir como entrada datos de DNA-seq, RNA-seq y Mass Spectrometry (MS). Luego se plantea alinear dichas secuencias con uso de las herramientas como BWA-MEM y Bowtie2. Adicionalmente, se usará STAR, porque alinea mejor muestras tumorales \citep{rubinsteyn2018computational}. Como salida a esta etapa, se optiene archivos de alineamiento BAM.
 
 
-%Para el llamado de variantes se utilizará MuTect \citep{cibulskis2013sensitive} y Strelka \citep{saunders2012strelka}. Luego, se utilizará la unión de la información de ambos métodos tal como lo hizo \cite{zhou2023prioritizing} y \cite{rubinsteyn2018computational}. Como salida, se obtienen archivos VCF. Adicionalmente a otros \textit{pipelines}, utilizaremos información sobre la fusión de genes que se obtendrán de las herramientas \textit{Arriba} \citep{uhrig2021accurate} y FusionQ \citep{liu2013fusionq}. Esta forma parte de la contribución de este trabajo, porque se sabe que la mayoría de \textit{pipelines} tienen un bajo desempeño debido ausencia de información en su procesos de variantes estructurales y fusión de genes \citep{wood2020neoepiscope}. Finalmente, también se va a utilizar MaxQuant \citep{cox2008maxquant} para identificar las mutaciones a nivel de péptidos con ayuda de información de Mass Spectrometry (MS), esto también forma parte de la contribución del trabajo al incluir fuentes adicionales de información como MS.
-
-Para el llamado de variantes se utilizará MuTect y Strelka. Luego, se utilizará la unión de la información de ambos métodos tal como lo hizo \cite{zhou2023prioritizing} y \cite{rubinsteyn2018computational}. Como salida, se obtienen archivos VCF. Adicionalmente a otros \textit{pipelines}, utilizaremos información sobre la fusión de genes que se obtendrán de las herramientas \textit{Arriba} \citep{uhrig2021accurate} y FusionQ \citep{liu2013fusionq}. Esta forma parte de la contribución de este trabajo, porque se sabe que la mayoría de \textit{pipelines} tienen un bajo desempeño debido ausencia de información en su procesos de variantes estructurales y fusión de genes \citep{wood2020neoepiscope}. Finalmente, también se va a utilizar MaxQuant para identificar las mutaciones a nivel de péptidos con ayuda de información de Mass Spectrometry (MS), esto también forma parte de la contribución del trabajo al incluir fuentes adicionales de información como MS.
+NeoArgosMut, se encarga de recibir como entrada datos de DNA-seq, RNA-seq y Mass Spectrometry (MS). Luego se plantea alinear dichas secuencias con uso de las herramientas como BWA-MEM y Bowtie2. Adicionalmente, se usará STAR, porque alinea mejor muestras tumorales \cite{rubinsteyn2018computational}. Como salida a esta etapa, se optiene archivos de alineamiento BAM.
 
 
-%Luego corresponde a la anotación de variantes, en esta etapa se toman los archivos en formato VCF y se obtienen los péptidos generados a partir de estas variaciones o mutaciones. Estos péptidos representan los posibles neoantígenos. Para está tarea se va a utilizar Isovar y ANNOVAR \citep{wang2010annovar}. 
+
+Para el llamado de variantes se utilizará MuTect y Strelka. Luego, se utilizará la unión de la información de ambos métodos tal como lo hizo \cite{zhou2023prioritizing} y \cite{rubinsteyn2018computational}. Como salida, se obtienen archivos VCF. Adicionalmente a otros \textit{pipelines}, utilizaremos información sobre la fusión de genes que se obtendrán de las herramientas \textit{Arriba} \cite{uhrig2021accurate} y FusionQ \cite{liu2013fusionq}. Esta forma parte de la contribución de este trabajo, porque se sabe que la mayoría de \textit{pipelines} tienen un bajo desempeño debido ausencia de información en su procesos de variantes estructurales y fusión de genes \cite{wood2020neoepiscope}. Finalmente, también se va a utilizar MaxQuant para identificar las mutaciones a nivel de péptidos con ayuda de información de Mass Spectrometry (MS), esto también forma parte de la contribución del trabajo al incluir fuentes adicionales de información como MS.
+
+
+
 Luego corresponde a la anotación de variantes, en esta etapa se toman los archivos en formato VCF y se obtienen los péptidos generados a partir de estas variaciones o mutaciones. Estos péptidos representan los posibles neoantígenos. Para está tarea se va a utilizar Isovar y ANNOVAR. 
 
-%Finalmente, para obtener el tipo de HLA del paciente se va a utilizar la herramienta OptiType \citep{szolek2014optitype}. Otros \textit{pipelines} optan por solicitar al usuario la información del tipo de HLA; sin embargo, obtener el HLA a partir de las mismas secuencias de ADN, mejora considerablemente el desempeño general del pipeline y la accesibilidad del usuario. 
+
 Finalmente, para obtener el tipo de HLA del paciente se va a utilizar la herramienta OptiType. Otros \textit{pipelines} optan por solicitar al usuario la información del tipo de HLA; sin embargo, obtener el HLA a partir de las mismas secuencias de ADN, mejora considerablemente el desempeño general del pipeline y la accesibilidad del usuario. Al  finalizar esta etapa, se va a obtener los neoantígenos candidatos.
 
 
@@ -282,54 +296,52 @@ Finalmente, para obtener el tipo de HLA del paciente se va a utilizar la herrami
 
 NeoArgosAntigen, prioriza los neoantígenos detectados previamente por NeoArgosMut. Esta priroización la realiza en base a la predicción del enlace de los neoantígenos al MHC y posteriormete al TCR. El módulo se divide en dos partes: la predicción del enlace pMHC y la afinidad del pMHC al TCR. Ambas toman como entrada dos secuencias de proteínas, luego se necesita predecir su afinidad (regresión) o el enlace (clasificación). En resumen, las proteínas se pueden representar como $p = \{ A, ... , Q \}$ y $q = \{ A, N, ... ,Q, E, G \}$. Luego, tenemos que  predecir la probabilidad del enlace o afinidad entre $p$ y $q$. 
 
-\begin{wrapfigure}{r}{0.48\textwidth} %this figure will be at the right
-    \centering
-    \includegraphics[width=0.30\textwidth]{../img/pipeline/proposal_pmhc}
-    \caption{Modelo  \textit{transformer} seguido de BiLSTM para predecir el enlace pMHC.}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.30\textwidth]{../img/pipeline/proposal_pmhc}
+	\caption{Modelo  \textit{transformer} seguido de BiLSTM para predecir el enlace pMHC.}
 	\label{fig:proposal}
-\end{wrapfigure}
-
-Para el problema de predicción del enlace pMHC se va a utilizar modelos BERT pre-entrenados y se realizará \textit{fine-tuning} agregando un bloque de capas BiLSTM. Luego se volverá a entrenar estos modelos con una base de datos compuesta por muestras de \cite{zhang2022hlab} y \cite{gfeller2023improved}. Se propone la arquitectura de la Figura \ref{fig:proposal}. Como se puede ver, la entrada son dos secuencias de proteínas: el péptido y el MHC. Luego, el modelo basado en transformers está compuesto por un modelo pre-entrenado y un bloque de capas BiLSTM, esta propuesta se basó en el trabajo de \cite{zhang2022hlab}. En esta etapa también. se va a evaluar el desempeño de varios modelos BERT pre-entrenados como: TAPE \citep{rao2019evaluating}, ProtBERT-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} cada una con 92 millones, 420 millones, 650 millones parámetros respectivamente. Adicionalmente, TAPE fue entrenado con 30 millones de proteínas, ProtBERT-BFD con 2122 millones de proteínas y 60 millones de proteínas para ESM-2. En base a trabajos anteriores propios, sabemos que el uso de TAPE y el modelo más pequeño de ESM2 tienen buenos resultados \citep{arceda2023neoantigen}.
+\end{figure}
 
 
 
+Para el problema de predicción del enlace pMHC se va a utilizar modelos BERT pre-entrenados y se realizará \textit{fine-tuning} agregando un bloque de capas BiLSTM. Luego se volverá a entrenar estos modelos con una base de datos compuesta por muestras de \cite{zhang2022hlab} y \cite{gfeller2023improved}. Se propone la arquitectura de la Figura \ref{fig:proposal}. Como se puede ver, la entrada son dos secuencias de proteínas: el péptido y el MHC. Luego, el modelo basado en transformers está compuesto por un modelo pre-entrenado y un bloque de capas BiLSTM, esta propuesta se basó en el trabajo de \cite{zhang2022hlab}. En esta etapa también. se va a evaluar el desempeño de varios modelos BERT pre-entrenados como: TAPE \cite{rao2019evaluating}, ProtBERT-BFD \cite{elnaggar2021prottrans} y ESM2 \cite{lin2023evolutionary} cada una con 92 millones, 420 millones, 650 millones parámetros respectivamente. Adicionalmente, TAPE fue entrenado con 30 millones de proteínas, ProtBERT-BFD con 2122 millones de proteínas y 60 millones de proteínas para ESM-2. En base a trabajos anteriores propios, sabemos que el uso de TAPE y el modelo más pequeño de ESM2 tienen buenos resultados \cite{arceda2023neoantigen}.
 
-%  \begin{figure}[H]
-%	\centering
-%	\includegraphics[width=0.30\textwidth]{../img/pipeline/proposal_pmhc}
-%	\caption{Propuesta: Utilizamos el modelo de transformer ESM2 seguido de BiLSTM para predecir el enlace pMHC.}
-%	\label{fig:proposal}
-%\end{figure}
+
+
+La misma arquitectura de la Figura \ref{fig:proposal}, se utilizará para la predicción del enlace pMHC y TCR (pMHC-TCR) según recomendaciones de \cite{li2020progeo}  y \cite{myronov2023bertrand}. Sin embargo, se va reentrenar el modelo para adaptarse a este nuevo problema, se utilizarán muestras de \cite{li2020progeo} y la base de datos de VDJdb \cite{shugay2018vdjdb}. Al finalizar esta etapa, se obtendrán los neonatígenos.
 
 
 
 
 
-La misma arquitectura de la Figura \ref{fig:proposal}, se utilizará para la predicción del enlace pMHC y TCR (pMHC-TCR) según recomendaciones de \cite{li2020progeo}  y \cite{myronov2023bertrand}. Sin embargo, se va reentrenar el modelo para adaptarse a este nuevo problema, se utilizarán muestras de \cite{li2020progeo} y la base de datos de VDJdb \citep{shugay2018vdjdb}. Al finalizar esta etapa, se obtendrán los neonatígenos.
+\section{Limitaciones (5K)}
+
+lIMITACIONES Y ESTRATEGIAS ABORADADAS
 
 
+\section{Resumen (5K)}
 
 
+\section{Describa el equipamiento e infraestructura disponible (5k)}
 
-%\section{Limitaciones}
+\section{Resultados esperados}
 
-%\section{Describa el equipamiento e infraestructura disponible}
+\section{Cronograma de Actividades}
 
-%\section{Resultados esperados}
+\section{Sostenibilidad de la propuesta (5k)}
 
-%\section{Cronograma de Actividades}
-
-%\section{Sostenibilidad de la propuesta}
-
-%\section{Impacto Científico de la propuesta}
+\section{Impacto Científico de la propuesta (5k)}
 
 
 
 
 
 
-\bibliographystyle{apalike}
-\bibliography{bibliography}
+%\bibliographystyle{apalike}
+\bibliographystyle{IEEEtran}
+\bibliography{../bibliography_thesis}
 
 	
 \end{document}
