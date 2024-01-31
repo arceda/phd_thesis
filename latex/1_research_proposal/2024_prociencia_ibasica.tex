@@ -14,6 +14,7 @@
 \usepackage{comment}
 \usepackage{times} % pára el tipo de letra arial
 \usepackage{wrapfig}
+\usepackage{lscape}
 \usepackage{cite}
 %% Sets page size and margins
 \usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.5cm,right=1.5cm,marginparwidth=1.75cm]{geometry}
@@ -55,6 +56,9 @@
 
 \section{Título}
 Desarrollo de una herramienta  para la detección \textit{in silico} de neoantígenos a partir de datos genómicos en el marco de desarrollo de vacunas personalizadas para tratar el cáncer.
+
+\section{Resumen (5K)}
+La detección de neoantígenos es una área de la Bioinformática la cual es de suma importancia debido a su aplicabilidad para el desarrollo de vacunas personalizadas contra el cáncer. Estas vacunas en conjunto con otros tratamientos como radioterapias y quimioterapias han presentado resultados prominentes. En este contexto, en este proyecto se determina el desarrollo de un pipeline para la detección de neoantígenos. La herramienta nombrada es NeoArgosTools v2.0. La herramienta tomará como entrada datos genómicos como RNA-seq/DNA-seq y datos de Mass Spectrometry. Luego, va a integrar herramientas de alineamiento de secuencias, detección de variaciones estructurales/fusión de genes, llamado de variantes, y anotación de variantes para obtener los neoantígenos candidatos y los tipos de proteínas Human Leukocyte Antigens (HLA). Luego, prosigue una priorización de neoantígenos, entonces se desarrollará un método basado en inteligencia artificial para priorizar y seleccionar los neoantígenos. El desarrollo de esta herramienta, en un futuro permitirá el desarrollo de vacunas personalizadas contra el cáncer, y en luego realizar pruebas clínicas.
 
 %\begin{comment}
 \section{Problema (5k) }
@@ -215,6 +219,36 @@ Con la conclusión de este proyecto, se abrirá paso a la segunda fase, que impl
 
 
 \section{Porqué es una investigación básica (3k)}
+
+A partir del conocimiento en el estado del arte en el área de inmunoterapia para tratamiento de cáncer se tiene que:
+
+\begin{itemize}
+	
+
+\item Existen varios tratamientos: vacunas personalizadas, terapias con células T adoptivas, inhibidores de puntos de control inmunológico, de los cuales, es más promisorio el uso de vacunas basadas en neo antígenos.
+\item A pesar de los esfuerzos realizados, los neoantígenos alcanzan un nivel de efectividad de activación del sistema inmune menor a apenas 5%.
+\item Se tiene algunas explicaciones para esta poca efectividad como falta de más fuentes de información: DNA-Seq, RNA-Seq, datos de Espectrometría de Masas, siendo que la cantidad de esta información es creciente y se utiliza en otros campos.
+\item Las herramientas encontradas para la predicción de los enlaces péptidos-MHC (pMHC) son poco efectivas.
+\item Aún no se está aprovechando la información de splicing alternativo ni variaciones estructurales en el ADN, y esta información está bastante ligada a varios tipos de cáncer.
+\end{itemize}
+
+Además, se tiene en el estado del arte que ya se ha cuenta con una metodología para el proceso de desarrollo de vacunas personalizadas, denominada pipeline que se seguirá en la investigación proponiendo algunas novedades de contribución en el proceso tales como:
+
+\begin{itemize}
+
+
+\item Desarrollo de un modelo basado en el modelo Transformers de Inteligencia Artificial, Deep Learning que actuará como predictor del enlace pMHC, que en resultados previos ha mostrado mejores resultados a propuestas en el estado del arte.
+\item Incorporación de datos de Espectrometría de Masas (MS), variaciones estructurales y fusión de genes apuntando a lograr resultados más interesantes que los métodos del estado del arte.
+\end{itemize}
+
+Es así que con esta propuesta se cumplen los requisitos de una investigación básica:
+
+\begin{itemize}
+\item Obtención de nuevos conocimientos tanto teóricos como experimentales en la implementación de los pipelines para obtención de vacunas personalizadas al incluir nuevas técnicas y verificar sus comportamientos e impactos en los resultados obtenidos. 
+\item Aunque existe una área de aplicación definida (pipeline de vacunas basadas en neo antígenos), se está probando técnicas que se avizora podrían obtener resultados interesantes, pero aún no se hicieron pruebas ni análisis, con los cuales se espera obtener nuevos conocimientos para solucionar de mejor forma una etapa del problema de obtención de vacunas de neoantígenos. Así, esta propuesta calificaría como Investigación Básica Orientada.
+
+\item Esta propuesta se alinea con la sub área de ciencias naturales en la disciplina de Ciencias de la Computación en Bioinformática, dado que propone verificar el comportamiento de técnicas del área de Ciencia de la Computación (Inteligencia Artificial, Deep Learning, Modelos Transformer) en problemas del área Bioinformática y Biología Computacional.
+\end{itemize}
 	
 \section{Pregunta de investigación}	
 
@@ -401,25 +435,188 @@ Finalmente, para lograr desarrollar el objetivo especifico OBJ 9, se va a compar
 \end{figure}
 
 
-\begin{comment}	
+
 
 \section{Limitaciones (5K)}
 
+En el estado del arte se observa que la efectividad de la detección de neoantígenos es aún muy baja, en ese sentido se está proponiendo aplicar estrategias que involucren técnicas y métodos novedosos apuntando a aumentar esta efectividad. Con todo, no es posible en este momento colocar una meta deseada (10\%, 20\%) a alcanzar por lo que queda algo difuso definir un umbral de éxito o fracaso del proyecto. La confianza que se tiene en alcanzar resultados satisfactorios es que se está planteando el uso de más informaciones y también técnicas de IA más potentes que han logrado resultados muy interesantes en el estado del arte de problemas relacionados. 
 
-\section{Resumen (5K)}
+Adicionalmente, el alcance de este proyecto está determinado por el software desarrollado, este software (pipeline) NeoArgosTools, tendrá la funcionalidad de detectar neoantígenos a partir de datos genómicos. En nuestra planificación, el siguiente paso es continuar con el desarrollo de las vacunas in vitro y las pruebas clínicas, esta fase está fuera del alcance del proyecto y es un trabajo interdisciplinario y será desarrollado en un futuro cercano.
+
+Adicionalmente en asuntos más operativos se consideran los siguientes riesgos y estrategias para mitigarlos:
+
+Retraso con la adquisición de equipos (Workstation). En este caso, este proyecto depende mucho de contar con equipos de alto rendimiento y no tenerlos a tiempo, pondría en riesgo la completitud del proyecto. Sin embargo, actualmente la Universidad La Salle cuenta con créditos en las plataformas Paperspace y DigitalOceam, estas 
 
 
-\section{Describa el equipamiento e infraestructura disponible (5k)}
+
 
 \section{Resultados esperados}
 
+Un articulo en un Journal, un artícuo en una conferencia, una tesis lista para sustentar.
+
+
+
 \section{Cronograma de Actividades}
+
+
+
+	
+
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+
+
+\begin{table}[H]
+	\scriptsize
+	\begin{tabular}{p{0.6cm}p{0.6cm}p{6cm}p{4cm}p{1cm}cccccc} \\ \hline
+		
+		
+		
+		
+		
+		\textbf{Hito}        & \textbf{Fases}        & \textbf{Objetivos específicos}                                                                                                                                                                                                                                                             & \textbf{Actividades}                                                                                 & \textbf{Encargado} & \multicolumn{1}{c}{I} & \multicolumn{1}{c}{II} & III                  & IV                   & \multicolumn{1}{c}{V} & \multicolumn{1}{c}{VI} \\  \hline
+		
+		\multirow{17}{*}{I}  & \multirow{3}{*}{I.1}  & \multirow{3}{6cm}{OBJ 1: Evaluar alternativas para la integración de datos Mass Spectrometry (MS) con datos genómicos como RNA-seq y DNA-seq.}                                                                                                                                            & Investigar y evaluar el uso de RNA-se y DNA.seq                                                      & Vicente            & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} &                       &                        \\
+		
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar herramientas para tratar datos de MS                                                         &                    &                       & \multicolumn{1}{c}{x}  & x                    & x                    & \multicolumn{1}{c}{x} &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Integración de datos  MS y RNA-seq                                                                   & Yvan               &                       &                        & x                    & x                    & \multicolumn{1}{c}{x} &                        \\ 
+		& \multirow{5}{*}{I.2}  & \multirow{2}{6cm}{OBJ 2: Evaluar las herramientas STAR {[}36{]}, BWA {[}37{]}, Bowtie2 {[}38{]} y Samtools {[}39{]} para determinar su aplicación en el alineamiento de secuencias.}                                                                                                      & Evaluar y comparar cada herramienta de alineamiento                                                  & Tesista            & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  & x                    & x                    &                       &                        \\
+		
+		&                       &                                                                                                                                                                                                                                                                                            & Investigar sobre buenas prácticas y estandares                                                       &                    & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  & x                    & x                    &                       &                        \\
+		&                       & \multirow{3}{6cm}{OBJ 3: Evaluar las herramientas GATK {[}40{]} y BFCtools {[}39{]} y determinar el uso apropiado de estas en el llamado de variantes.}                                                                                                                                   & Investigar sobre las buenas prácticas de GATK                                                        & Julio              &                       & \multicolumn{1}{c}{x}  & x                    & \multicolumn{1}{l}{} &                       &                        \\
+		
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar y comparar la herramienta GATK                                                               & Tesista            &                       & \multicolumn{1}{c}{x}  & x                    & x                    &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar la herramienta BCFtools                                                                      & Tesista            &                       &                        & x                    & x                    &                       &                        \\
+		& \multirow{4}{*}{I.3}  & \multirow{4}{6cm}{OBJ 4: Analizar el uso de información de variaciones estructurales del ADN y mutaciones de fusión de genes. Se evaluará el desempeño de Arriba [41] y FusionQ [42].}                                                                                            & Investigar sobre variaciones estructurales y fusión de genes                                         & Yvan               & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  & x                    & x                    & \multicolumn{1}{c}{x} &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar la herramienta Arriba                                                                        & Vicente            &                       &                        & x                    & \multicolumn{1}{l}{} &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar la herramienta FusionQ                                                                       & Vicente            &                       &                        & x                    & \multicolumn{1}{l}{} &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Investigar sobre otras herramientas para la detección de fusion de genes y variaciones estructurales & Yvan               &                       & \multicolumn{1}{c}{x}  & x                    & x                    & \multicolumn{1}{c}{x} &                        \\
+		& \multirow{5}{*}{I.4}  & \multirow{5}{6cm}{OBJ 5: Evaluar la herramienta Isovar {[}43{]} y Annovar {[}44{]} para la anotación de variantes y la herramienta OptiType {[}45{]} para la predicción de tipos de HLA.}                                                                                                 & Evaluar la herramienta OptiType y semejantes                                                         & Yvan               &                       &                        & x                    & x                    &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar la herramienta Isovar                                                                        &                    &                       &                        & x                    & \multicolumn{1}{l}{} &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar la herramienta Annovar                                                                       &                    &                       &                        & x                    & \multicolumn{1}{l}{} &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Investigar sobre otras herramientas y realizar comparaciones                                         & Yvan               &                       &                        & x                    & x                    &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Integrar las herramientas en NeoArgosMut                                                             &                    &                       &                        & x                    & x                    & \multicolumn{1}{c}{x} &                        \\ \hline \hline
+		\multirow{12}{*}{II} & \multirow{5}{*}{II.1} & \multirow{3}{6cm}{OBJ 6: Implementar un modelo basado en transformers para la predicción del enlace pMHC.} & Implementar el modelo basado en Transformers                                                         & Vicente            & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  & x                    & \multicolumn{1}{l}{} &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Entrenamiento del modelo                                                                             & Vicente            &                       & \multicolumn{1}{c}{x}  & x                    & x                    &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Evaluar el desempeño y comparar con otras herramientas                                               & Vicente            &                       & \multicolumn{1}{c}{x}  & x                    & x                    &                       &                        \\
+		&                       & \multirow{2}{6cm}{OBJ 7: Evaluar el modelo basado en transformers para la predicción del enlace pMHC en otra tarea similar: la predicción del enlace pMHC al TCR.}                                                                                                             & Entrenar el modelo en bases de datos pMHC-TCR                                                        & Vicente            &                       &                        & x                    & x                    &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Comparar el modelo con otras herramientas                                                            & Vicente            &                       &                        & \multicolumn{1}{l}{} & x                    &                       &                        \\
+		& \multirow{3}{*}{II.2} & \multirow{3}{6cm}{OBJ 8: Implementar una interfaz gráfica que sirva como panel de administración para configurar y escoger las herramientas en cada fase del pipeline.}                                                                                                                   & Integrar las herramientas en NeoArgosAntigen                                                         & Tesista            &                       &                        & x                    & x                    & \multicolumn{1}{c}{x} &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Implementar la interfaz gráfica                                                                      & Tesista            &                       & \multicolumn{1}{c}{x}  & x                    & x                    & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  \\
+		&                       &                                                                                                                                                                                                                                                                                            & Integración de NeoArgosMut y NeoArgosAnigen                                                          &                    &                       &                        & \multicolumn{1}{l}{} & x                    & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  \\
+		& \multirow{4}{*}{II.3} & \multirow{4}{6cm}{OBJ 9: Comparar el desempeño de la herramienta propuesta con otras herramientas del estado del arte.}                                                                                                                                                                   & Evaluar el desempeño del pipeline                                                                    & Julio              &                       &                        & x                    & x                    & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  \\
+		&                       &                                                                                                                                                                                                                                                                                            & Redacción del artículo cientifico para el Journal                                                    &                    &                       &                        & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} & \multicolumn{1}{c}{x} & \multicolumn{1}{c}{x}  \\
+		&                       &                                                                                                                                                                                                                                                                                            & Redacción del artículo cientifico para la Conferencia                                                &                    &                       &                        & x                    & x                    &                       &                        \\
+		&                       &                                                                                                                                                                                                                                                                                            & Evento de difución de resultados                                                                     &                    &                       &                        & \multicolumn{1}{l}{} & \multicolumn{1}{l}{} &                       & \multicolumn{1}{c}{x}  \\  \hline
+		
+		
+	\end{tabular}
+\end{table}
+
+
+
 
 \section{Sostenibilidad de la propuesta (5k)}
 
-\section{Impacto Científico de la propuesta (5k)}
-\end{comment}
+Esta propuesta busca fortalecer el área de inmunoterapia para cáncer, mediante la obtención de vacunas personalizadas basadas en neoantígenos mediante la investigación de uso de modelos de Inteligencia Artificial basados en Transformer y Transfer Learning para predecir el enlace pMHC, que es un punto crucial en la calidad de detección de neonantígenos, además de la implementación de un pipeline de obtención de vacunas personalizadas mejorando que incluya más informaciones y análisis en su proceso: Espectrometría de Masas (MS), variaciones estructurales y fusión de genes, lo cual abrirá la posibilidad de un trabajo posterior de desarrollo de vacunas basadas en neonantígenos, lo cual sería una etapa que continue esta investigación ya a nivel de aplicación y posterior desarrollo de producto en la búsqueda de soluciones efectivas para la lucha contra el cáncer.
 
+Tanto la Universidad La Salle desde su Dependencia: Departamento académico de ingeniería y matemática como la Universidad Católica San Pablo, desde el Departamento de Ciencia de la Computación, están comprometidas con los aportes computacionales desde sus investigadores y tesistas que son de las áreas de Ciencia de la Computación e Ingeniería de Software, y por otro lado, la Fuerza Aérea del Perú desde su dependencia Hospital Regional del Sur FAP, que permitirá articular el trabajo Computacional con la atención médica y el área genómica apuntando a alcanzar un trabajo de investigación integrado y tener un rumbo más claro para las posteriores etapas esperadas que serían más aplicativas y de desarrollo tecnológico..  
+
+
+\section{Impacto Científico de la propuesta (5k)}
+
+Como se menciona en los antecedentes, desarrollar vacunas personalizadas es un proceso que está en franca investigación, y depende mucho de la correcta detección de los antígenos, mostrándose como un gran desafío en estos días. En este sentido la propuesta apunta a mejorar este nivel de detección ya sea por el uso de técnicas de Inteligencia Artificial como Transformer y Transfer Learning, para mejorar la previsión de enlaces pMHC como incorporando más informaciones a considerar en esta detección como son: datos de Espectrometría de Masas (MS), datos genómicos DNA-Seq, RNA-Seq, variaciones estructurales, fusión de genes e incluso eventos de alternative splicing, que aun no se ha visto en el estado del arte como parte de los pipelines. 
+Esta inclusión de nuevas informaciones generarán resultados nuevos, se espera que sean mejores a los actuales en el estado del arte, y que permitan avanzar en el problema de detección de neoantígenos para vacunas personalizadas que al momento tienen una tasa de acierto de menos del 5\% siendo aun poco atractivo para pensar en las siguientes etapas de desarrollo tecnológico.
+
+\section{Equipamiento de cada entidad}
+
+La dirección de investigación de la Universidad La Salle, dispondrá de cubículos en las oficinas de investigación, Este espacio servirá como lugar de reuniones y para  desarrollo de la propuesta. Además, se podrá disponer de equipos de cómputo Desktop y monitores para que puedan ser utilizados tanto por los investigadores como por el tesista. Adicionalmente, se podrá disponer  de impresoras y proyectores para las coordinaciones y/o reuniones de trabajo.
+
+En el Departamento de Ciencia de la Computación bajo la gestión del Centro de Investigación e Innovación en Ciencia de la Computación (RICS) se tiene un área reservada para  proyectos de investigación en donde se cuenta con una sala de reuniones, 08 cubículos de trabajo para investigadores y tesistas, y algunos equipos que el departamento ha obtenido a partir de diversos proyectos de Investigación financiados ya finalizados, tales como drones, cámaras de alta resolución, cámaras de detección de profundidad, escáner 3D, impresoras 3D y computadores de alto desempeño que pueden ser asignados para la realización de este tipo de proyecto de investigación básica según demanda.
+
+\section{Funciones de los investigadores}
+
+\subsection{Investigador principal Vicente}
+\begin{itemize}
+	 
+
+\item Diseñar y planificar el estudio para la detección de neoantígenos. Esto implica la definición clara de los objetivos del proyecto y la selección de las metodologías adecuadas para la detección de neoantígenos.
+\item Realizar una exhaustiva revisión bibliográfica para comprender el estado actual de la investigación en el campo de los neoantígenos. 
+Supervisar todas las fases del proyecto y cumplimiento de cada objetivo específico.
+\item Brindar orientación y capacitación al equipo de investigación, promoviendo el desarrollo profesional y la adquisición de nuevas habilidades necesarias para llevar a cabo el proyecto con éxito.
+\item Evaluar y determinar la metodología a utilizar para el manejo de datos genómicos RNA-seq y DNA-seq.
+\item Evaluar y comparar las herramientas Arriba y FusionQ para la detección de variaciones estructurales y fusión de genes.
+\item Implementar un modelo basado en Transformers para la predicción del enlace pMHC. Además, comparar este modelo con otras herramientas del estado del arte.
+\item Fine-tuning al modelo basado en Transformers para la predicción del enlace pMHC, pero esta vez para la tarea de predicción del enlace pMHC-TCR.Luego comparar sus resultados.
+\end{itemize}
+
+
+\subsection{Co-investigador Yván}
+\begin{itemize}
+
+
+\item  Trabajo en la realización de la revisión bibliográfica exhaustiva para conocer y comprender el estado actual de la investigación en el campo de los neoantígenos.
+\item En OBJ1, Evaluar cómo trata datos MS y la integración de RNA-Seq
+\item En OBJ4, Investigar sobre las variuabtes estructurales y fusión de genes, Investigar sobre alguna otra herramienta para detección de fusión de genes y variantes estructurales
+\item En OBJ5, Evaluar las Herramientas OptiTye y semejantes, evaluar las herramientas Isovar, Annovar y determinar sus diferencias
+\end{itemize}
+
+\subsection{Co-investigador Julio}
+
+El médico internista con maestría en oncología molecular desempeñará un papel integral en el proyecto de desarrollo de herramientas para la detección in silico de neoantígenos y vacunas personalizadas contra el cáncer, facilitando la convergencia de la atención clínica y la genómica para ofrecer tratamientos altamente personalizados a pacientes con cáncer.. Sus funciones incluirian:
+
+\begin{itemize}
+	
+
+\item Evaluación Clínica Avanzada:  Realizar evaluaciones clínicas especializadas, integrando conocimientos en oncología molecular para comprender la biología molecular de los tumores y su impacto en la salud del paciente.
+\item Interpretación Genómica: Analizar los datos genómicos para identificar mutaciones y neoantígenos específicos que puedan guiar la selección de tratamientos personalizados.
+\item Coordinación Multidisciplinaria:  Colaborar estrechamente con otros especialistas, como bioinformáticos, genetistas y oncólogos, para integrar la información genómica en el plan de tratamiento y personalizar la estrategia terapéutica.
+\item Selección de Pacientes para Ensayos Clínicos: Identificar a los pacientes elegibles para participar en ensayos clínicos de terapias innovadoras basadas en la información genómica, maximizando las opciones de tratamiento.
+\item  Asesoramiento Genético: Proporcionar asesoramiento genético a los pacientes y sus familias, explicando las implicaciones de las mutaciones genéticas y orientando sobre posibles medidas preventivas.
+\item  Diseño Personalizado de Tratamientos: Contribuir al diseño personalizado de tratamientos, considerando la biología molecular del tumor y adaptando las terapias según la respuesta del paciente.
+\item  Manejo Integral del Paciente: Coordinar la atención integral del paciente, gestionando tanto las implicaciones médicas generales como las específicas de la oncología molecular.
+\item  Seguimiento y Monitoreo Clínico: Monitorizar continuamente la respuesta del paciente al tratamiento, ajustando la estrategia según sea necesario y gestionando posibles efectos secundarios.
+\item  Manejo de Condiciones Médicas Concurrentes: Abordar y gestionar cualquier condición médica preexistente que pueda afectar la selección y aplicación de la terapia personalizada.
+\item  Investigación y Desarrollo:.Participar en investigaciones clínicas y contribuir al desarrollo de nuevas estrategias terapéuticas basadas en la comprensión molecular de los tumores.
+\item  Educación Continua:.Mantenerse actualizado en avances científicos y tecnológicos relacionados a oncología molecular, compartiendo conocimientos con el equipo multidisciplinario y educando a los pacientes sobre las opciones de tratamiento.
+
+\end{itemize}
+
+\section{Entidades}
+
+\subsection{Universidad La Salle}
+La Universidad La Salle cuenta con el departamento académico de Ingeniería y matemática y áreas de investigación consolidadas referente a inteligencia artificial e ingeniería de software. Adicionalmente, contamos con más de 7 años de experiencia en desarrollo de proyectos científicos. Adicionalmente, tenemos el apoyo de la comunidad La Salle alrededor del mundo el cual fortalece nuestras alianzas y colaboraciones a futuro. 
+
+\subsection{UCSP}
+
+\subsubsection{Trayectoria y Experiencia de la entidad para el desarrollo del proyecto}
+
+Nuestra universidad cuenta, con una organización interna constituida a partir de departamentos independientes con áreas de investigación consolidadas a través de centros de investigación acreditados por CONCYTEC, el departamento de Ciencia de la Computación cuenta con un Centro de Investigación e Innovación en Ciencia de la Computación (RICS -
+http://rics.ucsp.edu.pe/ ) con más de 10 años de experiencia en la participación y ejecución de proyectos con fondos concursables y generando dentro de la universidad el mayor porcentaje de publicaciones académicas nacionales y internacionales a nivel de todos los departamentos. Se cuenta con una área de proyectos en donde se tienen algunos equipos como: drones ,
+cámaras de alta resolución, cámaras de detección de profundidad, escáner 3D, impresoras 3D y computadores de alto desempeño que pueden ser asignados para la realización de este tipo de proyecto de investigación básica según demanda.
+
+\subsubsection{Describa la participación que tendrá la entidad}
+
+
+La Universidad Católica San Pablo participará en gran parte de las etapas, desde la etapa de revisión de bibliografía, siendo responsable de las siguientes tareas: 
+\begin{itemize}
+	
+
+\item Evaluación de cómo trata datos MS y la integración de RNA-Seq
+\item Investigación sobre las variantes estructurales y fusión de genes, Investigar sobre alguna otra herramienta para detección de fusión de genes y variantes estructurales
+\item Evaluación de las Herramientas OptiTye y semejantes, evaluar las herramientas Isovar, Annovar y determinar sus diferencias
+\end{itemize}
+
+\subsection{FAP}
+
+\subsubsection{Trayectoria y experiencia del Hospital Regional del Sur FAP en el proyecto}
+El Hospital Regional del Sur como parte del sistema de sanidades dependientes de la Fuerza Aérea del Perú tiene amplia experiencia en el desarrollo de proyectos de diferente índole, particularmente en todos aquellos vinculados al servicio de la comunidad como la realización de acciones cívicas para la promoción prevención y atención de salud de los sectores más vulnerables de la población, así como en el apoyo en caso de siniestros tales como sismos, aludes, incendios forestales, rescate y atención de víctimas en alta montaña y en general en las que la participación de aeronaves y el transporte aéreo sea crucial además de participar activamente en diferentes tipos de ayuda humanitaria tanto a nivel nacional como internacional.
+En lo concerniente a proyectos de investigación y desarrollo tecnológico relacionados al área de salud actúa íntimamente vinculado al Hospital Central con sede en la Ciudad de Lima qué cuenta con equipamiento de punta y laboratorios modernos, que coopera de forma  coordinada en el desarrollo de cualquier proyecto realizado por las sanidades de la Fuerza Aérea y con el que se interactúa através de  una continua retroalimentación relacionada a la atención, diagnóstico y seguimiento de pacientes asi como la capacitación del personal de salud además de ser un hospital docente en el que se da formación académica a internos de medicina al igual que sucede en nuestra dependencia y de residentes para la realización de la segunda especialidad en diferentes áreas en el hospital central
+
+\subsubsection{Participación e importancia del Hospital Regional del Sur FAP en la propuesta} 
+El Hospital regional del Sur FAP participa en el proyecto poniendo a su disposición recursos humanos específicamente a través  de uno de los investigadores especialista  en Medicina interna  y máster en oncología molecular, formaciones que le confieren una visión amplia en diferente tipos de patologías incluidos varios tipos de cáncer y las repercusiones en la salud de los pacientes que lo padecen,  además de una visión moderna e innovadora del abordaje de esta patología obtenida gracias a su formación en oncología molecular. 
+Por otro lado existe la posibilidad concreta de aplicar en un futuro cercano los resultados de la investigación a través de un ensayo clínico en pacientes de nuestras diferentes dependencias de salud que padezcan de la enfermedad y contribuir a su tratamiento y recuperación así como de participar en futuras etapas que permitan el perfeccionamiento de esta y otras técnicas para el tratamiento de diversas enfermedades enfocadas desde la perspectica molecular contribuyendo con su infraestructura, equipamiento y recursos humanos 
 
 \clearpage
 
