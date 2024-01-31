@@ -54,8 +54,9 @@
 \part*{Propuesta de la Investigación}
 
 \section{Título}
-Desarrollo de una herramienta  para la detección \textit{in silico} de neoantígenos a partir de datos genómicos en el marco de desarrollo de vacunas personalizadas para tratar el cancer.
+Desarrollo de una herramienta  para la detección \textit{in silico} de neoantígenos a partir de datos genómicos en el marco de desarrollo de vacunas personalizadas para tratar el cáncer.
 
+%\begin{comment}
 \section{Problema (5k) }
 
 El cáncer representa el mayor problema de salud mundial \cite{siegel2023cancer}. Además, según el instituto de investigación del cáncer del Reino Unido, se ha registrado más de 18 millones de nuevos casos y 10 millones de muertes en el 2020 \cite{cancerUK2023}. Más alarmante aún, se predice que habrá 28 millones de nuevos casos por año alrededor del 2040, si la incidencia se mantiene estable y el crecimiento de la población y el envejecimiento continúan de acuerdo con las tendencias recientes \cite{cancerUK2023_2}. Esto representa un aumento del 54.9\% con respecto a 2020 y se espera que sea mayor en hombres (aumento del 60.6\%) que en mujeres (aumento del 48.8\%).	A todo esto, se sabe que los métodos tradicionales basados en cirugías, radioterapias y quimioterapias tienen baja efectividad y adversos efectos secundarios \cite{peng2019neoantigen}. En este contexto, surge el desarrollo de la inmunoterapia de cáncer, que tiene como objetivo estimular el sistema inmunológico de un paciente \cite{borden2022cancer}. Existen varios tratamientos como: vacunas personalizadas; terapias de células T adoptivas; e inhibidores de puntos de control inmunológico. De estos, las vacunas basadas en \textbf{neoantígenos} han demostrado un gran potencial, al potenciar las respuestas de las células T y es considerada la de mayor probabilidad de éxito \cite{borden2022cancer}. También, los neoantígenos son utilizados en la terapia de bloqueo de puntos de control inmunológico. En este sentido, los neoantígenos son considerados biomarcadores predictivos y objetivos de tratamiento sinérgico en la inmunoterapia del cáncer \cite{fang2022neoantigens}.
@@ -171,9 +172,9 @@ La presente propuesta ofrece una valiosa contribución a la disciplina de Bioinf
 
 
 
+%\end{comment}
 
-
-
+%\begin{comment}
 \section{Resultados o avances previos (4k)}
 
 
@@ -254,12 +255,88 @@ Con la conclusión de este proyecto, se abrirá paso a la segunda fase, que impl
 	\end{enumerate}
 
 
+%\end{comment}
+
+
+
+\begin{comment}
+\section{Introducción} 
+
+
+El desarrollo de vacunas personalizadas contra el cáncer es un proceso largo y depende de la correcta detección de neoantígenos (ver Figura \ref{fig:vaccines} del material complementario). Estos neoantígenos son péptidos que solo están presentes en las células cancerosas. De esta forma, el objetivo de un tratamiento basado en vacunas personalizadas, es entrenar a los linfocitos del paciente (células T) para reconocer los neoantígenos y activar el sistema inmunológico \cite{de2020neoantigen, peng2019neoantigen}. El proceso consiste en: 
 
 
 
 
+\begin{enumerate}
+	\item ETAPA I: Obtener muestras de tejido canceroso y saludable, Luego se secuencia ambos tejidos para obtener el ADN y/o ARN. Algunas propuestas incluyen información inmunopeptidoma de \textit{Mass Spectrometry} (MS).
+	\item ETAPA II: Aquí realiza alineamiento de secuencias, se desarrolla un \textit{llamado de variantes} para detectar las variantes y/o mutaciones; y se anotan dichas variantes (detección de posibles neoantígenos). Esta etapa cuenta con varias herramientas con buen desempeño.
+	\item ETAPA III: En esta etapa \textit{in-silico} se priorizan neoantígenos. Esta etapa es crucial y ha tenido bastante investigación los últimos años debido a su complejidad y la baja efectividad de propuestas actuales. Aquí, se toman los neoantígenos candidatos (péptidos) de la etapa anterior y se predice su afinidad con el \textit{Major Histocompatibility Complex} (MHC), este problema se conoce como \textit{pMHC binding}. Luego, se  evalúa la afinidad del pMHC para enlazarse al T-cell Receptor (TCR). Al finalizar esta etapa, se obtienen los neoantígenos.
+	\item ETAPA IV: En esta etapa \textit{in-vitro}, se induce en laboratorio  a las células T del paciente a reconocer los neoantígenos. Aquí, se desarrollan las vacunas. Generalmente, esta etapa es desarrollada por biotecnólogos y biólogos.
+	\item ETAPA V: Finalmente, el médico oncólogo realiza la evaluación clínica de la vacuna.
+\end{enumerate}
 
-\section{Metodología (5k)} 
+
+
+\begin{figure}[H]	
+	\centering
+	\includegraphics[width=0.5\textwidth]{../img/vaccines/pipeline2}	
+	\caption{Marco de desarrollo para la elaboración de vacunas personalizadas contra el cáncer basadas en neoantígenos. Se detalla cada fase enfatizando el desarrollo \textit{in-silico}. Fuente: Elaboración propia.}
+	\label{fig:vaccines}
+\end{figure}
+
+
+Las principales \textit{pipelines} desarrollados hasta la actualidad para la detección de neoantígenos son detallados en la Tabla \ref{tab:review_pipelines}.
+
+\begin{table}[h]
+	\caption{Lista de \textit{pipelines} desarrollados desde el 2018 hasta la actualidad para la detección de neoantígenos.GN: Expresión de genes, VA: anotación de variantes.}
+	\label{tab:review_pipelines}
+	\centering
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.8}% for the vertical padding
+		{\footnotesize
+			\begin{tabular}{lllp{2cm}p{8.5cm}p{2cm}}
+				\textbf{Nombre} & \textbf{Año}  & \textbf{Ref.}                                 & \textbf{Entrada}                                         & \textbf{Salida}    & \textbf{Herramientas}                                 \\ \hline
+				
+				PEPPRMINT         & 2023 &\cite{zhou2023prioritizing}         & DNA-seq                                                  & BWA, Mutect, Strelka, ANNOVAR, OptiType, PEPPRMINT, netMHCpan4.1 & Neoantígenos                                        \\
+				
+				PGNneo & 2023	& \cite{tan2023pgnneo}	& VCF, RNA-seq y MS data & Trimmomatic, BWA, SAMtools, GATK, Picard, OptiType, Annovar, Bedtools, MaxQuant, NetMHCpan4.1, Blastp	& Neoantígenos \\
+				
+				Valid-NEO       & 2022 &\cite{terai2022valid}             & VCF y HLA          & Neoantígenos  \\
+				
+				HLA3D & 2022	& \cite{li2022hla3d}	& VCF, HLA, SMG y HBV	& MHCcluster, SAVES, PROCHECK, CoDockPP, Verify 3D, ERRAT, ClusterW2, 3Dmol, PSRPRED4.0, MHCf lurry, CoDockPP & Neoantígenos \\
+				
+				
+				
+				NAP-CNB         & 2021 &\cite{wert2021predicting}         & RNA-seq                                                  & Star, Picard, GATK, SplitNCigarsReads, MuTect2, Cufinks, Epi-Seq, pVAC,seq, Neoantimon, MuPeXI, BLOSUM62 &  Neoantígenos                                       \\
+				
+				NeoANT-HILL     & 2020 &\cite{coelho2020neoant}           & RNA-seq y VCF                   & GATK, Mutect2, Optitype, NetMHC, NetMHCpan, NetMHCCcons, NetMHCstapan, PickPoket, SMM, SMMPMBEC, MHCflurry, NetMHCIIpan, NN-align, SMM-align, Sturniolo, Kallisto     & Neoantígenos,GE  \\
+				
+				Neoepiscope     & 2020 &\cite{wood2020neoepiscope}        & VCF y BAM            & BWA, Bowtie2, Pindel, MuSE, RADIA, SomaticSniper, VarScan2, GATK, HapCUT2       & Neoantígenos                          \\
+				
+				ProGeo-neo      & 2020 &\cite{li2020progeo}               & RNA-seq y VCF           & SRA Toolkit, BWA, GATK, Bcftools, ANNOVAR, Kallisto, OptiType, NetMHCpan4.0, Picard             & Neoantígenos                                       \\
+				
+				pVACtools       & 2020 &\cite{hundal2020pvactools}        & VCF                                         & CWL36, Cromwell37, ADNc38, BWA-MEM25, HaplotypeCaller28, MHCflurry14, MHCnuggets15, NetChop17, INTEGRATE-Neo19 & Neoantígenos                                       \\
+				
+				NeoPredPipe     & 2019 &\cite{schenck2019neopredpipe}     & VCF y HLA                & ANNOVAR, POLYSOLVER, netMHCpan, PeptideMatch            & Neoantígenos,VA              \\
+				
+				ScanNeo         & 2019 &\cite{wang2019scanneo}            & RNA-seq                                                  & HISAT2, BEDTools, BWA-MEM, pVAC-Seq, NetMHC, NetMHCpan & Neoantígenos                                       \\
+				
+				
+				Neopepsee       & 2018 &\cite{kim2018neopepsee}           & RNA-seq, VCF, HLA  & NetCTLpan, Swiss-Prot & Neoantígenos,GE    \\ 
+				
+				PGV Pipeline    & 2018 &\cite{rubinsteyn2018computational}& DNA-seq                                                  & BWA-MEN, BQSR, MuTect, Strelka, STAR, seq2hla, Vaxrank, Isovar, MHCtools, Varcode, pyEnsembl & Neoantígenos                                       \\
+				
+				
+			\end{tabular}
+		}	
+	}
+\end{table}
+\end{comment}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Metodología} 
+
 
 Hemos dividido la propuesta en dos módulos: NeoArgosMut y NeoArgosAntigen. NeoArgosMut, se enfoca en el llamado y anotación de variantes, obteniéndose como salida neoantígenos candidatos. Luego, NeoArgosAntigen, prioriza estos antígenos, al predecir su afinidad al MHC (pMHC) y luego la afinidad del pMHC al TCR (pMHC-TCR). En la Figura \ref{fig:pipeline} del material complementario, mostramos estos módulos. 
 
@@ -324,9 +401,9 @@ Finalmente, para lograr desarrollar el objetivo especifico OBJ 9, se va a compar
 \end{figure}
 
 
-\section{Limitaciones (5K)}
+\begin{comment}	
 
-lIMITACIONES Y ESTRATEGIAS ABORADADAS
+\section{Limitaciones (5K)}
 
 
 \section{Resumen (5K)}
@@ -341,10 +418,10 @@ lIMITACIONES Y ESTRATEGIAS ABORADADAS
 \section{Sostenibilidad de la propuesta (5k)}
 
 \section{Impacto Científico de la propuesta (5k)}
+\end{comment}
 
 
-
-
+\clearpage
 
 
 %\bibliographystyle{apalike}
