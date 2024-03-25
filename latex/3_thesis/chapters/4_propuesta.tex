@@ -197,7 +197,17 @@ Luego, se sabe que al entrenar modelos de \textit{Transformers} grandes, las cap
 
 \section{\textit{Gradient Accumulation Steps}}\label{sec:gas}
 
-Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU y generalmente sufren del problema de \textit{vanish gradient}. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento.
+Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento. El proceso se explica en la Figura \ref{fig:gas_example}, por ejemplo en un entrenamiento normal durante el proceso de actualización de parámetros en el algoritmo de aprendizaje, se considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parametros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes y luego estas gradientes acumuladas son utilizadas para actualizar los parametros.
+
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../img/proposal/gas_own}	
+	\caption[Ejemplo de aplicación de \textit{Gradient Accumulation Steps}]{Ejemplo de aplicación de \textit{Gradient Accumulation Steps} durante el entranamiento de modelos de Deep Learning. En este caso, un entrenamiento general considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parámetros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes, luego estas gradientes acumuladas son utilizadas para actualizar los parámetros.  Fuente: Adaptado de  \cite{prince2023understanding}.}		
+	\label{fig:gas_example}
+\end{figure}
+
 
 
 \section{Hiperparámetros}\label{sec:hyperparam}
