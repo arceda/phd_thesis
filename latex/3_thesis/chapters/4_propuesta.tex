@@ -197,7 +197,7 @@ Luego, se sabe que al entrenar modelos de \textit{Transformers} grandes, las cap
 
 \section{\textit{Gradient Accumulation Steps}}\label{sec:gas}
 
-Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento. El proceso se explica en la Figura \ref{fig:gas_example}, por ejemplo en un entrenamiento normal durante el proceso de actualización de parámetros en el algoritmo de aprendizaje, se considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parametros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes y luego estas gradientes acumuladas son utilizadas para actualizar los parametros.
+Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento. El proceso se explica en la Figura \ref{fig:gas_example}, por ejemplo en un entrenamiento normal durante el proceso de actualización de parámetros en el algoritmo de aprendizaje, se considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parametros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes y luego estas gradientes acumuladas son utilizadas para actualizar los parámetros.
 
 
 
@@ -214,6 +214,8 @@ Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante me
 Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$) y \textit{early stopping}. Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}.
 
 \section{Ambiente de trabajo}
+
+Para entrenar los modelos pequeños de \textit{deep learning}, con menos de 200 millones de parámetros, se utilizo una tarjeta RTX3070, esta cuenta con 8GB de memoria dedicada de vídeo. Para entrenar los modelos grandes, mas de 200 millones de parámetros, se utilizo GPUs en la nube. La plataforma utilizda fue Paperspace, esta brinda diferentes opciones de GPUs, las utilizadas en este proyecto fueron la A100 y la A4000.
 
 \section{Clasificación binaria y Métricas}
 
