@@ -97,14 +97,39 @@ Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de 
 
 
 \begin{figure}[]
-	\centering\includegraphics[width=0.8\textwidth]{img/proposal/dataset_samples}
+	\centering\includegraphics[width=0.8\textwidth]{../img/proposal/dataset_samples}
 	\caption{
 		Cuantificación de las muestras por \textit{k-mers} dentro de los conjuntos de entrenamiento, validación y pruebas. El conjunto de datos se obtuvo de Anthem \cite{mei2021anthem}.}
 	\label{fig:samples}
 \end{figure}
 
 
-\section{\textit{Transformer} pre-entrenados}
+\section{BERT}
+
+El modelo Bidirectional Encoder Representations from Transformers (BERT) fue presentado en el artículo ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'' \cite{devlin2018bert}. Este modelo trata de un Transformer bidireccional preentrenado con infomación de las bases de datos de Libros de Toronto y Wikipedia.
+
+
+
+
+
+
+
+
+\begin{figure}[h]
+	\centering\includegraphics[width=0.7\textwidth]{../img/proposal/bert}
+	\caption[Aquitectura del modelo BERT]{Arquitectura del modelo BERT diferenciado los \textit{encoders} y \textit{decoders}. Fuente: \cite{devlin2018bert}.}
+	\label{fig:bert}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
 
 Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Estos modelos fueron entrenados con grandes conjuntos de datos de secuencias de proteínas como Pfam \citep{el2019pfam},  BFD y UniRef50 \citep{suzek2015uniref}. Además, se realizo \textit{fine-tuning } para la predicción de unión pMHC-I. En la Tabla \ref{tab:pretrained}, presentamos las características de cada modelo.
 
@@ -208,6 +233,19 @@ Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante me
 	\label{fig:gas_example}
 \end{figure}
 
+Generalmente, los parámetros de un modelo de \textit{machine learning} se actualizan según la ecuación \ref{equa:gas1}, donde $ \partial^i = \frac{\partial J(\theta)}{\partial \theta}   $ es la derivada partial de $\theta$ respecto a la función costo $J(\theta)$ en la iteración i. Entonces, el uso de \textit{Gradient Accumulation Steps} (GAS) propone acumular esas derivadas durante un número de iteraciones como se representa en la ecuación \ref{equa:gas2} (en este caso se acumuló las derivadas por tres iteraciones). Como resultado, al acumular las gradientes la actualización de parámetros se realiza cada cierto número de iteraciones reduciendo así el consumo de memoria. 
+
+\begin{equation}\label{equa:gas1}
+	\theta = \theta - \alpha \partial^{i}
+\end{equation}
+
+\begin{equation}\label{equa:gas2}
+	\theta = \theta - \alpha (\partial^{i-1} + \partial^{i} + \partial^{i+1})
+\end{equation}
+
+
+
+En este proyecto, se planteo  comprobar los beneficios de utilizar GAS en el entrenamiento de los modelos. Se realizo una comparación de los modelos entrenados con GAS y sin GAS. Para los modelos TAPE, ESM2(t6), ESM2(t12) y ESM2(t30) se acumularón las gradientes por 64 iteraciones. Mientras que para los modelos mas grandes como ProtBert-BFD y ESM2(t33), se acumuló por 128 iteraciones. Se planteo esta diferencia porque los modelos mas grandes requerian un mayor consumo de memoria.
 
 
 \section{Hiperparámetros}\label{sec:hyperparam}
