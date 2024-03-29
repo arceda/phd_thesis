@@ -27,4 +27,20 @@ Como se detalló en el Capítulo \ref{cap:propuesta}, los modelos BERT pre-entre
 
 Para la metodología de congelación de capas, congelamos todos los parámetros del \textit{Transformer} y solo entrenamos el bloque BiLSTM. Utilizar este método acelera el entrenamiento y mantiene el buen rendimiento, como se ha discutido en trabajos previos \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. Adicionalmente, se ha evaluado el efecto de utilizar GAS durante el entrenamiento. Durante, este primer bloque de entrenamiento se ha utilizado tres \textit{epochs}, de igual forma como fue utilizado por otros autores \citep{zhang2022hlab}.
 
-
+\begin{table}[]
+	\centering
+	\caption[Nomenclatura utilizada para los modelos entrenados.]{Nomenclatura utilizada para los modelos entrenados.}
+	\label{tab:cmodel_names}
+	
+	%\scriptsize
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+	\begin{tabular}{lp{10cm}}
+		\textbf{Modelo}                 & \textbf{Descripción}                                                                                    \\ \hline
+		{[}model{]}-Normal     & Modelo {[}model{]} despues de aplicar fine-tuning sin utilizar el congelamiento de capas y GAS \\
+		{[}model{]}-Freeze     & Modelo {[}model{]} despues de aplicar fine-tuning utilizando solo el congelamiento de capas    \\
+		{[}model{]}-GAS        & Modelo {[}model{]} despues de aplicar fine-tuning utilizando solo GAS                          \\
+		{[}model{]}-Freeze-GAS & Modelo {[}model{]} despues de aplicar fine-tuning utilizando el congelamiento de capas y GAS  
+	\end{tabular}
+}
+\end{table}
