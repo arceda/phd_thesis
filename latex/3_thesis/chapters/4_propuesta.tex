@@ -54,86 +54,52 @@ Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito 
 \end{figure}
 
 
-\section{Bases de datos}
-Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Por ejemplo, en la Tabla \ref{tab:db_samples}, mostramos algunas muestras de esta base de datos. La columna MHC especifica el tipo de MHC o HLA, luego la columna pseudosecuencia, representa la secuencia de aminoácidos del MHC; esta pseudosecuencia fue obtenida de la base de datos de NetMHCpan4.1. Seguidamente, prosigue la secuencia de aminoácidos del péptido. Finalmente, la ultima columna es la clase o etiqueta, tendrá un valor de uno cuando existe una unión entre el pMHC y cero en caso contrario.
-
-
-Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por \textit{k-mers}. En Bioinformática, se hace referencia al termino \textit{k-mer} para representar secuencias biológicas de ADN, ARN o proteínas. Para el caso específico de proteínas, una secuencia de \textit{8-mer}, defina que la proteína en cuestión esta compuesta por 8 aminoácidos. Para la base de datos utilizada en esta investigación, los péptidos de \textit{9-mers} constituyen la mayoría de las muestras; miesntras que los péoptidos \textit{14-mer} son los mas escazos. Además, estos péptidos \textit{14-mer}, usualmente presentan comportamientos distintos. Esto ha ocasionado que los umbrales utilizados por los clasificadores varia dependiendo del \textit{k-mer} y por tipo de clasificador. 
 
 
 
+\section{Modelos BERT}
 
-\begin{table}[H]
-	\caption[Ejemplo de algunas muestras de la base de datos]{Ejemplo de algunas muestras de la base de datos. Cada MHC es representado por una pseudosecuencia procesadas por NetMHCpan4.1. Luego los péptidos son cadenas de aminoácidos entreo 8 a 14 amino ácidos. La clase o etiqueta es un cero si existe una unión entre el péptido y el MHC o cero en caso contrario.}
-	\label{tab:db_samples}
-	\scriptsize
-	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
-	\begin{tabular}{llll}
-		\hline
-		\textbf{MHC}         & \textbf{Pseudosecuencia del MHC}                & \textbf{Péptido}        & \textbf{Clase} \\ \hline
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LFGRDLSY       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & TDKKTHLY       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & RSDTPLIY       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & NSDLVQKY       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LSDLLDWK       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LLQNDGFF       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & DSDMQTLV       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & TDYHVRVY       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & VLDSEGYL       & 1     \\
-		HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & SDFHNNRY       & 1     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & FDGRVVTRSYLEKQ & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & KPCCPDIDIFVDGK & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & QDLKDFMRQAGEVT & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & EGYPKSKKQFFEEV & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & GNHISALKRRYTRR & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & RHLRTHTGEKPYVC & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & RGLNGGITPLNSIS & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & SDFALKNPFYSLEM & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & ALDSGDASPGTWSG & 0     \\
-		HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & QLVLYMKAAQLLAA & 0    \\ \hline
-	\end{tabular}}
-\end{table}
+El modelo \textit{Bidirectional Encoder Representations from Transformers} (BERT) fue presentado en el artículo ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'' \cite{devlin2018bert}. Este modelo se trata de un Transformer bidireccional preentrenado con información de las bases de datos de Libros de Toronto y Wikipedia. Es bidireccional porque lee el texto en ambas direcciones. El modelo está compuesto por un \textit{encoder} y un \textit{decoder} (ver Figura \ref{fig:bert_paper}), donde el \textit{encoder} tiene la funcionalidad de codificar los \textit{tokens}, mientras que el \textit{decoder} los decodifica y los convierte nuevamente a texto.
 
-
-\begin{figure}[]
-	\centering\includegraphics[width=0.8\textwidth]{../img/proposal/dataset_samples}
-	\caption{
-		Cuantificación de las muestras por \textit{k-mers} dentro de los conjuntos de entrenamiento, validación y pruebas. El conjunto de datos se obtuvo de Anthem \cite{mei2021anthem}.}
-	\label{fig:samples}
-\end{figure}
-
-
-\section{BERT}
-
-El modelo Bidirectional Encoder Representations from Transformers (BERT) fue presentado en el artículo ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'' \cite{devlin2018bert}. Este modelo trata de un Transformer bidireccional preentrenado con infomación de las bases de datos de Libros de Toronto y Wikipedia.
-
-
-
-
-
-
-
-
-\begin{figure}[h]
+\begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{../img/proposal/bert}
 	\caption[Aquitectura del modelo BERT]{Arquitectura del modelo BERT diferenciado los \textit{encoders} y \textit{decoders}. Fuente: \cite{devlin2018bert}.}
-	\label{fig:bert}
+	\label{fig:bert_paper}
+\end{figure}
+
+
+\subsection{Modelos de lenguaje de preoteínas}
+
+El modelo BERT ha permitido grandes avances en el área de procesamiento natural del lenguaje y también se ha extendido hacia otras aplicaciones, como el análisis de secuencias de aminoácidos (proteínas). Por ejemplo, en la Figura \ref{fig:aminoacids}, mostramos un ejemplo de una cadena de aminoácidos y cómo se forma a partir de la secuencia mRNA. Cada tres bases conforman un posible aminoácido y tenemos veintidós en total.
+
+
+\begin{figure}[H]
+	\centering\includegraphics[width=\textwidth]{../img/proposal/amino-acids}
+	\caption[Ejemplo de traducción de aminoácidos]{Ejemplo de como ocurre la traducción de aminoácidos a partir de una secuencia mRNA. Cada tres bases conforman un aminoácido y en total tenemos veintidos diferentes aminoácidos. Fuente: \cite{nih_aminoacids_2024}.}
+	\label{fig:aminoacids}
 \end{figure}
 
 
 
+\begin{figure}[H]
+	\centering\includegraphics[width=0.45\textwidth]{../img/proposal/myoglobin}
+	\caption[Estructura 3D de la proteína Mioglobulina]{Estructura 3D de la proteína Mioglobulina. Esta estructura 3D esta compuesta por 154 aminoácidos: \textit{MGLSDGEWQ LVLNVWGKVE ADIPGHGQEV LIRLFKGHPE TLEKFDKFKH LKSEDEMKAS EDLKKHGATV LTALGGILKK KGHHEAEIKP LAQSHATKHK IPVKYLEFIS ECIIQVLQSK HPGDFGADAQ GAMNKALELF RKDMASNYKE LGFQG}. Fuente: \cite{uniprotkb}, identificación P02144.}
+	\label{fig:myoglobin}
+\end{figure}
 
+Según la cadena de aminoácidos, la estructura y función de una proteína es determinada \citep{rastogi2022bioinformatics,kihara2017protein,rangwala2010introduction}. Por ejemplo la secuencia de aminoácidos: \textit{MGLS DGEWQ LVLNV WGKVE ADIPG HGQEV LIRL FKGHPE TLEKF DKFKH LKSE DEMKAS EDLK KHGATV LTALG GILKK KGHH EAEIKP LAQSH ATKHK IPVKY LEFIS ECIIQ VLQSK HPGD FGADAQ GAMNK ALELF RKDM ASNYKE LGFQG}, representa la proteína Mioglobulina (ver Figura \ref{fig:myoglobin}). Según la posición de cada aminoácido y el tamaño de la secuencia, la proteína cumple con cierta función. Entonces, si una mutación ocurre a nivel de aminoacidos por ende la función de la proteína se vera afectada, este es origen de varios tipos de cancer \citep{xie2023neoantigens,biswas2023designing}. Por ejemplo, en la Figura \ref{fig:mutabind}, presentamos  una mutación por sustitución, donde el aminoácido K cambio por E, este cambio pequeño modifico la estructura y función de la proteína.
 
+\begin{figure}[H]
+	\centering\includegraphics[width=0.7\textwidth]{../img/proposal/mutabind}
+	\caption[Estructura 3D de una proteína normal y una proteína mutada]{Estructura 3D de una proteína normal y una proteína mutada. La mutación ocurrio en el aminoácido K, que cambio y se volvio el aminoácido E. Esta mutación genero un cambio en la estructura y función de la proteína. Fuente: \cite{mutabind2024}}
+	\label{fig:mutabind}
+\end{figure}
 
+Entonces, una secuencia de aminoácidos es muy similar a una cadena de texto. En una cadena de texto, las palabras pueden ser los \textit{tokens}; mientras que en la secuencia de aminoácidos, cada aminoácido sería un \textit{token}. Además, el orden de los aminoácidos determina la estructura y función de las proteínas. Basándonos en estas premisas, varios autores han considerado el estudio de proteínas de manera similar a una tarea de procesamiento natural del lenguaje. De esta forma, existen trabajos que han utilizado Transformers para diversas tareas en Proteómica, como la predicción de la estructura de una proteína, la predicción de la función y del \textit{contact map}, así como la predicción del enlace entre dos proteínas. Esta área de estudio es tan importante que, de manera similar a los modelos de lenguaje grandes como Llama2 y Mistral, se han entrenado modelos BERT con millones de secuencias de proteínas. Incluso, se han utilizado metodologías similares para el entrenamiento de modelos de lenguaje. Por ejemplo, tradicionalmente los modelos de lenguaje utilizan una técnica de enmascaramiento en su entrenamiento auto supervisado, la cual consiste en ocultar algunas palabras y entrenar al modelo para que pueda predecir la palabra oculta. De igual forma, se ha realizado con las secuencias de aminoácidos, donde se ocultaron ciertos aminoácidos. 
 
+Evaluamos seis modelos BERT: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Estos modelos fueron entrenados con grandes conjuntos de datos de secuencias de proteínas como Pfam \citep{el2019pfam},  BFD y UniRef50 \citep{suzek2015uniref}. Además, se realizo \textit{fine-tuning } para la predicción de unión pMHC-I. En la Tabla \ref{tab:pretrained}, presentamos las características de cada modelo.
 
-
-
-
-Evaluamos seis modelos de transformadores: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Estos modelos fueron entrenados con grandes conjuntos de datos de secuencias de proteínas como Pfam \citep{el2019pfam},  BFD y UniRef50 \citep{suzek2015uniref}. Además, se realizo \textit{fine-tuning } para la predicción de unión pMHC-I. En la Tabla \ref{tab:pretrained}, presentamos las características de cada modelo.
-
-\begin{table}[t]%
+\begin{table}[H]%
 	\centering
 	\caption{Diferencias significativas entre los modelos TAPE, ProtBert-DFB y ESM2. HS: \textit{Hidden size}; AH: \textit{Attention heads}.}
 	\label{tab:pretrained}%
@@ -207,16 +173,18 @@ Luego, se sabe que al entrenar modelos de \textit{Transformers} grandes, las cap
 	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 		\begin{tabular}{lp{9cm}p{1cm}p{1cm}}
-			\hline
+			%\hline
 			\textbf{Tipo}   & \textbf{Entada} & \textbf{Salida}& \textbf{Capas} \\ \hline
 			
-			BiLSTM & Salida del modelo BERT (Tabla \ref{tab:pretrained}, columna HS) & 768 & 2 \\
+			BiLSTM & Salida del modelo BERT (Tabla \ref{tab:pretrained}, columna HS) & 768 & 2 \\ %\hline
 			
 			Dropout & 0.1\% & - & - \\
-			Lineal & 1536 & 2 & 1 \\ \hline
+			Lineal & 1536 & 2 & 1 \\ %\hline
 	\end{tabular}}
 	
 \end{table}
+
+
 
 
 
@@ -254,6 +222,55 @@ Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5
 \section{Ambiente de trabajo}
 
 Para entrenar los modelos pequeños de \textit{deep learning}, con menos de 200 millones de parámetros, se utilizo una tarjeta RTX3070, esta cuenta con 8GB de memoria dedicada de vídeo. Para entrenar los modelos grandes, mas de 200 millones de parámetros, se utilizo GPUs en la nube. La plataforma utilizda fue Paperspace, esta brinda diferentes opciones de GPUs, las utilizadas en este proyecto fueron la A100 y la A4000.
+
+\section{Bases de datos}
+Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Por ejemplo, en la Tabla \ref{tab:db_samples}, mostramos algunas muestras de esta base de datos. La columna MHC especifica el tipo de MHC o HLA, luego la columna pseudosecuencia, representa la secuencia de aminoácidos del MHC; esta pseudosecuencia fue obtenida de la base de datos de NetMHCpan4.1. Seguidamente, prosigue la secuencia de aminoácidos del péptido. Finalmente, la ultima columna es la clase o etiqueta, tendrá un valor de uno cuando existe una unión entre el pMHC y cero en caso contrario.
+
+
+Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por \textit{k-mers}. En Bioinformática, se hace referencia al termino \textit{k-mer} para representar secuencias biológicas de ADN, ARN o proteínas. Para el caso específico de proteínas, una secuencia de \textit{8-mer}, defina que la proteína en cuestión esta compuesta por 8 aminoácidos. Para la base de datos utilizada en esta investigación, los péptidos de \textit{9-mers} constituyen la mayoría de las muestras; miesntras que los péoptidos \textit{14-mer} son los mas escazos. Además, estos péptidos \textit{14-mer}, usualmente presentan comportamientos distintos. Esto ha ocasionado que los umbrales utilizados por los clasificadores varia dependiendo del \textit{k-mer} y por tipo de clasificador. 
+
+\begin{figure}[H]
+	\centering\includegraphics[width=0.8\textwidth]{../img/proposal/dataset_samples}
+	\caption{
+		Cuantificación de las muestras por \textit{k-mers} dentro de los conjuntos de entrenamiento, validación y pruebas. El conjunto de datos se obtuvo de Anthem \citep{mei2021anthem}.}
+	\label{fig:samples}
+\end{figure}
+
+
+
+\begin{table}[H]
+	\caption[Ejemplo de algunas muestras de la base de datos]{Ejemplo de algunas muestras de la base de datos. Cada MHC es representado por una pseudosecuencia procesadas por NetMHCpan4.1. Luego los péptidos son cadenas de aminoácidos entreo 8 a 14 amino ácidos. La clase o etiqueta es un cero si existe una unión entre el péptido y el MHC o cero en caso contrario.}
+	\label{tab:db_samples}
+	\scriptsize
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
+		\begin{tabular}{llll}
+			%\hline
+			\textbf{MHC}         & \textbf{Pseudosecuencia del MHC}                & \textbf{Péptido}        & \textbf{Clase} \\ \hline
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LFGRDLSY       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & TDKKTHLY       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & RSDTPLIY       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & NSDLVQKY       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LSDLLDWK       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LLQNDGFF       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & DSDMQTLV       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & TDYHVRVY       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & VLDSEGYL       & 1     \\
+			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & SDFHNNRY       & 1     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & FDGRVVTRSYLEKQ & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & KPCCPDIDIFVDGK & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & QDLKDFMRQAGEVT & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & EGYPKSKKQFFEEV & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & GNHISALKRRYTRR & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & RHLRTHTGEKPYVC & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & RGLNGGITPLNSIS & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & SDFALKNPFYSLEM & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & ALDSGDASPGTWSG & 0     \\
+			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & QLVLYMKAAQLLAA & 0    \\ %\hline
+	\end{tabular}}
+\end{table}
+
+
 
 \section{Clasificación binaria y Métricas}
 

@@ -1,0 +1,30 @@
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+\chapter{Experimentos}
+\label{cap:experimentos}
+
+\lhead{\emph{Experimentos}} 
+
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+%% ------------------------------------------------------------------- %%
+
+%% -------------------------------------------------------------------- %%
+%% -------------------------------------------------------------------- %%
+
+En este capítulo, detallamos la metodología utilizada para los experimentos. Esta metodología  involucró utilizar la base de datos Anthem \citep{mei2021anthem} para entrenar los modelos, se comparó los modelos TAPE, ESM2 y ProtBert-BFD despues de aplicar \textit{fine-tuning}. Adicionalmente, se comparó el desempeño de estos al aplicar \textit{Gradient Accumulation Steps} (GAS)  y una metodología de congelación de capas. Finalmente, se comparó estos modelos con herramientas del estado del arte: NetMHCpan4.1 \citep{reynisson2020netmhcpan} y MHCFlurry2.0 \citep{o2020mhcflurry}, Anthem \citep{mei2021anthem}, Acme \citep{hu2019acme} y MixMHCpred2.2 \citep{gfeller2023improved}.
+
+\section{Modelos BERT}
+
+Como se detalló en el Capítulo \ref{cap:propuesta}, los modelos BERT pre-entrenados para realizar \textit{fine-tuning} fueron: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)) \citep{lin2023evolutionary}. Tanto ProtBert como ESM2 constituyen una familia de varios modelos; sin embargo, para esta tesis se escogió ProtBert-BFD de la familia de modelos ProtBert, y ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33) de la familia de modelos ESM2. Todos estos modelos se basan en una red \textit{Transformer} BERT que ha sido pre-entrenada con grandes volúmenes de secuencias de proteínas. En la Tabla \ref{tab:pretrained} se presenta una comparación a nivel de arquitectura de estos modelos. El pre-entrenamiento fue realizado por los autores de estos modelos y los parámetros del modelo están disponibles de forma gratuita en la plataforma HuggingFace. Basándonos en lo mencionado, este proyecto se enfocó en realizar \textit{fine-tuning} a los modelos BERT para adaptarlos a la tarea de predicción del enlace pMHC.
+
+\section{Congelación de Capas y GAS}
+
+Para la metodología de congelación de capas, congelamos todos los parámetros del \textit{Transformer} y solo entrenamos el bloque BiLSTM. Utilizar este método acelera el entrenamiento y mantiene el buen rendimiento, como se ha discutido en trabajos previos \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. Adicionalmente, se ha evaluado el efecto de utilizar GAS durante el entrenamiento. Durante, este primer bloque de entrenamiento se ha utilizado tres \textit{epochs}, de igual forma como fue utilizado por otros autores \citep{zhang2022hlab}.
+
+
