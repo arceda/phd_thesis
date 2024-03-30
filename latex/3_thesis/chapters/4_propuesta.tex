@@ -17,7 +17,7 @@
 %% -------------------------------------------------------------------- %%
 
 
-La detección de neoantígenos es un proceso largo, descrito anteriormente. Debido a esto, esta investigación se ha centrado en la predicción de la unión pMHC, porque es una de las etapas con mayor investigación en el estado del arte y sin embargo, los resultados aún carecen de buen desempeño. En resumen, en este trabajo hemos realizado \textit{fine-tuning} a modelos \textit{Transformer}, para la tarea de predicción de la unión pMHC.
+La detección de neoantígenos es un proceso largo, descrito anteriormente. Debido a esto, esta investigación se ha centrado en la predicción de la unión pMHC, porque es una de las etapas con mayor investigación en el estado del arte y sin embargo, los resultados aún carecen de buen desempeño. En resumen, en este trabajo hemos realizado \textit{fine-tuning} a modelos \textit{BERT}, para la tarea de predicción de la unión pMHC. En este capítulo, se explica el proceso de \textit{fine-tuning} utilizado, los modelos pre-entrenados TAPE, ESM2 y ProtBert. Además, se aplico una metodología de congelamiento de capas y \textit{Gradient Accumulation Steps}. 
 
 
 
@@ -41,25 +41,32 @@ Para los entrenamientos y experimentos se utilizará la base de datos HLA3D \cit
 
 \section{Metodología}
 
-Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito en la etapa 3.1 del proceso general para generar vacunas personalizadas basadas en neoantígenos (ver Figura \ref{fig:proposal}). Se ha evaluado  seis modelos \textit{Transformer}s pre-entrenados en diversas tareas de Proteómica como: predicción de estructura de proteínas, predicción de la función de proteínas, etc. Los modelos \textit{Transformer} son: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Durante la evaluación se realizó \textit{fine-tuning} a los modelos agregando un bloque de BiLSTM al final, de igual forma que lo realizó HLAB \citep{zhang2022hlab}. También se evaluó el uso de \textit{Gradient Accumulation Steps} (GAS) y el uso de una metodología para congelar las capas del modelo \textit{Transformer}. En la Figura \ref{fig:proposal}, describimos la propuesta: primero tomamos como entrada el péptido y el MHC, luego estos son concatenados y son recibidos por el modelo \textit{Transformer} y el bloque BiLSTM respectivamente para predecir su afinidad o unión.
+Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito en la etapa 3.1 del proceso general para generar vacunas personalizadas basadas en neoantígenos (ver Figura \ref{fig:proposal}). Se ha evaluado  seis modelos \textit{Transformer}s pre-entrenados en diversas tareas de Proteómica como: predicción de estructura de proteínas, predicción de la función de proteínas, etc. Los modelos BERT son: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} ( compuesto por ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Durante la evaluación se realizó \textit{fine-tuning} a los modelos agregando un bloque de BiLSTM al final, de igual forma que lo realizó HLAB \citep{zhang2022hlab}, describiremos a detalle ste proceso mas adelante. También se evaluó el uso de \textit{Gradient Accumulation Steps} (GAS) y el uso de una metodología para congelar las capas del modelo BERT con el objetivo de reducir el tiempo de entrenamiento, consumo de memoria y disminuir el problema de \textit{vanish gradient}. 
+
+
 
 
 
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=\textwidth]{img/proposal/proposal}	
+	\includegraphics[width=\textwidth]{../img/proposal/proposal}	
 	\caption{Propuesta de \textit{transfer learning} de ESM-1b y una red neuronal paralela para la predicción de la afinidad entre un péptido y MHC (peptide MHC binding).}
 	\label{fig:proposal}
 \end{figure}
 
+En la Figura \ref{fig:proposal}, describimos la propuesta para la predicción del enlave pMHC para MHC de clase I. Primero tomamos como entrada el péptido y el MHC-I. Estas son secuencias de proteínas, el peptido tiene una longitud entre 8 a14 aminoácidos; mientras que para el MHC se ha utilizado pseudosecuencias con una longitud de 34 aminoácidos. Luego, estós aminoácidos son codificados utilizando one-hot encoding (ver Figure \ref{fig:onehot}). Luego estos aminoácidos son concatenados y son recibidos por el modelo BERT (modelo pre-entrenado). Finalmente, luego del bloque BERT prosigue un bloque de capas BiLSTM y finalmente una capa lineal para clasificar o predecir la unión entre el péptido y el MHC.
 
-
-
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{../img/proposal/onehot}	
+	\caption[Ejemplo de codificación de aminoácidos con \textit{one-hot encoding}]{Ejemplo de codificación de aminoácidos con \textit{one-hot encoding}. Cada aminoácido es representado con un vector de ceros u un 1, según el tipo de aminoácido de veinte posibles aminoácidos.}
+	\label{fig:onehot}
+\end{figure}
 
 \section{Modelos BERT}
 
-El modelo \textit{Bidirectional Encoder Representations from Transformers} (BERT) fue presentado en el artículo ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'' \cite{devlin2018bert}. Este modelo se trata de un Transformer bidireccional preentrenado con información de las bases de datos de Libros de Toronto y Wikipedia. Es bidireccional porque lee el texto en ambas direcciones. El modelo está compuesto por un \textit{encoder} y un \textit{decoder} (ver Figura \ref{fig:bert_paper}), donde el \textit{encoder} tiene la funcionalidad de codificar los \textit{tokens}, mientras que el \textit{decoder} los decodifica y los convierte nuevamente a texto.
+El modelo \textit{Bidirectional Encoder Representations from Transformers} (BERT) fue presentado en el artículo ``BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding'' \cite{devlin2018bert}. Este modelo se trata de un Transformer bidireccional preentrenado con información de las bases de datos de Libros de Toronto y Wikipedia. El modelo está compuesto por un \textit{encoder} y un \textit{decoder} (ver Figura \ref{fig:bert_paper}), donde el \textit{encoder} tiene la funcionalidad de codificar los \textit{tokens}, mientras que el \textit{decoder} los decodifica y los convierte nuevamente a texto. Adicionalmente, los modelos de lenguaje tradicionales procesan el texto de manera secuencial, ya sea de izquierda a derecha o de derecha a izquierda. Este método limita la capacidad del modelo para comprender el contexto inmediato que precede a la palabra objetivo. BERT utiliza un enfoque bidireccional que considera tanto el contexto izquierdo como el derecho de las palabras en una oración. En lugar de analizar el texto secuencialmente, BERT examina todas las palabras en una oración simultáneamente.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{../img/proposal/bert}
@@ -67,6 +74,8 @@ El modelo \textit{Bidirectional Encoder Representations from Transformers} (BERT
 	\label{fig:bert_paper}
 \end{figure}
 
+
+BERT está impulsado por una potente arquitectura de red neuronal conocida como \textit{Transformers}. Esta arquitectura incorpora un mecanismo llamado \textit{self-attention}, lo que permite a BERT ponderar la importancia de cada palabra en función de su contexto, tanto precedente como sucesivo. Esta conciencia contextual dota a BERT con la capacidad de generar incrustaciones de palabras contextualizadas, que son representaciones de palabras considerando sus significados dentro de las oraciones. 
 
 \subsection{Modelos de lenguaje de preoteínas}
 
@@ -217,88 +226,12 @@ En este proyecto, se planteo  comprobar los beneficios de utilizar GAS en el ent
 
 
 \section{Hiperparámetros}\label{sec:hyperparam}
-Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$) y \textit{early stopping}. Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}.
-
-\section{Ambiente de trabajo}
-
-Para entrenar los modelos pequeños de \textit{deep learning}, con menos de 200 millones de parámetros, se utilizo una tarjeta RTX3070, esta cuenta con 8GB de memoria dedicada de vídeo. Para entrenar los modelos grandes, mas de 200 millones de parámetros, se utilizo GPUs en la nube. La plataforma utilizda fue Paperspace, esta brinda diferentes opciones de GPUs, las utilizadas en este proyecto fueron la A100 y la A4000.
-
-\section{Bases de datos}
-Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Por ejemplo, en la Tabla \ref{tab:db_samples}, mostramos algunas muestras de esta base de datos. La columna MHC especifica el tipo de MHC o HLA, luego la columna pseudosecuencia, representa la secuencia de aminoácidos del MHC; esta pseudosecuencia fue obtenida de la base de datos de NetMHCpan4.1. Seguidamente, prosigue la secuencia de aminoácidos del péptido. Finalmente, la ultima columna es la clase o etiqueta, tendrá un valor de uno cuando existe una unión entre el pMHC y cero en caso contrario.
+Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$). Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}. Adicionalmente, para los entrenamientos de mas de 30 \textit{epochs}, hemos aplicado  \textit{early stopping}. Esta técnica nos permite parar el entrenamiento si el desempeño no mejora despues de cierto número de \textit{epochs}, en este proyecto consideramos 5 \textit{epochs} como umbral para detener el entrenamiento.
 
 
-Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por \textit{k-mers}. En Bioinformática, se hace referencia al termino \textit{k-mer} para representar secuencias biológicas de ADN, ARN o proteínas. Para el caso específico de proteínas, una secuencia de \textit{8-mer}, defina que la proteína en cuestión esta compuesta por 8 aminoácidos. Para la base de datos utilizada en esta investigación, los péptidos de \textit{9-mers} constituyen la mayoría de las muestras; miesntras que los péoptidos \textit{14-mer} son los mas escazos. Además, estos péptidos \textit{14-mer}, usualmente presentan comportamientos distintos. Esto ha ocasionado que los umbrales utilizados por los clasificadores varia dependiendo del \textit{k-mer} y por tipo de clasificador. 
+\section{Conclusiones de la propuesta}
 
-\begin{figure}[H]
-	\centering\includegraphics[width=0.8\textwidth]{../img/proposal/dataset_samples}
-	\caption{
-		Cuantificación de las muestras por \textit{k-mers} dentro de los conjuntos de entrenamiento, validación y pruebas. El conjunto de datos se obtuvo de Anthem \citep{mei2021anthem}.}
-	\label{fig:samples}
-\end{figure}
+Como se detallo en este capítulo, la propuesta se basa en comparar metodologás de entrenamiento utilizando GAS y congelamiento de capas para realizar \textit{fine-tuning} a un modelo BERT pre-entrenado. El objetivo de \textit{fine-tuning}, es de adaptar el modelo BERT al problema de predicción del enlace pMHC.
 
 
 
-\begin{table}[H]
-	\caption[Ejemplo de algunas muestras de la base de datos]{Ejemplo de algunas muestras de la base de datos. Cada MHC es representado por una pseudosecuencia procesadas por NetMHCpan4.1. Luego los péptidos son cadenas de aminoácidos entreo 8 a 14 amino ácidos. La clase o etiqueta es un cero si existe una unión entre el péptido y el MHC o cero en caso contrario.}
-	\label{tab:db_samples}
-	\scriptsize
-	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
-		\begin{tabular}{llll}
-			%\hline
-			\textbf{MHC}         & \textbf{Pseudosecuencia del MHC}                & \textbf{Péptido}        & \textbf{Clase} \\ \hline
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LFGRDLSY       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & TDKKTHLY       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & RSDTPLIY       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & NSDLVQKY       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LSDLLDWK       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LLQNDGFF       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & DSDMQTLV       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & TDYHVRVY       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & VLDSEGYL       & 1     \\
-			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & SDFHNNRY       & 1     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & FDGRVVTRSYLEKQ & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & KPCCPDIDIFVDGK & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & QDLKDFMRQAGEVT & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & EGYPKSKKQFFEEV & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & GNHISALKRRYTRR & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & RHLRTHTGEKPYVC & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & RGLNGGITPLNSIS & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & SDFALKNPFYSLEM & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & ALDSGDASPGTWSG & 0     \\
-			HLA-C*06:02 & YDSGYREKYRQADVNKLYLWYDSYTWAEWAYTWY & QLVLYMKAAQLLAA & 0    \\ %\hline
-	\end{tabular}}
-\end{table}
-
-
-
-\section{Clasificación binaria y Métricas}
-
-El problema de predicción de unión pMHC es un problema de regresión. Sin embargo, basado en el conjunto de datos utilizado en este estudio, también podría abordarse como un problema de clasificación binaria al seleccionar un umbral apropiado. Las métricas de aprendizaje automático utilizadas en este trabajo son: \textit{accuracy, precision, recall, f-1 score, Area Under the Curve (AUC)}, y \textit{Matthews Correlation Coefficient} (MCC). Todas las métricas están descritas en las ecuaciones siguientes.
-
-\begin{equation}\label{equa:acc}
-	Accuracy = \frac{TP+TN}{TP+TN+FP+FN}
-\end{equation}
-
-\begin{equation}\label{equa:precision}
-	Precision = \frac{TP}{TP+FP}
-\end{equation}
-
-\begin{equation}\label{equa:recall}
-	Sensitivity = Recall = \frac{TP}{TP+FN}
-\end{equation}
-
-\begin{equation}\label{equa:f1}
-	F1 = \frac{2*Precision*Recall}{Precision+Recall} = \frac{2 \times TP}{2*TP+FP+FN}
-\end{equation}
-
-
-\begin{equation}\label{equa:FPR}
-	Specificity = \frac{TN}{FP+TN}
-\end{equation}
-
-\begin{equation}\label{equa:MCC}
-	MCC = \frac{TP \times TN - FP \times FN}{ \sqrt{ (TP+FP)(TP  + FN)(TN+FP)(TN+FN)}  }
-\end{equation}
-
-donde \textit{TP}, hace referencia a la cantidad de muestras que eran verdaderas y han sido reconocidas como verdaderas; \textit{TN}, hace referencia a la cantidad de muestras que eran verdaderas y han sido reconocidas como falsas; \textit{FP}, son las muestras que eran falsas, pero fueron reconocidas como verdaderas; \textit{FN}, son las muestras que eran falsas y fueron reconocidas como falsas.

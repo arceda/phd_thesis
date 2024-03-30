@@ -412,3 +412,12 @@ Cerca de la mitad de los estudios son ensayos de fase II \citep{cheng2021bertmhc
 		}
 	}
 \end{table}
+
+\clearpage
+\section{Conclusiones del estado del arte}
+
+Según la revisión exaustiva desarrollada sobre la detección de neoantígenos, el proceso general se divide en dos fases: (1) la dtección de neoantígenos, encargada de tomar como entrada datos genómicos y mediante el uso de herramientas de llamado y anotación de variantes, se lográ detectar posibles neoantígenos; (2) la siguiente fase consiste en priorizar los neoantígenos mediante el uso de técnicas de \textit{machine learning} para predecir la unión de los neoantígenos al MHC. 
+
+Referente a la detección de neoantígenos, estos han sido estudiados fuertemente; sin embargo, los métodos utilizados salen del alcance del \textit{machine learning} porque los datos genómicos son extramadamente grandes, por ejemplo un genoma completo puede tener 3.2 billlones de bases. Luego, la secuenciación de DNA no es un archivo preciso, solo se tienen lecturas de segmentos, lo cual complica enormenmente su posterior análisis.
+
+Referente a la priorización de neoantígenos, este tiene el objetivo de predecir el enlace entre el neoantígeno candidato al MHC. Ambas son secuencias de preoteínas y varios autores han considerado este problema como un problema de clasificación binaria desde un enfoque similar al procesamiento natural de lenguaje. En un principio, se ha utilizado  redes recurrentes, e incluso redes convoluciones, para codificar cada aminoacido como un vector y considerar una cadena de aminoácidos como una matriz 2x2. Recientemente, con la revolución de la inteligencia artificial y los modelos \textit{Transformers}, se ha empezado a utilizar estos modelos para tratar diversos problemas en Proteómica al considerar las secuencias de aminoácidos de igual forma que una cadena de texto.
