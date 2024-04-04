@@ -233,5 +233,8 @@ Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5
 
 Como se detallo en este capítulo, la propuesta se basa en comparar metodologás de entrenamiento utilizando GAS y congelamiento de capas para realizar \textit{fine-tuning} a un modelo BERT pre-entrenado. El objetivo de \textit{fine-tuning}, es de adaptar el modelo BERT al problema de predicción del enlace pMHC.
 
+Se ha realizado una busqueda de los \textit{protein Language Models} (pLM) desarrollados hasta la actualidad y sed determino utilizar TAPE, ProtBert y ESM2.  Si bien existen otros pLMs; los modelos seleccionados son los mas recientes,son de libre acceso y tienen mayor documentation. 
+
+La elección de las metodologías de congelamiento de capas y GAS, surgen despues de una análisis de enfoques de entrenamiento de modelos grandes de lenguaje. Este analisis, determino que es muy costoso entrenar estos modelos debido a los altos requerimientos conputacionales. Además, en este proyecto no se conto con GPUs de alto rendimiento, por esto se busco alternativas para entrenar estos modelos a un menor costo, llegando a la conclusión de utilizar GAS y la metodología de congelamiento de capas.
 
 

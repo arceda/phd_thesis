@@ -142,3 +142,15 @@ El problema de predicción de unión pMHC es un problema de regresión. Sin emba
 \end{equation}
 
 donde \textit{TP}, hace referencia a la cantidad de muestras que eran verdaderas y han sido reconocidas como verdaderas; \textit{TN}, hace referencia a la cantidad de muestras que eran verdaderas y han sido reconocidas como falsas; \textit{FP}, son las muestras que eran falsas, pero fueron reconocidas como verdaderas; \textit{FN}, son las muestras que eran falsas y fueron reconocidas como falsas.
+
+
+
+\section{Conclusiones de los experimentos}
+
+Los experimentos desarrollados en este capítulo se han determinado para demostrar la contribución de la propuesta, basada en un método para la detección de neoantígenos. Recoderdemos que la propuesta se basa en comparar pLMs al aplicar \textit{fine-tuning} para la tarea de predicción del enlace pMHC, si este enlace es exitoso, el péptido en cuestion tiene una alta probabilidad de ser neoantígeno. 
+
+Los experimentos sobre comparación del \textit{fine-tuning} de los modelos utilizando GAS y el congelamiento de capas, surge como alternativa a los altos costos computacionales de entrenar un modelo grande de lenguaje. Asi mismo, el pLM entrenado mas grande llego a tener 650 millones de parámetros, dejando a trabajos futuros el entrenamiento de los modelos de mas de mil millones de parámetros.
+
+Adicionalmente, la metodología de los experimentos de entrenar 24 modelos cado uno con diferentes configuraciones, surgio con la idea de evaluar su desempeño y entender el comportamiento de estos para la tarea de predicción del enlace pMHC. 
+
+Finalmente, tambien se propuso comparar los modelos de mejor desempeño con las herramientas mas representativas del estado del arte. Esto surge, con la idea de demostrar la contribución de este trabajo al querer superar el desempeño de herramientas recientes en esta problemática. Para trabajos futuros, se va a considerar realizar esta comparación en otras bases de datos con el objetivo de establecer con mayor base la superioridad de los pLMs comparado con otros métodos del estado del arte.
