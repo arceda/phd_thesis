@@ -40,13 +40,13 @@ En la Tabla \ref{tab:cmodel_names}, describimos la nomenclatura utilizada para c
 	\begin{tabular}{lp{5cm}p{5cm}}
 		\textbf{Nomenclatura}                 & \textbf{Descripción}       &
 		\textbf{Modelos}                                                                             \\ \hline
-		{[}model{]}-Normal     & Modelo {[}model{]} despues de aplicar fine-tuning sin utilizar el congelamiento de capas y GAS & TAPE-Normal, ESM2(t12)-Normal, ESM2(t30)-Normal, ESM2(t33)-Normal y ProtBert-Normal \\
+		{[}model{]}-Normal     & Modelo {[}model{]} después de aplicar \textit{fine-tuning} sin utilizar el congelamiento de capas y GAS & TAPE-Normal, ESM2(t12)-Normal, ESM2(t30)-Normal, ESM2(t33)-Normal y ProtBert-Normal \\
 		
-		{[}model{]}-Freeze     & Modelo {[}model{]} despues de aplicar fine-tuning utilizando solo el congelamiento de capas   & TAPE-Freeze, ESM2(t12)-Freeze, ESM2(t30)-Freeze, ESM2(t33)-Freeze y ProtBert-Freeze \\
+		{[}model{]}-Freeze     & Modelo {[}model{]} después de aplicar \textit{fine-tuning} utilizando solo el congelamiento de capas   & TAPE-Freeze, ESM2(t12)-Freeze, ESM2(t30)-Freeze, ESM2(t33)-Freeze y ProtBert-Freeze \\
 		
-		{[}model{]}-GAS        & Modelo {[}model{]} despues de aplicar fine-tuning utilizando solo GAS                      & TAPE-GAS, ESM2(t12)-GAS, ESM2(t30)-GAS, ESM2(t33)-GAS y ProtBert-GAS    \\
+		{[}model{]}-GAS        & Modelo {[}model{]} después de aplicar \textit{fine-tuning} utilizando solo GAS                      & TAPE-GAS, ESM2(t12)-GAS, ESM2(t30)-GAS, ESM2(t33)-GAS y ProtBert-GAS    \\
 		
-		{[}model{]}-Freeze-GAS & Modelo {[}model{]} despues de aplicar fine-tuning utilizando el congelamiento de capas y GAS  & TAPE-Freeze-GAS, ESM2(t12)-Freeze-GAS, ESM2(t30)-Freeze-GAS, ESM2(t33)-Freeze-GAS y ProtBert-Freeze-GAS
+		{[}model{]}-Freeze-GAS & Modelo {[}model{]} después de aplicar \textit{fine-tuning} utilizando el congelamiento de capas y GAS  & TAPE-Freeze-GAS, ESM2(t12)-Freeze-GAS, ESM2(t30)-Freeze-GAS, ESM2(t33)-Freeze-GAS y ProtBert-Freeze-GAS
 	\end{tabular}
 }
 \end{table}
@@ -56,18 +56,18 @@ En la Tabla \ref{tab:cmodel_names}, describimos la nomenclatura utilizada para c
 
 Luego de realizar \textit{fine-tuning} a los 24 modelos de la Tabla \ref{tab:cmodel_names}, se selecciono los modelos de mejor desempeño evaluando las métricas:  \textit{accuracy, precision, recall, f-1 score, Area Under the Curve (AUC)}, y \textit{Matthews Correlation Coefficient} (MCC). Luego, estos modelos fueron entrenados por 30 \textit{epochs} utilizando \textit{early stopping}. Al aplicar \textit{early stopping}, se considero 3 \textit{epochs} sin mejorar el AUC para detener el entrenamiento. 
 
-Finalmente, se comparo estos modelos con los métodos mas representativos del estado del arte. Hemos considerado:  NetMHCpan4.1 \citep{reynisson2020netmhcpan} y MHCFlurry2.0 \citep{o2020mhcflurry} porque son métodos de referencia bien conocidos y utilizados en varios \textit{benchmarks}. Tambien  hemos considerado tres herramientas recientes como Anthem \citep{mei2021anthem}, Acme \citep{hu2019acme} y MixMHCpred2.2 \citep{gfeller2023improved}
+Finalmente, se comparo estos modelos con los métodos mas representativos del estado del arte. Hemos considerado:  NetMHCpan4.1 \citep{reynisson2020netmhcpan} y MHCFlurry2.0 \citep{o2020mhcflurry} porque son métodos de referencia bien conocidos y utilizados en varios \textit{benchmarks}. También  hemos considerado tres herramientas recientes como Anthem \citep{mei2021anthem}, Acme \citep{hu2019acme} y MixMHCpred2.2 \citep{gfeller2023improved}
 
 
 \section{Ambiente de trabajo}
 
-Para entrenar los modelos pequeños de \textit{deep learning}, con menos de 200 millones de parámetros, se utilizo una tarjeta RTX3070, esta cuenta con 8GB de memoria dedicada de vídeo. Para entrenar los modelos grandes, mas de 200 millones de parámetros, se utilizo GPUs en la nube. La plataforma utilizda fue Paperspace, esta brinda diferentes opciones de GPUs, las utilizadas en este proyecto fueron la A100 y la A4000.
+Para entrenar los modelos pequeños de \textit{deep learning}, con menos de 200 millones de parámetros, se utilizo una tarjeta RTX3070, esta cuenta con 8GB de memoria dedicada de vídeo. Para entrenar los modelos grandes, mas de 200 millones de parámetros, se utilizo GPUs en la nube. La plataforma utilizada fue Paperspace, esta brinda diferentes opciones de GPUs, las utilizadas en este proyecto fueron la A100 y la A4000.
 
 \section{Bases de datos}
-Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Por ejemplo, en la Tabla \ref{tab:db_samples}, mostramos algunas muestras de esta base de datos. La columna MHC especifica el tipo de MHC o HLA, luego la columna pseudosecuencia, representa la secuencia de aminoácidos del MHC; esta pseudosecuencia fue obtenida de la base de datos de NetMHCpan4.1. Seguidamente, prosigue la secuencia de aminoácidos del péptido. Finalmente, la ultima columna es la clase o etiqueta, tendrá un valor de uno cuando existe una unión entre el pMHC y cero en caso contrario.
+Utilizamos secuencias de péptidos del conjunto de datos Anthem \citep{mei2021anthem}. Este conjunto de datos consta de 539,019 muestras para entrenamiento, 179,673 para validación y 172,580 para pruebas. Por ejemplo, en la Tabla \ref{tab:db_samples}, mostramos algunas muestras de esta base de datos. La columna MHC especifica el tipo de MHC o HLA, luego la columna pseudo secuencia, representa la secuencia de aminoácidos del MHC; esta pseudo secuencia fue obtenida de la base de datos de NetMHCpan4.1. Seguidamente, prosigue la secuencia de aminoácidos del péptido. Finalmente, la ultima columna es la clase o etiqueta, tendrá un valor de uno cuando existe una unión entre el pMHC y cero en caso contrario.
 
 
-Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por \textit{k-mers}. En Bioinformática, se hace referencia al termino \textit{k-mer} para representar secuencias biológicas de ADN, ARN o proteínas. Para el caso específico de proteínas, una secuencia de \textit{8-mer}, defina que la proteína en cuestión esta compuesta por 8 aminoácidos. Para la base de datos utilizada en esta investigación, los péptidos de \textit{9-mers} constituyen la mayoría de las muestras; miesntras que los péoptidos \textit{14-mer} son los mas escazos. Además, estos péptidos \textit{14-mer}, usualmente presentan comportamientos distintos. Esto ha ocasionado que los umbrales utilizados por los clasificadores varia dependiendo del \textit{k-mer} y por tipo de clasificador. 
+Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de las muestras por \textit{k-mers}. En Bioinformática, se hace referencia al termino \textit{k-mer} para representar secuencias biológicas de ADN, ARN o proteínas. Para el caso específico de proteínas, una secuencia de \textit{8-mer}, defina que la proteína en cuestión esta compuesta por 8 aminoácidos. Para la base de datos utilizada en esta investigación, los péptidos de \textit{9-mers} constituyen la mayoría de las muestras; mientras que los péptidos \textit{14-mer} son los mas escasos. Además, estos péptidos \textit{14-mer}, usualmente presentan comportamientos distintos. Esto ha ocasionado que los umbrales utilizados por los clasificadores varia dependiendo del \textit{k-mer} y por tipo de clasificador. 
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.8\textwidth]{../img/proposal/dataset_samples}
@@ -79,14 +79,14 @@ Adicionalmente, en la Figura \ref{fig:samples}, presentamos la distribución de 
 
 
 \begin{table}[H]
-	\caption[Ejemplo de algunas muestras de la base de datos]{Ejemplo de algunas muestras de la base de datos. Cada MHC es representado por una pseudosecuencia procesadas por NetMHCpan4.1. Luego los péptidos son cadenas de aminoácidos entreo 8 a 14 amino ácidos. La clase o etiqueta es un cero si existe una unión entre el péptido y el MHC o cero en caso contrario.}
+	\caption[Ejemplo de algunas muestras de la base de datos]{Ejemplo de algunas muestras de la base de datos. Cada MHC es representado por una pseudo secuencia procesadas por NetMHCpan4.1. Luego los péptidos son cadenas de aminoácidos entre 8 a 14 amino ácidos. La clase o etiqueta es un cero si existe una unión entre el péptido y el MHC o cero en caso contrario.}
 	\label{tab:db_samples}
 	\scriptsize
 	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
 	{\renewcommand{\arraystretch}{1.5}% for the vertical padding
 		\begin{tabular}{llll}
 			%\hline
-			\textbf{MHC}         & \textbf{Pseudosecuencia del MHC}                & \textbf{Péptido}        & \textbf{Clase} \\ \hline
+			\textbf{MHC}         & \textbf{Pseudo secuencia del MHC}                & \textbf{Péptido}        & \textbf{Clase} \\ \hline
 			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & LFGRDLSY       & 1     \\
 			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & TDKKTHLY       & 1     \\
 			HLA-A*01:01 & YFAMYQENMAHTDANTLYIIYRDYTWVARVYRGY & RSDTPLIY       & 1     \\
@@ -147,10 +147,10 @@ donde \textit{TP}, hace referencia a la cantidad de muestras que eran verdaderas
 
 \section{Conclusiones de los experimentos}
 
-Los experimentos desarrollados en este capítulo se han determinado para demostrar la contribución de la propuesta, basada en un método para la detección de neoantígenos. Recoderdemos que la propuesta se basa en comparar pLMs al aplicar \textit{fine-tuning} para la tarea de predicción del enlace pMHC, si este enlace es exitoso, el péptido en cuestion tiene una alta probabilidad de ser neoantígeno. 
+Los experimentos desarrollados en este capítulo se han determinado para demostrar la contribución de la propuesta, basada en un método para la detección de neoantígenos. Recordemos que la propuesta se basa en comparar pLMs al aplicar \textit{fine-tuning} para la tarea de predicción del enlace pMHC, si este enlace es exitoso, el péptido en cuestión tiene una alta probabilidad de ser neoantígeno. 
 
-Los experimentos sobre comparación del \textit{fine-tuning} de los modelos utilizando GAS y el congelamiento de capas, surge como alternativa a los altos costos computacionales de entrenar un modelo grande de lenguaje. Asi mismo, el pLM entrenado mas grande llego a tener 650 millones de parámetros, dejando a trabajos futuros el entrenamiento de los modelos de mas de mil millones de parámetros.
+Los experimentos sobre comparación del \textit{fine-tuning} de los modelos utilizando GAS y el congelamiento de capas, surge como alternativa a los altos costos computacionales de entrenar un modelo grande de lenguaje. Así mismo, el pLM entrenado mas grande llego a tener 650 millones de parámetros, dejando a trabajos futuros el entrenamiento de los modelos de mas de mil millones de parámetros.
 
-Adicionalmente, la metodología de los experimentos de entrenar 24 modelos cado uno con diferentes configuraciones, surgio con la idea de evaluar su desempeño y entender el comportamiento de estos para la tarea de predicción del enlace pMHC. 
+Adicionalmente, la metodología de los experimentos de entrenar 24 modelos cada uno con diferentes configuraciones, surgió con la idea de evaluar su desempeño y entender el comportamiento de estos para la tarea de predicción del enlace pMHC. 
 
-Finalmente, tambien se propuso comparar los modelos de mejor desempeño con las herramientas mas representativas del estado del arte. Esto surge, con la idea de demostrar la contribución de este trabajo al querer superar el desempeño de herramientas recientes en esta problemática. Para trabajos futuros, se va a considerar realizar esta comparación en otras bases de datos con el objetivo de establecer con mayor base la superioridad de los pLMs comparado con otros métodos del estado del arte.
+Finalmente, también se propuso comparar los modelos de mejor desempeño con las herramientas mas representativas del estado del arte. Esto surge, con la idea de demostrar la contribución de este trabajo al querer superar el desempeño de herramientas recientes en esta problemática. Para trabajos futuros, se va a considerar realizar esta comparación en otras bases de datos con el objetivo de establecer con mayor base la superioridad de los pLMs comparado con otros métodos del estado del arte.

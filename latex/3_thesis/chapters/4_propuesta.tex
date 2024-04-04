@@ -41,7 +41,7 @@ Para los entrenamientos y experimentos se utilizará la base de datos HLA3D \cit
 
 \section{Metodología}
 
-Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito en la etapa 3.1 del proceso general para generar vacunas personalizadas basadas en neoantígenos (ver Figura \ref{fig:proposal}). Se ha evaluado  seis modelos \textit{Transformer}s pre-entrenados en diversas tareas de Proteómica como: predicción de estructura de proteínas, predicción de la función de proteínas, etc. Los modelos BERT son: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} ( compuesto por ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Durante la evaluación se realizó \textit{fine-tuning} a los modelos agregando un bloque de BiLSTM al final, de igual forma que lo realizó HLAB \citep{zhang2022hlab}, describiremos a detalle ste proceso mas adelante. También se evaluó el uso de \textit{Gradient Accumulation Steps} (GAS) y el uso de una metodología para congelar las capas del modelo BERT con el objetivo de reducir el tiempo de entrenamiento, consumo de memoria y disminuir el problema de \textit{vanish gradient}. 
+Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito en la etapa 3.1 del proceso general para generar vacunas personalizadas basadas en neoantígenos (ver Figura \ref{fig:proposal}). Se ha evaluado  seis modelos \textit{Transformer}s pre-entrenados en diversas tareas de Proteómica como: predicción de estructura de proteínas, predicción de la función de proteínas, etc. Los modelos BERT son: TAPE \citep{rao2019evaluating}, ProtBert-BFD \citep{elnaggar2021prottrans} y ESM2 \citep{lin2023evolutionary} ( compuesto por ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). Durante la evaluación se realizó \textit{fine-tuning} a los modelos agregando un bloque de BiLSTM al final, de igual forma que lo realizó HLAB \citep{zhang2022hlab}, describiremos a detalle este proceso mas adelante. También se evaluó el uso de \textit{Gradient Accumulation Steps} (GAS) y el uso de una metodología para congelar las capas del modelo BERT con el objetivo de reducir el tiempo de entrenamiento, consumo de memoria y disminuir el problema de \textit{vanish gradient}. 
 
 
 
@@ -55,7 +55,7 @@ Esta investigación se  enfoca en la tarea de predecir la unión pMHC, descrito 
 	\label{fig:proposal}
 \end{figure}
 
-En la Figura \ref{fig:proposal}, describimos la propuesta para la predicción del enlave pMHC para MHC de clase I. Primero tomamos como entrada el péptido y el MHC-I. Estas son secuencias de proteínas, el peptido tiene una longitud entre 8 a14 aminoácidos; mientras que para el MHC se ha utilizado pseudosecuencias con una longitud de 34 aminoácidos. Luego, estós aminoácidos son codificados utilizando one-hot encoding (ver Figure \ref{fig:onehot}). Luego estos aminoácidos son concatenados y son recibidos por el modelo BERT (modelo pre-entrenado). Finalmente, luego del bloque BERT prosigue un bloque de capas BiLSTM y finalmente una capa lineal para clasificar o predecir la unión entre el péptido y el MHC.
+En la Figura \ref{fig:proposal}, describimos la propuesta para la predicción del enlace pMHC para MHC de clase I. Primero tomamos como entrada el péptido y el MHC-I. Estas son secuencias de proteínas, el péptido tiene una longitud entre 8 a14 aminoácidos; mientras que para el MHC se ha utilizado pseudo secuencias con una longitud de 34 aminoácidos. Luego, estos aminoácidos son codificados utilizando one-hot encoding (ver Figure \ref{fig:onehot}). Luego estos aminoácidos son concatenados y son recibidos por el modelo BERT (modelo pre-entrenado). Finalmente, luego del bloque BERT prosigue un bloque de capas BiLSTM y finalmente una capa lineal para clasificar o predecir la unión entre el péptido y el MHC.
 
 \begin{figure}[H]
 	\centering
@@ -70,21 +70,21 @@ El modelo \textit{Bidirectional Encoder Representations from Transformers} (BERT
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{../img/proposal/bert}
-	\caption[Aquitectura del modelo BERT]{Arquitectura del modelo BERT diferenciado los \textit{encoders} y \textit{decoders}. Fuente: \cite{devlin2018bert}.}
+	\caption[Arquitectura del modelo BERT]{Arquitectura del modelo BERT diferenciado los \textit{encoders} y \textit{decoders}. Fuente: \cite{devlin2018bert}.}
 	\label{fig:bert_paper}
 \end{figure}
 
 
 BERT está impulsado por una potente arquitectura de red neuronal conocida como \textit{Transformers}. Esta arquitectura incorpora un mecanismo llamado \textit{self-attention}, lo que permite a BERT ponderar la importancia de cada palabra en función de su contexto, tanto precedente como sucesivo. Esta conciencia contextual dota a BERT con la capacidad de generar incrustaciones de palabras contextualizadas, que son representaciones de palabras considerando sus significados dentro de las oraciones. 
 
-\subsection{Modelos de lenguaje de preoteínas}
+\subsection{Modelos de lenguaje de proteínas}
 
 El modelo BERT ha permitido grandes avances en el área de procesamiento natural del lenguaje y también se ha extendido hacia otras aplicaciones, como el análisis de secuencias de aminoácidos (proteínas). Por ejemplo, en la Figura \ref{fig:aminoacids}, mostramos un ejemplo de una cadena de aminoácidos y cómo se forma a partir de la secuencia mRNA. Cada tres bases conforman un posible aminoácido y tenemos veintidós en total.
 
 
 \begin{figure}[H]
 	\centering\includegraphics[width=\textwidth]{../img/proposal/amino-acids}
-	\caption[Ejemplo de traducción de aminoácidos]{Ejemplo de como ocurre la traducción de aminoácidos a partir de una secuencia mRNA. Cada tres bases conforman un aminoácido y en total tenemos veintidos diferentes aminoácidos. Fuente: \cite{nih_aminoacids_2024}.}
+	\caption[Ejemplo de traducción de aminoácidos]{Ejemplo de como ocurre la traducción de aminoácidos a partir de una secuencia mRNA. Cada tres bases conforman un aminoácido y en total tenemos veintidós diferentes aminoácidos. Fuente: \cite{nih_aminoacids_2024}.}
 	\label{fig:aminoacids}
 \end{figure}
 
@@ -92,15 +92,15 @@ El modelo BERT ha permitido grandes avances en el área de procesamiento natural
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.45\textwidth]{../img/proposal/myoglobin}
-	\caption[Estructura 3D de la proteína Mioglobulina]{Estructura 3D de la proteína Mioglobulina. Esta estructura 3D esta compuesta por 154 aminoácidos: \textit{MGLSDGEWQ LVLNVWGKVE ADIPGHGQEV LIRLFKGHPE TLEKFDKFKH LKSEDEMKAS EDLKKHGATV LTALGGILKK KGHHEAEIKP LAQSHATKHK IPVKYLEFIS ECIIQVLQSK HPGDFGADAQ GAMNKALELF RKDMASNYKE LGFQG}. Fuente: \cite{uniprotkb}, identificación P02144.}
+	\caption[Estructura 3D de la proteína Mio globulina]{Estructura 3D de la proteína Mio globulina. Esta estructura 3D esta compuesta por 154 aminoácidos: \textit{MGLSDGEWQ LVLNVWGKVE ADIPGHGQEV LIRLFKGHPE TLEKFDKFKH LKSEDEMKAS EDLKKHGATV LTALGGILKK KGHHEAEIKP LAQSHATKHK IPVKYLEFIS ECIIQVLQSK HPGDFGADAQ GAMNKALELF RKDMASNYKE LGFQG}. Fuente: \cite{uniprotkb}, identificación P02144.}
 	\label{fig:myoglobin}
 \end{figure}
 
-Según la cadena de aminoácidos, la estructura y función de una proteína es determinada \citep{rastogi2022bioinformatics,kihara2017protein,rangwala2010introduction}. Por ejemplo la secuencia de aminoácidos: \textit{MGLS DGEWQ LVLNV WGKVE ADIPG HGQEV LIRL FKGHPE TLEKF DKFKH LKSE DEMKAS EDLK KHGATV LTALG GILKK KGHH EAEIKP LAQSH ATKHK IPVKY LEFIS ECIIQ VLQSK HPGD FGADAQ GAMNK ALELF RKDM ASNYKE LGFQG}, representa la proteína Mioglobulina (ver Figura \ref{fig:myoglobin}). Según la posición de cada aminoácido y el tamaño de la secuencia, la proteína cumple con cierta función. Entonces, si una mutación ocurre a nivel de aminoacidos por ende la función de la proteína se vera afectada, este es origen de varios tipos de cancer \citep{xie2023neoantigens,biswas2023designing}. Por ejemplo, en la Figura \ref{fig:mutabind}, presentamos  una mutación por sustitución, donde el aminoácido K cambio por E, este cambio pequeño modifico la estructura y función de la proteína.
+Según la cadena de aminoácidos, la estructura y función de una proteína es determinada \citep{rastogi2022bioinformatics,kihara2017protein,rangwala2010introduction}. Por ejemplo la secuencia de aminoácidos: \textit{MGLS DGEWQ LVLNV WGKVE ADIPG HGQEV LIRL FKGHPE TLEKF DKFKH LKSE DEMKAS EDLK KHGATV LTALG GILKK KGHH EAEIKP LAQSH ATKHK IPVKY LEFIS ECIIQ VLQSK HPGD FGADAQ GAMNK ALELF RKDM ASNYKE LGFQG}, representa la proteína Mio globulina (ver Figura \ref{fig:myoglobin}). Según la posición de cada aminoácido y el tamaño de la secuencia, la proteína cumple con cierta función. Entonces, si una mutación ocurre a nivel de aminoácidos por ende la función de la proteína se vera afectada, este es origen de varios tipos de cáncer \citep{xie2023neoantigens,biswas2023designing}. Por ejemplo, en la Figura \ref{fig:mutabind}, presentamos  una mutación por sustitución, donde el aminoácido K cambio por E, este cambio pequeño modifico la estructura y función de la proteína.
 
 \begin{figure}[H]
 	\centering\includegraphics[width=0.7\textwidth]{../img/proposal/mutabind}
-	\caption[Estructura 3D de una proteína normal y una proteína mutada]{Estructura 3D de una proteína normal y una proteína mutada. La mutación ocurrio en el aminoácido K, que cambio y se volvio el aminoácido E. Esta mutación genero un cambio en la estructura y función de la proteína. Fuente: \cite{mutabind2024}}
+	\caption[Estructura 3D de una proteína normal y una proteína mutada]{Estructura 3D de una proteína normal y una proteína mutada. La mutación ocurrió en el aminoácido K, que cambio y se volvió el aminoácido E. Esta mutación genero un cambio en la estructura y función de la proteína. Fuente: \cite{mutabind2024}}
 	\label{fig:mutabind}
 \end{figure}
 
@@ -148,9 +148,9 @@ ESM-2 \citep{lin2023evolutionary} es una familia de modelos \textit{Transformer}
 
 \section{\textit{Fine-tuning}}\label{sec:fine-tuned}
 
-Una manera de realizar \textit{transfer learning} de modelos de \textit{deep learning} grandes, es realizando \textit{fine-tuning}. Está metodología, generalmente se aplica cuando tenemos un modelo entrenado con una base de datos muy grande, como por ejemplo una base de datos de texto de todas las páginas de internet. Luego, queremos adaptar dicho modelo para una tarea específica y en donde no contamos una base de datos muy grande, como por ejemplo un conjunto de muetras de análisis de sentimientos; entonces, podemos aplicar \textit{fine-tuning} al modelo entrenado con todo el texto de internet para una nueva tarea, entrenandolo de nuevo pero esta vez con el objetivo de predecir el sentimiento de un texto. En resumen está técnica consiste en modificar las ultimas capas del modelo pre-entrenado. La modificación puede ser eliminando las ultimas capas y agregando capas lineales, convoluciones, o recurrentes. Luego, se vuelve a entrenar el modelo una vez mas con el objetivo que el modelo se adapte al nuevo problema. En la Figura \ref{fig:fine-tuning}, mostramos un ejemplo de este procedimiento.
+Una manera de realizar \textit{transfer learning} de modelos de \textit{deep learning} grandes, es realizando \textit{fine-tuning}. Está metodología, generalmente se aplica cuando tenemos un modelo entrenado con una base de datos muy grande, como por ejemplo una base de datos de texto de todas las páginas de internet. Luego, queremos adaptar dicho modelo para una tarea específica y en donde no contamos una base de datos muy grande, como por ejemplo un conjunto de muestras de análisis de sentimientos; entonces, podemos aplicar \textit{fine-tuning} al modelo entrenado con todo el texto de internet para una nueva tarea, entrenándolo de nuevo pero esta vez con el objetivo de predecir el sentimiento de un texto. En resumen está técnica consiste en modificar las ultimas capas del modelo pre-entrenado. La modificación puede ser eliminando las ultimas capas y agregando capas lineales, convoluciones, o recurrentes. Luego, se vuelve a entrenar el modelo una vez mas con el objetivo que el modelo se adapte al nuevo problema. En la Figura \ref{fig:fine-tuning}, mostramos un ejemplo de este procedimiento.
 
-Luego, se sabe que al entrenar modelos de \textit{Transformers} grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores. En otras palabras, las ultimas capas son mas específicas, mientras que las capas iniciales, representan caraterísticas generales del problema \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. Debido a esto, es comun en los procesos de f\textit{ine-tuning}, eliminar las ultimas capas y agregar otras capas al final del modelo. En este trabajo,  apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado (ver Figura \ref{fig:fine-tuning_proposal}), luego se agrego una capa lineal con dos neuronas como salida para el problema de clasificación pMHC. Finalmente, este modelo se entreno con una base de datos de muestras de pMHC. Las características de los modelos BERT pre-entrenados se detallan en la Tabla \ref{tab:pretrained} mientras que las características del bloque LSTM utilizado en el proceso de \textit{fine-tuning} fueron inspirados por el trabajo de \cite{zhang2022hlab} y se detallan en la Tabla \ref{tab:biLSTM}.
+Luego, se sabe que al entrenar modelos de \textit{Transformers} grandes, las capas finales experimentan cambios más significativos, mientras que las capas iniciales, más cercanas a la entrada, sufren modificaciones relativamente menores. En otras palabras, las ultimas capas son mas específicas, mientras que las capas iniciales, representan características generales del problema \citep{merchant2020happens,lee2019would,kovaleva2019revealing}. Debido a esto, es común en los procesos de \textit{fine-tuning}, eliminar las ultimas capas y agregar otras capas al final del modelo. En este trabajo,  apilamos en cascada un bloque BiLSTM al final del modelo pre-entrenado (ver Figura \ref{fig:fine-tuning_proposal}), luego se agrego una capa lineal con dos neuronas como salida para el problema de clasificación pMHC. Finalmente, este modelo se entreno con una base de datos de muestras de pMHC. Las características de los modelos BERT pre-entrenados se detallan en la Tabla \ref{tab:pretrained} mientras que las características del bloque LSTM utilizado en el proceso de \textit{fine-tuning} fueron inspirados por el trabajo de \cite{zhang2022hlab} y se detallan en la Tabla \ref{tab:biLSTM}.
 
  
 
@@ -199,18 +199,18 @@ Luego, se sabe que al entrenar modelos de \textit{Transformers} grandes, las cap
 
 \section{\textit{Gradient Accumulation Steps}}\label{sec:gas}
 
-Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento. El proceso se explica en la Figura \ref{fig:gas_example}, por ejemplo en un entrenamiento normal durante el proceso de actualización de parámetros en el algoritmo de aprendizaje, se considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parametros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes y luego estas gradientes acumuladas son utilizadas para actualizar los parámetros.
+Adicionalmente, los modelos de \textit{Transformer} grandes utilizan bastante memoria de la GPU. Por lo tanto, inspirados en trabajos similares sobre entrenamiento de modelos grandes de \textit{Transformers} para problemas de NLP \citep{anil2021large,zhang2023adam,huang2023measuring}, evaluamos los resultados de aplicar \textit{Gradient Accumulation Steps} durante el entrenamiento. El proceso se explica en la Figura \ref{fig:gas_example}, por ejemplo en un entrenamiento normal durante el proceso de actualización de parámetros en el algoritmo de aprendizaje, se considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parámetros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes y luego estas gradientes acumuladas son utilizadas para actualizar los parámetros.
 
 
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth]{../img/proposal/gas_own}	
-	\caption[Ejemplo de aplicación de \textit{Gradient Accumulation Steps}]{Ejemplo de aplicación de \textit{Gradient Accumulation Steps} durante el entranamiento de modelos de Deep Learning. En este caso, un entrenamiento general considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parámetros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes, luego estas gradientes acumuladas son utilizadas para actualizar los parámetros.  Fuente: Adaptado de  \cite{prince2023understanding}.}		
+	\caption[Ejemplo de aplicación de \textit{Gradient Accumulation Steps}]{Ejemplo de aplicación de \textit{Gradient Accumulation Steps} durante el entrenamiento de modelos de Deep Learning. En este caso, un entrenamiento general considera un solo \textit{mini-batch} para obtener las gradientes y luego actualiza los parámetros; mientras que en el enfoque utilizando \textit{Gradient Accumulation Steps}, se consideran varios \textit{mini-batchs}, se suman sus gradientes, luego estas gradientes acumuladas son utilizadas para actualizar los parámetros.  Fuente: Adaptado de  \cite{prince2023understanding}.}		
 	\label{fig:gas_example}
 \end{figure}
 
-Generalmente, los parámetros de un modelo de \textit{machine learning} se actualizan según la ecuación \ref{equa:gas1}, donde $ \partial^i = \frac{\partial J(\theta)}{\partial \theta}   $ es la derivada partial de $\theta$ respecto a la función costo $J(\theta)$ en la iteración i. Entonces, el uso de \textit{Gradient Accumulation Steps} (GAS) propone acumular esas derivadas durante un número de iteraciones como se representa en la ecuación \ref{equa:gas2} (en este caso se acumuló las derivadas por tres iteraciones). Como resultado, al acumular las gradientes la actualización de parámetros se realiza cada cierto número de iteraciones reduciendo así el consumo de memoria. 
+Generalmente, los parámetros de un modelo de \textit{machine learning} se actualizan según la ecuación \ref{equa:gas1}, donde $ \partial^i = \frac{\partial J(\theta)}{\partial \theta}   $ es la derivada parcial de $\theta$ respecto a la función costo $J(\theta)$ en la iteración i. Entonces, el uso de \textit{Gradient Accumulation Steps} (GAS) propone acumular esas derivadas durante un número de iteraciones como se representa en la ecuación \ref{equa:gas2} (en este caso se acumuló las derivadas por tres iteraciones). Como resultado, al acumular las gradientes la actualización de parámetros se realiza cada cierto número de iteraciones reduciendo así el consumo de memoria. 
 
 \begin{equation}\label{equa:gas1}
 	\theta = \theta - \alpha \partial^{i}
@@ -222,19 +222,19 @@ Generalmente, los parámetros de un modelo de \textit{machine learning} se actua
 
 
 
-En este proyecto, se planteo  comprobar los beneficios de utilizar GAS en el entrenamiento de los modelos. Se realizo una comparación de los modelos entrenados con GAS y sin GAS. Para los modelos TAPE, ESM2(t6), ESM2(t12) y ESM2(t30) se acumularón las gradientes por 64 iteraciones. Mientras que para los modelos mas grandes como ProtBert-BFD y ESM2(t33), se acumuló por 128 iteraciones. Se planteo esta diferencia porque los modelos mas grandes requerian un mayor consumo de memoria.
+En este proyecto, se planteo  comprobar los beneficios de utilizar GAS en el entrenamiento de los modelos. Se realizo una comparación de los modelos entrenados con GAS y sin GAS. Para los modelos TAPE, ESM2(t6), ESM2(t12) y ESM2(t30) se acumularon las gradientes por 64 iteraciones. Mientras que para los modelos mas grandes como ProtBert-BFD y ESM2(t33), se acumuló por 128 iteraciones. Se planteo esta diferencia porque los modelos mas grandes requerían un mayor consumo de memoria.
 
 
-\section{Hiperparámetros}\label{sec:hyperparam}
-Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$). Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}. Adicionalmente, para los entrenamientos de mas de 30 \textit{epochs}, hemos aplicado  \textit{early stopping}. Esta técnica nos permite parar el entrenamiento si el desempeño no mejora despues de cierto número de \textit{epochs}, en este proyecto consideramos 5 \textit{epochs} como umbral para detener el entrenamiento.
+\section{Hiper parámetros}\label{sec:hyperparam}
+Finalmente, utilizamos los siguientes hiperparámetros: tasa de aprendizaje de 5e-5, \textit{weight decay} de 0.0001, \textit{momentum} de 0.9, \textit{warn-up steps} de 1000 con \textit{linear decay}, optimizador ADAM ($\beta_1 = 0.9, \beta_2=0.999$). Estos valores fueron utilizados por BERTMHC \citep{cheng2021bertmhc} después de buscar los mejores parámetros utilizando \textit{grid search}. Adicionalmente, para los entrenamientos de mas de 30 \textit{epochs}, hemos aplicado  \textit{early stopping}. Esta técnica nos permite parar el entrenamiento si el desempeño no mejora después de cierto número de \textit{epochs}, en este proyecto consideramos 5 \textit{epochs} como umbral para detener el entrenamiento.
 
 
 \section{Conclusiones de la propuesta}
 
-Como se detallo en este capítulo, la propuesta se basa en comparar metodologás de entrenamiento utilizando GAS y congelamiento de capas para realizar \textit{fine-tuning} a un modelo BERT pre-entrenado. El objetivo de \textit{fine-tuning}, es de adaptar el modelo BERT al problema de predicción del enlace pMHC.
+Como se detallo en este capítulo, la propuesta se basa en comparar metodologías de entrenamiento utilizando GAS y congelamiento de capas para realizar \textit{fine-tuning} a un modelo BERT pre-entrenado. El objetivo de \textit{fine-tuning}, es de adaptar el modelo BERT al problema de predicción del enlace pMHC.
 
-Se ha realizado una busqueda de los \textit{protein Language Models} (pLM) desarrollados hasta la actualidad y sed determino utilizar TAPE, ProtBert y ESM2.  Si bien existen otros pLMs; los modelos seleccionados son los mas recientes,son de libre acceso y tienen mayor documentation. 
+Se ha realizado una búsqueda de los \textit{protein Language Models} (pLM) desarrollados hasta la actualidad y sed determino utilizar TAPE, ProtBert y ESM2.  Si bien existen otros pLMs; los modelos seleccionados son los mas recientes,son de libre acceso y tienen mayor documentation. 
 
-La elección de las metodologías de congelamiento de capas y GAS, surgen despues de una análisis de enfoques de entrenamiento de modelos grandes de lenguaje. Este analisis, determino que es muy costoso entrenar estos modelos debido a los altos requerimientos conputacionales. Además, en este proyecto no se conto con GPUs de alto rendimiento, por esto se busco alternativas para entrenar estos modelos a un menor costo, llegando a la conclusión de utilizar GAS y la metodología de congelamiento de capas.
+La elección de las metodologías de congelamiento de capas y GAS, surgen después de una análisis de enfoques de entrenamiento de modelos grandes de lenguaje. Este análisis, determino que es muy costoso entrenar estos modelos debido a los altos requerimientos computacionales. Además, en este proyecto no se contó con GPUs de alto rendimiento, por esto se busco alternativas para entrenar estos modelos a un menor costo, llegando a la conclusión de utilizar GAS y la metodología de congelamiento de capas.
 
 
