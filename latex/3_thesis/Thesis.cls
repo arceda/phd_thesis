@@ -227,10 +227,10 @@
 	% --------------------------------------------------------------------------------------------------------
 	
 	\begin{center}
-		\textbf{\Large{UNIVERSIDAD NACIONAL DE SAN AGUSTÍN}} \\
+		\textbf{\Large{UNIVERSIDAD NACIONAL DE SAN AGUSTÍN DE AREQUIPA}} \\
 		\textbf{\large{ESCUELA DE POSGRADO} \\
 			UNIDAD DE POSGRADO DE LA FACULTAD DE \\
-			INGENIERIA DE PRODUCCIÓN Y SERVICIOS}\\
+			INGENIERÍA DE PRODUCCIÓN Y SERVICIOS}\\
 		\vspace*{1.5cm}
 		
 		\includegraphics[keepaspectratio,scale=0.6]{img/unsa} \\[.8cm]
@@ -245,14 +245,14 @@
 		\vspace*{1.2cm}
 		\Large{}
 		\begin{flushright}
-		Tesis presentada por el Magister: \\
+		Tesis presentada por el Maestro: \\
 		Vicente Enrique Machaca Arceda \\
 		\vskip 0.5cm
 		Para optar el Grado de: \\
-		Doctor en Ciencia de la Computación \\
+		Doctor en Ciencias de la Computación \\
 		\vskip 0.5cm
 		Asesor: \\
-		Prof. Dr. Cristian Lopez Del Alamo\\
+		Prof. Dr. Cristian José Lopez Del Alamo\\
 		%Coorientador: Prof. Dr. Nome do Coorientador
 		\end{flushright}
 		
@@ -261,7 +261,7 @@
 		\normalsize{}
 		{\bf \large{Arequipa - Perú}} \\
 		%\vskip 0.5cm
-		{\bf \large{2024}}
+		{\bf \large{2023}}
 	\end{center}
 
 	
