@@ -1,0 +1,61 @@
+\section{Proposal}
+
+The proposal is divided into two contributions: first, the development of a method using Transformers and Transfer learning for neoantigen prioritization; second, the development of a pipeline which integrates bioinformatics tools including ArgosMHC.
+
+\subsection{ArgosMHC}
+
+The project encompass an assessment and comparison of six Transformer models: TAPE \cite{rao2019evaluating}, ProtBert-BFD \cite{elnaggar2021prottrans} and ESM2 \cite{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). These models were trained with large protein sequences datasets like Pfam \cite{el2019pfam}, and BFD and UniRef50  \cite{suzek2015uniref}. We fine-tuned these models for the task of pMHC binding prediction problem. Moreover, this study looked for the benefits of using a layer freezing methodology.  In Table \ref{tab:pretrained}, we present the characteristics of each model.
+
+
+\subsubsection{Pre-trained transformers}
+
+\textbf{Tasks Assessing Protein Embeddings} (TAPE) \cite{rao2019evaluating} is the first attempt to evaluate semi-supervised learning on protein sequences. TAPE has twelve layers of 512 units with eight attention heads, achieving 92 million parameters. The authors applied semi-supervised training with Pfam dataset \cite{el2019pfam}, which has thirty million protein domains. Furthermore, the Pfam dataset is derived from UniProt Knowledge (UniProtKB) \cite{uniprot2018uniprot}; in particular, Pfam used sequences that belong to Reference Proteomes \cite{finn2016pfam} instead of using the entire UniProtKB dataset. Consequently, Pfam has almost half of the protein sequences that other datasets based on UniProtKB. 
+
+
+
+\textbf{ProtBert-BFD} is part of a family of ProtTrans \cite{elnaggar2021prottrans} models. The authors evaluated several deep learning architectures with BFD, UniRef50, and UniRef100 datasets, each with 2122, 45, and 216 million sequences. For instance, BFD is considered the most extensive collection of protein sequences; it merged UniProt \cite{uniprot2019uniprot} and proteins from multiple meta-genomics sequencing projects. Meanwhile, UniRef \cite{suzek2015uniref} provides a clustered set of protein sequences from UniProtKB. Notably, the larger dataset, BFD, is more noisy; it has sequence mistakes \cite{elnaggar2021prottrans}. Some models proposed are ProtBert-BFD, ProtT5-XL and ProtT5-XXL, which have 420 million, 3 billion, and 11 billion parameters, respectively. ProtBert-BFD were trained with BFD; meanwhile, ProtT5 models were initially trained with BFD and then with UniRef50, which improved performance by 2.8\% and 1.4\% for ProtT5-XL and ProtT5-XXL respectively. Nevertheless, ProtT5-XL outperformed both ProtBert-BFD and the biggest model ProtT5-XXL. The authors claimed that the number of samples increased performance but didn't observe similarity consistent with model size. They suggested that larger models see fewer samples in the same computing power, so larger models need larger datasets. For that reason, we have opted for ProtBert as it is smaller than ProtT5-XL, and we believe it is better suited to the current dataset size.
+
+
+
+\textbf{ESM-2} \cite{lin2023evolutionary} is a family of transformer models that scales from 8 million to 15 billion parameters. The model is based on BERT \cite{devlin2018bert}, outperforming its previous version ESM-1b \cite{rives2021biological} by removing dropout in hidden and attention layers. Furthermore, the authors suggested that absolute positional encoding methods don't extrapolate well; consequently, they used Rotary Position Embedding (RoPE). Significantly, with the use of RoPE, the training cost is slightly increased; meanwhile, it improves model quality for small models \cite{lin2023evolutionary}. Moreover, the authors used the non-redundant  UniRef50 \cite{suzek2015uniref} dataset from UniProt, with 60 million protein sequences. 
+
+
+\begin{table}[]%
+	\centering
+	\caption{Significant differences between TAPE, ProtBert-DFB, and ESM2 models. ESM2 has four models of different sizes. HS: Hidden size, AH: Attention heads}
+	\label{tab:pretrained}%
+	\scriptsize
+	\begin{tabular}{llrrrrr}
+		\hline
+		\textbf{Model}   & \textbf{Dataset} & \textbf{Samples} & \textbf{Layers} & \textbf{HS} & \textbf{AH} & \textbf{Params.} \\
+		\hline
+		TAPE             & Pfam             & 30M                   & 12              & 768                  & 12                       & 92M                 \\
+		ProtBert-BFD     & BFD              & 2122M                 & 30              & 1024                 & 16                       & 420M                \\
+		ESM2(t6)  & Uniref50         & 60M                   & 6               & 320                  & 20                       & 8M                  \\
+		ESM2(t12)  & Uniref50         & 60M                   & 12              & 480                  & 20                       & 35M                 \\
+		ESM2(t30) & Uniref50         & 60M                   & 30              & 640                  & 20                       & 150M                \\
+		ESM2(t33)  & Uniref50         & 60M                   & 33              & 1280                 & 20                       & 650M               \\
+		\hline
+	\end{tabular}
+	
+\end{table}
+ 
+ 
+ \subsubsection{Fine tuning}\label{sec:fine-tuned}
+ 
+ For fine-tuning, we stacked in cascade a BiLSTM at the end of the pre-trained model. The BiLSTM is based on HLAB \cite{zhang2022hlab} and has two layers with 768 units.  In Fig. \ref{fig:finetune}, we present the whole model for pMHC-I binding prediction. 
+ 
+ 
+ \begin{figure}[h]
+ 	\centering\includegraphics[width=0.2\textwidth]{../img/proposal/pipeline}
+ 	\caption{The proposed architecture for pMHC-I binding prediction using a pre-trained transformer model and a BiLSTM block stacked in cascade.}
+ 	\label{fig:finetune}
+ \end{figure}
+ 
+ Moreover, it is well-established that when fine-tuning large transformer models, the final layers exhibit more significant changes, while the initial layers, closer to the input, undergo relatively minor modifications \cite{merchant2020happens,lee2019would,kovaleva2019revealing}. Consequently, we compared the results of freezing the pre-trained model and only updating the BiLSTM parameters versus updating the whole model parameters. 
+ 
+ Furthermore, large transformer models run out of GPU memory. Therefore, inspired by similar works training transformer models \cite{anil2021large,zhang2023adam,huang2023measuring}, we evaluated the results of applying gradient accumulation steps during training.
+ 
+ Finally, we used the following hyperparameters: learning rate of 5e-5, weight decay of 0.0001, momentum of 0.9, warmup steps of 1000 with linear decay, ADAM optimizer ($\beta_1 = 0.9, \beta_2=0.999$), and early stopping. These values were used by BERTMHC \cite{cheng2021bertmhc} after a grid search.
+
+\subsection{NeoArgosTools}

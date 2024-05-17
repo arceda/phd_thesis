@@ -1,0 +1,127 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Related Works}
+
+Neoantigen detection and prioritization is a relevant topic nowadays since its applications in cancer immunology. As it is a very complex problem, wi divided this topic into two categories: (1) the first group together all pipelines developed to detect and prioritize neoantigens; (2) in the second part, we empathized  on pMHC binding prediction problem, which is related to neoantigen prioritization.  
+
+\subsection{Pipelines}
+
+A bioinformatic pipeline in the neoantigen context is a software construct that assembles various command line tools. In the problem of neoantigen detection and prioritization, reliance on multiple tools is essential. For instance, we can use tools such as (1) FastQC to ensure sequence quality, (2) BWA handles alignment, (3) Samtools manipulates BAM files, (4) BCFtools is employed for variant calling, (5) Annovar provides variant annotation, and (6) netMHCpan4.1 predicts pMHC binding and pMHC-TCR binding affinity (neoantigen prioritization). However, the use of these diverse tools can introduce compatibility and dependency challenges. To address this issue, developers have created pipeline tools aimed at enhancing the usability of neoantigen detection software. These pipelines effectively manage the integration of these tools, mitigating potential conflicts and dependencies, thereby streamlining the overall neoantigen analysis process.
+
+% definir que es un pipeline (es el framework general), o incluir una figura de un ejemplo de un pipeline.
+
+In Table \ref{tab:review_pipelines}, we present pipelines published since 2018. These pipelines use various types of information as input. For instance, the PGV Pipeline \cite{rubinsteyn2018computational} and PEPPRMINT \cite{zhou2023prioritizing} use DNA-seq, while other tools such as PGNneo \cite{tan2023pgnneo}, NAP-CNB \cite{wert2021predicting}, NaoANT-HILL \cite{coelho2020neoant}, ProGeo-neo \cite{li2020progeo}, ScanNeo \cite{wang2019scanneo}, and Neopepse \cite{kim2018neopepsee} use RNA-seq because these sequences better capture information about mutations and non-coding regions of DNA \cite{tan2023pgnneo}.
+
+To reduce the complexity of pipelines, some proposals have opted to use Variant Calling Format (VCF) as input. These files contain mutation information and are obtained through alignment and mutation calling methods. These tools are: HLA3D \cite{li2022hla3d}, Neoepiscope \cite{wood2020neoepiscope}, pVACtools \cite{hundal2020pvactools}, and NeoPredPipe \cite{schenck2019neopredpipe}. However, the results obtained may be inferior compared to tools that use DNA-seq and RNA-seq.
+
+Additionally, for accurate neoantigen detection, it is necessary to have the sequencing of Major Histocompatibility Complex (MHC) or Human Leukocyte Antigens (HLA) proteins. These proteins are necessary because they are used to predict the binding between potential neoantigens and MHC. These proteins are encoded by highly polymorphic genes, leading to substantial variation in peptide (neoantigen) binding, thereby influencing the set of peptides presented to T-cells \cite{abualrous2021major}. In this context, the  NeoPredPipe \cite{schenck2019neopredpipe}, and Neopepsee \cite{kim2018neopepsee} pipelines request these HLA proteins as input, while others predict this information from DNA-seq. From a usability standpoint, obtaining the HLA types entails unnecessary effort for the user.
+
+As we mention before, fusion genes are related to several types of cancer \cite{wood2020neoepiscope,wei2021re,yakushina2018gene,panicker2023exploring,lei2022eml4,zhang2022roles,panagopoulos2023novel}. Thus, there are pipelines which include fusion genes detection methods: Integrate-neo \cite{zhang2017integrate}, neoFusion \cite{wei2019landscape}, pVACfuse \cite{hundal2020pvactools}, NeoepitoPred \cite{chang2017neoepitope}, Epidisco \cite{rubinsteyn2018computational}, TrueNeo \cite{tang2020truneo} and Antigen.garnish \cite{rech2018tumor}. Gene fusions typically yield a higher number of neoantigens per mutation compared to single nucleotide variants (SNVs) and insertions/deletions (Indels). Furthermore, fusion-derived neoantigens exhibit heightened immunogenicity. Notably, neoantigens arising from frameshift fusions or passenger fusions are anticipated to possess the greatest immunogenic potential \cite{wang2021gene}. 
+
+%In general gene fusions can generate more neoantigens per mutation than SNV and Indel. Moreover, Fusion neoantigens seem to be more immunogenic. Specifically, neoantigens derived from frameshift fusions or passenger fusions are predicted to have the highest immunogenicity \cite{wang2021gene}. 
+
+
+Furthermore, the type of variant  is closely associated with specific cancer types \cite{wang2021gene}. For instance: (1) SNV are related to Melanoma, Lung cancer and Glioblastoma. (2) Indels are related to microsatellite instability-high tumors, Clear cell, papillary, and chromophobe renal cell carcinomas. (3) Fusion genes are related to Hematologic malignancies,  sarcomas, prostate cancer, head cancer and neck cancer. Hence, depending on the cancer type, it is advisable to prioritize the selection of the appropriate analytical pipeline for genetic analysis and interpretation.
+
+Moreover, neoantigen pipelines deliver its results and demonstrated its performance in several ways. For instance: pVACtools, reported 8-fold increased in the number of strong binding compared to Integrate-Neo. TrueNeo evaluated its performance detecting 19 identified neoantigens from 1599 non-redundant SNVs from 134 patients. Neverthleses, TrueNeo, compared its performance varying the pMHC tools used (NetMHCpan, MHCflurry, deepHLA, etc.). On the other hand ProGeo-neo, evaluated its performance by applying similarity analysis between 746 validated neoantigens from dbPepNeo2.0 and 6400 random peptides. These methods of evaluation difficults a comparative analysis of neoantigen pipelines.
+
+
+
+\begin{table}[h]
+	\caption{Bioinfomatics pipelines developed for the detection of neoantigens. GN: Gene expression, VA: variant annotation, WEG: whole exome sequencing, WGS: whole genome sequencing.}
+	\label{tab:review_pipelines}
+	\centering
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.1}% for the vertical padding
+		{\scriptsize
+			\begin{tabular}{p{1.7cm}lp{2.2cm}p{2.2cm}p{7.5cm}}
+				\textbf{Name} & \textbf{Year}  & \textbf{Input} & \textbf{Output} & \textbf{Tools} \\ \hline
+				PEPPRMINT & 2023  \cite{zhou2023prioritizing} & DNA-seq & Neoantigens & BWA, Mutect, Strelka, ANNOVAR, OptiType, PEPPRMINT, netMHCpan4.1. \\
+				PGNneo & 2023	 \cite{tan2023pgnneo}	& VCF, RNA-seq, MS data & Neoantigens & Trimmomatic, BWA, SAMtools, GATK, Picard, OptiType, Annovar, Bedtools, MaxQuant, NetMHCpan4.1, Blastp. \\
+				HLA3D & 2022  \cite{li2022hla3d} & VCF, HLA, SMG, HBV & Neoantigens & MHCcluster, SAVES, PROCHECK, CoDockPP, Verify 3D, ERRAT, ClusterW2, 3Dmol, PSRPRED4.0, MHCf lurry. \\
+				NextNEOpi & 2022 \cite{dietmar2022nextneopi} & WES/WGS, RNA-seq & Neoantigens & OptiType, pVACseq, NetMHCpan, MHCflurry, NeoFuse, MiXCR. \\
+				Seq2Neo & 2022  \cite{Kaixuan2022seq2neo} & WES/WGS, RNA-seq & Neoantigens & Mutect2, STARFusion, ANNOVAR, Agfusion, NetMHCpan, MHCflurry, Pick-Pocket, NetMHCcon, TPMcalculator, NetCTLpan. \\
+				%Valid-NEO & 2022 &\cite{terai2022valid} & VCF, HLA & Neoantigens & \\
+				NAP-CNB & 2021 \cite{wert2021predicting} & RNA-seq & Neoantigens & Star, Picard, GATK, SplitNCigarsReads, MuTect2, Cufinks, Epi-Seq, pVAC,seq, Neoantimon, MuPeXI, BLOSUM62. \\
+				NeoANT-HILL & 2020 \cite{coelho2020neoant} & RNA-seq, VCF  & Neoantigens, GE & GATK, Mutect2, Optitype, NetMHC, NetMHCpan, NetMHCCcons, NetMHCstapan, PickPoket, SMM, SMMPMBEC, MHCflurry, NetMHCIIpan, NN-align, SMM-align, Sturniolo, Kallisto. \\
+				Neoepiscope & 2020 \cite{wood2020neoepiscope} & VCF, BAM & Neoantigens & BWA, Bowtie2, Pindel, MuSE, RADIA, SomaticSniper, VarScan2, GATK, HapCUT2. \\
+				OpenVax & 2020  \cite{kodysh2020openvax} & DNA-seq, RNA-seq & Neoantigens & GATK 3.7, STAR, MuTect 1.1.7, Mutect 2, Strelka, NetMHCpan, NetMHCCcons, SMM, SMM with a Peptide. \\
+				ProGeo-neo & 2020 \cite{li2020progeo} & RNA-seq, VCF & Neoantigens & SRA Toolkit, BWA, GATK, Bcftools, ANNOVAR, Kallisto, OptiType, NetMHCpan4.0. \\
+				pVACtools & 2020 \cite{hundal2020pvactools} & VCF & Neoantigens & CWL36, Cromwell37, ADNc38, BWA-MEM25, HaplotypeCaller28, MHCflurry14, MHCnuggets15, NetChop17, INTEGRATE-Neo19. \\
+				TruNeo & 2020  \cite{tang2020truneo} & DNA-seq, RNA-seq & Neoantigens & BWA, GATK v3.3, Somatic SNVs, STAR v2.5.3a, RSEM v1.3.0, NetMHCPan 3.0, netChop. \\
+				NeoPredPipe & 2019 \cite{schenck2019neopredpipe} & VCF, HLA & Neoantigens, VA & ANNOVAR, POLYSOLVER, netMHCpan, PeptideMatch. \\
+				ScanNeo & 2019 \cite{wang2019scanneo} & RNA-seq  & Neoantigens & HISAT2, BEDTools, BWA-MEM, pVAC-Seq, NetMHC, NetMHCpan. \\
+				Neopepsee & 2018 \cite{kim2018neopepsee} & RNA-seq, VCF, HLA & Neoantigens, GE & NetCTLpan, Swiss-Prot. \\ 
+				PGV Pipeline & 2018 \cite{rubinsteyn2018computational}& DNA-seq & Neoantigens & BWA-MEN, BQSR, MuTect, Strelka, STAR, seq2hla, Vaxrank, Isovar, MHCtools, Varcode, pyEnsembl. \\
+			\end{tabular}
+		}
+	}
+\end{table}
+
+\subsection{Neoantigen prioritization}
+
+Neoantigen prioritization depends strongly from the accurate prediction of pMHC bindings. Moreover, the advent of Transformers has ushered in a new era in artificial intelligence, demonstrating significant success across various Natural Language Processing (NLP) tasks \cite{patwardhan2023transformers}. Thus,  several Transformer models have been used for pMHC binding prediction problem. In Table \ref{tab:transformes}, a detailed comparison of Transformers and deep learning methods is presented.  For instance, BERTMHC \cite{cheng2021bertmhc} is a pan-specific pMHC-II binding and presentation prediction method that employs a BERT architecture and leverages transfer learning from the Tasks Assessing Protein Embeddings (TAPE) \cite{rao2019evaluating}. The methodology involves stacking an average pooling layer followed by a Fully Connected (FC) layer after the TAPE model. Empirical assessments have shown that BERTMHC outperforms both NetMHCIIpan3.2 and PUFFIN. Additionally, ImmunoBERT \cite{gasser2021interpreting} utilizes transfer learning from TAPE but focuses on pMHC-I prediction. This approach involves stacking a classification token's vector after the TAPE model.
+Furthermore, MHCRoBERTa \cite{wang2022mhcroberta} and HLAB \cite{zhang2022hlab} also leverage transfer learning. MHCRoBERTa employs self-supervised training with data from UniProtKB and Swiss-Prot databases, followed by fine-tuning with data from the Immune Epitope Database (IEDB) \cite{vita2019immune}. MHCRoBERTa performs better than NetMHCpan4.0 and MHCflurry2.0 in terms of Spearman Rank Correlation Coefficient (SRCC). In contrast, HLAB leverages transfer learning from ProtBert-BFD \cite{elnaggar2021prottrans} and incorporates a BiLSTM model in cascade. Notably, on the HLA-A*01:01 allele, HLAB demonstrates a slight performance advantage over state-of-the-art methods, including NetMHCpan4.1, with at least a 0.0230 improvement in Area Under the Curve (AUC) and a 0.0560 increase in accuracy. Moreover, in a prior study, we conducted an evaluation of BERT Transformer models using padded sequences for pMHC binding prediction \cite{arceda2023neoantigen}.
+
+Lastly, it's worth noting recent allele-specific research efforts such as TransPHLA \cite{chu2022transformer} and DapNet-HLA \cite{jing2023dapnet}. TransPHLA utilizes peptide self-attention mechanisms and has outperformed existing state-of-the-art methods, including NetMHCpan4.1. %It exhibits efficacy across peptides of varying lengths and MHC alleles, all while demonstrating faster prediction capabilities. 
+On the other hand, DapNet-HLA \cite{jing2023dapnet} presents promising results by incorporating an additional dataset (Swiss-Prot) for negative samples and harnessing the strengths of Convolutional Neural Networks (CNNs), SENet for pooling, and Long Short-Term Memory (LSTM) models. %It's important to note that as of now, DapNet-HLA has not been directly compared to existing state-of-the-art methods, making further assessment and comparison necessary. 
+Furthermore, there are reviews and benchmarking works \cite{nielsen2020immunoinformatics,mei2020comprehensive,wang2023comprehensive, machaca2023deep,wang2023comprehensive}, which detail the pMHC binding prediction problem. 
+
+In this research, we compared the performance of six Transformer models (TAPE, ProtBert-BFD, ESM2(t6), ESM2(t12), ESM2(t30), and ESM2(t33)) for the task of peptide-MHC class-I binding prediction (pMHC-I). We fine-tuned each model by adding a BiLSTM block in cascade, based on the work of HLAB \cite{zhang2022hlab}. Furthermore, we evaluated the use of Gradient Accumulation Steps and a layer freezing methodology. Our contributions in this study can be summarized as follows: First, a comprehensive assessment and comparison of BERT models, we performed a thorough evaluation of BERT models, utilizing Gradient Accumulation Steps (GAS) and a layer freezing methodology. Following this evaluation, we identified two models, ESM2(t6)-Freeze (ESM2(t6) trained with layer freezing) and TAPE-GAS (TAPE trained with GAS), which achieved the highest scores. The second contribution refers to a comparison of these BERT models with state-of-art tools like NetMHCpan4.1, MHCFlurry2.0, MixMHCpred2.2, Anthem, and ACME. After conducting experiments, ESM2(t6)-Freeze and TAPE-GAS outperformed the other methods, achieving the highest results in terms of Area Under the Curve (AUC), accuracy, recall, f1-score, and Matthews Correlation Coefficient (MCC).
+
+
+\begin{table}[h]
+	\caption{Transformers and deep learning methods with attention mechanism used for pMHC binding prediction.}
+	\label{tab:transformes}
+	\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+	{\renewcommand{\arraystretch}{1.1}% for the vertical padding
+		\scriptsize
+		%\begin{scriptsize}
+		\begin{tabular}{p{1.3cm}p{2.2cm}p{2cm}p{9.5cm}}
+			\multicolumn{1}{l}{\textbf{Year}}                                   & \textbf{Name}             & \textbf{Input}            & \textbf{Model}     \\  \hline
+			
+			2023\cite{hashemi2023improved}&	ESM-GAT  &	One-hot & BERT with transfer learning from ESM1b and ESM2 fine-tuned with a Graph Attention Network (GAT) at the end. It outperformed NetMHCpan4.1.	\\
+			
+			
+			2023\cite{kalemati2023capsnet}&	CapsNet-MHC&	BLOSUM62 & Capsule Neural Network, it outperformed state-of-art tools for small peptides of 8 to 11-mer.	\\
+			
+			2023\cite{ye2023stmhcpan}&	STMHCpan  &	One-hot & A Star-Transformer model, it use usefull for anylenght peptides and could extended for predicting T-cell responses.	\\
+			
+			2023\cite{jing2023dapnet}&	DapNet-HLA&	Fused word embedding & Combined the advantages of CNN, SENet (for pooling), and LSTM with attention.	\\
+			
+			2022\cite{zhang2022hlab}&	HLAB&	One-hot & BERT from ProtBert pre-trained model followed by a BiLSTM with attention mechanism.	\\
+			
+			2022\cite{wang2022mhcroberta}          & MHC RoBERTa            & One-hot &  RoBERTa  pre-trained and followed by 12 multi-head SA and a FC layers, it outperformed NetMHCPan 3.0.                                                                                          \\
+			2022\cite{chu2022transformer}          & TransPHLA             & One-hot         & It used SA mechanism based on four blocks, it slightly outperformed NetMHCpan4.1 and is faster making predictions.\\
+			
+			2021\cite{chen2021jointly}  & CapTransformer            & One-hot   &  Transformer with cross attention pooling to capture local and global information.  \\
+			
+			2021\cite{gasser2021interpreting}  & ImmunoBERT            & One-hot                     & BERT from TAPE pre-trained followed by a linear layer. Authors claimed that N-terminal and C-terminals are highly relevant after analysis with SHAP and LIME.   \\
+			
+			2021\cite{cheng2021bertmhc}             & BERTMHC              & One-hot                    & BERT from TAPE pre-trained followed by a linear layer. It outperformed NetMHCIIpan3.2 and PUFFIN.   \\
+			
+			% CNN and RNN with attention
+			2021\cite{ye2021mathla}         & MATHLA             & BLOSUM                      & 
+			It integrates BiLSTM with multi-head attention. It achieved an AUC score of 0.964, compared to 0.945, 0.925 and 0.905 for netMHCpan 4.0, MHCflurry and ACME respectively  \\
+			
+			2021\cite{liu2021deepseqpanii}                    & DeepSeqPanII                            & BLOSUM62 and one-hot& It has two LSTM layers, an attention block and three FC layers. It got better results than NetMHCIIpan 3.2 on 26 of 54 alleles.       \\
+			
+			2021\cite{yang2021deepnetbim}  & DeepNetBim               & BLOSUM50            & It uses separate CNNs for pMHC binding and immunogenetic with a attention module. It got 0.015 MAE for binding and 94.7 of accuracy for immunogenic.      \\
+			
+			2021\cite{jin2021deep}         & DeepAttentionPan        & BLOSUM62            & CNN with an attention mechanism. It is allele-specific and got slightly better results than ACME for allele level.     \\
+			
+			2021\cite{chen2021ranking}  & SpConvM            &  One-hot, BLOSUM, and Deep                     &  1D layer of CNN, an attention  layer and a FC layer. Moreover, they employed global kernels to enhance their results, along with a combination of onehot, BLOSUM, and Deep.  \\
+			
+			2020 \cite{venkatesh2020mhcattnnet}         & MHCAttNet        & One-hot            & CNN followed by an attention layer to generate a heat map over the amino acids.     \\
+			
+			2019\cite{hu2019acme}          & ACME                     & BLOSUM50     & CNN with  attention, it extract interpretable patterns  about pMHC binding. Moreover, it got SRCC of 0.569, AUC of 0.9 for HLA-A and 0.88 for HLA-B.  \\    
+			
+			
+			2019\cite{wu2019deephlapan}                      & DeepHLApan                              & One-hot             & Allele-specific model with three layers of Bidirectional GRU (BiGRU) with an attention layer. It got acc $> 0.9$ on 43 HLA alleles.                                               
+		\end{tabular}
+		%	\end{scriptsize}
+}
+\end{table}
+
+
+
