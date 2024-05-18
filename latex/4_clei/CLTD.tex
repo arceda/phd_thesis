@@ -5,12 +5,13 @@
 
 \usepackage[latin1]{inputenc}
 \usepackage{subcaption}
+\usepackage{wrapfig}
 %\usepackage[spanish]{babel}
 %\usepackage[utf8x]{inputenc}
 
 
-\fancyhead[CO]{CLEI ELECTRONIC JOURNAL, VOLUME 19,  NUMBER 1, PAPER 0, APRIL 2016}
-\title{Neoantigen Detection and Prioritization Using Transformers and Transfer Learning for The Development of Personalized Cancer Vaccines}
+%\fancyhead[CO]{CLEI ELECTRONIC JOURNAL, VOLUME 19,  NUMBER 1, PAPER 0, APRIL 2016}
+\title{Neoantigen Prioritization Using Transformers and Transfer Learning for The Development of Personalized Cancer Vaccines}
 \author{
 \bf Vicente Enrique Machaca Arceda\\
 Universida Nacional de San Agustín de Arequipa, FIPS,\\
@@ -22,18 +23,13 @@ Arequipa, Perú, \\
 
 \begin{abstract}
 
-\noindent This paper is a sample that provides the guidelines and 
-format required for preparing and submitting your paper to the 
-CLEI Electronic Journal. The paper must be written in English. 
-All papers must include an abstract of no more than 200 words. 
-The first page of the paper must include the title, author names, 
-affiliations, abstract and keywords, as illustrated in this page.  
+\noindent Neoantigen prioritization is one of the most relevant steps in the development of cancer vaccines. Moreover, this process involves the prediction of bindings between peptides (neoantigen candidates) and Major Histocompatibility Complex (MHC). For that reason, in this work, we fine-tuned six Transformer models: TAPE, ProtBert-BFD, ESM2(t6), ESM2(t12), ESM2(t30), and ESM2(t33), adding a BiLSTM block in cascade for the task of peptide-MHC  binding prediction. Moreover, we evaluated the effects of  Gradient Accumulation Steps (GAS) and a layer freezing technique. After experiments, we noticed that TAPE with GAS (TAPE-GAS) and ESM2(t6) trained with the layer freezing method (ESM2(t6)-Freeze) got the best results. Then, we compared these models against state-of-art tools such as NetMHCpan4.1, MHCflurry2.0, Anthem, ACME, MixMHCpred2.2. After the assessment, TAPE-GAS and ESM2(t6)-Freeze outperformed the other methods on AUC, accuracy, recall, f1-score, and MCC.
 \end{abstract}
 
-\keywords{Keyword1, Keyword2, Keyword3, Keyword4, Keyword5.}
+\keywords{Neoantigen, BERT, Transformer, Transfer Learning, Cancer, Immunology.}
 
 
-\section{Introduction}
+
 
 \input{1_intro}
 \input{2_related_works}
@@ -43,8 +39,8 @@ affiliations, abstract and keywords, as illustrated in this page.
 \input{6_discussion}
 %\input{7_anexos}
 
-\section*{Acknowledgment}
-This document has been adapted from the CLEI'2004 Conference Proceedings Format specifications, and from previous versions of the CLEIej instructions for authors (2009 version by Mauricio Solar, 2011 version by Héctor Cancela).  
+%\section*{Acknowledgment}
+%This document has been adapted from the CLEI'2004 Conference Proceedings Format specifications, and from previous versions of the CLEIej instructions for authors (2009 version by Mauricio Solar, 2011 version by Héctor Cancela).  
  
 %\bibliographystyle{./IEEEtran}
 \bibliography{../bibliography_thesis}

@@ -6,29 +6,86 @@ We used peptide sequences from the Anthem dataset \cite{mei2021anthem}. It consi
 \subsection{Binary classifier and metrics}
 The pMHC binding prediction problem is a regression problem. Nonetheless, based on the dataset employed in this study, it could also be approached as a binary classification problem by selecting an appropriate threshold. Moreover, the machine learning metrics used in this work are: Accuracy (Acc.), Precision (Precis.), Recall, F1-score (F1-sc), and Area Under the Curve (AUC).
 
-\subsection{The layer freezing methodology}
-
-For the layer freezing methodology, we froze all Transformer's parameters and just trained the BiLSTM block. Using this method speeds up the training and still achieves good performance, as discussed in prior works \cite{merchant2020happens,lee2019would,kovaleva2019revealing}.
-
-The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; moreover, Fig. \ref{fig:comparison_3_3pochs} shows the AUC of each model using GAS, and the layer freezing methodology. In this comparison, the suffix 'Normal' stands for custom training using all hyperparameters of Section \ref{sec:fine-tuned}; the suffix 'GAS' signifies the integration of Gradient Accumulation Steps (GAS), while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models. Based on the obtained results, it is evident that the implementation of the layer freezing methodology leads to performance enhancements across all ESM2 models. Additionally, it was observed that the larger models, such as ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal, and ProtBert-Normal, failed to converge due to a gradient vanishing problem, which will be elaborated upon in the subsequent section. Furthermore, the utilization of the layer freezing methodology enables these models to converge effectively.
+\subsection{Vanishing gradients}
+At the beginning of the experiments, the bigger models suffered from vanishing gradients problem. Thus, according to best practices to fine-tune BERT model \cite{mosbach2020stability}, we evaluated smaller learning rates, increased the warnup steps in the learning scheduler and used ADAM with bias correction. So, we evaluated three configurations: (c3) $lr=2e-5$ and 20k warnup steps, (c4) $lr=1e-5$ and 100k warnup steps, and (c5) $lr=2e-6$ and 200k warnup steps. In Fig. \ref{fig:loss}, the loss comparison during training is plotted. In this case, we see that configuration three is good for the smaller model ESM2(t6); however, the same configuration didn't work for the bigger model ESM2(t33). Moreover, in Fig. \ref{fig:t6_c3_gradients} the layer one's gradients of ESM2(t6) show a normal behavior, meanwhile in Fig. \ref{fig:t33_c3_gradients} we can see how gradients of the bigger model tends to zero. Thus, configuration four and five were evaluated; sadly, configuration four also went to vanishing gradients, meanwhile configuration five overcome that problem according to Fig. \ref{fig:t33_c5_gradients}. For that reason, for the following experiments, configuration five was applied.
 
 \begin{figure}[h]
 	\centering
 	
-	\includegraphics[width=0.42\textwidth]{../img/results/metrics_comparion_by_model}	
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../img/results/loss2}
+		\caption{Loss}
+		\label{fig:loss}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../img/results/t6_c3_gradients}
+		\caption{ESM2(t6) Configuration 3.}
+		\label{fig:t6_c3_gradients}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../img/results/t33_c3_gradients}
+		\caption{ESM2(t33) Configuration 3.}
+		\label{fig:t33_c3_gradients}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../img/results/t33_c5_gradients}
+		\caption{ESM2(t33) Configuration 5.}
+		\label{fig:t33_c5_gradients}
+	\end{subfigure}
 	
-	\caption{Comparative analysis of Area Under the Curve (AUC) in Transformer model architectures using various training methodologies, including standard training (Normal), training with a layer freezing methodology (Freeze), training with Gradient Accumulation Steps (GAS), and training Combining GAS with layer freezing (Freeze-GAS). Moreover, we trained all models for three epochs.}
-	\label{fig:comparison_3_3pochs}
+	%\includegraphics[width=0.42\textwidth]{../img/results/metrics_comparion_by_model}	
+	
+	\caption{(a) Loss during training of three configuration varying the learning rate and warnup steps. (b) First layer's gradients of ESM2(t6) using third configuration. (c) First layer's gradients of ESM2(t33) using fourth configuration. (d) First layer's gradients of ESM2(t33) using fifth  configuration.}
+	\label{fig:training}
 \end{figure}
+
+
+\subsection{The layer freezing methodology and GAS}
+
+For the layer freezing methodology, we froze all Transformer's parameters and just trained the BiLSTM block. Using this method speeds up the training and still achieves good performance, as discussed in prior works \cite{merchant2020happens,lee2019would,kovaleva2019revealing}. The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; the suffix 'GAS' signifies the integration of Gradient Accumulation Steps (GAS), while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models.
+
+\begin{figure}[h]
+	\centering
+	
+	
+	
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../img/results/metrics_comparison}
+		\caption{Thirty epochs}
+		\label{fig:comparison_final}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}[b]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{../img/results/ROC_comparison}
+		\caption{ROC curves}
+		\label{fig:ROC_comparison_final}
+	\end{subfigure}
+	
+	%\includegraphics[width=0.42\textwidth]{../img/results/metrics_comparion_by_model}	
+	
+	\caption{(a) The AUC values for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods. (b) ROC curves for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods.}
+	\label{fig:comparison}
+\end{figure}
+
+
 
 
 
 \begin{table}[h]
 	\centering
-	\caption{Performance evaluation of Transformer models with Gradient Accumulation Steps (GAS) and the layer freezing methodology \textbf{trained for three epochs}. Moreover, the suffix 'Normal' stands for classic training using hyperparameters of Section \ref{sec:fine-tuned}. The inclusion of the suffix 'GAS' in each model signifies the integration of Gradient Accumulation Steps, while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models. Furthermore, the '-' in each cell signifies that the model could not converge.}
+	\caption{Performance evaluation of Transformer models with Gradient Accumulation Steps (GAS) and the layer freezing methodology trained for three epochs. Moreover, the suffix 'Normal' stands for classic training. The inclusion of the suffix 'GAS' in each model signifies the integration of Gradient Accumulation Steps, while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models.}
 	\label{tab:comparison_3_epochs}
 	
-	\tiny
+	\scriptsize
 	\begin{tabular}{llllll} \hline
 		\textbf{Model}       & \textbf{Acc.} & \textbf{Precis.} & \textbf{Recall} & \textbf{F1-sc.} & \textbf{AUC}   % & \textbf{MCC}    
 		\\ \hline
@@ -52,7 +109,7 @@ The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; 
 		\\ \hline
 		
 		
-		ESM2(t30)-Normal            & -                 & -                  & -               & -                 & -               %& -               
+		ESM2(t30)-Normal             & 0.8923                 & 0.8956                  & 0.9076               & 0.9034                 & 0.9467               %&                & -               %& -               
 		\\
 		ESM2(t30)-Freeze     & \textbf{0.9303}   & \textbf{0.9185}    & \textbf{0.9440} & \textbf{0.9311}   & \textbf{0.9786} %& \textbf{0.8609} 
 		\\
@@ -62,7 +119,7 @@ The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; 
 		\\ \hline
 		
 		
-		ESM2(t33)-Normal            & -                 & -                  & -               & -                 & -               %& -               
+		ESM2(t33)-Normal            & 0.6797                 & 0.7122                  & 0.8076               & 0.7220                 & 0.7458               %& -               
 		\\
 		ESM2(t33)-Freeze     & \textbf{0.6818}   & \textbf{0.7139}    & 0.6044          & 0.6546            & \textbf{0.7613} %& 0.3677          
 		\\
@@ -72,7 +129,7 @@ The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; 
 		\\ \hline
 		
 		
-		TAPE-Normal                 & -                 & -                  & -               & -                 & -               %& -               
+		TAPE-Normal             & 0.8986                 & 0.8245                  & 0.9045               & 0.8845                 & 0.9267                           
 		\\
 		TAPE-Freeze          & 0.9342            & 0.9276             & 0.9415          & 0.9345            & 0.9809          %& 0.8684          
 		\\
@@ -82,7 +139,7 @@ The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; 
 		\\ \hline
 		
 		
-		ProtBert-Normal             & -                 & -                  & -               & -                 & -               %& -               
+		ProtBert-Normal          & 0.7456                 & 0.7045                  & 0.7205               & 0.7599                 & 0.7178               %&
 		\\
 		ProtBert-Freeze      & 0.9083            & 0.9176             & 0.8968          & 0.9071            & 0.9673          %& 0.8168          
 		\\
@@ -95,35 +152,16 @@ The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; 
 
 
 
-
-
-\subsection{Vanish gradient and GAS}
-
-In Table \ref{tab:comparison_3_epochs}, we noticed that large models like ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal, and ProtBert-Normal didn't converge. Thus, we plotted the gradients of these models during training in order to discover their causes. First, we plotted mean gradients by layer for the smallest model ESM2(t6)-Normal in Fig. S2 (this model didn't vanish gradients). Then, we plotted mean gradients for ESM2(t30)-Normal (this model got into vanish gradient problem) in Fig. S3. As evident from the results, the larger model ESM2(t30) exhibited almost zero mean gradients across all Bert layers after just three epochs; consequently, this phenomenon rendered the model unable to converge effectively.
-
-
-Gradient Accumulation Steps (GAS) is usually used to reduce GPU memory storage problem during training \cite{zhang2023adam,huang2023measuring}. Moreover, it could slightly alleviate the vanish gradient problem by accumulating gradients over some batches and only stepping the optimizer after a number of batches have been performed. For instance, in Table \ref{tab:comparison_3_epochs}, we show the results after applying GAS to all Transformer models after training for three epochs. For instance, the models ESM2(t30)-Normal, ESM2(t33)-Normal, TAPE-Normal, and ProtBert-Normal without GAS didn't converge; however, if we trained them with GAS, they reached acceptable results. 
-
-
-
-In particular, the incorporation of Gradient Accumulation Steps (GAS) in TAPE-GAS not only mitigates the gradient vanishing issue but also enhances performance when compared to other experiments involving TAPE, such as TAPE-Normal, TAPE-Freeze, and TAPE-Freeze-GAS. The same phenomenon was observed in the ProtBert models as well.
+For a more detailed comparison, we extended the training epochs of the best-performing models from Table \ref{tab:comparison_3_epochs}, including ESM2(T6) and TAPE, to 30 epochs with early stopping. It is worth noting that ProtBert-BFD was excluded from the analysis due to its poor performance. As indicated in Table \ref{tab:comparison}, the ESM2 models yield their best results when the layer freezing methodology is applied. In contrast, for TAPE, the best results are achieved when using GAS without freezing. Notably, TAPE-GAS and ESM2(t6)-Freeze produced the most favorable outcomes, with TAPE-GAS slightly outperforming ESM2(t6)-Freeze in this regard.
 
 
 
 
-
-\subsection{Training for 30 epochs}
-
-For a more detailed comparison, we extended the training epochs of the best-performing models from Table \ref{tab:comparison_3_epochs}, including ESM2(T6) and TAPE, to 30 epochs with early stopping. Additionally, we included ESM2(t30) to investigate whether larger models achieve improved results over a longer training period. It is worth noting that ProtBert-BFD was excluded from the analysis due to its poor performance. As indicated in Table \ref{tab:comparison}, the ESM2 models yield their best results when the layer freezing methodology is applied. In contrast, for TAPE, the best results are achieved when using GAS without freezing. Notably, TAPE-GAS and ESM2(t6)-Freeze produced the most favorable outcomes, with TAPE-GAS slightly outperforming ESM2(t6)-Freeze in this regard.
-
-
-
-
-\begin{table}[]
+\begin{table}[h]
 	\centering
-	\caption{Performance evaluation of Transformer models with Gradient Accumulation Steps (GAS) and the layer freezing methodology \textbf{trained for thirty (30) epochs}. Moreover, the suffix 'Normal' stands for classic training using hyperparameters of Section \ref{sec:fine-tuned}. The inclusion of the suffix 'GAS' in each model signifies the integration of Gradient Accumulation Steps, while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models. Furthermore, the '-' in each cell signifies that the model could not converge.}
+	\caption{Performance evaluation of Transformer models with GAS and the layer freezing methodology, trained for thirty (30) epochs. Moreover, the suffix 'Normal' stands for classic training. The inclusion of the suffix 'GAS' in each model signifies the integration of GAS, while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models.}
 	\label{tab:comparison}
-	\tiny
+	\scriptsize
 	\begin{tabular}{llllll} \hline
 		\textbf{}            & \textbf{Acc.} & \textbf{Precis.} & \textbf{Recall} & \textbf{F1-sc.} & \textbf{AUC}      \\ \hline
 		ESM2(t6)-Normal             & 0.9390            & 0.9333             & \textbf{0.9453} & 0.9392            & 0.9797                    \\
@@ -131,11 +169,8 @@ For a more detailed comparison, we extended the training epochs of the best-perf
 		ESM2(t6)-Freeze      & \textbf{0.9401}   & \textbf{0.9398}    & 0.9402          & \textbf{0.9400}   & \textbf{0.9830}          \\
 		ESM2(t6)-GAS         & 0.9366            & 0.9322             & 0.9413          & 0.9368            & 0.9818                           \\
 		ESM2(t6)-Freeze-GAS  & 0.9354            & 0.9326             & 0.9383          & 0.9355            & 0.9813                             \\ \hline
-		ESM2(t30)-Normal            & -                 & -                  & -               & -                 & -                                    \\
-		ESM2(t30)-Freeze     & \textbf{0.9393}   & 0.9304             & \textbf{0.9493} & \textbf{0.9397}   & 0.9787                      \\
-		ESM2(t30)-GAS        & 0.9346            & \textbf{0.9337}    & 0.9352          & 0.9345            & 0.9808                            \\
-		ESM2(t30)-Freeze-GAS & 0.9363            & 0.9319             & 0.9411          & 0.9365            & \textbf{0.9818}                     \\ \hline
-		TAPE-Normal                 & -                 & -                  & -               & -                 & -                              \\
+		
+		TAPE-Normal        & 0.9086                 & 0.9399                  & 0.9281               & 0.9145                 & 0.9648                                 \\
 		TAPE-Freeze          & 0.9395            & \textbf{0.9404}    & 0.9382          & 0.9393            & 0.9815                           \\
 		TAPE-GAS             & \textbf{0.9415}   & 0.9352             & \textbf{0.9484} & \textbf{0.9418}   & \textbf{0.9841}            \\
 		TAPE-Freeze-GAS      & 0.9359            & 0.9297             & 0.9428          & 0.9362            & 0.9820                    \\ \hline    
@@ -151,24 +186,12 @@ It's worth noting that the choice of threshold for predicting pMHC binding can v
 
 Furthermore, when assessing binary classification performance metrics, we standardized the threshold for TAPE-GAS and ESM2(t6) at 0.5. We maintained a threshold of 0.5 for NetMHCpan4.1, in accordance with its recommended setting, while for ACME, we adhered to a threshold of 0.42, as advised in its documentation. In the case of Anthem, the tool provided binary binding predictions directly. However, for MixMHCpred2.2 and MHCfurry, we determined the optimal threshold values from the test dataset, resulting in 2.7308 and 0.09439, respectively. In Table \ref{tab:final_comparison}, we present a comprehensive comparison between TAPE-GAS and ESM2(t6)-Freeze (trained for 30 epochs), and state-of-the-art methods. The results clearly demonstrate that TAPE-GAS and ESM2(t6)-Freeze consistently outperform the existing state-of-the-art tools across all these metrics: AUC, Accuracy, Recall, F1-score, and MCC. 
 
-\begin{figure}
-	\includegraphics[width=0.45\textwidth]{../img/results/metrics_comparison}
-	\caption{The AUC values for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods.}
-	\label{fig:comparison_final}
-\end{figure}
 
-\begin{figure}
-	\includegraphics[width=0.45\textwidth]{../img/results/ROC_comparison}
-	\caption{ROC curves for TAPE-GAS and ESM2(t6) trained for 30 epochs, in comparison to state-of-the-art methods.}
-	\label{fig:ROC_comparison_final}
-\end{figure}
-
-
-\begin{table}[]
+\begin{table}[h]
 	\centering
 	\caption{Performance evaluation of Transformer models TAPE-GAS and ESM2(t6)-Freeze, trained for 30 epochs, against Anthem, NetMHCpan4.1, ACME, MixMHCpred2.2, and MhcFlurry2.0.}
 	\label{tab:final_comparison}
-	\tiny
+	\scriptsize
 	\begin{tabular}{lllllll} \hline
 		& \textbf{Acc.} & \textbf{Precis.} & \textbf{Recall} & \textbf{F1-sc} & \textbf{AUC}    & \textbf{MCC}    \\ \hline
 		TAPE-GAS        & \textbf{0.9415}   & 0.9352             & \textbf{0.9484} & \textbf{0.9418}   & \textbf{0.9841} & \textbf{0.8831} \\
