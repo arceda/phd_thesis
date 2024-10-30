@@ -3,7 +3,7 @@
 
 
 
-The project develops a methods for neoantigen prioritization relying on pMHC binding prediction. So, in order to accomplish this task, project encompass an assessment and comparison of six Transformer models: TAPE \cite{rao2019evaluating}, ProtBert-BFD \cite{elnaggar2021prottrans} and ESM2 \cite{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). These models were trained with large protein sequences datasets like Pfam \cite{el2019pfam}, and BFD and UniRef50  \cite{suzek2015uniref}. We fine-tuned these models for the task of pMHC binding prediction problem. Moreover, this study looked for the benefits of using a layer freezing methodology.  In Table \ref{tab:pretrained}, we present the characteristics of each model.
+The project develops methods for neoantigen prioritization relying on pMHC binding prediction. So, in order to accomplish this task, project encompasses an assessment and comparison of six Transformer models: TAPE \cite{rao2019evaluating}, ProtBert-BFD \cite{elnaggar2021prottrans} and ESM2 \cite{lin2023evolutionary} (ESM2(t6), ESM2(t12), ESM2(t30), ESM2(t33)). These models were trained with large protein sequences datasets like Pfam \cite{el2019pfam}, and BFD and UniRef50  \cite{suzek2015uniref}. We fine-tuned these models for the task of pMHC binding prediction problem. Moreover, this study looked for the benefits of using a layer freezing methodology. In Table \ref{tab:pretrained}, we present the characteristics of each model.
 
 
 \subsection{Pre-trained transformers}
@@ -56,8 +56,8 @@ The project develops a methods for neoantigen prioritization relying on pMHC bin
  \end{figure}
  
  Moreover, it is well-established that when fine-tuning large transformer models, the final layers exhibit more significant changes, while the initial layers, closer to the input, undergo relatively minor modifications \cite{merchant2020happens,lee2019would,kovaleva2019revealing}. Consequently, we compared the results of freezing the pre-trained model and only updating the BiLSTM parameters versus updating the whole model parameters. 
- 
- Furthermore, large transformer models run out of GPU memory. Therefore, inspired by similar works training transformer models \cite{anil2021large,zhang2023adam,huang2023measuring}, we evaluated the results of applying gradient accumulation steps during training.
- 
- Finally, we used the following hyperparameters: learning rate of 2e-6, weight decay of 0.0001, momentum of 0.9, warmup steps of 200000 with linear decay, ADAM optimizer ($\beta_1 = 0.9, \beta_2=0.999$) with bias correction, and early stopping. We got that values to overcome vanishing gradients. This process is describe in the next section.
+
+Furthermore, large transformer models run out of GPU memory. Therefore, inspired by similar works training transformer models \cite{anil2021large,zhang2023adam,huang2023measuring}, we evaluated the results of applying gradient accumulation steps during training.
+
+Finally, we used the following hyperparameters: learning rate of 2e-6, weight decay of 0.0001, momentum of 0.9, warmup steps of 200000 with linear decay, ADAM optimizer ($\beta_1 = 0.9, \beta_2=0.999$) with bias correction, and early stopping. We have those values to overcome vanishing gradients. This process is described in the next section.
 

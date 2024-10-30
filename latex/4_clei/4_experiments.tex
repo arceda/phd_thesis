@@ -7,7 +7,7 @@ We used peptide sequences from the Anthem dataset \cite{mei2021anthem}. It consi
 The pMHC binding prediction problem is a regression problem. Nonetheless, based on the dataset employed in this study, it could also be approached as a binary classification problem by selecting an appropriate threshold. Moreover, the machine learning metrics used in this work are: Accuracy (Acc.), Precision (Precis.), Recall, F1-score (F1-sc), and Area Under the Curve (AUC).
 
 \subsection{Vanishing gradients}
-At the beginning of the experiments, the bigger models suffered from vanishing gradients problem. Thus, according to best practices to fine-tune BERT model \cite{mosbach2020stability}, we evaluated smaller learning rates, increased the warnup steps in the learning scheduler and used ADAM with bias correction. So, we evaluated three configurations: (c3) $lr=2e-5$ and 20k warnup steps, (c4) $lr=1e-5$ and 100k warnup steps, and (c5) $lr=2e-6$ and 200k warnup steps. In Fig. \ref{fig:loss}, the loss comparison during training is plotted. In this case, we see that configuration three is good for the smaller model ESM2(t6); however, the same configuration didn't work for the bigger model ESM2(t33). Moreover, in Fig. \ref{fig:t6_c3_gradients} the layer one's gradients of ESM2(t6) show a normal behavior, meanwhile in Fig. \ref{fig:t33_c3_gradients} we can see how gradients of the bigger model tends to zero. Thus, configuration four and five were evaluated; sadly, configuration four also went to vanishing gradients, meanwhile configuration five overcome that problem according to Fig. \ref{fig:t33_c5_gradients}. For that reason, for the following experiments, configuration five was applied.
+At the beginning of the experiments, the bigger models suffered from the vanishing gradients problem. Thus, according to best practices to fine-tune the BERT model \cite{mosbach2020stability}, we evaluated lower learning rates, increased the warmup steps in the learning scheduler, and used ADAM with bias correction. So, we evaluated three configurations: (c3) $lr=2e-5$ and 20k warnup steps, (c4) $lr=1e-5$ and 100k warnup steps, and (c5) $lr=2e-6$ and 200k warnup steps. In Fig. \ref{fig:loss}, the loss comparison during training is plotted. In this case, we see that configuration three is good for the smaller model ESM2(t6); however, the same configuration didn't work for the bigger model ESM2(t33). Moreover, in Fig. \ref{fig:t6_c3_gradients} the layer one's gradients of ESM2(t6) show a normal behavior; meanwhile, in Fig. \ref{fig:t33_c3_gradients}, we can see how gradients of the bigger model tend to zero. Thus, configuration four and five were evaluated; sadly, configuration four also went to vanishing gradients. Meanwhile, configuration five overcame that problem according to Fig. \ref{fig:t33_c5_gradients}. For that reason, Configuration Five was applied to the following experiments.
 
 \begin{figure}[h]
 	\centering
@@ -42,14 +42,14 @@ At the beginning of the experiments, the bigger models suffered from vanishing g
 	
 	%\includegraphics[width=0.42\textwidth]{../img/results/metrics_comparion_by_model}	
 	
-	\caption{(a) Loss during training of three configuration varying the learning rate and warnup steps. (b) First layer's gradients of ESM2(t6) using third configuration. (c) First layer's gradients of ESM2(t33) using fourth configuration. (d) First layer's gradients of ESM2(t33) using fifth  configuration.}
+	\caption{(a) Loss during training of three configurations varying the learning rate and warmup steps. (b) First layer's gradients of ESM2(t6) using third configuration. (c) First layer's gradients of ESM2(t33) using the fourth configuration. (d) First layer's gradients of ESM2(t33) using the fifth configuration.}
 	\label{fig:training}
 \end{figure}
 
 
 \subsection{The layer freezing methodology and GAS}
 
-For the layer freezing methodology, we froze all Transformer's parameters and just trained the BiLSTM block. Using this method speeds up the training and still achieves good performance, as discussed in prior works \cite{merchant2020happens,lee2019would,kovaleva2019revealing}. The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; the suffix 'GAS' signifies the integration of Gradient Accumulation Steps (GAS), while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models.
+For the layer freezing methodology, we froze all the Transformer's parameters and just trained the BiLSTM block. Using this method speeds up the training and still achieves good performance, as discussed in prior works \cite{merchant2020happens,lee2019would,kovaleva2019revealing}. The performance comparison is presented in Table \ref{tab:comparison_3_epochs}; the suffix 'GAS' signifies the integration of Gradient Accumulation Steps (GAS), while the suffix 'Freeze' is indicative of our application of the layer freezing methodology to the models.
 
 \begin{figure}[h]
 	\centering
